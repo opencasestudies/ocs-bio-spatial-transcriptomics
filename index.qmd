@@ -1,9 +1,9 @@
 ---
-title: "**Biomedical Open Case Studies: {Title}**"
+title: "**Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data**"
 include-sections:
   stat-los: false
   data-import: true
-  data-exploration: false
+  data-exploration: true
   data-wrangling: true
   data-viz: true
   data-analysis: true

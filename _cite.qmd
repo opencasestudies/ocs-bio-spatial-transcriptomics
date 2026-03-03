@@ -7,6 +7,8 @@ The reference block (specifically the inner_block) should be updated to reflect 
 To cite this case study, please use:
 ::::
 ::::{.inner_block}
-{Fill In Authors}. {(YEAR)}. {github source url}. {Title} {(Version)}.
+
+Isaac, Kathryn J and Wright, Carrie. (2026). [https://github.com/opencasestudies/ocs-bio-spatial-transcriptomics/](https://github.com/opencasestudies/ocs-bio-spatial-transcriptomics/). Exploring quality, normalization, and patterns in spatially-informed gene expression data (Version v1.0.0).
+
 ::::
 :::

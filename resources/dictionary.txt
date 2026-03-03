@@ -1,4 +1,5 @@
 acknowledgements
+Arunachalam
 automations
 Bioinformatics
 cheatsheet
@@ -8,6 +9,7 @@ cwrigh
 Dockerfile
 Dockerhub
 favicon
+Fridley
 frontmatter
 GH
 GitHub
@@ -23,6 +25,7 @@ lightgreen
 los
 NonCommercial
 ocs
+Ospina
 OTTR
 ottrproject
 quarto
@@ -30,6 +33,7 @@ qmd
 repo
 Rmd
 RStudio
+Sasi
 subdir
 th
 www
