@@ -37,7 +37,7 @@ There are two metadata files (that we'll need to combine to relate GEO IDs to sa
 
 Code for creating `geo_to_spatial_samples.csv`:
 
-```{r}
+```{r, eval = FALSE}
 list.files(path="/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/", pattern = "cell_boundaries.csv.gz$") %>% stringr::str_replace("-cell_boundaries.csv.gz", "") %>% strsplit("_") %>% do.call(rbind.data.frame, .) %>% `colnames<-`(c("X1", "X2"))
 ```
 
