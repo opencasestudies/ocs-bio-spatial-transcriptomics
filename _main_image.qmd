@@ -5,6 +5,6 @@ Replace the `img/mainplot.png` image with the appropriate case study image or co
 See image here for example: https://www.opencasestudies.org/ocs-bp-school-shootings-dashboard/
 -->
 
-![](img/mainplot.png){fig-alt="Map showing amount of pollution across the US localized to monitors." width=800 .lightbox}
+![](img/quiltplot_ntc81_scz83_stricterFilter.png){fig-alt="Quilt plot showing the expression of two genes for a control neurotypical sample on the top and a Schizophrenia diagnosis sample on the bottom. Points in each quilt plot represent a single cell or spot within its spatial context. Expression levels are displayed with a color gradient where dark purple corresponds to low expression, white corresponds to medium expression, and green corresponds to high expression. The first gene on the left is FKBP5 an upregulated gene and we see higher expression levels on the bottom quilt plot. The gene on the right is SST a downregulated gene and we see lower levels of expression on the bottom quilt plot." width=800 .lightbox}
 
 ####

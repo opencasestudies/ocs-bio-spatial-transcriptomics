@@ -6,9 +6,96 @@ You may want to include a table about file or variable info.
 # **What are the data?**
 ***
 
+## Metadata
+
+For the Xenium experiemnts, there were 24 donors:
+
+  * 12 Neurotypical controls [NTC]
+    * 5 males
+    * 7 females
+  * 12 Schizophrenia [SCZ]
+    * 6 males
+    * 6 females
+
+There are two metadata files (that we'll need to combine to relate GEO IDs to sample IDs)
+
+* `spatial_samples.csv` -- this file is from the [supplementary information](https://www.biorxiv.org/content/biorxiv/early/2026/02/17/2026.02.16.706214/DC2/embed/media-2.xlsx?download=true) and provides metadata such as Sex, Diagnosis, age, and if the sample has corresponding Visium or Xenium data.
+  * Commma separated values with a header
+  * first column is Brain Number (ID) (e.g., BR####)
+  * second column is Race
+  * third column is Sex
+  * fourth is Age
+  * fifth is RIN - RNA Integrity Number (add info in context section about this)
+  * sixth is PMI - Post Mortem Interval (add info in context section about this)
+  * seventh is PrimaryDx (e.g., Control or Schizophrenia)
+  * eighth is Visium-SPG (does this sample have correponding Visium data YES/NO)
+  * ninth is Xenium (does this sample have corresponding Xenium data YES/NO)
+* `geo_to_spatial_samples.csv` -- this file I made by wrangling the file names to create a dataframe (and saved that to a csv)
+  * Comma separates values, no header
+  * first column is the GEO number for each sample
+  * second column is the Brain Number (ID) (e.g., BR####) matching those in the `spatial_samples.csv` file
+
+Code for creating `geo_to_spatial_samples.csv`:
+
+```{r}
+list.files(path="/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/", pattern = "cell_boundaries.csv.gz$") %>% stringr::str_replace("-cell_boundaries.csv.gz", "") %>% strsplit("_") %>% do.call(rbind.data.frame, .) %>% `colnames<-`(c("X1", "X2"))
+```
+
+## Spatial Coordinates
+
+We have `{Sample}-cell_boundaries.csv.gz` files for the spatial coordinates rather than classical files with spatial coordinates (....add explanation of what these classical files/other options are). Specifically these files have many rows per cell describing each vertex that is part of a cell polygon. We can find the centroid of each cell by considering all of these polygon coordinates together.
+
+For each row:
+  * cell_id, vertex_x, and vertex_y
+
+Note that the Cell IDs in these files correspond to the `$barcodes` discussed in the RNA counts data
+
+## RNA counts
+
+The data for the RNA counts is stored in `.h5` files. Rather than storing large matrices, the data is more efficiently stored in named/nested lists that can be used to reconstruct the matrix. Of important note, only non-zero counts are stored as well as the indices where those counts are in the matrix (e.g., for which genes and spot IDs they correspond with). Information here: https://www.10xgenomics.com/support/software/space-ranger/latest/advanced/hdf5-feature-barcode-matrix-format
+
+Can use `rhdf5::h5dump(file_name, load = FALSE)` to get a look at the names or headers of the data.
+
+* `$matrix` is the top name
+  * `$barcodes` -- cell IDs
+  * `$data` -- the non-zero counts
+  * `$features` -- has subparts relating to the rows/genes
+    * `$_all_tag_keys` -- "genome" for our data
+    * `$feature_type` -- specifies Gene Expression vs negative control probe, negative control codeword, unassigned codeword
+    * `$genome` -- unknown for our data
+    * `$id` -- gene ID or control/probe ID for elements of `$data`
+    * `$name` -- gene name or control/probe name for elements of `$data`
+  * `$indices` -- zero based row index for non-zero values found in `$data` (i equivalent for Matrix::sparseMatrix)
+  * `$indptr` -- zero based index for `$data` and `$indices` where columns start (p equivalent of Matrix::sparseMatrix)
+  * `$shape` -- dimensions of the data (number of genes or features X number of cells).
+    * Note that the number of cells >>>>> number of genes (Xenium panel with limited number of genes)
+    * Note that the product of the dimensions will be greater than the length of `$data` since this is representing non-zero counts only and therefore is a sparse representation
+
+## What spatialGE is looking for
+
+spatialGE will accept file directories, but it will also accept lists of dataframes for each sample. Because we have to wrangle our generic format input data, we'll be providing named lists of dataframes for both the spatial coordiantes (spotcoords) and the feature counts (rnacounts).
+
+For spatial coordinates, the dataframes should have
+
+* 3 columns
+  * Spot or Cell IDs
+  * X value (center)
+  * Y value (center)
+* One row per each unique spot or cell ID
+
+For the feature counts, the dataframes should have
+
+* n features/rows
+* (m+1) spots or cells/columns
+  * The plus 1 is because the first column will list the feature/gene names
+
+For samples metadata (if passing a dataframe with additional metadata beyond sample names), the sample names used in the named lists for spotcoords and rnacounts should be the first column of the samples dataframe.
+
+<!--
 Variable   | Details
 ---------- |-------------
 **variable1**  | Variable info  <br> -- more details <br> -- more details <br>  **Example**: Content content
 **variable2**  | Variable info  <br> -- more details <br> -- more details <br>  **Example**: Content content
+-->
 
 ***
