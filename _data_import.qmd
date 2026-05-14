@@ -127,7 +127,7 @@ for (sample in samples){
 }
 ```
 
-### Sample meetadata
+### Sample metadata
 
 1. Filter to the 6 random samples
 2. Relocate the GEO sample IDs to the first column

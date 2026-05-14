@@ -29,23 +29,24 @@ summarize_STlist(scz_spatial)
 
 This is a 6 X 9 dataframe that provides
 
-  1 sample_name: GEO IDs we provided in sample metadata
-  2 spotscells: how many spots or cells that sample has
-  3 genes: how many genes that sample has
-  4 min_counts_per_spotcell: minimum number of counts per spot or cell for that sample
-  5 mean_counts_per_spotcell: average number of counts per spot or cell for that sample
-  6 max_counts_per_spotcell: maximum number of counts per spot or cell for that sample
-  7 min_genes_per_spotcell: minimum number of genes (with non-zero counts?) per spot or cell for that sample
-  8 mean_genes_per_spotcell: average number of genes (with non-zero counts?) per spot or cell for that sample
+  1. sample_name: GEO IDs we provided in sample metadata
+  2. spotscells: how many spots or cells that sample has
+  3. genes: how many genes that sample has
+  4. min_counts_per_spotcell: minimum number of counts per spot or cell for that sample
+  5. mean_counts_per_spotcell: average number of counts per spot or cell for that sample
+  6. max_counts_per_spotcell: maximum number of counts per spot or cell for that sample
+  7. min_genes_per_spotcell: minimum number of genes (with non-zero counts?) per spot or cell for that sample
+  8. mean_genes_per_spotcell: average number of genes (with non-zero counts?) per spot or cell for that sample
   9. max_genes_per_spotcell: maximum number of genes (with non-zero counts?) per spot or cell for that sample
 
-sample_name|spotscells|genes|min_counts|mean_counts|max_counts|min_genes|mean_genes|max_genes
-GSM9223477 | 48542 |  541 | 0 | 680. | 3365 | 0 | 97.5 | 219
-GSM9223479 | 45675 |  541 | 0 | 615. | 2912 | 0 | 92.4 | 194
-GSM9223481 | 61932 |  541 | 0 | 860. | 4241 | 0 | 108. | 219
-GSM9223483 | 59962 |  541 | 2 | 750. | 4327 | 2 | 86.0 | 211
-GSM9223484 | 44655 |  541 | 0 | 619. | 3048 | 0 | 94.3 | 204
-GSM9223485 | 68976 |  541 | 0 | 939. | 4024 | 0 | 110. | 218
+|sample_name|spotscells|genes|min_counts|mean_counts|max_counts|min_genes|mean_genes|max_genes|
+|:--------:|:--------:|:----:|:-------:|:-----------:|:------:|:--------:|:--------:|:-------:|
+| GSM9223477 | 48542 |  541 | 0 | 680. | 3365 | 0 | 97.5 | 219 |
+| GSM9223479 | 45675 |  541 | 0 | 615. | 2912 | 0 | 92.4 | 194 |
+| GSM9223481 | 61932 |  541 | 0 | 860. | 4241 | 0 | 108. | 219 |
+| GSM9223483 | 59962 |  541 | 2 | 750. | 4327 | 2 | 86.0 | 211 |
+| GSM9223484 | 44655 |  541 | 0 | 619. | 3048 | 0 | 94.3 | 204 |
+| GSM9223485 | 68976 |  541 | 0 | 939. | 4024 | 0 | 110. | 218 |
 
 Violin plot of counts per spot/cell for each sample
 
