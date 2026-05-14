@@ -66,6 +66,8 @@ distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_genes')
 
 ![](img/total_genes_afterfilter.png){fig-alt="six violins showing how many genes each spot or cell has for each sample following filtering" width=800 .lightbox}
 
+:::
+
 </details>
 
 ## Normalizing

@@ -22,9 +22,10 @@ Note that quilt plots don't require histology image (image of the tissue), becau
 
 Also note that this is Xenium data which means there are a lot of cells! So we're going to use the `ptsize` argument to set the point size of the spots or cells to be really small. If we make it too large, it's dense/cramped/hard to view the quilt plot
 
-I'm using the `PRGn` color palette because I wanted one that I knew should be color vision deficiency friendly, and it reminds of viridis. However, I'm not a huge fan of the white being intermediate expression values. Feels like it's a better palette where the values are centered around some value. The `BuRd` one used in the basic functions vignette for `spatialGE` also has white in the middle. Is there another color palette that you'd recommend that doesn't have white in the middle or am I overthinking the choice of palette?
+I'm using the `PRGn` color palette because I wanted one that I knew should be color vision deficiency friendly, and it reminds of viridis.
+However, I'm not a huge fan of the white being intermediate expression values. Feels like it's a better palette where the values are centered around some value. The `BuRd` one used in the basic functions vignette for `spatialGE` also has white in the middle. Is there another color palette that you'd recommend that doesn't have white in the middle or am I overthinking the choice of palette?
 
-We have ggpubr combine the common legends and display them on the bottom. It also is plotting the quilt plots in a 2 X 2 grid
+We have `ggpubr` combine the common legends and display them on the bottom. It also is plotting the quilt plots in a 2 X 2 grid
 
 ```{r, eval = FALSE}
 quilt25 <- STplot(scz_spatial,

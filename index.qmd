@@ -56,3 +56,30 @@ include-sections:
 {{< include _data_wrangling.qmd >}}
 
 :::
+
+::: {.content-hidden unless-meta="include-sections.data-viz"}
+
+{{< include _data_visualization.qmd >}}
+
+:::
+
+::: {.content-hidden unless-meta="include-sections.data-analysis"}
+
+{{< include _data_analysis.qmd >}}
+
+:::
+
+{{< include _summary.qmd >}}
+
+{{< include _suggested_hw.qmd >}}
+
+{{< include _additional_info.qmd >}}
+
+## **Session Info**
+***
+
+```{r}
+devtools::session_info()
+```
+
+{{< include _acknowledgements.qmd >}}
