@@ -9,6 +9,7 @@ codeword
 css
 custimization
 cwrigh
+CX
 DEGs
 Dockerfile
 Dockerhub
@@ -26,6 +27,7 @@ Github
 github
 glyphicons
 GSM
+HPC
 HTTPS
 hw
 iconpacks

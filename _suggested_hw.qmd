@@ -18,8 +18,10 @@ pseudobulk_dim_plot(scz_spatial)
 
 **When I try to color the PCA plot by a variable in my sample metadata (using `plot_meta` parameter), it errors and tells me that data doesn't exist. I've tried changing capitalization and several other steps, but the value should be there. Do you know what I could be doing wrong here?**
 
-Column names
-> X1         `Brain Number (ID)` Sex   PrimaryDx
+Column names:
+```
+X1         `Brain Number (ID)` Sex   PrimaryDx
+```
 
 Error:
 ```
