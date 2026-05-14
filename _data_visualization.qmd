@@ -1,17 +1,3 @@
----
-format:
-  html:
-    page-layout: article
----
-
-<!--
-Update the file paths as needed throughout
--->
-
-<!--
-At the end of this section, save incremental data so that users can pause and come back later
--->
-
 # **Data Visualization**
 ***
 
@@ -54,8 +40,6 @@ ggpubr::ggarrange(plotlist=quilt25,
                   common.legend = TRUE)
 ```
 
-![](img/quiltplot_ntc81_scz83_stricterFilter.png){fig-alt="Quilt plot showing the expression of two genes for a control neurotypical sample on the top and a Schizophrenia diagnosis sample on the bottom. Points in each quilt plot represent a single cell or spot within its spatial context. Expression levels are displayed with a color gradient where dark purple corresponds to low expression, white corresponds to medium expression, and green corresponds to high expression. The first gene on the left is FKBP5 an upregulated gene and we see higher expression levels on the bottom quilt plot. The gene on the right is SST a downregulated gene and we see lower levels of expression on the bottom quilt plot." width=800 .lightbox}
-
-*need to update this plot to use the data with the stricter filter*
+Add plot here
 
 ***
