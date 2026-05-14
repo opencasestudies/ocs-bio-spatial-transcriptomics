@@ -88,8 +88,9 @@ scz_spatial <- transform_data(scz_spatial, method='log', cores=2)
 ***
 
 Should I add a visualization of what the normalized data looks like?
+
   * Note that the `pseudobulk_heatmap()` looks like a good candidate function for this from `spatialGE`
   * However, we would first have to run `pseudobulk_samples()` ... which we'd need to do before the suggested HW of the `pseudoblock_dim_plot()` anyways.
-  * So I think this is either a candidate for a side quest (in a click to expand section here), or something that we'll put in the suggested HW
+  * So I think this is either a candidate for a side quest (in a click to expand section here), or something that we'll put in the suggested homework
 
 Add instructions on saving the dataset here.
