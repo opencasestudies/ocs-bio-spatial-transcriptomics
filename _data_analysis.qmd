@@ -29,6 +29,14 @@ You can use a collapsible details section to provide an answer
 We might use a column margin note to add an equation or some other annotation for learners or educators.
 :::
 
+We will use SThet to look at the autocorrelation of the expression of genes throughout the sample.
+
+Moran's I Interpretation:
+
+* Positive: autocorrelation -- similar expression is located near similar expression
+* 0: random distribution
+* Negative: disimmilar expression is located near each other
+
 <!--
 Use this section to walk through the methods and code used in the data analysis step-by-step.
 Explain how this analysis helps answer the main questions posed earlier in the case study.

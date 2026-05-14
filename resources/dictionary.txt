@@ -43,7 +43,9 @@ OTTR
 ottrproject
 quarto
 qmd
+readr
 repo
+rhdf
 Rmd
 RStudio
 Sasi

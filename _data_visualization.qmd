@@ -1,3 +1,9 @@
+---
+format:
+  html:
+    page-layout: article
+---
+
 <!--
 Update the file paths as needed throughout
 -->
