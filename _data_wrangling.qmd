@@ -35,8 +35,9 @@ scz_spatial <- filter_data(scz_spatial,
                            spot_mingenes=50)
 ```
 
-I haven't tried other values here, but based on the summarize table the violin plots, I'm happy to try other values you might suggest. Will definitely discuss the topic of choosing filter values here and what that impacts/what should motivate those choices/in a real analysis, you're probably trying the analysis with a few to see how robust findings are
+I haven't tried a lot of other values here, but based on the summarize table the violin plots, I'm happy to try other values you might suggest. Will definitely discuss the topic of choosing filter values here and what that impacts/what should motivate those choices/in a real analysis, you're probably trying the analysis with a few to see how robust findings are
 
+I did try a lower number for minimum genes (25), but the quilt plots were much more cramped.
 
 <details><summary>What do the Violin plots look like now?</summary>
 
@@ -48,7 +49,14 @@ I haven't tried other values here, but based on the summarize table the violin p
 summarize_STlist(scz_spatial)
 ```
 
-.... add table here
+|sample_name|spotscells|genes|min_counts|mean_counts|max_counts|min_genes|mean_genes|max_genes|
+|:--------:|:--------:|:----:|:-------:|:-----------:|:------:|:--------:|:--------:|:-------:|
+| GSM9223477 | 27106 |  541 | 500 | 974. | 3365 | 50 | 124. | 219 |
+| GSM9223479 | 22869 |  541 | 500 | 935. | 2912 | 50 | 122. | 194 |
+| GSM9223481 | 41494 |  541 | 500 | 1149.| 4241 | 50 | 132. | 219 |
+| GSM9223483 | 33036 |  541 | 500 | 1148.| 4327 | 50 | 116. | 211 |
+| GSM9223484 | 22845 |  541 | 500 | 930. | 3048 | 50 | 119. | 204 |
+| GSM9223485 | 50588 |  541 | 500 | 1167.| 4024 | 50 | 126. | 218 |
 
 ### Total Counts
 
@@ -80,5 +88,8 @@ scz_spatial <- transform_data(scz_spatial, method='log', cores=2)
 ***
 
 Should I add a visualization of what the normalized data looks like?
+  * Note that the `pseudobulk_heatmap()` looks like a good candidate function for this from `spatialGE`
+  * However, we would first have to run `pseudobulk_samples()` ... which we'd need to do before the suggested HW of the `pseudoblock_dim_plot()` anyways.
+  * So I think this is either a candidate for a side quest (in a click to expand section here), or something that we'll put in the suggested HW
 
 Add instructions on saving the dataset here.

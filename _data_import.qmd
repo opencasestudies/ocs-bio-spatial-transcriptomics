@@ -65,7 +65,7 @@ samples <- c(scz_samples, ntc_samples)
 spatial_coords <- list()
 
 for (sample in samples){
-  df_sample <- read_csv(paste0("/fh/fast/leek_j/user/kisaac/ocs_spatial_GSE307404/",
+  df_sample <- read_csv(paste0("/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/",
                                sample,
                                "_",
                                spatial_sample_info[which(spatial_sample_info$X1 == sample), "Brain Number (ID)"],
@@ -77,7 +77,7 @@ for (sample in samples){
     summarize(geometry = sf::st_sfc(st_polygon(list(cbind(vertex_x, vertex_y)))), .groups = "drop") %>%
     st_as_sf() %>%
     mutate(centroid = st_centroid(geometry)) %>% #compute centroid location for each cell
-    mutate(cx = st_coordiantes(centroid)[,1],
+    mutate(cx = st_coordinates(centroid)[,1],
            cy = st_coordinates(centroid)[,2])
 
   spatial_coords[[sample]] <- centroids %>%
@@ -107,7 +107,7 @@ Note, will show in a click to expand section that `rhdf5::h5dump` can be used to
 rnacounts_input <- list()
 
 for (sample in samples){
-  rna_h5data <- rhdf5::h5read(paste0("/fh/fast/leek_j/user/kisaac/osc_spatial/GSE307404/",
+  rna_h5data <- rhdf5::h5read(paste0("/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/",
                                      sample,
                                      "_",
                                      spatial_sample_info[which(spatial_sample_info$X1 == sample), "Brain Number (ID)"],
@@ -147,6 +147,6 @@ scz_spatial <- spatialGE::STlist(rnacounts = rnacounts_input,
                                 )
 ```
 
-Then we'll save the data so people can pick up at the next step after a break if they'd like. **Would either an `.rda` or `.rds` work for this data?**
+Then we'll save the data so people can pick up at the next step after a break if they'd like. **Would either an `.rda` or `.rds` work for this data?** In testing the data, I've saved an input list as an `.rds` file before I've input it into `STlist` with no problem. Just want to make sure that the STlist object is being saved in an appropriate way that won't cause issues.
 
 ***
