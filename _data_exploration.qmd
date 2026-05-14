@@ -13,7 +13,7 @@ At the end of this section, save incremental data (if changes were made) so that
 # **Data Exploration**
 ***
 
-Add instrutions for loading the data...
+Add instructions for loading the data...
 
 ***
 <details> <summary> If you skipped the data import section click here. </summary>
@@ -29,15 +29,15 @@ summarize_STlist(scz_spatial)
 
 This is a 6 X 9 dataframe that provides
 
-  1. sample_name: GEO IDs we provided in sample metadata
-  2. spotscells: how many spots or cells that sample has
-  3. genes: how many genes that sample has
-  4. min_counts_per_spotcell: minimum number of counts per spot or cell for that sample
-  5. mean_counts_per_spotcell: average number of counts per spot or cell for that sample
-  6. max_counts_per_spotcell: maximum number of counts per spot or cell for that sample
-  7. min_genes_per_spotcell: minimum number of genes (with non-zero counts?) per spot or cell for that sample
-  8. mean_genes_per_spotcell: average number of genes (with non-zero counts?) per spot or cell for that sample
-  9. max_genes_per_spotcell: maximum number of genes (with non-zero counts?) per spot or cell for that sample
+  1. `sample_name`: GEO IDs we provided in sample metadata
+  2. `spotscells`: how many spots or cells that sample has
+  3. `genes`: how many genes that sample has
+  4. `min_counts_per_spotcell`: minimum number of counts per spot or cell for that sample
+  5. `mean_counts_per_spotcell`: average number of counts per spot or cell for that sample
+  6. `max_counts_per_spotcell`: maximum number of counts per spot or cell for that sample
+  7. `min_genes_per_spotcell`: minimum number of genes (with non-zero counts?) per spot or cell for that sample
+  8. `mean_genes_per_spotcell`: average number of genes (with non-zero counts?) per spot or cell for that sample
+  9. `max_genes_per_spotcell`: maximum number of genes (with non-zero counts?) per spot or cell for that sample
 
 |sample_name|spotscells|genes|min_counts|mean_counts|max_counts|min_genes|mean_genes|max_genes|
 |:--------:|:--------:|:----:|:-------:|:-----------:|:------:|:--------:|:--------:|:-------:|

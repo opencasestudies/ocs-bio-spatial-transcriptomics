@@ -3,7 +3,7 @@
 
 If you have been following along but stopped, we could load our imported data like so:
 
-Add instrutions for loading the data...
+Add instructions for loading the data...
 
 ***
 <details> <summary> If you skipped the data import section click here. </summary>

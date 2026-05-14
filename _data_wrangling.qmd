@@ -15,7 +15,7 @@ At the end of this section, save incremental data so that users can pause and co
 
 If you have been following along but stopped, we could load our imported data like so:
 
-Add instrutions for loading the data...
+Add instructions for loading the data...
 
 ***
 <details> <summary> If you skipped the data import section click here. </summary>
@@ -70,7 +70,7 @@ distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_genes')
 
 ## Normalizing
 
-We're using a log transform. Another option is the SCTransform which we'll explain in a click to expand section. We can even compare the two normalization methods (but I'll have to make two separate STlist's for that)
+We're using a log transform. Another option is the SCTransform which we'll explain in a click to expand section. We can even compare the two normalization methods (but I'll have to make two separate `STlist`'s for that)
 
 ```{r, eval = FALSE}
 scz_spatial <- transform_data(scz_spatial, method='log', cores=2)

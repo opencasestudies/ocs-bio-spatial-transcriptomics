@@ -9,7 +9,7 @@ At the end of this section, save incremental data so that users can pause and co
 # **Data Import**
 ***
 
-Note that the sample files were fetched with `GEOquery` for "GSE307404"
+Note that the sample files were fetched with `GEOquery` for `GSE307404`
 
 ## 3 random SCZ samples and 3 random NTC samples
 
@@ -46,9 +46,9 @@ samples <- c(scz_samples, ntc_samples)
 * SCZ Samples:
   * all 3 females
 
-## Prepare the data for import into spatialGE (with STlist)
+## Prepare the data for import into `spatialGE` (with `STlist`)
 
-### Spatial Coordiantes
+### Spatial Coordinates
 
 1. We make a list that we can store a dataframe in for each sample
 2. We loop through all 6 of the samples .... for each sample ....
@@ -100,7 +100,7 @@ Note, will show in a click to expand section that `rhdf5::h5dump` can be used to
 5. We expand it to be a dense matrix that can be turned into a dataframe
 6. We set the row names to be the feature names from the h5 file
 7. We set the column names to be the cell IDs from the h5 file
-8. We also move the rownames to the first column and name it "genes" because spatialGE looks for gene names in the first column, not as rownames, making sure they are unique. [Got an error here](https://github.com/FridleyLab/spatialGE/blob/849c174f2c1537dc871987dfefb68da91beb96e3/R/STList.R#L415) until I fixed that and it wasn't super obvious to me in the documentation.
+8. We also move the rownames to the first column and name it "genes" because `spatialGE` looks for gene names in the first column, not as rownames, making sure they are unique. [Got an error here](https://github.com/FridleyLab/spatialGE/blob/849c174f2c1537dc871987dfefb68da91beb96e3/R/STList.R#L415) until I fixed that and it wasn't super obvious to me in the documentation.
 9. Finally we store this matrix in our named list for that sample
 
 ```{r, eval = FALSE}
@@ -138,7 +138,7 @@ samples_metadata <- spatial_sample_info %>%
   relocate(X1)
 ```
 
-## Prepare a spatialGE project with STlist
+## Prepare a `spatialGE` project with `STlist`
 
 ```{r, eval = FALSE}
 scz_spatial <- spatialGE::STlist(rnacounts = rnacounts_input,
