@@ -52,7 +52,9 @@ Sasi
 SCTransform
 SCZ
 spatialGE
+spotscells
 subdir
+subparts
 tabset
 th
 tidyverse

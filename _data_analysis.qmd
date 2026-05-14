@@ -29,17 +29,22 @@ You can use a collapsible details section to provide an answer
 We might use a column margin note to add an equation or some other annotation for learners or educators.
 :::
 
-We will use SThet to look at the autocorrelation of the expression of genes throughout the sample.
+We will use `SThet` to look at the autocorrelation of the expression of genes throughout the samples.
 
 Moran's I Interpretation:
 
 * Positive: autocorrelation -- similar expression is located near similar expression
 * 0: random distribution
-* Negative: disimmilar expression is located near each other
+* Negative: dissimmilar expression is located near each other
 
-<!--
-Use this section to walk through the methods and code used in the data analysis step-by-step.
-Explain how this analysis helps answer the main questions posed earlier in the case study.
--->
+Running `SThet` takes 12-15 minutes on our institutional HPC with 2 cores for 4 genes across the 6 samples (though only 5 of the 6 run successfully. The sixth fails silently). My personal computer can't run this step at all without crashing (though every `spatialGE` step before this it can handle)
+
+Possibilities for feasability:
+
+* From the documentation, I saw that the k-nearest neighbors approach will be faster, but less accurate, so we could try that.
+* We could provide the output and do an analysis task with the output from `get_gene_meta()`
+* We could focus on just two samples instead of 6, but the quilt plot is already using just two samples, so I don't think it makes sense to not use as many as we can here.
+* We could subset the data to select a fewer number of cells (randomly drop some cell IDs from the data that we give learners)
+* We could compute the statistic for a fewer number of genes (just 2?)
 
 ***

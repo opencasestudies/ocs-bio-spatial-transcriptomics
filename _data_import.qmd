@@ -14,7 +14,7 @@ Note that the sample files were fetched with `GEOquery` for `GSE307404`
 ## 3 random SCZ samples and 3 random NTC samples
 
 1) We set the random seed
-2) We read in metadata files, joining them so that we can relate the sample information with the PrimaryDx column
+2) We read in metadata files, joining them so that we can relate the sample information with the `PrimaryDx` column
 3) We select 3 random NTC samples
 4) We select 3 random SCZ samples
 5) We make a vector of those 6 sample IDs
@@ -147,6 +147,6 @@ scz_spatial <- spatialGE::STlist(rnacounts = rnacounts_input,
                                 )
 ```
 
-Then we'll save the data so people can pick up at the next step after a break if they'd like. **Would either an `.rda` or `.rds` work for this data?** In testing the data, I've saved an input list as an `.rds` file before I've input it into `STlist` with no problem. Just want to make sure that the STlist object is being saved in an appropriate way that won't cause issues.
+Then we'll save the data so people can pick up at the next step after a break if they'd like. **Would either an `.rda` or `.rds` work for this data?** In testing the data, I've saved an input list as an `.rds` file before I've input it into `STlist` with no problem. Just want to make sure that the `STlist` object is being saved in an appropriate way that won't cause issues.
 
 ***
