@@ -46,7 +46,10 @@ list.files(path="/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/", pattern = 
 We have `{Sample}-cell_boundaries.csv.gz` files for the spatial coordinates rather than classical files with spatial coordinates (....add explanation of what these classical files/other options are). Specifically these files have many rows per cell describing each vertex that is part of a cell polygon. We can find the centroid of each cell by considering all of these polygon coordinates together.
 
 For each row:
-  * cell_id, vertex_x, and vertex_y
+
+  * cell_id 
+  * vertex_x
+  * vertex_y
 
 Note that the Cell IDs in these files correspond to the `$barcodes` discussed in the RNA counts data
 

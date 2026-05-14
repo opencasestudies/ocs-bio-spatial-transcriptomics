@@ -9,33 +9,47 @@ At the end of this section, save incremental data so that users can pause and co
 # **Data Visualization**
 ***
 
-If you have been following along but stopped, we could load our wrangled data like so:
 
-```{r}
-load(here::here("data", "wrangled", "wrangled_data.rda"))
-```
+If you have been following along but stopped, we could load our imported data like so:
+
+Add instrutions for loading the data...
 
 ***
 <details> <summary> If you skipped the data import section click here. </summary>
 
-An RDA file (stands for R data) of the data can be found [here](https://github.com//opencasestudies/ocs-bp-co2-emissions/tree/master/data/wrangled) or slightly more directly [here](https://raw.githubusercontent.com/opencasestudies/ocs-bp-co2-emissions/master/data/wrangled/wrangled_data.rda). Download this file and then place it in your current working directory within a subdirectory called "wrangled" within a subdirectory called "data" to use the following code. We used an RStudio project and the [`here` package](https://github.com/jennybc/here_here) to navigate to the file more easily.
-
-
-```{r}
-load(here::here("data", "wrangled", "wrangled_data.rda"))
-```
+Add instructions for loading the data...
 
 </details>
 ***
 
-<!--
-Use this section to walk through step by step how the wrangled data was visualized.
-Explain how these visualizations improve understanding and help extract insights.
--->
+The genes SST and FKBP5 are both annotated in the Figure 2a Volcano Plot as DEGs. SST is downregulated in SCZ cases and FKBP5 is upregulated in SCZ cases.
 
-<!--
-If any further wrangling was conducted in this section,
-please save the most recent version of the data similar to previous sections.
--->
+Therefore, we're going to make quilt plots showing the expression of these genes for each spot/cell in two samples (one NTC and one SCZ).
+
+Note that quilt plots don't require histology image (image of the tissue), because the spatial coordinates data that we input provides x and y coordinates for the center of each cell/spot. Therefore, we can place the location of these cells without a tissue image.
+
+Also note that this is Xenium data which means there are a lot of cells! So we're going to use the `ptsize` argument to set the point size of the spots or cells to be really small. If we make it too large, it's dense/cramped/hard to view the quilt plot
+
+I'm using the `PRGn` color pallete because I wanted one that I knew should be color vision deficiency friendly, and it reminds of viridis. However, I'm not a huge fan of the white being intermediate expression values. Feels like it's a better palette where the values are centered around some value. The `BuRd` one used in the basic functions vignette for spatialGE also has white in the middle. Is there another color palette that you'd recommend that doesn't have white in the middle or am I overthinking the choice of palette?
+
+We have ggpubr combine the common legends and display them on the bottom. It also is plotting the quilt plots in a 2 X 2 grid
+
+```{r, eval = FALSE}
+quilt25 <- STplot(scz_spatial,
+                  samples = samples_metadata$X1[c(2,5)],
+                  genes = c("SST", "FKBP5"),
+                  color_pal='PRGn',
+                  ptsize=0.05)
+
+ggpubr::ggarrange(plotlist=quilt25,
+                  nrow=2,
+                  ncol=2,
+                  legend='bottom',
+                  common.legend = TRUE)
+```
+
+![](img/quilt_plot_ntc81_scz83.png){"Quilt plot showing the expression of two genes for a control neurotypical sample on the top and a Schizophrenia diagnosis sample on the bottom. Points in each quilt plot represent a single cell or spot within its spatial context. Expression levels are displayed with a color gradient where dark purple corresponds to low expression, white corresponds to medium expression, and green corresponds to high expression. The first gene on the left is FKBP5 an upregulated gene and we see higher expression levels on the bottom quilt plot. The gene on the right is SST a downregulated gene and we see lower levels of expression on the bottom quilt plot." width=800 .lightbox}
+
+*need to update this plot to use the data with the stricter filter
 
 ***

@@ -15,44 +15,68 @@ At the end of this section, save incremental data so that users can pause and co
 
 If you have been following along but stopped, we could load our imported data like so:
 
-```{r}
-load(here::here("data", "imported", "pm25_data_imported.rda"))
-```
-***
+Add instrutions for loading the data...
 
+***
 <details> <summary> If you skipped the data import section click here. </summary>
 
-An RDA version (stands for R data) of the data can be found [here](https://github.com//opencasestudies/ocs-bp-co2-emissions/tree/master/data/imported) or slightly more directly [here](https://raw.githubusercontent.com/opencasestudies/ocs-bp-co2-emissions/master/data/imported/co2_data_imported.rda). Download this file and then place it in your current working directory within a subdirectory called "imported" within a directory called "data" to use the following code. We used an RStudio project and the [`here` package](https://github.com/jennybc/here_here) to navigate to the file more easily.
-
-```{r, eval=FALSE}
-load(here::here("data", "imported", "co2_data_imported.rda"))
-```
+Add instructions for loading the data...
 
 </details>
 ***
 
-<!--
-Use this section to explain step-by-step the data wrangling process used to prepare the data for analysis.
-This includes an example of code annotation with Quarto. See the documentation for more information: https://quarto.org/docs/authoring/code-annotation.html
--->
+## Filtering
 
-To allow users to skip import and wrangling we will save the data as an RDA file as well as a CSV file as this is often useful to send our data to collaborators. We will save this in a “wrangled” subdirectory of our “data” directory of our working directory.
+Note that values used for filtering here are based on results in the data exploration section above. So it and the data exploration section should either be combined in the final case study draft, or we'll add a note about people needing to visit the data exploration step to under the values we're using.
 
-```{r}
-save(pm, file = here::here("data", "wrangled", "wrangled_data.rda")) # <1>
-readr::write_csv(pm, file = here::here("data","wrangled",            # <2>
-                                       "wrangled_data.csv"))         # <2>
+```{r, eval = FALSE}
+scz_spatial <- filter_data(scz_spatial,
+                           spot_minreads=500,
+                           spot_mingenes=50)
 ```
 
-1. saving the data as an RDA file within the wrangled data subdirectory
-2. saving the data as a CSV file within the wrangled data subdirectory
+I haven't tried other values here, but based on the summarize table the violin plots, I'm happy to try other values you might suggest. Will definitely discuss the topic of choosing filter values here and what that impacts/what should motivate those choices/in a real analysis, you're probably trying the analysis with a few to see how robust findings are
 
-<!--
-Note that with this code annotation example, we've used a new line to space the code so that the annotation doesn't overlay the code
--->
 
-<!--
-Replace `pm` above with the name of the data object created at the end of data wrangling.
--->
+<details><summary>What do the Violin plots look like now?</summary>
 
+::: {.panel-tabset}
+
+### Table
+
+```{r, eval = FALSE}
+summarize_STlist(scz_spatial)
+```
+
+.... add table here
+
+### Total Counts
+
+```{r, eval = FALSE}
+distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_counts')
+```
+
+![](img/total_counts_afterfilter.png){fig-alt="six violins showing how many counts each spot or cell has for each sample following filtering" width=800 .lightbox}
+
+### Total Genes
+
+```{r, eval = FALSE}
+distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_genes')
+```
+
+![](img/total_genes_afterfilter.png){fig-alt="six violins showing how many genes each spot or cell has for each sample following filtering" width=800 .lightbox}
+
+</details>
+
+## Normalizing
+
+We're using a log transform. Another option is the SCTransform which we'll explain in a click to expand section. We can even compare the two normalization methods (but I'll have to make two separate STlist's for that)
+
+```{r, eval = FALSE}
+scz_spatial <- transform_data(scz_spatial, method='log', cores=2)
+```
 ***
+
+Should I add a visualization of what the normalized data looks like?
+
+Add instructions on saving the dataset here.
