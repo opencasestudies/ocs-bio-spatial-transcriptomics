@@ -37,12 +37,12 @@ Moran's I Interpretation:
 * 0: random distribution
 * Negative: dissimilar expression is located near each other
 
-Running `SThet` takes 12-15 minutes on our institutional HPC with 2 cores for 4 genes across the 6 samples (though only 5 of the 6 run successfully. The sixth fails silently). And `get_gene_meta()` takes a couple extra minutes after that. My personal computer can't run this step at all without crashing (though every `spatialGE` step before this it can handle).
+Running `SThet` takes 12-15 minutes on our institutional HPC with 2 cores for 2-4 genes across the 6 samples (though only 5 of the 6 run successfully. The sixth fails silently). And `get_gene_meta()` takes a couple extra minutes after that. My personal computer can't run this step at all without crashing (though every `spatialGE` step before this it can handle).
 
 Prior to running this step, the data/`STlist` is several hundred MB. Once I've run this step, the data is several hundred GB.
 
 ```{r, eval = FALSE}
-scz_spatial <- SThet(scz_spatial, genes = c("CX3CR1", "MBP", FKBP5))
+scz_spatial <- SThet(scz_spatial, genes = c("CX3CR1", "MBP", "FKBP5"))
 get_gene_meta(scz_spatial, sthet_only = TRUE)
 ```
 
