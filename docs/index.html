@@ -78,9 +78,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-461f74fb7204baf7a79ce447de151042.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-461f74fb7204baf7a79ce447de151042.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-461f74fb7204baf7a79ce447de151042.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-f031d06313273f995f4737c2de6e71b4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-f031d06313273f995f4737c2de6e71b4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-f031d06313273f995f4737c2de6e71b4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -186,12 +186,33 @@ gtag('config', 'G-WPXDVW923P', { 'anonymize_ip': true});
   <li><a href="#main-question" id="toc-main-question" class="nav-link" data-scroll-target="#main-question"><strong>Main Question</strong></a></li>
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives"><strong>Learning Objectives</strong></a></li>
   <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context"><strong>Context</strong></a></li>
-  <li><a href="#what-are-the-data" id="toc-what-are-the-data" class="nav-link" data-scroll-target="#what-are-the-data"><strong>What are the data?</strong></a></li>
+  <li><a href="#what-are-the-data" id="toc-what-are-the-data" class="nav-link" data-scroll-target="#what-are-the-data"><strong>What are the data?</strong></a>
+  <ul class="collapse">
+  <li><a href="#metadata" id="toc-metadata" class="nav-link" data-scroll-target="#metadata">Metadata</a></li>
+  <li><a href="#spatial-coordinates" id="toc-spatial-coordinates" class="nav-link" data-scroll-target="#spatial-coordinates">Spatial Coordinates</a></li>
+  <li><a href="#rna-counts" id="toc-rna-counts" class="nav-link" data-scroll-target="#rna-counts">RNA counts</a></li>
+  <li><a href="#what-spatialge-is-looking-for" id="toc-what-spatialge-is-looking-for" class="nav-link" data-scroll-target="#what-spatialge-is-looking-for">What <code>spatialGE</code> is looking for</a></li>
+  </ul></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations"><strong>Limitations</strong></a></li>
   <li><a href="#ethical-considerations" id="toc-ethical-considerations" class="nav-link" data-scroll-target="#ethical-considerations"><strong>Ethical Considerations</strong></a></li>
-  <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import"><strong>Data Import</strong></a></li>
+  <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import"><strong>Data Import</strong></a>
+  <ul class="collapse">
+  <li><a href="#random-scz-samples-and-3-random-ntc-samples" id="toc-random-scz-samples-and-3-random-ntc-samples" class="nav-link" data-scroll-target="#random-scz-samples-and-3-random-ntc-samples">3 random SCZ samples and 3 random NTC samples</a></li>
+  <li><a href="#what-are-the-3-random-samples" id="toc-what-are-the-3-random-samples" class="nav-link" data-scroll-target="#what-are-the-3-random-samples">What are the 3 random samples?</a></li>
+  <li><a href="#prepare-the-data-for-import-into-spatialge-with-stlist" id="toc-prepare-the-data-for-import-into-spatialge-with-stlist" class="nav-link" data-scroll-target="#prepare-the-data-for-import-into-spatialge-with-stlist">Prepare the data for import into <code>spatialGE</code> (with <code>STlist</code>)</a>
+  <ul class="collapse">
+  <li><a href="#spatial-coordinates-1" id="toc-spatial-coordinates-1" class="nav-link" data-scroll-target="#spatial-coordinates-1">Spatial Coordinates</a></li>
+  <li><a href="#rna-counts-1" id="toc-rna-counts-1" class="nav-link" data-scroll-target="#rna-counts-1">RNA counts</a></li>
+  <li><a href="#sample-metadata" id="toc-sample-metadata" class="nav-link" data-scroll-target="#sample-metadata">Sample metadata</a></li>
+  </ul></li>
+  <li><a href="#prepare-a-spatialge-project-with-stlist" id="toc-prepare-a-spatialge-project-with-stlist" class="nav-link" data-scroll-target="#prepare-a-spatialge-project-with-stlist">Prepare a <code>spatialGE</code> project with <code>STlist</code></a></li>
+  </ul></li>
   <li><a href="#data-exploration" id="toc-data-exploration" class="nav-link" data-scroll-target="#data-exploration"><strong>Data Exploration</strong></a></li>
-  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling"><strong>Data Wrangling</strong></a></li>
+  <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling"><strong>Data Wrangling</strong></a>
+  <ul class="collapse">
+  <li><a href="#filtering" id="toc-filtering" class="nav-link" data-scroll-target="#filtering">Filtering</a></li>
+  <li><a href="#normalizing" id="toc-normalizing" class="nav-link" data-scroll-target="#normalizing">Normalizing</a></li>
+  </ul></li>
   <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization"><strong>Data Visualization</strong></a></li>
   <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis"><strong>Data Analysis</strong></a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><strong>Summary</strong></a>
@@ -248,7 +269,7 @@ gtag('config', 'G-WPXDVW923P', { 'anonymize_ip': true});
 Replace the `img/mainplot.png` image with the appropriate case study image or consider using ottrpal::include_slide() with a publicly viewable slide deck as needed.
 See image here for example: https://www.opencasestudies.org/ocs-bp-school-shootings-dashboard/
 -->
-<p><a href="img/mainplot.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="img/mainplot.png" class="img-fluid" alt="Map showing amount of pollution across the US localized to monitors." width="800"></a></p>
+<p><a href="img/quilt_plots_ntc81_scz83_cx3cr1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="img/quilt_plots_ntc81_scz83_cx3cr1.png" class="img-fluid" alt="Quilt plot showing the expression of two genes for a control neurotypical sample on the top and a Schizophrenia diagnosis sample on the bottom. Points in each quilt plot represent a single cell or spot within its spatial context. Expression levels are displayed with a color gradient where light purple corresponds to low expression, blue corresponds to medium expression, and green corresponds to high expression. The first gene on the left is CX3CR1 a downregulated gene and we see lower expression levels on the bottom quilt plot because it is paler overall. The gene on the right is FKBP5 an upregulated gene and we see higher levels of expression on the bottom quilt plot because it has more blues and greens." width="800"></a></p>
 </section>
 <section id="section-1" class="level4">
 <h4 class="anchored" data-anchor-id="section-1"></h4>
@@ -391,18 +412,15 @@ Previous Open Case Studies do not have an example of this.
 <li>{FILL IN}</li>
 </ol>
 <hr>
-<!--
-load all the packages used in the case study analysis in the code chunk below
-(try to use tidyverse over base R).
-Fill out the table and add rows as necessary providing a link to the source and briefly explaining its use for each package
--->
 <p>We will begin by loading the packages that we will need:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#add library() calls</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>here() starts at /home</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatialGE)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <table class="caption-top table">
 <thead>
@@ -413,12 +431,40 @@ Fill out the table and add rows as necessary providing a link to the source and 
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="{Documentation URL}" target="_blank">{Package Name}</a></td>
-<td>{Package use}</td>
+<td><a href="https://cran.r-project.org/web/packages/here/refman/here.html" target="_blank">here</a></td>
+<td>Constructs paths within project</td>
 </tr>
 <tr class="even">
-<td><a href="{Documentation URL}" target="_blank">{Package Name}</a></td>
-<td>{Package use}</td>
+<td><a href="https://cran.r-project.org/web/packages/tidyverse/refman/tidyverse.html" target="_blank">tidyverse</a></td>
+<td>Data wrangling</td>
+</tr>
+<tr class="odd">
+<td><a href="https://cran.r-project.org/web/packages/readr/refman/readr.html" target="_blank">readr</a></td>
+<td>Reading in data</td>
+</tr>
+<tr class="even">
+<td><a href="https://cran.r-project.org/web/packages/dplyr/refman/dplyr.html" target="_blank">dplyr</a></td>
+<td>Data wrangling</td>
+</tr>
+<tr class="odd">
+<td><a href="https://cran.r-project.org/web/packages/sf/refman/sf.html" target="_blank">sf</a></td>
+<td>Enables storing and working with spatial data</td>
+</tr>
+<tr class="even">
+<td><a href="https://www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.html" target="_blank">rhdf5</a></td>
+<td>Reading and working with H5 files</td>
+</tr>
+<tr class="odd">
+<td><a href="https://cran.r-project.org/web/packages/Matrix/refman/Matrix.html" target="_blank">Matrix</a></td>
+<td>Working with sparse and dense matrices</td>
+</tr>
+<tr class="even">
+<td><a href="https://cran.r-project.org/web/packages/spatialGE/refman/spatialGE.html" target="_blank">spatialGE</a></td>
+<td>Package for QC, normalization, filtering, visualization, and analysis of spatially-resolved gene expression data</td>
+</tr>
+<tr class="odd">
+<td><a href="https://cran.r-project.org/web/packages/ggpubr/refman/ggpubr.html" target="_blank">ggpubr</a></td>
+<td>Further functions to customize and prepare ggplot2 plots for publication</td>
 </tr>
 </tbody>
 </table>
@@ -442,34 +488,121 @@ You may want to include a table about file or variable info.
 <section id="what-are-the-data" class="level1">
 <h1><strong>What are the data?</strong></h1>
 <hr>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 43%">
-<col style="width: 56%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Variable</th>
-<th>Details</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>variable1</strong></td>
-<td>Variable info <br> – more details <br> – more details <br> <strong>Example</strong>: Content content</td>
-</tr>
-<tr class="even">
-<td><strong>variable2</strong></td>
-<td>Variable info <br> – more details <br> – more details <br> <strong>Example</strong>: Content content</td>
-</tr>
-</tbody>
-</table>
+<section id="metadata" class="level2">
+<h2 class="anchored" data-anchor-id="metadata">Metadata</h2>
+<p>For the Xenium experiments, there were 24 donors:</p>
+<ul>
+<li>12 Neurotypical controls [NTC]
+<ul>
+<li>5 males</li>
+<li>7 females</li>
+</ul></li>
+<li>12 Schizophrenia [SCZ]
+<ul>
+<li>6 males</li>
+<li>6 females</li>
+</ul></li>
+</ul>
+<p>There are two metadata files (that we’ll need to combine to relate GEO IDs to sample IDs)</p>
+<ul>
+<li><code>spatial_samples.csv</code> – this file is from the <a href="https://www.biorxiv.org/content/biorxiv/early/2026/02/17/2026.02.16.706214/DC2/embed/media-2.xlsx?download=true">supplementary information</a> and provides metadata such as Sex, Diagnosis, age, and if the sample has corresponding Visium or Xenium data.
+<ul>
+<li>Comma separated values with a header</li>
+<li>first column is <code>Brain Number (ID)</code> (e.g., BR####)</li>
+<li>second column is <code>Race</code></li>
+<li>third column is <code>Sex</code></li>
+<li>fourth is <code>Age</code></li>
+<li>fifth is <code>RIN</code> - RNA Integrity Number (add info in context section about this)</li>
+<li>sixth is <code>PMI</code> - Postmortem Interval (add info in context section about this)</li>
+<li>seventh is <code>PrimaryDx</code> (e.g., Control or Schizophrenia)</li>
+<li>eighth is <code>Visium-SPG</code> (does this sample have corresponding Visium data YES/NO)</li>
+<li>ninth is <code>Xenium</code> (does this sample have corresponding Xenium data YES/NO)</li>
+</ul></li>
+<li><code>geo_to_spatial_samples.csv</code> – this file I made by wrangling the file names to create a dataframe (and saved that to a <code>.csv</code>)
+<ul>
+<li>Comma separates values, no header</li>
+<li>first column is the GEO number for each sample</li>
+<li>second column is the Brain Number (ID) (e.g., BR####) matching those in the <code>spatial_samples.csv</code> file</li>
+</ul></li>
+</ul>
+<p>Code for creating <code>geo_to_spatial_samples.csv</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="at">path=</span><span class="st">"/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/"</span>, <span class="at">pattern =</span> <span class="st">"cell_boundaries.csv.gz$"</span>) <span class="sc">%&gt;%</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(<span class="st">"-cell_boundaries.csv.gz"</span>, <span class="st">""</span>) <span class="sc">%&gt;%</span> <span class="fu">strsplit</span>(<span class="st">"_"</span>) <span class="sc">%&gt;%</span> <span class="fu">do.call</span>(rbind.data.frame, .) <span class="sc">%&gt;%</span> <span class="st">`</span><span class="at">colnames&lt;-</span><span class="st">`</span>(<span class="fu">c</span>(<span class="st">"X1"</span>, <span class="st">"X2"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="spatial-coordinates" class="level2">
+<h2 class="anchored" data-anchor-id="spatial-coordinates">Spatial Coordinates</h2>
+<p>We have <code>{Sample}-cell_boundaries.csv.gz</code> files for the spatial coordinates rather than classical files with spatial coordinates (….add explanation of what these classical files/other options are). Specifically these files have many rows per cell describing each vertex that is part of a cell polygon. We can find the centroid of each cell by considering all of these polygon coordinates together.</p>
+<p>For each row:</p>
+<ul>
+<li>cell_id</li>
+<li>vertex_x</li>
+<li>vertex_y</li>
+</ul>
+<p>Note that the Cell IDs in these files correspond to the <code>$barcodes</code> discussed in the RNA counts data</p>
+</section>
+<section id="rna-counts" class="level2">
+<h2 class="anchored" data-anchor-id="rna-counts">RNA counts</h2>
+<p>The data for the RNA counts is stored in <code>.h5</code> files. Rather than storing large matrices, the data is more efficiently stored in named/nested lists that can be used to reconstruct the matrix. Of important note, only non-zero counts are stored as well as the indices where those counts are in the matrix (e.g., for which genes and spot IDs they correspond with). Information here: https://www.10xgenomics.com/support/software/space-ranger/latest/advanced/hdf5-feature-barcode-matrix-format</p>
+<p>Can use <code>rhdf5::h5dump(file_name, load = FALSE)</code> to get a look at the names or headers of the data.</p>
+<ul>
+<li><code>$matrix</code> is the top name
+<ul>
+<li><code>$barcodes</code> – cell IDs</li>
+<li><code>$data</code> – the non-zero counts</li>
+<li><code>$features</code> – has subparts relating to the rows/genes
+<ul>
+<li><code>$_all_tag_keys</code> – “genome” for our data</li>
+<li><code>$feature_type</code> – specifies Gene Expression vs negative control probe, negative control codeword, unassigned codeword</li>
+<li><code>$genome</code> – unknown for our data</li>
+<li><code>$id</code> – gene ID or control/probe ID for elements of <code>$data</code></li>
+<li><code>$name</code> – gene name or control/probe name for elements of <code>$data</code></li>
+</ul></li>
+<li><code>$indices</code> – zero based row index for non-zero values found in <code>$data</code> (<code>i</code> equivalent for <code>Matrix::sparseMatrix</code>)</li>
+<li><code>$indptr</code> – zero based index for <code>$data</code> and <code>$indices</code> where columns start (<code>p</code> equivalent of <code>Matrix::sparseMatrix</code>)</li>
+<li><code>$shape</code> – dimensions of the data (number of genes or features X number of cells).
+<ul>
+<li>Note that the number of cells &gt;&gt;&gt;&gt;&gt; number of genes (Xenium panel with limited number of genes)</li>
+<li>Note that the product of the dimensions will be greater than the length of <code>$data</code> since this is representing non-zero counts only and therefore is a sparse representation</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="what-spatialge-is-looking-for" class="level2">
+<h2 class="anchored" data-anchor-id="what-spatialge-is-looking-for">What <code>spatialGE</code> is looking for</h2>
+<p><code>spatialGE</code> will accept file directories, but it will also accept lists of dataframes for each sample. Because we have to wrangle our generic format input data, we’ll be providing named lists of dataframes for both the spatial coordinates (<code>spotcoords</code>) and the feature counts (<code>rnacounts</code>).</p>
+<p>For spatial coordinates, the dataframes should have</p>
+<ul>
+<li>3 columns
+<ul>
+<li>Spot or Cell IDs</li>
+<li>X value (center)</li>
+<li>Y value (center)</li>
+</ul></li>
+<li>One row per each unique spot or cell ID</li>
+</ul>
+<p>For the feature counts, the dataframes should have</p>
+<ul>
+<li>n features/rows</li>
+<li>(m+1) spots or cells/columns
+<ul>
+<li>The plus 1 is because the first column will list the feature/gene names</li>
+</ul></li>
+</ul>
+<p>For samples metadata (if passing a dataframe with additional metadata beyond sample names), the sample names used in the named lists for <code>spotcoords</code> and <code>rnacounts</code> should be the first column of the samples dataframe.</p>
+<!--
+Variable   | Details
+---------- |-------------
+**variable1**  | Variable info  <br> -- more details <br> -- more details <br>  **Example**: Content content
+**variable2**  | Variable info  <br> -- more details <br> -- more details <br>  **Example**: Content content
+-->
 <hr>
 <!--
 Describe any limitations that exist in this analysis whether it be due to the data itself, methods used, nature of the topic, etc.
 You can list more than 2
 See the following example from a previous case study: https://www.opencasestudies.org/ocs-bp-opioid-rural-urban/#Limitations
 -->
+</section>
 </section>
 <section id="limitations" class="level1">
 <h1><strong>Limitations</strong></h1>
@@ -499,80 +632,320 @@ Examples may include: how identifiable (or re-identifiable) is your data? cell l
 <!--
 Consider incorporating a checklist of statements that learners should answer/discuss for every case study for bioethics principles.
 -->
-<!--
-Update the file paths as needed throughout
--->
-<!--
-At the end of this section, save incremental data so that users can pause and come back later
--->
 </section>
-<section id="data-import" class="level1">
+<section id="data-import" class="level1 page-columns page-full">
 <h1><strong>Data Import</strong></h1>
 <hr>
-<!--
-Describe how to import the case study data files into R or Python
--->
-<!--
-Within your case study project folder,
-put the data files as they came from the source into a 'data/raw/' subfolder
-and use the `here` package. See the following example and update with your data:
--->
+<p>Note that the sample files were fetched with <code>GEOquery</code> for <code>GSE307404</code></p>
+<section id="random-scz-samples-and-3-random-ntc-samples" class="level2">
+<h2 class="anchored" data-anchor-id="random-scz-samples-and-3-random-ntc-samples">3 random SCZ samples and 3 random NTC samples</h2>
+<ol type="1">
+<li>We set the random seed</li>
+<li>We read in metadata files, joining them so that we can relate the sample information with the <code>PrimaryDx</code> column</li>
+<li>We select 3 random NTC samples</li>
+<li>We select 3 random SCZ samples</li>
+<li>We make a vector of those 6 sample IDs</li>
+</ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pm <span class="ot">&lt;-</span>readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw"</span>, <span class="st">"pm25_data.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 876 Columns: 50
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (3): state, county, city
-dbl (47): id, value, fips, lat, lon, CMAQ, zcta, zcta_area, zcta_pop, imp_a5...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">567</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>spatial_samples <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"/fh/fast/leek_j/user/kisaac/ocs_spatial/spatial_samples.csv"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>geo_to_spatial <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"/fh/fast/leek_j/user/kisaac/ocs_spatial/geo_to_spatial_samples.csv"</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>spatial_sample_info <span class="ot">&lt;-</span> spatial_samples <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Xenium <span class="sc">==</span> <span class="st">"YES"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(geo_to_spatial,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Brain Number (ID)"</span> <span class="ot">=</span> <span class="st">"X2"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"Brain Number (ID)"</span>, <span class="st">"Sex"</span>, <span class="st">"PrimaryDx"</span>, X1))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#3 NTC samples</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>ntc_samples <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">sample</span>(<span class="fu">unlist</span>(spatial_sample_info[<span class="fu">which</span>(spatial_sample_info<span class="sc">$</span>PrimaryDx <span class="sc">==</span> <span class="st">"Control"</span>), <span class="st">"X1"</span>]), <span class="dv">3</span>))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#3 SCZ samples</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>scz_samples <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">sample</span>(<span class="fu">unlist</span>(spatial_sample_info[<span class="fu">which</span>(spatial_sample_info<span class="sc">$</span>PrimaryDx <span class="sc">==</span> <span class="st">"Schizophrenia"</span>), <span class="st">"X1"</span>]), <span class="dv">3</span>))</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">c</span>(scz_samples, ntc_samples)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-<!--
-At the end of the data import section, save the imported data as .rda files
-to allow users to stop and pick up where they left off:
--->
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(pm, <span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"imported"</span>, <span class="st">"pm25_data_imported.rda"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<!--
-NOTE that depending on the size of the data for Bio-OCS, the data may not be in the case study project folder directly
-and may need to be imported from an external source
--->
-<hr>
-<!--
-Update the file paths as needed throughout
--->
-<!--
-Not all case studies will need a Data Exploration subsection
--->
-<!--
-At the end of this section, save incremental data (if changes were made) so that users can pause and come back later
--->
 </section>
-<section id="data-exploration" class="level1">
+<section id="what-are-the-3-random-samples" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-the-3-random-samples">What are the 3 random samples?</h2>
+<ul>
+<li>NTC Samples:
+<ul>
+<li>2 females</li>
+<li>1 male</li>
+</ul></li>
+<li>SCZ Samples:
+<ul>
+<li>all 3 females</li>
+</ul></li>
+</ul>
+</section>
+<section id="prepare-the-data-for-import-into-spatialge-with-stlist" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="prepare-the-data-for-import-into-spatialge-with-stlist">Prepare the data for import into <code>spatialGE</code> (with <code>STlist</code>)</h2>
+<section id="spatial-coordinates-1" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="spatial-coordinates-1">Spatial Coordinates</h3>
+<ol type="1">
+<li>We make a list that we can store a dataframe in for each sample</li>
+<li>We loop through all 6 of the samples …. for each sample ….</li>
+<li>We read in the corresponding cell boundaries file</li>
+<li>We group that data by the <code>cell_id</code> column since multiple rows are present for each cell ID</li>
+<li>(with <code>slice</code>) We have to append the first row for each cell ID also to the bottom in order to “close the polygon” by going back to the starting vertex</li>
+<li>We grab coordinates for each cell’s polygon and store all coordinates in geometry column</li>
+<li>(with <code>st_as_sf()</code>) we convert the data frame into a simple feature object so that we can work within a spatial context (to compute the cell’s centroid) for non-spatial data structures</li>
+<li><code>st_centroid</code> computes the centroid location for each cell using the <code>geometry</code> column from step 6</li>
+<li>We grab x and y coordinates for the centroids, storing them in their own columns</li>
+<li>We store the Cell IDs and centroid coordinates as a dataframe for that sample</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>spatial_coords <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (sample <span class="cf">in</span> samples){</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  df_sample <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">paste0</span>(<span class="st">"/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                               sample,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"_"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                               spatial_sample_info[<span class="fu">which</span>(spatial_sample_info<span class="sc">$</span>X1 <span class="sc">==</span> sample), <span class="st">"Brain Number (ID)"</span>],</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"-cell_boundaries.csv.gz"</span>))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  centroids <span class="ot">&lt;-</span> df_sample <span class="sc">%&gt;%</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(cell_id) <span class="sc">%&gt;%</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(), <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">geometry =</span> sf<span class="sc">::</span><span class="fu">st_sfc</span>(<span class="fu">st_polygon</span>(<span class="fu">list</span>(<span class="fu">cbind</span>(vertex_x, vertex_y)))), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">centroid =</span> <span class="fu">st_centroid</span>(geometry)) <span class="sc">%&gt;%</span> <span class="co">#compute centroid location for each cell</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cx =</span> <span class="fu">st_coordinates</span>(centroid)[,<span class="dv">1</span>],</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>           <span class="at">cy =</span> <span class="fu">st_coordinates</span>(centroid)[,<span class="dv">2</span>])</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  spatial_coords[[sample]] <span class="ot">&lt;-</span> centroids <span class="sc">%&gt;%</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> <span class="co">#so that we can grab just the cell IDs and centroid x,y values</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(cell_id, cx, cy)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Note: I know that working with <code>parquet</code> or <code>zarr</code> files is preferable to this approach. But I don’t have <code>zarr</code> files, and I’m still working to see if I now have <code>parquet</code> files that I can use. We will provide descriptions of these more canonical ways or perhaps switch out for <code>parquet</code> files once we can</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><strong>Without access to the canonical files for this task, does this approach seem to be accurate, robust, and a sufficient method in place of those?</strong></p>
+</div></div></section>
+<section id="rna-counts-1" class="level3">
+<h3 class="anchored" data-anchor-id="rna-counts-1">RNA counts</h3>
+<p>Note, will show in a click to expand section that <code>rhdf5::h5dump</code> can be used to look at the headers of the data, especially because we have to provide a “name” in the reading function and knowing that name requires knowing the headers</p>
+<ol type="1">
+<li>We make a list that we can store a dataframe in for each sample</li>
+<li>We loop through all 6 of the samples …. for each sample ….</li>
+<li>We read in the corresponding cell feature matrix file</li>
+<li>We build a sparse matrix, using the elements of the h5 file that correspond to each argument (as explained in the data description section above)</li>
+<li>We expand it to be a dense matrix that can be turned into a dataframe</li>
+<li>We set the row names to be the feature names from the h5 file</li>
+<li>We set the column names to be the cell IDs from the h5 file</li>
+<li>We also move the rownames to the first column and name it “genes” because <code>spatialGE</code> looks for gene names in the first column, not as rownames, making sure they are unique. <a href="https://github.com/FridleyLab/spatialGE/blob/849c174f2c1537dc871987dfefb68da91beb96e3/R/STList.R#L415">Got an error here</a> until I fixed that and it wasn’t super obvious to me in the documentation.</li>
+<li>Finally we store this matrix in our named list for that sample</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rnacounts_input <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (sample <span class="cf">in</span> samples){</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  rna_h5data <span class="ot">&lt;-</span> rhdf5<span class="sc">::</span><span class="fu">h5read</span>(<span class="fu">paste0</span>(<span class="st">"/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                                     sample,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"_"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                                     spatial_sample_info[<span class="fu">which</span>(spatial_sample_info<span class="sc">$</span>X1 <span class="sc">==</span> sample), <span class="st">"Brain Number (ID)"</span>],</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"-cell_feature_matrix.h5"</span>),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                              <span class="at">name =</span> <span class="st">"matrix"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  rnacounts_input[[sample]] <span class="ot">&lt;-</span> Matrix<span class="sc">::</span><span class="fu">sparseMatrix</span>(<span class="at">i =</span> rna_h5data<span class="sc">$</span>indices,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">p =</span> rna_h5data<span class="sc">$</span>indptr,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">x =</span> <span class="fu">as.integer</span>(rna_h5data<span class="sc">$</span>data),</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">dims =</span> rna_h5data<span class="sc">$</span>shape,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">index1 =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">`</span><span class="at">rownames&lt;-</span><span class="st">`</span>(rna_h5data<span class="sc">$</span>features<span class="sc">$</span>name) <span class="sc">%&gt;%</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">`</span><span class="at">colnames&lt;-</span><span class="st">`</span>(rna_h5data<span class="sc">$</span>barcodes) <span class="sc">%&gt;%</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">rownames_to_column</span>(<span class="st">"genes"</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="sample-metadata" class="level3">
+<h3 class="anchored" data-anchor-id="sample-metadata">Sample metadata</h3>
+<ol type="1">
+<li>Filter to the 6 random samples</li>
+<li>Relocate the GEO sample IDs to the first column</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>samples_metadata <span class="ot">&lt;-</span> spatial_sample_info <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(X1 <span class="sc">%in%</span> samples) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(X1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<pre><code># A tibble: 6 × 4
+  X1         `Brain Number (ID)` Sex   PrimaryDx
+  &lt;chr&gt;      &lt;chr&gt;               &lt;chr&gt; &lt;chr&gt;
+1 GSM9223477 Br5314              F     Control
+2 GSM9223481 Br8433              M     Control
+3 GSM9223479 Br5746              F     Schizophrenia
+4 GSM9223484 Br5973              F     Schizophrenia
+5 GSM9223483 Br1139              F     Schizophrenia
+6 GSM9223485 Br8667              F     Control</code></pre>
+<p>This is what the sample metadata looks like at this stage. I can bring over more of the metadata columns like Age, <code>RIN</code>, and <code>PMI</code> depending on the analysis and homework steps.</p>
+</section>
+</section>
+<section id="prepare-a-spatialge-project-with-stlist" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="prepare-a-spatialge-project-with-stlist">Prepare a <code>spatialGE</code> project with <code>STlist</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> spatialGE<span class="sc">::</span><span class="fu">STlist</span>(<span class="at">rnacounts =</span> rnacounts_input,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">spotcoords =</span> spatial_coords,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">samples =</span> samples_metadata</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Then we’ll save the data so people can pick up at the next step after a break if they’d like. In testing the data, I’ve saved an input list as an <code>.rds</code> file before I’ve input it into <code>STlist</code> with no problem. Just want to make sure that the <code>STlist</code> object is being saved in an appropriate way that won’t cause issues.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><strong>Would either an <code>.rda</code> or <code>.rds</code> work for this <code>STlist</code> data?</strong></p>
+</div></div><hr>
+</section>
+</section>
+<section id="data-exploration" class="level1 page-columns page-full">
 <h1><strong>Data Exploration</strong></h1>
 <hr>
-<p>If you have been following along but stopped, we could load our imported data like so:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"imported"</span>, <span class="st">"pm25_data_imported.rda"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>Add instructions for loading the data…</p>
 <hr>
 <details>
 <summary>
 If you skipped the data import section click here.
 </summary>
-<p>An RDA version (stands for R data) of the data can be found <a href="https://github.com//opencasestudies/ocs-bp-co2-emissions/tree/master/data/imported">here</a> or slightly more directly <a href="https://raw.githubusercontent.com/opencasestudies/ocs-bp-co2-emissions/master/data/imported/co2_data_imported.rda">here</a>. Download this file and then place it in your current working directory within a subdirectory called “imported” within a directory called “data” to use the following code. We used an RStudio project and the <a href="https://github.com/jennybc/here_here"><code>here</code> package</a> to navigate to the file more easily.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"imported"</span>, <span class="st">"co2_data_imported.rda"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>Add instructions for loading the data…</p>
 </details>
 <hr>
-<!--
-Use this section to walk through any exploration of the dataset conducted pre-analysis.
--->
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_STlist</span>(scz_spatial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This is a 6 X 9 dataframe that provides</p>
+<ol type="1">
+<li><code>sample_name</code>: GEO IDs we provided in sample metadata</li>
+<li><code>spotscells</code>: how many spots or cells that sample has</li>
+<li><code>genes</code>: how many genes that sample has</li>
+<li><code>min_counts_per_spotcell</code>: minimum number of counts per spot or cell for that sample</li>
+<li><code>mean_counts_per_spotcell</code>: average number of counts per spot or cell for that sample</li>
+<li><code>max_counts_per_spotcell</code>: maximum number of counts per spot or cell for that sample</li>
+<li><code>min_genes_per_spotcell</code>: minimum number of genes (with non-zero counts?) per spot or cell for that sample</li>
+<li><code>mean_genes_per_spotcell</code>: average number of genes (with non-zero counts?) per spot or cell for that sample</li>
+<li><code>max_genes_per_spotcell</code>: maximum number of genes (with non-zero counts?) per spot or cell for that sample</li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">sample_name</th>
+<th style="text-align: center;">spotscells</th>
+<th style="text-align: center;">genes</th>
+<th style="text-align: center;">min_counts</th>
+<th style="text-align: center;">mean_counts</th>
+<th style="text-align: center;">max_counts</th>
+<th style="text-align: center;">min_genes</th>
+<th style="text-align: center;">mean_genes</th>
+<th style="text-align: center;">max_genes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">GSM9223477</td>
+<td style="text-align: center;">48542</td>
+<td style="text-align: center;">541</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">680.</td>
+<td style="text-align: center;">3365</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">97.5</td>
+<td style="text-align: center;">219</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">GSM9223479</td>
+<td style="text-align: center;">45675</td>
+<td style="text-align: center;">541</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">615.</td>
+<td style="text-align: center;">2912</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">92.4</td>
+<td style="text-align: center;">194</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">GSM9223481</td>
+<td style="text-align: center;">61932</td>
+<td style="text-align: center;">541</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">860.</td>
+<td style="text-align: center;">4241</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">108.</td>
+<td style="text-align: center;">219</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">GSM9223483</td>
+<td style="text-align: center;">59962</td>
+<td style="text-align: center;">541</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">750.</td>
+<td style="text-align: center;">4327</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">86.0</td>
+<td style="text-align: center;">211</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">GSM9223484</td>
+<td style="text-align: center;">44655</td>
+<td style="text-align: center;">541</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">619.</td>
+<td style="text-align: center;">3048</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">94.3</td>
+<td style="text-align: center;">204</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">GSM9223485</td>
+<td style="text-align: center;">68976</td>
+<td style="text-align: center;">541</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">939.</td>
+<td style="text-align: center;">4024</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">110.</td>
+<td style="text-align: center;">218</td>
+</tr>
+</tbody>
+</table>
+<p>Violin plot of counts per spot/cell for each sample</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distribution_plots</span>(scz_spatial, <span class="at">plot_type=</span><span class="st">'violin'</span>, <span class="at">plot_meta=</span><span class="st">'total_counts'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><a href="img/total_counts_qc.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="img/total_counts_qc.png" class="img-fluid" alt="six violins showing how many counts each spot or cell has for each sample" width="800"></a></p>
+<p>Violin plot of genes per spot/cell for each sample</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distribution_plots</span>(scz_spatial, <span class="at">plot_type=</span><span class="st">'violin'</span>, <span class="at">plot_meta=</span><span class="st">'total_genes'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><a href="img/total_genes_qc.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="img/total_genes_qc.png" class="img-fluid" alt="six violins showing how many genes each spot or cell has for each sample" width="800"></a></p>
+<p>What do we observe:</p>
+<ul>
+<li>There aren’t any samples that have a huge number of counts or genes higher than other samples, so I don’t think we’ll need to use a spot_max* argument within the <code>filter_data</code> function</li>
+<li>Every sample has at least 0 or 2 counts as a minimum (I’m surprised that it reports 0 and not the lowest non-zero value)</li>
+<li>Every sample has at least 0 or 2 genes as a minimum as well.</li>
+<li>Mean counts is around 600-900, with maxes in the thousands.</li>
+<li>Going to set a minimum of 500 reads/counts for each spot/cell since that’s a little below the mean.</li>
+<li>Mean genes is around 80-110, with maxes around 200.</li>
+<li>Going to set a minimum of 50 genes for each spot/cell since that’s a little below the mean.</li>
+<li>Some samples have a lot more spots/cells than others …. I should probably make a table after filtering to see if there are a similar number of spots/cells after filtering. But I also figure that means the tissue is different sizes?</li>
+</ul>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><strong>Given this table and these violin plots, are there filtering parameters you would suggest besides the ones I mentioned?</strong></p>
+</div></div><p>Won’t need to save data at the end of this step because we haven’t changed anything.</p>
 <!--
 Update the file paths as needed throughout
 -->
@@ -583,128 +956,327 @@ Some case studies may wish to merge Data Exploration with this Wrangling subsect
 At the end of this section, save incremental data so that users can pause and come back later
 -->
 </section>
-<section id="data-wrangling" class="level1">
+<section id="data-wrangling" class="level1 page-columns page-full">
 <h1><strong>Data Wrangling</strong></h1>
 <hr>
 <p>If you have been following along but stopped, we could load our imported data like so:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"imported"</span>, <span class="st">"pm25_data_imported.rda"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>Add instructions for loading the data…</p>
 <hr>
 <details>
 <summary>
 If you skipped the data import section click here.
 </summary>
-<p>An RDA version (stands for R data) of the data can be found <a href="https://github.com//opencasestudies/ocs-bp-co2-emissions/tree/master/data/imported">here</a> or slightly more directly <a href="https://raw.githubusercontent.com/opencasestudies/ocs-bp-co2-emissions/master/data/imported/co2_data_imported.rda">here</a>. Download this file and then place it in your current working directory within a subdirectory called “imported” within a directory called “data” to use the following code. We used an RStudio project and the <a href="https://github.com/jennybc/here_here"><code>here</code> package</a> to navigate to the file more easily.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"imported"</span>, <span class="st">"co2_data_imported.rda"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>Add instructions for loading the data…</p>
 </details>
 <hr>
-<!--
-Use this section to explain step-by-step the data wrangling process used to prepare the data for analysis.
-This includes an example of code annotation with Quarto. See the documentation for more information: https://quarto.org/docs/authoring/code-annotation.html
--->
-<p>To allow users to skip import and wrangling we will save the data as an RDA file as well as a CSV file as this is often useful to send our data to collaborators. We will save this in a “wrangled” subdirectory of our “data” directory of our working directory.</p>
+<section id="filtering" class="level2">
+<h2 class="anchored" data-anchor-id="filtering">Filtering</h2>
+<p>Note that values used for filtering here are based on results in the data exploration section above. So it and the data exploration section should either be combined in the final case study draft, or we’ll add a note about people needing to visit the data exploration step to under the values we’re using.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-11"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-11-1" class="code-annotation-target"><a href="#annotated-cell-11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(pm, <span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"wrangled"</span>, <span class="st">"wrangled_data.rda"</span>))</span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-11-2" class="code-annotation-target"><a href="#annotated-cell-11-2" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">write_csv</span>(pm, <span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"wrangled"</span>,</span>
-<span id="annotated-cell-11-3"><a href="#annotated-cell-11-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"wrangled_data.csv"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-annotation">
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-11" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-11" data-code-lines="1" data-code-annotation="1">saving the data as an RDA file within the wrangled data subdirectory</span>
-</dd>
-<dt data-target-cell="annotated-cell-11" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-11" data-code-lines="2,3" data-code-annotation="2">saving the data as a CSV file within the wrangled data subdirectory</span>
-</dd>
-</dl>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">filter_data</span>(scz_spatial,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">spot_minreads=</span><span class="dv">500</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">spot_mingenes=</span><span class="dv">50</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>I haven’t tried a lot of other values here, but based on the summarize table the violin plots, I’m happy to try other values you might suggest. Will definitely discuss the topic of choosing filter values here and what that impacts/what should motivate those choices/in a real analysis, you’re probably trying the analysis with a few to see how robust findings are</p>
+<p>I did try a lower number for minimum genes (25), but the quilt plots were much more cramped.</p>
+<details>
+<summary>
+What do the Violin plots look like now?
+</summary>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Table</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Total Counts</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Total Genes</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_STlist</span>(scz_spatial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">sample_name</th>
+<th style="text-align: center;">spotscells</th>
+<th style="text-align: center;">genes</th>
+<th style="text-align: center;">min_counts</th>
+<th style="text-align: center;">mean_counts</th>
+<th style="text-align: center;">max_counts</th>
+<th style="text-align: center;">min_genes</th>
+<th style="text-align: center;">mean_genes</th>
+<th style="text-align: center;">max_genes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">GSM9223477</td>
+<td style="text-align: center;">27106</td>
+<td style="text-align: center;">541</td>
+<td style="text-align: center;">500</td>
+<td style="text-align: center;">974.</td>
+<td style="text-align: center;">3365</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">124.</td>
+<td style="text-align: center;">219</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">GSM9223479</td>
+<td style="text-align: center;">22869</td>
+<td style="text-align: center;">541</td>
+<td style="text-align: center;">500</td>
+<td style="text-align: center;">935.</td>
+<td style="text-align: center;">2912</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">122.</td>
+<td style="text-align: center;">194</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">GSM9223481</td>
+<td style="text-align: center;">41494</td>
+<td style="text-align: center;">541</td>
+<td style="text-align: center;">500</td>
+<td style="text-align: center;">1149.</td>
+<td style="text-align: center;">4241</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">132.</td>
+<td style="text-align: center;">219</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">GSM9223483</td>
+<td style="text-align: center;">33036</td>
+<td style="text-align: center;">541</td>
+<td style="text-align: center;">500</td>
+<td style="text-align: center;">1148.</td>
+<td style="text-align: center;">4327</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">116.</td>
+<td style="text-align: center;">211</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">GSM9223484</td>
+<td style="text-align: center;">22845</td>
+<td style="text-align: center;">541</td>
+<td style="text-align: center;">500</td>
+<td style="text-align: center;">930.</td>
+<td style="text-align: center;">3048</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">119.</td>
+<td style="text-align: center;">204</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">GSM9223485</td>
+<td style="text-align: center;">50588</td>
+<td style="text-align: center;">541</td>
+<td style="text-align: center;">500</td>
+<td style="text-align: center;">1167.</td>
+<td style="text-align: center;">4024</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">126.</td>
+<td style="text-align: center;">218</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distribution_plots</span>(scz_spatial, <span class="at">plot_type=</span><span class="st">'violin'</span>, <span class="at">plot_meta=</span><span class="st">'total_counts'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><a href="img/total_counts_afterfilter.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="img/total_counts_afterfilter.png" class="img-fluid" alt="six violins showing how many counts each spot or cell has for each sample following filtering" width="800"></a></p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distribution_plots</span>(scz_spatial, <span class="at">plot_type=</span><span class="st">'violin'</span>, <span class="at">plot_meta=</span><span class="st">'total_genes'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><a href="img/total_genes_afterfilter.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="img/total_genes_afterfilter.png" class="img-fluid" alt="six violins showing how many genes each spot or cell has for each sample following filtering" width="800"></a></p>
 </div>
 </div>
-<!--
-Note that with this code annotation example, we've used a new line to space the code so that the annotation doesn't overlay the code
--->
-<!--
-Replace `pm` above with the name of the data object created at the end of data wrangling.
--->
-<hr>
-<!--
-Update the file paths as needed throughout
--->
-<!--
-At the end of this section, save incremental data so that users can pause and come back later
--->
+</div>
+</details>
 </section>
-<section id="data-visualization" class="level1">
+<section id="normalizing" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="normalizing">Normalizing</h2>
+<p>We’re using a log transform. Another option is the SCTransform which we’ll explain in a click to expand section. We can even compare the two normalization methods (but I’ll have to make two separate <code>STlist</code>’s for that)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">transform_data</span>(scz_spatial, <span class="at">method=</span><span class="st">'log'</span>, <span class="at">cores=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><strong>Should I add a visualization of what the normalized data looks like?</strong></p>
+</div></div><p>How would we go about adding a visualization of what normalized data looks like if we do?</p>
+<ul>
+<li>Note that the <code>pseudobulk_heatmap()</code> looks like a good candidate function for this from <code>spatialGE</code></li>
+<li>However, we would first have to run <code>pseudobulk_samples()</code> … which we’d need to do before the suggested HW of the <code>pseudoblock_dim_plot()</code> anyways.</li>
+<li>So I think this is either a candidate for a side quest (in a click to expand section here), or something that we’ll put in the suggested homework solely.</li>
+</ul>
+<p>Add instructions on saving the dataset here.</p>
+</section>
+</section>
+<section id="data-visualization" class="level1 page-columns page-full">
 <h1><strong>Data Visualization</strong></h1>
 <hr>
-<p>If you have been following along but stopped, we could load our wrangled data like so:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"wrangled"</span>, <span class="st">"wrangled_data.rda"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>If you have been following along but stopped, we could load our imported data like so:</p>
+<p>Add instructions for loading the data…</p>
 <hr>
 <details>
 <summary>
 If you skipped the data import section click here.
 </summary>
-<p>An RDA file (stands for R data) of the data can be found <a href="https://github.com//opencasestudies/ocs-bp-co2-emissions/tree/master/data/wrangled">here</a> or slightly more directly <a href="https://raw.githubusercontent.com/opencasestudies/ocs-bp-co2-emissions/master/data/wrangled/wrangled_data.rda">here</a>. Download this file and then place it in your current working directory within a subdirectory called “wrangled” within a subdirectory called “data” to use the following code. We used an RStudio project and the <a href="https://github.com/jennybc/here_here"><code>here</code> package</a> to navigate to the file more easily.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"wrangled"</span>, <span class="st">"wrangled_data.rda"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>Add instructions for loading the data…</p>
 </details>
 <hr>
-<!--
-Use this section to walk through step by step how the wrangled data was visualized.
-Explain how these visualizations improve understanding and help extract insights.
--->
-<!--
-If any further wrangling was conducted in this section,
-please save the most recent version of the data similar to previous sections.
--->
+<p>The genes I’m considering for this are SST, FKBP5, and CX3CR1. More discussion about these below, but suffice it to say that I at first grabbed two that were labeled in the Figure 2a volcano plot.</p>
+<p>We’re going to make quilt plots showing the expression of these genes for each spot/cell in two samples (one NTC and one SCZ).</p>
+<p>Note that quilt plots don’t require histology image (image of the tissue), because the spatial coordinates data that we input provides x and y coordinates for the center of each cell/spot. Therefore, we can place the location of these cells without a tissue image.</p>
+<p>Also note that this is Xenium data which means there are a lot of cells! So we’re going to use the <code>ptsize</code> argument to set the point size of the spots or cells to be really small. If we make it too large, it’s dense/cramped/hard to view the quilt plot</p>
+<p>I tested several color palettes and settled on <code>PuBuGn</code>…. more explanation below.</p>
+<p>We have <code>ggpubr</code> combine the common legends and display them on the bottom. It also is plotting the quilt plots in a 2 X 2 grid</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">CX3CR1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">SST</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>quilt25 <span class="ot">&lt;-</span> <span class="fu">STplot</span>(scz_spatial,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">samples =</span> samples_metadata<span class="sc">$</span>X1[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>)],</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"CX3CR1"</span>, <span class="st">"FKBP5"</span>),</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color_pal=</span><span class="st">'PuBuGn'</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ptsize=</span><span class="fl">0.05</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist=</span>quilt25,</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nrow=</span><span class="dv">2</span>,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ncol=</span><span class="dv">2</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend=</span><span class="st">'bottom'</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">common.legend =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><a href="img/quilt_plots_ntc81_scz83_cx3cr1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="img/quilt_plots_ntc81_scz83_cx3cr1.png" class="img-fluid" alt="Quilt plot showing the expression of two genes for a control neurotypical sample on the top and a Schizophrenia diagnosis sample on the bottom. Points in each quilt plot represent a single cell or spot within its spatial context. Expression levels are displayed with a color gradient where light purple corresponds to low expression, blue corresponds to medium expression, and green corresponds to high expression. The first gene on the left is CX3CR1 a downregulated gene and we see lower expression levels on the bottom quilt plot because it is paler overall. The gene on the right is FKBP5 an upregulated gene and we see higher levels of expression on the bottom quilt plot because it has more blues and greens." width="800"></a></p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>quilt25 <span class="ot">&lt;-</span> <span class="fu">STplot</span>(scz_spatial,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">samples =</span> samples_metadata<span class="sc">$</span>X1[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>)],</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"SST"</span>, <span class="st">"FKBP5"</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color_pal=</span><span class="st">'PuBuGn'</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ptsize=</span><span class="fl">0.05</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist=</span>quilt25,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nrow=</span><span class="dv">2</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ncol=</span><span class="dv">2</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend=</span><span class="st">'bottom'</span>,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">common.legend =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><a href="img/quilt_plots_ntc81_scz83_sst.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="img/quilt_plots_ntc81_scz83_sst.png" class="img-fluid" alt="Quilt plot showing the expression of two genes for a control neurotypical sample on the top and a Schizophrenia diagnosis sample on the bottom. Points in each quilt plot represent a single cell or spot within its spatial context. Expression levels are displayed with a color gradient where light purple corresponds to low expression, blue corresponds to medium expression, and green corresponds to high expression. The first gene on the left is FKBP5 an upregulated gene and we see higher levels of expression on the bottom quilt plot because it has more blues and greens. The gene on the right is SST a downregulated gene and we see lower expression levels on the bottom quilt plot because it is paler overall." width="800"></a></p>
+</div>
+</div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><strong>Which downregulated gene (SST or CX3CR1) would you recommend visualizing in this section?</strong></p>
+</div></div><p><strong>Which downregulated gene?</strong></p>
+<p>The genes SST and FKBP5 are both annotated in the Figure 2a Volcano Plot as DEGs. SST is downregulated in SCZ cases and FKBP5 is upregulated in SCZ cases.</p>
+<p>Looking at the quilt plot for SST however, it wasn’t as clearly downregulated as I was hoping. So I went to <a href="https://www.biorxiv.org/content/biorxiv/early/2026/02/17/2026.02.16.706214/DC5/embed/media-5.xlsx?download=true">Supplementary Table 4 from the paper</a> and found the gene with the lowest / most negative log fold change: CX3CR1</p>
+<p><strong>Between SST and CX3CR1, which one would be the better plot to include? Considerations…</strong></p>
+<ul>
+<li>I personally think that it’s easier to observe that CX3CR1 appears downregulated in the quilt plots</li>
+<li>I like that SST is annotated in Figure 2 and that’s why we grabbed it (CX3CR1 isn’t).</li>
+</ul>
+<p><strong>Color Palettes</strong></p>
+<p>I tested several color palettes and settled on <code>PuBuGn</code> for several reasons. (Note: this could be a cool side quest to include in the case study)</p>
+<ol type="1">
+<li>Easier to distinguish changes in expression (e.g., up vs down regulated). <code>BuRd</code> and <code>Spectral</code> were best for this otherwise.</li>
+<li>The lighter color was no longer in the center (as if the log expression values were “centered”) and instead is on the lower level of the spectrum. <code>Spectral</code> was the only other one not centered on white, but it was still centered on a lighter color.</li>
+<li>Looking at the result with a color vision deficiency simulator (<code>cvg_grid()</code> from <code>colorblindr</code>) the general conclusions are still possible in my opinion. This wasn’t the case with <code>PrGn</code>, <code>BuRd</code>, or <code>Spectral</code> when I tested them.</li>
+</ol>
+<p><img src="img/simulator_results.png" class="img-fluid"></p>
+<p>Note that this simulator example is only for the CX3CR1 gene, but it was true for the SST gene too.</p>
 <hr>
 </section>
 <section id="data-analysis" class="level1 page-columns page-full">
 <h1><strong>Data Analysis</strong></h1>
 <hr>
-<p>If you have been following along but stopped, we could load our wrangled data like so:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"wrangled"</span>, <span class="st">"wrangled_data.rda"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>If you have been following along but stopped, we could load our imported data like so:</p>
+<p>Add instructions for loading the data…</p>
 <hr>
 <details>
 <summary>
 If you skipped the data import section click here.
 </summary>
-<p>An RDA file (stands for R data) of the data can be found <a href="https://github.com//opencasestudies/ocs-bp-co2-emissions/tree/master/data/wrangled">here</a> or slightly more directly <a href="https://raw.githubusercontent.com/opencasestudies/ocs-bp-co2-emissions/master/data/wrangled/wrangled_data.rda">here</a>. Download this file and then place it in your current working directory within a subdirectory called “wrangled” within a subdirectory called “data” to use the following code. We used an RStudio project and the <a href="https://github.com/jennybc/here_here"><code>here</code> package</a> to navigate to the file more easily.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"wrangled"</span>, <span class="st">"wrangled_data.rda"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>Add instructions for loading the data…</p>
 </details>
 <hr>
-<div class="think_question">
-<div class="think_question_header">
-<p>Question opportunity</p>
-</div>
-<div class="inner_block">
+<!--
+:::{.think_question}
+::::{.think_question_header}
+Question opportunity
+::::
+::::{.inner_block}
 Pose a question about the data analysis.
-<details>
-<summary>
-Answer
-</summary>
+<details><summary>Answer</summary>
 You can use a collapsible details section to provide an answer
 </details>
-</div>
-</div>
+::::
+:::
 
-<!--
-Use this section to walk through the methods and code used in the data analysis step-by-step.
-Explain how this analysis helps answer the main questions posed earlier in the case study.
 -->
+<p>We will use <code>SThet</code> to look at the autocorrelation of the expression of genes throughout the samples.</p>
+<p>Moran’s I Interpretation:</p>
+<ul>
+<li>Positive: autocorrelation – similar expression is located near similar expression</li>
+<li>0: random distribution</li>
+<li>Negative: dissimilar expression is located near each other</li>
+</ul>
+<p>Running <code>SThet</code> takes 12-15 minutes on our institutional HPC with 2 cores for 2-4 genes across the 6 samples (though only 5 of the 6 run successfully. The sixth fails somewhat silently).</p>
+
 <div class="no-row-height column-margin column-container"><div class="">
-<p>We might use a column margin note to add an equation or some other annotation for learners or educators.</p>
-</div></div><hr>
+<p><strong>Why might the final sample be failing? … I did find this warning message that talks about errors</strong></p>
+</div></div><pre><code>Warning messages:
+1: In parallel::mclapply(seq(names(x@spatial_meta)), function(i) { :
+  1 function calls resulted in an error
+2: In parallel::mclapply(seq_along(1:length(unique(as.vector(unlist(combo[[1]]))))),  :
+  1 function calls resulted in an error</code></pre>
+<p>And <code>get_gene_meta()</code> takes a couple extra minutes after that. My personal computer can’t run this step at all without crashing (though every <code>spatialGE</code> step before this it can handle).</p>
+<p>Prior to running this step, the data/<code>STlist</code> is several hundred MB. Once I’ve run this step, the data is several hundred GB.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">SThet</span>(scz_spatial, <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"CX3CR1"</span>, <span class="st">"MBP"</span>, <span class="st">"FKBP5"</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">get_gene_meta</span>(scz_spatial, <span class="at">sthet_only =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Possibilities for feasibility</strong>:</p>
+<ul>
+<li>From the documentation, I saw that the k-nearest neighbors approach will be faster, but less accurate, so we could try that.</li>
+<li>We could provide the output and do an analysis task with the output from <code>get_gene_meta()</code> – see thoughts on Z-score below in the “Questions on using this function list.”</li>
+<li>We could focus on just two samples instead of 6, but the quilt plot is already using just two samples, so I don’t think it makes sense to not use as many as we can here.</li>
+<li>We could subset the data to select a fewer number of cells (randomly drop some cell IDs from the data that we give learners)</li>
+<li>We could compute the statistic for a fewer number of genes (just 2?) … this didn’t seem to speed up the process that much when I tried it</li>
+</ul>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><strong>Do you have any recommendations on how to make this combination of <code>SThet</code> and <code>get_gene_meta()</code> a more feasible step?</strong></p>
+</div></div><p><strong>Brainstorming on significance</strong></p>
+<ul>
+<li>If I was trying to compute a z-score from the resulting dataframe …
+<ul>
+<li>should I use the <code>gene_mean</code> value as the expected value</li>
+<li>should I use the <code>gene_stdevs</code> value as the standard deviation.</li>
+</ul></li>
+</ul>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><strong>How do we know if a Moran’s I value that is greater than 0 is significantly far from or greater than zero using this function? Does this function compute p-values or help me to compute a z-score?</strong></p>
+</div></div><p>If so, I think that’s the best possible “analysis” we can have people do if we give them the dataframe … have them compute the z-score.</p>
+<p>So something like …?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>gene_meta_out <span class="ot">&lt;-</span> gene_meta_out <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">summarize</span>(<span class="at">gene_sample_z =</span> (moran_i <span class="sc">-</span> gene_mean) <span class="sc">/</span> gene_stdevs)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#And do one-tailed tests comparing to difference from 0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
 </section>
 <section id="summary" class="level1">
 <h1><strong>Summary</strong></h1>
@@ -731,13 +1303,28 @@ construct a plot here that summarizes the conclusions found in the data, if appl
 <hr>
 </section>
 </section>
-<section id="suggested-homework" class="level1">
+<section id="suggested-homework" class="level1 page-columns page-full">
 <h1><strong>Suggested Homework</strong></h1>
 <hr>
-<!--
-Suggest extra exercises using this data for students to practice the skills used in the case study.
-Example from a previous case study: https://www.opencasestudies.org/ocs-bp-co2-emissions/#Suggested_Homework
--->
+<p>For the suggested homework, I think it would make sense to do a PCA of the samples, which is something Brooke had suggested. We can do this locally like all the steps except for the autocorrelation analysis.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">pseudobulk_samples</span>(scz_spatial, <span class="at">max_var_genes =</span> <span class="dv">150</span>) <span class="co">#decreased compared to the default since the Xenium panel is based on a lower number of genes than say Visium data</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudobulk_heatmap</span>(scz_spatial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><img src="img/pseudobulk_heatmap.png" class="img-fluid"></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudobulk_dim_plot</span>(scz_spatial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><img src="img/pseudobulk_pca.png" class="img-fluid"></p>
+<p>When I try to color the PCA plot by a variable in my sample metadata (using <code>plot_meta</code> parameter), it errors and tells me that data doesn’t exist. I’ve tried changing capitalization and several other steps, but the value should be there.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p><strong>Do you know what I could be doing wrong here using the <code>plot_meta</code> argument?</strong></p>
+</div></div><p>Column names:</p>
+<pre><code>X1         `Brain Number (ID)` Sex   PrimaryDx</code></pre>
+<p>Error:</p>
+<pre><code>Error in prepare_pseudobulk_meta(x, plot_meta) :
+Variable not in sample metadata. Verify that input matches variable name in sample data</code></pre>
 <hr>
 </section>
 <section id="additional-information" class="level1">
@@ -760,7 +1347,7 @@ Automatically include the packages table from _packages.qmd?
 <h2 class="anchored" data-anchor-id="session-info"><strong>Session Info</strong></h2>
 <hr>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">session_info</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">session_info</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>─ Session info ───────────────────────────────────────────────────────────────
  setting  value
@@ -772,26 +1359,20 @@ Automatically include the packages table from _packages.qmd?
  collate  en_US.UTF-8
  ctype    en_US.UTF-8
  tz       Etc/UTC
- date     2026-03-03
+ date     2026-05-15
  pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────
  package     * version date (UTC) lib source
- bit           4.0.5   2022-11-15 [1] RSPM (R 4.3.0)
- bit64         4.0.5   2020-08-30 [1] RSPM (R 4.3.0)
  cachem        1.0.8   2023-05-01 [1] RSPM (R 4.3.0)
  cli           3.6.5   2025-04-23 [1] CRAN (R 4.3.2)
- crayon        1.5.2   2022-09-29 [1] RSPM (R 4.3.0)
  devtools      2.4.5   2022-10-11 [1] RSPM (R 4.3.0)
  digest        0.6.34  2024-01-11 [1] RSPM (R 4.3.0)
  ellipsis      0.3.2   2021-04-29 [1] RSPM (R 4.3.0)
  evaluate      1.0.5   2025-08-27 [1] CRAN (R 4.3.2)
- fansi         1.0.6   2023-12-08 [1] RSPM (R 4.3.0)
  fastmap       1.1.1   2023-02-24 [1] RSPM (R 4.3.0)
  fs            1.6.3   2023-07-20 [1] RSPM (R 4.3.0)
  glue          1.7.0   2024-01-09 [1] RSPM (R 4.3.0)
- here        * 1.0.2   2025-09-15 [1] CRAN (R 4.3.2)
- hms           1.1.3   2023-03-21 [1] RSPM (R 4.3.0)
  htmltools     0.5.7   2023-11-03 [1] RSPM (R 4.3.0)
  htmlwidgets   1.6.4   2023-12-06 [1] RSPM (R 4.3.0)
  httpuv        1.6.14  2024-01-26 [1] RSPM (R 4.3.0)
@@ -803,32 +1384,23 @@ Automatically include the packages table from _packages.qmd?
  memoise       2.0.1   2021-11-26 [1] RSPM (R 4.3.0)
  mime          0.12    2021-09-28 [1] RSPM (R 4.3.0)
  miniUI        0.1.1.1 2018-05-18 [1] RSPM (R 4.3.0)
- pillar        1.9.0   2023-03-22 [1] RSPM (R 4.3.0)
  pkgbuild      1.4.3   2023-12-10 [1] RSPM (R 4.3.0)
- pkgconfig     2.0.3   2019-09-22 [1] RSPM (R 4.3.0)
  pkgload       1.4.1   2025-09-23 [1] CRAN (R 4.3.2)
  profvis       0.3.8   2023-05-02 [1] RSPM (R 4.3.0)
  promises      1.2.1   2023-08-10 [1] RSPM (R 4.3.0)
  purrr         1.0.2   2023-08-10 [1] RSPM (R 4.3.0)
  R6            2.6.1   2025-02-15 [1] CRAN (R 4.3.2)
  Rcpp          1.0.12  2024-01-09 [1] RSPM (R 4.3.0)
- readr         2.1.5   2024-01-10 [1] RSPM (R 4.3.0)
  remotes       2.4.2.1 2023-07-18 [1] RSPM (R 4.3.0)
  rlang         1.1.6   2025-04-11 [1] CRAN (R 4.3.2)
  rmarkdown     2.25    2023-09-18 [1] RSPM (R 4.3.0)
- rprojroot     2.1.1   2025-08-26 [1] CRAN (R 4.3.2)
  sessioninfo   1.2.2   2021-12-06 [1] RSPM (R 4.3.0)
  shiny         1.8.0   2023-11-17 [1] RSPM (R 4.3.0)
  stringi       1.8.3   2023-12-11 [1] RSPM (R 4.3.0)
  stringr       1.5.1   2023-11-14 [1] RSPM (R 4.3.0)
- tibble        3.3.0   2025-06-08 [1] CRAN (R 4.3.2)
- tidyselect    1.2.0   2022-10-10 [1] RSPM (R 4.3.0)
- tzdb          0.4.0   2023-05-12 [1] RSPM (R 4.3.0)
  urlchecker    1.0.1   2021-11-30 [1] RSPM (R 4.3.0)
  usethis       2.2.3   2024-02-19 [1] RSPM (R 4.3.0)
- utf8          1.2.4   2023-10-22 [1] RSPM (R 4.3.0)
  vctrs         0.6.5   2023-12-01 [1] RSPM (R 4.3.0)
- vroom         1.6.5   2023-12-05 [1] RSPM (R 4.3.0)
  xfun          0.55    2025-12-16 [1] CRAN (R 4.3.2)
  xtable        1.8-4   2019-04-21 [1] RSPM (R 4.3.0)
  yaml          2.3.12  2025-12-10 [1] CRAN (R 4.3.2)
