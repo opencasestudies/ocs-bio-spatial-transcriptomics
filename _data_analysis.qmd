@@ -25,10 +25,6 @@ You can use a collapsible details section to provide an answer
 ::::
 :::
 
-::: {.column-margin}
-We might use a column margin note to add an equation or some other annotation for learners or educators.
-:::
-
 We will use `SThet` to look at the autocorrelation of the expression of genes throughout the samples.
 
 Moran's I Interpretation:
@@ -37,7 +33,25 @@ Moran's I Interpretation:
 * 0: random distribution
 * Negative: dissimilar expression is located near each other
 
-Running `SThet` takes 12-15 minutes on our institutional HPC with 2 cores for 2-4 genes across the 6 samples (though only 5 of the 6 run successfully. The sixth fails silently). And `get_gene_meta()` takes a couple extra minutes after that. My personal computer can't run this step at all without crashing (though every `spatialGE` step before this it can handle).
+Running `SThet` takes 12-15 minutes on our institutional HPC with 2 cores for 2-4 genes across the 6 samples (though only 5 of the 6 run successfully. The sixth fails somewhat silently).
+
+::: {.column-margin}
+Why might the final sample be failing? ... I did find this warning message that talks about errors:::
+:::
+
+```
+Warning messages:
+1: In parallel::mclapply(seq(names(x@spatial_meta)), function(i) { :
+  1 function calls resulted in an error
+2: In parallel::mclapply(seq_along(1:length(unique(as.vector(unlist(combo[[1]]))))),  :
+  1 function calls resulted in an error
+```
+
+And `get_gene_meta()` takes a couple extra minutes after that. My personal computer can't run this step at all without crashing (though every `spatialGE` step before this it can handle).
+
+::: {.column-margin}
+Do you have any recommendations on how to make this combination of `SThet` and `get_gene_meta()` a more feasible step?
+:::
 
 Prior to running this step, the data/`STlist` is several hundred MB. Once I've run this step, the data is several hundred GB.
 
@@ -46,8 +60,7 @@ scz_spatial <- SThet(scz_spatial, genes = c("CX3CR1", "MBP", "FKBP5"))
 get_gene_meta(scz_spatial, sthet_only = TRUE)
 ```
 
-
-Possibilities for feasibility:
+**Possibilities for feasibility**:
 
 * From the documentation, I saw that the k-nearest neighbors approach will be faster, but less accurate, so we could try that.
 * We could provide the output and do an analysis task with the output from `get_gene_meta()` -- see thoughts on Z-score below in the "Questions on using this function list."
@@ -55,9 +68,17 @@ Possibilities for feasibility:
 * We could subset the data to select a fewer number of cells (randomly drop some cell IDs from the data that we give learners)
 * We could compute the statistic for a fewer number of genes (just 2?) ... this didn't seem to speed up the process that much when I tried it
 
-Questions on using this function:
+::: {.column-margin}
+How do we know if a Moran's I value that is greater than 0 is significantly far from or greater than zero using this function? Does this function compute p-values or help me to compute a z-score?
+:::
 
-* How do we know if a Moran's I value that is greater than 0 is significantly far from or greater than zero? Does this function compute p-values or help me to compute a z-score? Like should I use the mean genes value as the expected value and compute a z-score that way? If so, I think that's the best possible "analysis" we can have people do if we give them the dataframe ... have them compute the z-score.
+**Brainstorming on significance**
+
+* If I was trying to compute a z-score from the resulting dataframe ...
+  * should I use the `gene_mean` value as the expected value
+  * should I use the `gene_stdevs` value as the standard deviation.
+
+If so, I think that's the best possible "analysis" we can have people do if we give them the dataframe ... have them compute the z-score.
 
 So something like ...?
 
@@ -65,18 +86,6 @@ So something like ...?
 gene_meta_out <- gene_meta_out %>%
                     summarize(gene_sample_z = (moran_i - gene_mean) / gene_stdevs)
 #And do one-tailed tests comparing to difference from 0
-```
-
-
-
-* Why might the final sample be failing? ... I did find this warning message that talks about errors
-
-```
-Warning messages:
-1: In parallel::mclapply(seq(names(x@spatial_meta)), function(i) { :
-  1 function calls resulted in an error
-2: In parallel::mclapply(seq_along(1:length(unique(as.vector(unlist(combo[[1]]))))),  :
-  1 function calls resulted in an error
 ```
 
 ***

@@ -1,11 +1,3 @@
-<!--
-Update the file paths as needed throughout
--->
-
-<!--
-At the end of this section, save incremental data so that users can pause and come back later
--->
-
 # **Data Import**
 ***
 
@@ -137,6 +129,19 @@ samples_metadata <- spatial_sample_info %>%
   filter(X1 %in% samples) %>%
   relocate(X1)
 ```
+
+```
+# A tibble: 6 × 4
+  X1         `Brain Number (ID)` Sex   PrimaryDx
+  <chr>      <chr>               <chr> <chr>
+1 GSM9223477 Br5314              F     Control
+2 GSM9223481 Br8433              M     Control
+3 GSM9223479 Br5746              F     Schizophrenia
+4 GSM9223484 Br5973              F     Schizophrenia
+5 GSM9223483 Br1139              F     Schizophrenia
+6 GSM9223485 Br8667              F     Control
+```
+
 
 ## Prepare a `spatialGE` project with `STlist`
 

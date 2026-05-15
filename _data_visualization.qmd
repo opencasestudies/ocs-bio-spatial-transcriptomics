@@ -66,6 +66,10 @@ ggpubr::ggarrange(plotlist=quilt25,
 
 :::
 
+::: {.column-margin}
+Which downregulated gene (SST or CX3CR1) would you recommend visualizing in this section?
+:::
+
 **Which downregulated gene?**
 
 The genes SST and FKBP5 are both annotated in the Figure 2a Volcano Plot as DEGs. SST is downregulated in SCZ cases and FKBP5 is upregulated in SCZ cases.
@@ -79,7 +83,7 @@ Looking at the quilt plot for SST however, it wasn't as clearly downregulated as
 
 **Color Palettes**
 
-I tested several color palettes and settled on `PuBuGn` for several reasons
+I tested several color palettes and settled on `PuBuGn` for several reasons. (Note: this could be a cool side quest to include in the case study)
 
 1. Easier to distinguish changes in expression (e.g., up vs down regulated). `BuRd` and `Spectral` were best for this otherwise.
 2. The lighter color was no longer in the center (as if the log expression values were "centered") and instead is on the lower level of the spectrum. `Spectral` was the only other one not centered on white, but it was still centered on a lighter color.
