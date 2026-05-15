@@ -1,25 +1,19 @@
 # **Data Analysis**
 ***
 
-If you have been following along but stopped, we could load our wrangled data like so:
+If you have been following along but stopped, we could load our imported data like so:
 
-```{r}
-load(here::here("data", "wrangled", "wrangled_data.rda"))
-```
+Add instructions for loading the data...
 
 ***
 <details> <summary> If you skipped the data import section click here. </summary>
 
-An RDA file (stands for R data) of the data can be found [here](https://github.com//opencasestudies/ocs-bp-co2-emissions/tree/master/data/wrangled) or slightly more directly [here](https://raw.githubusercontent.com/opencasestudies/ocs-bp-co2-emissions/master/data/wrangled/wrangled_data.rda). Download this file and then place it in your current working directory within a subdirectory called "wrangled" within a subdirectory called "data" to use the following code. We used an RStudio project and the [`here` package](https://github.com/jennybc/here_here) to navigate to the file more easily.
-
-
-```{r}
-load(here::here("data", "wrangled", "wrangled_data.rda"))
-```
+Add instructions for loading the data...
 
 </details>
 ***
 
+<!--
 :::{.think_question}
 ::::{.think_question_header}
 Question opportunity
@@ -32,13 +26,71 @@ You can use a collapsible details section to provide an answer
 ::::
 :::
 
+-->
+
+We will use `SThet` to look at the autocorrelation of the expression of genes throughout the samples.
+
+Moran's I Interpretation:
+
+* Positive: autocorrelation -- similar expression is located near similar expression
+* 0: random distribution
+* Negative: dissimilar expression is located near each other
+
+Running `SThet` takes 12-15 minutes on our institutional HPC with 2 cores for 2-4 genes across the 6 samples (though only 5 of the 6 run successfully. The sixth fails somewhat silently).
+
 ::: {.column-margin}
-We might use a column margin note to add an equation or some other annotation for learners or educators.
+**Why might the final sample be failing? ... I did find this warning message that talks about errors**
 :::
 
-<!--
-Use this section to walk through the methods and code used in the data analysis step-by-step.
-Explain how this analysis helps answer the main questions posed earlier in the case study.
--->
+```
+Warning messages:
+1: In parallel::mclapply(seq(names(x@spatial_meta)), function(i) { :
+  1 function calls resulted in an error
+2: In parallel::mclapply(seq_along(1:length(unique(as.vector(unlist(combo[[1]]))))),  :
+  1 function calls resulted in an error
+```
+
+And `get_gene_meta()` takes a couple extra minutes after that. My personal computer can't run this step at all without crashing (though every `spatialGE` step before this it can handle).
+
+
+Prior to running this step, the data/`STlist` is several hundred MB. Once I've run this step, the data is several hundred GB.
+
+```{r, eval = FALSE}
+scz_spatial <- SThet(scz_spatial, genes = c("CX3CR1", "MBP", "FKBP5"))
+get_gene_meta(scz_spatial, sthet_only = TRUE)
+```
+
+**Possibilities for feasibility**:
+
+* From the documentation, I saw that the k-nearest neighbors approach will be faster, but less accurate, so we could try that.
+* We could provide the output and do an analysis task with the output from `get_gene_meta()` -- see thoughts on Z-score below in the "Questions on using this function list."
+* We could focus on just two samples instead of 6, but the quilt plot is already using just two samples, so I don't think it makes sense to not use as many as we can here.
+* We could subset the data to select a fewer number of cells (randomly drop some cell IDs from the data that we give learners)
+* We could compute the statistic for a fewer number of genes (just 2?) ... this didn't seem to speed up the process that much when I tried it
+
+::: {.column-margin}
+**Do you have any recommendations on how to make this combination of `SThet` and `get_gene_meta()` a more feasible step?**
+:::
+
+**Brainstorming on significance**
+
+* If I was trying to compute a z-score from the resulting dataframe ...
+  * should I use the `gene_mean` value as the expected value
+  * should I use the `gene_stdevs` value as the standard deviation.
+
+::: {.column-margin}
+**How do we know if a Moran's I value that is greater than 0 is significantly far from or greater than zero using this function? Does this function compute p-values or help me to compute a z-score?**
+:::
+
+
+If so, I think that's the best possible "analysis" we can have people do if we give them the dataframe ... have them compute the z-score.
+
+So something like ...?
+
+```{r, eval = FALSE}
+gene_meta_out <- gene_meta_out %>%
+                    summarize(gene_sample_z = (moran_i - gene_mean) / gene_stdevs)
+#And do one-tailed tests comparing to difference from 0
+```
 
 ***

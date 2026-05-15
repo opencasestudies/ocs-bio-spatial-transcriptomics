@@ -1,9 +1,36 @@
 # **Suggested Homework**
 ***
 
-<!--
-Suggest extra exercises using this data for students to practice the skills used in the case study.
-Example from a previous case study: https://www.opencasestudies.org/ocs-bp-co2-emissions/#Suggested_Homework
--->
+For the suggested homework, I think it would make sense to do a PCA of the samples, which is something Brooke had suggested. We can do this locally like all the steps except for the autocorrelation analysis.
+
+```{r, eval = FALSE}
+scz_spatial <- pseudobulk_samples(scz_spatial, max_var_genes = 150) #decreased compared to the default since the Xenium panel is based on a lower number of genes than say Visium data
+pseudobulk_heatmap(scz_spatial)
+```
+
+![](img/pseudobulk_heatmap.png)
+
+```{r, eval = FALSE}
+pseudobulk_dim_plot(scz_spatial)
+```
+
+![](img/pseudobulk_pca.png)
+
+When I try to color the PCA plot by a variable in my sample metadata (using `plot_meta` parameter), it errors and tells me that data doesn't exist. I've tried changing capitalization and several other steps, but the value should be there.
+
+::: {.column-margin}
+**Do you know what I could be doing wrong here using the `plot_meta` argument?**
+:::
+
+Column names:
+```
+X1         `Brain Number (ID)` Sex   PrimaryDx
+```
+
+Error:
+```
+Error in prepare_pseudobulk_meta(x, plot_meta) :
+Variable not in sample metadata. Verify that input matches variable name in sample data
+```
 
 ***
