@@ -16,7 +16,11 @@ pseudobulk_dim_plot(scz_spatial)
 
 ![](img/pseudobulk_pca.png)
 
-**When I try to color the PCA plot by a variable in my sample metadata (using `plot_meta` parameter), it errors and tells me that data doesn't exist. I've tried changing capitalization and several other steps, but the value should be there. Do you know what I could be doing wrong here?**
+When I try to color the PCA plot by a variable in my sample metadata (using `plot_meta` parameter), it errors and tells me that data doesn't exist. I've tried changing capitalization and several other steps, but the value should be there.
+
+::: {.column-margin}
+**Do you know what I could be doing wrong here using the `plot_meta` argument?**
+:::
 
 Column names:
 ```

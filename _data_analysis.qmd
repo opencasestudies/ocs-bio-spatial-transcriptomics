@@ -13,6 +13,7 @@ Add instructions for loading the data...
 </details>
 ***
 
+<!--
 :::{.think_question}
 ::::{.think_question_header}
 Question opportunity
@@ -25,6 +26,8 @@ You can use a collapsible details section to provide an answer
 ::::
 :::
 
+-->
+
 We will use `SThet` to look at the autocorrelation of the expression of genes throughout the samples.
 
 Moran's I Interpretation:
@@ -36,7 +39,7 @@ Moran's I Interpretation:
 Running `SThet` takes 12-15 minutes on our institutional HPC with 2 cores for 2-4 genes across the 6 samples (though only 5 of the 6 run successfully. The sixth fails somewhat silently).
 
 ::: {.column-margin}
-Why might the final sample be failing? ... I did find this warning message that talks about errors:::
+**Why might the final sample be failing? ... I did find this warning message that talks about errors**
 :::
 
 ```
@@ -49,9 +52,6 @@ Warning messages:
 
 And `get_gene_meta()` takes a couple extra minutes after that. My personal computer can't run this step at all without crashing (though every `spatialGE` step before this it can handle).
 
-::: {.column-margin}
-Do you have any recommendations on how to make this combination of `SThet` and `get_gene_meta()` a more feasible step?
-:::
 
 Prior to running this step, the data/`STlist` is several hundred MB. Once I've run this step, the data is several hundred GB.
 
@@ -69,7 +69,7 @@ get_gene_meta(scz_spatial, sthet_only = TRUE)
 * We could compute the statistic for a fewer number of genes (just 2?) ... this didn't seem to speed up the process that much when I tried it
 
 ::: {.column-margin}
-How do we know if a Moran's I value that is greater than 0 is significantly far from or greater than zero using this function? Does this function compute p-values or help me to compute a z-score?
+**Do you have any recommendations on how to make this combination of `SThet` and `get_gene_meta()` a more feasible step?**
 :::
 
 **Brainstorming on significance**
@@ -77,6 +77,11 @@ How do we know if a Moran's I value that is greater than 0 is significantly far 
 * If I was trying to compute a z-score from the resulting dataframe ...
   * should I use the `gene_mean` value as the expected value
   * should I use the `gene_stdevs` value as the standard deviation.
+
+::: {.column-margin}
+**How do we know if a Moran's I value that is greater than 0 is significantly far from or greater than zero using this function? Does this function compute p-values or help me to compute a z-score?**
+:::
+
 
 If so, I think that's the best possible "analysis" we can have people do if we give them the dataframe ... have them compute the z-score.
 

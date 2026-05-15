@@ -81,6 +81,10 @@ for (sample in samples){
 
 Note: I know that working with `parquet` or `zarr` files is preferable to this approach. But I don't have `zarr` files, and I'm still working to see if I now have `parquet` files that I can use. We will provide descriptions of these more canonical ways or perhaps switch out for `parquet` files once we can
 
+::: {.column-margin}
+**Without access to the canonical files for this task, does this approach seem to be accurate, robust, and a sufficient method in place of those?**
+:::
+
 ### RNA counts
 
 Note, will show in a click to expand section that `rhdf5::h5dump` can be used to look at the headers of the data, especially because we have to provide a "name" in the reading function and knowing that name requires knowing the headers
@@ -142,6 +146,7 @@ samples_metadata <- spatial_sample_info %>%
 6 GSM9223485 Br8667              F     Control
 ```
 
+This is what the sample metadata looks like at this stage. I can bring over more of the metadata columns like Age, `RIN`, and `PMI` depending on the analysis and homework steps.
 
 ## Prepare a `spatialGE` project with `STlist`
 
@@ -152,6 +157,10 @@ scz_spatial <- spatialGE::STlist(rnacounts = rnacounts_input,
                                 )
 ```
 
-Then we'll save the data so people can pick up at the next step after a break if they'd like. **Would either an `.rda` or `.rds` work for this data?** In testing the data, I've saved an input list as an `.rds` file before I've input it into `STlist` with no problem. Just want to make sure that the `STlist` object is being saved in an appropriate way that won't cause issues.
+Then we'll save the data so people can pick up at the next step after a break if they'd like. In testing the data, I've saved an input list as an `.rds` file before I've input it into `STlist` with no problem. Just want to make sure that the `STlist` object is being saved in an appropriate way that won't cause issues.
+
+::: {.column-margin}
+**Would either an `.rda` or `.rds` work for this `STlist` data?**
+:::
 
 ***

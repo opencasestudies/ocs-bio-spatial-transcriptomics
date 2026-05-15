@@ -64,7 +64,7 @@ What do we observe:
 * Some samples have a lot more spots/cells than others .... I should probably make a table after filtering to see if there are a similar number of spots/cells after filtering. But I also figure that means the tissue is different sizes?
 
 ::: {.column-margin}
-Given this table and these violin plots, are there filtering parameters you would suggest besides the ones I mentioned?
+**Given this table and these violin plots, are there filtering parameters you would suggest besides the ones I mentioned?**
 :::
 
 Won't need to save data at the end of this step because we haven't changed anything.

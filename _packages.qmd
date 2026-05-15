@@ -10,8 +10,8 @@ library(spatialGE)
 library(ggpubr)
 ```
 
-Package    | Use
----------- |-------------
+Package        | Use
+-------------- |-------------
 [here](https://cran.r-project.org/web/packages/here/refman/here.html){target="_blank"}      | Constructs paths within project
 [tidyverse](https://cran.r-project.org/web/packages/tidyverse/refman/tidyverse.html){target="_blank"}      | Data wrangling
 [readr](https://cran.r-project.org/web/packages/readr/refman/readr.html){target="_blank"} | Reading in data

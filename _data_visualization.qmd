@@ -67,7 +67,7 @@ ggpubr::ggarrange(plotlist=quilt25,
 :::
 
 ::: {.column-margin}
-Which downregulated gene (SST or CX3CR1) would you recommend visualizing in this section?
+**Which downregulated gene (SST or CX3CR1) would you recommend visualizing in this section?**
 :::
 
 **Which downregulated gene?**
