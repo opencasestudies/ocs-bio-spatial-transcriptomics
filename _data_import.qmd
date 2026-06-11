@@ -30,7 +30,7 @@ scz_samples <- unname(sample(unlist(spatial_sample_info[which(spatial_sample_inf
 samples <- c(scz_samples, ntc_samples)
 ```
 
-## What are the 3 random samples?
+## What are the 3 samples subest from the larger cohort for each condition?
 
 * NTC Samples:
   * 2 females
@@ -52,6 +52,10 @@ samples <- c(scz_samples, ntc_samples)
 8. `st_centroid` computes the centroid location for each cell using the `geometry` column from step 6
 9. We grab x and y coordinates for the centroids, storing them in their own columns
 10. We store the Cell IDs and centroid coordinates as a dataframe for that sample
+
+:::{.column-margin}
+Want to show how to turn this `for` loop into an `lapply` statement instead per reviewer comments. Consider creating a function.
+:::
 
 ```{r, eval = FALSE}
 spatial_coords <- list()
@@ -98,6 +102,10 @@ Note, will show in a click to expand section that `rhdf5::h5dump` can be used to
 7. We set the column names to be the cell IDs from the h5 file
 8. We also move the rownames to the first column and name it "genes" because `spatialGE` looks for gene names in the first column, not as rownames, making sure they are unique. [Got an error here](https://github.com/FridleyLab/spatialGE/blob/849c174f2c1537dc871987dfefb68da91beb96e3/R/STList.R#L415) until I fixed that and it wasn't super obvious to me in the documentation.
 9. Finally we store this matrix in our named list for that sample
+
+:::{.column-margin}
+Turn this into an `lapply` statement instead of a `for` loop, utilizing a function for the main steps.
+:::
 
 ```{r, eval = FALSE}
 rnacounts_input <- list()
