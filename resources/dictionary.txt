@@ -43,6 +43,7 @@ ocs
 Ospina
 OTTR
 ottrproject
+prereq
 quarto
 qmd
 readr
@@ -55,8 +56,10 @@ SCTransform
 SCZ
 spatialGE
 spotscells
+STlist
 subdir
 subparts
+subregion
 tabset
 th
 tidyverse
