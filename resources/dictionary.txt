@@ -59,7 +59,7 @@ spotscells
 STlist
 subdir
 subparts
-subregions
+subregion
 tabset
 th
 tidyverse
