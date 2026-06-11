@@ -1,106 +1,134 @@
 [
   {
+    "objectID": "index.html#prerequisites",
+    "href": "index.html#prerequisites",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
+    "section": "Prerequisites",
+    "text": "Prerequisites\n\n\nPrerequisites\n\n\nAdd a list of prerequisites here."
+  },
+  {
     "objectID": "index.html#metadata",
     "href": "index.html#metadata",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "Metadata",
     "text": "Metadata\nFor the Xenium experiments, there were 24 donors:\n\n12 Neurotypical controls [NTC]\n\n5 males\n7 females\n\n12 Schizophrenia [SCZ]\n\n6 males\n6 females\n\n\nThere are two metadata files (that we’ll need to combine to relate GEO IDs to sample IDs)\n\nspatial_samples.csv – this file is from the supplementary information and provides metadata such as Sex, Diagnosis, age, and if the sample has corresponding Visium or Xenium data.\n\nComma separated values with a header\nfirst column is Brain Number (ID) (e.g., BR####)\nsecond column is Race\nthird column is Sex\nfourth is Age\nfifth is RIN - RNA Integrity Number (add info in context section about this)\nsixth is PMI - Postmortem Interval (add info in context section about this)\nseventh is PrimaryDx (e.g., Control or Schizophrenia)\neighth is Visium-SPG (does this sample have corresponding Visium data YES/NO)\nninth is Xenium (does this sample have corresponding Xenium data YES/NO)\n\ngeo_to_spatial_samples.csv – this file I made by wrangling the file names to create a dataframe (and saved that to a .csv)\n\nComma separates values, no header\nfirst column is the GEO number for each sample\nsecond column is the Brain Number (ID) (e.g., BR####) matching those in the spatial_samples.csv file\n\n\nCode for creating geo_to_spatial_samples.csv:\n\nlist.files(path=\"/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/\", pattern = \"cell_boundaries.csv.gz$\") %&gt;% stringr::str_replace(\"-cell_boundaries.csv.gz\", \"\") %&gt;% strsplit(\"_\") %&gt;% do.call(rbind.data.frame, .) %&gt;% `colnames&lt;-`(c(\"X1\", \"X2\"))"
   },
   {
     "objectID": "index.html#spatial-coordinates",
     "href": "index.html#spatial-coordinates",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "Spatial Coordinates",
     "text": "Spatial Coordinates\nWe have {Sample}-cell_boundaries.csv.gz files for the spatial coordinates rather than classical files with spatial coordinates (….add explanation of what these classical files/other options are). Specifically these files have many rows per cell describing each vertex that is part of a cell polygon. We can find the centroid of each cell by considering all of these polygon coordinates together.\nFor each row:\n\ncell_id\nvertex_x\nvertex_y\n\nNote that the Cell IDs in these files correspond to the $barcodes discussed in the RNA counts data"
   },
   {
     "objectID": "index.html#rna-counts",
     "href": "index.html#rna-counts",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "RNA counts",
     "text": "RNA counts\nThe data for the RNA counts is stored in .h5 files. Rather than storing large matrices, the data is more efficiently stored in named/nested lists that can be used to reconstruct the matrix. Of important note, only non-zero counts are stored as well as the indices where those counts are in the matrix (e.g., for which genes and spot IDs they correspond with). Information here: https://www.10xgenomics.com/support/software/space-ranger/latest/advanced/hdf5-feature-barcode-matrix-format\nCan use rhdf5::h5dump(file_name, load = FALSE) to get a look at the names or headers of the data.\n\n$matrix is the top name\n\n$barcodes – cell IDs\n$data – the non-zero counts\n$features – has subparts relating to the rows/genes\n\n$_all_tag_keys – “genome” for our data\n$feature_type – specifies Gene Expression vs negative control probe, negative control codeword, unassigned codeword\n$genome – unknown for our data\n$id – gene ID or control/probe ID for elements of $data\n$name – gene name or control/probe name for elements of $data\n\n$indices – zero based row index for non-zero values found in $data (i equivalent for Matrix::sparseMatrix)\n$indptr – zero based index for $data and $indices where columns start (p equivalent of Matrix::sparseMatrix)\n$shape – dimensions of the data (number of genes or features X number of cells).\n\nNote that the number of cells &gt;&gt;&gt;&gt;&gt; number of genes (Xenium panel with limited number of genes)\nNote that the product of the dimensions will be greater than the length of $data since this is representing non-zero counts only and therefore is a sparse representation"
   },
   {
     "objectID": "index.html#what-spatialge-is-looking-for",
     "href": "index.html#what-spatialge-is-looking-for",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "What spatialGE is looking for",
     "text": "What spatialGE is looking for\nspatialGE will accept file directories, but it will also accept lists of dataframes for each sample. Because we have to wrangle our generic format input data, we’ll be providing named lists of dataframes for both the spatial coordinates (spotcoords) and the feature counts (rnacounts).\nFor spatial coordinates, the dataframes should have\n\n3 columns\n\nSpot or Cell IDs\nX value (center)\nY value (center)\n\nOne row per each unique spot or cell ID\n\nFor the feature counts, the dataframes should have\n\nn features/rows\n(m+1) spots or cells/columns\n\nThe plus 1 is because the first column will list the feature/gene names\n\n\nFor samples metadata (if passing a dataframe with additional metadata beyond sample names), the sample names used in the named lists for spotcoords and rnacounts should be the first column of the samples dataframe."
   },
   {
     "objectID": "index.html#random-scz-samples-and-3-random-ntc-samples",
     "href": "index.html#random-scz-samples-and-3-random-ntc-samples",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "3 random SCZ samples and 3 random NTC samples",
     "text": "3 random SCZ samples and 3 random NTC samples\n\nWe set the random seed\nWe read in metadata files, joining them so that we can relate the sample information with the PrimaryDx column\nWe select 3 random NTC samples\nWe select 3 random SCZ samples\nWe make a vector of those 6 sample IDs\n\n\nset.seed(567)\nspatial_samples &lt;- readr::read_csv(\"/fh/fast/leek_j/user/kisaac/ocs_spatial/spatial_samples.csv\")\ngeo_to_spatial &lt;- read_csv(\"/fh/fast/leek_j/user/kisaac/ocs_spatial/geo_to_spatial_samples.csv\", col_names = FALSE)\nspatial_sample_info &lt;- spatial_samples %&gt;%\n  filter(Xenium == \"YES\") %&gt;%\n  full_join(geo_to_spatial,\n            by = c(\"Brain Number (ID)\" = \"X2\")) %&gt;%\n  select(c(\"Brain Number (ID)\", \"Sex\", \"PrimaryDx\", X1))\n\n#3 NTC samples\nntc_samples &lt;- unname(sample(unlist(spatial_sample_info[which(spatial_sample_info$PrimaryDx == \"Control\"), \"X1\"]), 3))\n\n#3 SCZ samples\nscz_samples &lt;- unname(sample(unlist(spatial_sample_info[which(spatial_sample_info$PrimaryDx == \"Schizophrenia\"), \"X1\"]), 3))\n\nsamples &lt;- c(scz_samples, ntc_samples)"
   },
   {
     "objectID": "index.html#what-are-the-3-random-samples",
     "href": "index.html#what-are-the-3-random-samples",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "What are the 3 random samples?",
     "text": "What are the 3 random samples?\n\nNTC Samples:\n\n2 females\n1 male\n\nSCZ Samples:\n\nall 3 females"
   },
   {
     "objectID": "index.html#prepare-the-data-for-import-into-spatialge-with-stlist",
     "href": "index.html#prepare-the-data-for-import-into-spatialge-with-stlist",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "Prepare the data for import into spatialGE (with STlist)",
     "text": "Prepare the data for import into spatialGE (with STlist)\n\nSpatial Coordinates\n\nWe make a list that we can store a dataframe in for each sample\nWe loop through all 6 of the samples …. for each sample ….\nWe read in the corresponding cell boundaries file\nWe group that data by the cell_id column since multiple rows are present for each cell ID\n(with slice) We have to append the first row for each cell ID also to the bottom in order to “close the polygon” by going back to the starting vertex\nWe grab coordinates for each cell’s polygon and store all coordinates in geometry column\n(with st_as_sf()) we convert the data frame into a simple feature object so that we can work within a spatial context (to compute the cell’s centroid) for non-spatial data structures\nst_centroid computes the centroid location for each cell using the geometry column from step 6\nWe grab x and y coordinates for the centroids, storing them in their own columns\nWe store the Cell IDs and centroid coordinates as a dataframe for that sample\n\n\nspatial_coords &lt;- list()\n\nfor (sample in samples){\n  df_sample &lt;- read_csv(paste0(\"/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/\",\n                               sample,\n                               \"_\",\n                               spatial_sample_info[which(spatial_sample_info$X1 == sample), \"Brain Number (ID)\"],\n                               \"-cell_boundaries.csv.gz\"))\n\n  centroids &lt;- df_sample %&gt;%\n    group_by(cell_id) %&gt;%\n    slice(1:n(), 1) %&gt;%\n    summarize(geometry = sf::st_sfc(st_polygon(list(cbind(vertex_x, vertex_y)))), .groups = \"drop\") %&gt;%\n    st_as_sf() %&gt;%\n    mutate(centroid = st_centroid(geometry)) %&gt;% #compute centroid location for each cell\n    mutate(cx = st_coordinates(centroid)[,1],\n           cy = st_coordinates(centroid)[,2])\n\n  spatial_coords[[sample]] &lt;- centroids %&gt;%\n    st_drop_geometry() %&gt;% #so that we can grab just the cell IDs and centroid x,y values\n    select(cell_id, cx, cy)\n}\n\nNote: I know that working with parquet or zarr files is preferable to this approach. But I don’t have zarr files, and I’m still working to see if I now have parquet files that I can use. We will provide descriptions of these more canonical ways or perhaps switch out for parquet files once we can\n\n\nWithout access to the canonical files for this task, does this approach seem to be accurate, robust, and a sufficient method in place of those?\n\n\nRNA counts\nNote, will show in a click to expand section that rhdf5::h5dump can be used to look at the headers of the data, especially because we have to provide a “name” in the reading function and knowing that name requires knowing the headers\n\nWe make a list that we can store a dataframe in for each sample\nWe loop through all 6 of the samples …. for each sample ….\nWe read in the corresponding cell feature matrix file\nWe build a sparse matrix, using the elements of the h5 file that correspond to each argument (as explained in the data description section above)\nWe expand it to be a dense matrix that can be turned into a dataframe\nWe set the row names to be the feature names from the h5 file\nWe set the column names to be the cell IDs from the h5 file\nWe also move the rownames to the first column and name it “genes” because spatialGE looks for gene names in the first column, not as rownames, making sure they are unique. Got an error here until I fixed that and it wasn’t super obvious to me in the documentation.\nFinally we store this matrix in our named list for that sample\n\n\nrnacounts_input &lt;- list()\n\nfor (sample in samples){\n  rna_h5data &lt;- rhdf5::h5read(paste0(\"/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/\",\n                                     sample,\n                                     \"_\",\n                                     spatial_sample_info[which(spatial_sample_info$X1 == sample), \"Brain Number (ID)\"],\n                                     \"-cell_feature_matrix.h5\"),\n                              name = \"matrix\")\n\n  rnacounts_input[[sample]] &lt;- Matrix::sparseMatrix(i = rna_h5data$indices,\n                                                    p = rna_h5data$indptr,\n                                                    x = as.integer(rna_h5data$data),\n                                                    dims = rna_h5data$shape,\n                                                    index1 = FALSE) %&gt;%\n                                  as.matrix() %&gt;%\n                                  as.data.frame() %&gt;%\n                                  `rownames&lt;-`(rna_h5data$features$name) %&gt;%\n                                  `colnames&lt;-`(rna_h5data$barcodes) %&gt;%\n                                  rownames_to_column(\"genes\")\n}\n\n\n\nSample metadata\n\nFilter to the 6 random samples\nRelocate the GEO sample IDs to the first column\n\n\nsamples_metadata &lt;- spatial_sample_info %&gt;%\n  filter(X1 %in% samples) %&gt;%\n  relocate(X1)\n\n# A tibble: 6 × 4\n  X1         `Brain Number (ID)` Sex   PrimaryDx\n  &lt;chr&gt;      &lt;chr&gt;               &lt;chr&gt; &lt;chr&gt;\n1 GSM9223477 Br5314              F     Control\n2 GSM9223481 Br8433              M     Control\n3 GSM9223479 Br5746              F     Schizophrenia\n4 GSM9223484 Br5973              F     Schizophrenia\n5 GSM9223483 Br1139              F     Schizophrenia\n6 GSM9223485 Br8667              F     Control\nThis is what the sample metadata looks like at this stage. I can bring over more of the metadata columns like Age, RIN, and PMI depending on the analysis and homework steps."
   },
   {
     "objectID": "index.html#prepare-a-spatialge-project-with-stlist",
     "href": "index.html#prepare-a-spatialge-project-with-stlist",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "Prepare a spatialGE project with STlist",
     "text": "Prepare a spatialGE project with STlist\n\nscz_spatial &lt;- spatialGE::STlist(rnacounts = rnacounts_input,\n                                 spotcoords = spatial_coords,\n                                 samples = samples_metadata\n                                )\n\nThen we’ll save the data so people can pick up at the next step after a break if they’d like. In testing the data, I’ve saved an input list as an .rds file before I’ve input it into STlist with no problem. Just want to make sure that the STlist object is being saved in an appropriate way that won’t cause issues.\n\n\nWould either an .rda or .rds work for this STlist data?"
   },
   {
     "objectID": "index.html#filtering",
     "href": "index.html#filtering",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "Filtering",
     "text": "Filtering\nNote that values used for filtering here are based on results in the data exploration section above. So it and the data exploration section should either be combined in the final case study draft, or we’ll add a note about people needing to visit the data exploration step to under the values we’re using.\n\nscz_spatial &lt;- filter_data(scz_spatial,\n                           spot_minreads=500,\n                           spot_mingenes=50)\n\nI haven’t tried a lot of other values here, but based on the summarize table the violin plots, I’m happy to try other values you might suggest. Will definitely discuss the topic of choosing filter values here and what that impacts/what should motivate those choices/in a real analysis, you’re probably trying the analysis with a few to see how robust findings are\nI did try a lower number for minimum genes (25), but the quilt plots were much more cramped.\n\n\nWhat do the Violin plots look like now?\n\n\nTableTotal CountsTotal Genes\n\n\n\nsummarize_STlist(scz_spatial)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nsample_name\nspotscells\ngenes\nmin_counts\nmean_counts\nmax_counts\nmin_genes\nmean_genes\nmax_genes\n\n\n\n\nGSM9223477\n27106\n541\n500\n974.\n3365\n50\n124.\n219\n\n\nGSM9223479\n22869\n541\n500\n935.\n2912\n50\n122.\n194\n\n\nGSM9223481\n41494\n541\n500\n1149.\n4241\n50\n132.\n219\n\n\nGSM9223483\n33036\n541\n500\n1148.\n4327\n50\n116.\n211\n\n\nGSM9223484\n22845\n541\n500\n930.\n3048\n50\n119.\n204\n\n\nGSM9223485\n50588\n541\n500\n1167.\n4024\n50\n126.\n218\n\n\n\n\n\n\ndistribution_plots(scz_spatial, plot_type='violin', plot_meta='total_counts')\n\n\n\n\n\ndistribution_plots(scz_spatial, plot_type='violin', plot_meta='total_genes')"
   },
   {
     "objectID": "index.html#normalizing",
     "href": "index.html#normalizing",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "Normalizing",
     "text": "Normalizing\nWe’re using a log transform. Another option is the SCTransform which we’ll explain in a click to expand section. We can even compare the two normalization methods (but I’ll have to make two separate STlist’s for that)\n\nscz_spatial &lt;- transform_data(scz_spatial, method='log', cores=2)\n\n\n\n\nShould I add a visualization of what the normalized data looks like?\nHow would we go about adding a visualization of what normalized data looks like if we do?\n\nNote that the pseudobulk_heatmap() looks like a good candidate function for this from spatialGE\nHowever, we would first have to run pseudobulk_samples() … which we’d need to do before the suggested HW of the pseudoblock_dim_plot() anyways.\nSo I think this is either a candidate for a side quest (in a click to expand section here), or something that we’ll put in the suggested homework solely.\n\nAdd instructions on saving the dataset here."
   },
   {
     "objectID": "index.html#synopsis",
     "href": "index.html#synopsis",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "Synopsis",
     "text": "Synopsis"
   },
   {
     "objectID": "index.html#summary-plot",
     "href": "index.html#summary-plot",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "Summary Plot",
     "text": "Summary Plot"
   },
   {
+    "objectID": "index.html#advancement-exercises",
+    "href": "index.html#advancement-exercises",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
+    "section": "Advancement Exercises",
+    "text": "Advancement Exercises\nUse this section to suggest different levels of exercises that build upon topics from the case study … next steps, tangential skills, diving deeper into a side quest, etc.\nPerhaps explain how the suggested exercises relate to the common next steps.\n\nBeginner\n\n\nIntermediate\n\n\nAdvanced"
+  },
+  {
     "objectID": "index.html#helpful-links",
     "href": "index.html#helpful-links",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "Helpful Links",
     "text": "Helpful Links\n\nTerms and concepts covered:\nPackages used in this case study:"
   },
   {
+    "objectID": "index.html#glossary",
+    "href": "index.html#glossary",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
+    "section": "Glossary",
+    "text": "Glossary\n\n\n\n\nTerm\nDefinition\n\n\nTerm 1\nDefinition of Term 1\n\n\nTerm2\nDefinition of Term 2"
+  },
+  {
+    "objectID": "index.html#references",
+    "href": "index.html#references",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
+    "section": "References",
+    "text": "References"
+  },
+  {
     "objectID": "index.html#session-info",
     "href": "index.html#session-info",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "Session Info",
-    "text": "Session Info\n\n\ndevtools::session_info()\n\n─ Session info ───────────────────────────────────────────────────────────────\n setting  value\n version  R version 4.3.2 (2023-10-31)\n os       Ubuntu 22.04.4 LTS\n system   x86_64, linux-gnu\n ui       X11\n language (EN)\n collate  en_US.UTF-8\n ctype    en_US.UTF-8\n tz       Etc/UTC\n date     2026-05-15\n pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)\n\n─ Packages ───────────────────────────────────────────────────────────────────\n package     * version date (UTC) lib source\n cachem        1.0.8   2023-05-01 [1] RSPM (R 4.3.0)\n cli           3.6.5   2025-04-23 [1] CRAN (R 4.3.2)\n devtools      2.4.5   2022-10-11 [1] RSPM (R 4.3.0)\n digest        0.6.34  2024-01-11 [1] RSPM (R 4.3.0)\n ellipsis      0.3.2   2021-04-29 [1] RSPM (R 4.3.0)\n evaluate      1.0.5   2025-08-27 [1] CRAN (R 4.3.2)\n fastmap       1.1.1   2023-02-24 [1] RSPM (R 4.3.0)\n fs            1.6.3   2023-07-20 [1] RSPM (R 4.3.0)\n glue          1.7.0   2024-01-09 [1] RSPM (R 4.3.0)\n htmltools     0.5.7   2023-11-03 [1] RSPM (R 4.3.0)\n htmlwidgets   1.6.4   2023-12-06 [1] RSPM (R 4.3.0)\n httpuv        1.6.14  2024-01-26 [1] RSPM (R 4.3.0)\n jsonlite      2.0.0   2025-03-27 [1] CRAN (R 4.3.2)\n knitr         1.50    2025-03-16 [1] CRAN (R 4.3.2)\n later         1.3.2   2023-12-06 [1] RSPM (R 4.3.0)\n lifecycle     1.0.4   2023-11-07 [1] RSPM (R 4.3.0)\n magrittr      2.0.3   2022-03-30 [1] RSPM (R 4.3.0)\n memoise       2.0.1   2021-11-26 [1] RSPM (R 4.3.0)\n mime          0.12    2021-09-28 [1] RSPM (R 4.3.0)\n miniUI        0.1.1.1 2018-05-18 [1] RSPM (R 4.3.0)\n pkgbuild      1.4.3   2023-12-10 [1] RSPM (R 4.3.0)\n pkgload       1.4.1   2025-09-23 [1] CRAN (R 4.3.2)\n profvis       0.3.8   2023-05-02 [1] RSPM (R 4.3.0)\n promises      1.2.1   2023-08-10 [1] RSPM (R 4.3.0)\n purrr         1.0.2   2023-08-10 [1] RSPM (R 4.3.0)\n R6            2.6.1   2025-02-15 [1] CRAN (R 4.3.2)\n Rcpp          1.0.12  2024-01-09 [1] RSPM (R 4.3.0)\n remotes       2.4.2.1 2023-07-18 [1] RSPM (R 4.3.0)\n rlang         1.1.6   2025-04-11 [1] CRAN (R 4.3.2)\n rmarkdown     2.25    2023-09-18 [1] RSPM (R 4.3.0)\n sessioninfo   1.2.2   2021-12-06 [1] RSPM (R 4.3.0)\n shiny         1.8.0   2023-11-17 [1] RSPM (R 4.3.0)\n stringi       1.8.3   2023-12-11 [1] RSPM (R 4.3.0)\n stringr       1.5.1   2023-11-14 [1] RSPM (R 4.3.0)\n urlchecker    1.0.1   2021-11-30 [1] RSPM (R 4.3.0)\n usethis       2.2.3   2024-02-19 [1] RSPM (R 4.3.0)\n vctrs         0.6.5   2023-12-01 [1] RSPM (R 4.3.0)\n xfun          0.55    2025-12-16 [1] CRAN (R 4.3.2)\n xtable        1.8-4   2019-04-21 [1] RSPM (R 4.3.0)\n yaml          2.3.12  2025-12-10 [1] CRAN (R 4.3.2)\n\n [1] /usr/local/lib/R/site-library\n [2] /usr/local/lib/R/library\n\n──────────────────────────────────────────────────────────────────────────────"
+    "text": "Session Info\n\n\ndevtools::session_info()\n\n─ Session info ───────────────────────────────────────────────────────────────\n setting  value\n version  R version 4.3.2 (2023-10-31)\n os       Ubuntu 22.04.4 LTS\n system   x86_64, linux-gnu\n ui       X11\n language (EN)\n collate  en_US.UTF-8\n ctype    en_US.UTF-8\n tz       Etc/UTC\n date     2026-06-11\n pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)\n\n─ Packages ───────────────────────────────────────────────────────────────────\n package     * version date (UTC) lib source\n cachem        1.0.8   2023-05-01 [1] RSPM (R 4.3.0)\n cli           3.6.5   2025-04-23 [1] CRAN (R 4.3.2)\n devtools      2.4.5   2022-10-11 [1] RSPM (R 4.3.0)\n digest        0.6.34  2024-01-11 [1] RSPM (R 4.3.0)\n ellipsis      0.3.2   2021-04-29 [1] RSPM (R 4.3.0)\n evaluate      1.0.5   2025-08-27 [1] CRAN (R 4.3.2)\n fastmap       1.1.1   2023-02-24 [1] RSPM (R 4.3.0)\n fs            1.6.3   2023-07-20 [1] RSPM (R 4.3.0)\n glue          1.7.0   2024-01-09 [1] RSPM (R 4.3.0)\n htmltools     0.5.7   2023-11-03 [1] RSPM (R 4.3.0)\n htmlwidgets   1.6.4   2023-12-06 [1] RSPM (R 4.3.0)\n httpuv        1.6.14  2024-01-26 [1] RSPM (R 4.3.0)\n jsonlite      2.0.0   2025-03-27 [1] CRAN (R 4.3.2)\n knitr         1.50    2025-03-16 [1] CRAN (R 4.3.2)\n later         1.3.2   2023-12-06 [1] RSPM (R 4.3.0)\n lifecycle     1.0.4   2023-11-07 [1] RSPM (R 4.3.0)\n magrittr      2.0.3   2022-03-30 [1] RSPM (R 4.3.0)\n memoise       2.0.1   2021-11-26 [1] RSPM (R 4.3.0)\n mime          0.12    2021-09-28 [1] RSPM (R 4.3.0)\n miniUI        0.1.1.1 2018-05-18 [1] RSPM (R 4.3.0)\n pkgbuild      1.4.3   2023-12-10 [1] RSPM (R 4.3.0)\n pkgload       1.4.1   2025-09-23 [1] CRAN (R 4.3.2)\n profvis       0.3.8   2023-05-02 [1] RSPM (R 4.3.0)\n promises      1.2.1   2023-08-10 [1] RSPM (R 4.3.0)\n purrr         1.0.2   2023-08-10 [1] RSPM (R 4.3.0)\n R6            2.6.1   2025-02-15 [1] CRAN (R 4.3.2)\n Rcpp          1.0.12  2024-01-09 [1] RSPM (R 4.3.0)\n remotes       2.4.2.1 2023-07-18 [1] RSPM (R 4.3.0)\n rlang         1.1.6   2025-04-11 [1] CRAN (R 4.3.2)\n rmarkdown     2.25    2023-09-18 [1] RSPM (R 4.3.0)\n sessioninfo   1.2.2   2021-12-06 [1] RSPM (R 4.3.0)\n shiny         1.8.0   2023-11-17 [1] RSPM (R 4.3.0)\n stringi       1.8.3   2023-12-11 [1] RSPM (R 4.3.0)\n stringr       1.5.1   2023-11-14 [1] RSPM (R 4.3.0)\n urlchecker    1.0.1   2021-11-30 [1] RSPM (R 4.3.0)\n usethis       2.2.3   2024-02-19 [1] RSPM (R 4.3.0)\n vctrs         0.6.5   2023-12-01 [1] RSPM (R 4.3.0)\n xfun          0.55    2025-12-16 [1] CRAN (R 4.3.2)\n xtable        1.8-4   2019-04-21 [1] RSPM (R 4.3.0)\n yaml        * 2.3.12  2025-12-10 [1] CRAN (R 4.3.2)\n\n [1] /usr/local/lib/R/site-library\n [2] /usr/local/lib/R/library\n\n──────────────────────────────────────────────────────────────────────────────"
   },
   {
     "objectID": "index.html#acknowledgments",
     "href": "index.html#acknowledgments",
-    "title": "Biomedical Open Case Studies: Exploring quality, normalization, and patterns in spatially-informed gene expression data",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
     "section": "Acknowledgments",
     "text": "Acknowledgments\n\n\nWe would also like to acknowledge the National Institute of General Medical Sciences for funding this work (1R25GM160622).\nIcons are from iconpacks."
   }
