@@ -74,7 +74,7 @@ samples_metadata <- samples_metadata %>%
         ) %>% 
   tidyr::unite("DxID", 
                brainNumID, PrimaryDx, 
-               sep = "-", 
+               sep = "", 
                remove = FALSE) %>%
   relocate(DxID)
 ```
