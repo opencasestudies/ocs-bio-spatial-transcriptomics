@@ -40,6 +40,47 @@ samples <- c(scz_samples, ntc_samples)
 
 ## Prepare the data for import into `spatialGE` (with `STlist`)
 
+### Sample metadata
+
+1. Filter to the 6 random samples
+2. Relocate the GEO sample IDs to the first column
+
+```{r, eval = FALSE}
+samples_metadata <- spatial_sample_info %>%
+  filter(X1 %in% samples) %>%
+  relocate(X1)
+```
+
+```
+# A tibble: 6 × 4
+  X1         `Brain Number (ID)` Sex   PrimaryDx
+  <chr>      <chr>               <chr> <chr>
+1 GSM9223477 Br5314              F     Control
+2 GSM9223481 Br8433              M     Control
+3 GSM9223479 Br5746              F     Schizophrenia
+4 GSM9223484 Br5973              F     Schizophrenia
+5 GSM9223483 Br1139              F     Schizophrenia
+6 GSM9223485 Br8667              F     Control
+```
+
+This is what the sample metadata looks like at this stage. I can bring over more of the metadata columns like Age, `RIN`, and `PMI` depending on the analysis and homework steps.
+
+```{r, eval = FALSE}
+lookup <- c(sampleID = "X1", brainNumID = "Brain Number (ID)")
+samples_metadata <- samples_metadata %>% 
+  dplyr::rename(., all_of(lookup)) %>%
+  mutate(PrimaryDx = case_when(PrimaryDx == "Control" ~ "CTRL", 
+                               PrimaryDx == "Schizophrenia" ~ "SCZ")
+        ) %>% 
+  tidyr::unite("DxID", 
+               brainNumID, PrimaryDx, 
+               sep = "-", 
+               remove = FALSE) %>%
+  relocate(DxID)
+```
+
+Doing this because wondering if having a space in a column name may be causing an issue later in the workflow for `spatialGE`. And reviewers suggested we should combine the IDs with the diagnosis for visualization.
+
 ### Spatial Coordinates
 
 1. We make a list that we can store a dataframe in for each sample
@@ -60,11 +101,11 @@ Want to show how to turn this `for` loop into an `lapply` statement instead per 
 ```{r, eval = FALSE}
 spatial_coords <- list()
 
-for (sample in samples){
+for (sample in samples_metadata$DxID){
   df_sample <- read_csv(paste0("/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/",
-                               sample,
-                               "_",
-                               spatial_sample_info[which(spatial_sample_info$X1 == sample), "Brain Number (ID)"],
+                                 samples_metadata[which(samples_metadata$DxID == sample), "sampleID"],
+                                 "_",
+                                 samples_metadata[which(samples_metadata$DxID == sample), "brainNumID"],
                                "-cell_boundaries.csv.gz"))
 
   centroids <- df_sample %>%
@@ -110,11 +151,11 @@ Turn this into an `lapply` statement instead of a `for` loop, utilizing a functi
 ```{r, eval = FALSE}
 rnacounts_input <- list()
 
-for (sample in samples){
+for (sample in samples_metadata$DxID){
   rna_h5data <- rhdf5::h5read(paste0("/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/",
-                                     sample,
+                                     samples_metadata[which(samples_metadata$DxID == sample), "sampleID"],
                                      "_",
-                                     spatial_sample_info[which(spatial_sample_info$X1 == sample), "Brain Number (ID)"],
+                                     samples_metadata[which(samples_metadata$DxID == sample), "brainNumID"],
                                      "-cell_feature_matrix.h5"),
                               name = "matrix")
 
@@ -130,31 +171,6 @@ for (sample in samples){
                                   rownames_to_column("genes")
 }
 ```
-
-### Sample metadata
-
-1. Filter to the 6 random samples
-2. Relocate the GEO sample IDs to the first column
-
-```{r, eval = FALSE}
-samples_metadata <- spatial_sample_info %>%
-  filter(X1 %in% samples) %>%
-  relocate(X1)
-```
-
-```
-# A tibble: 6 × 4
-  X1         `Brain Number (ID)` Sex   PrimaryDx
-  <chr>      <chr>               <chr> <chr>
-1 GSM9223477 Br5314              F     Control
-2 GSM9223481 Br8433              M     Control
-3 GSM9223479 Br5746              F     Schizophrenia
-4 GSM9223484 Br5973              F     Schizophrenia
-5 GSM9223483 Br1139              F     Schizophrenia
-6 GSM9223485 Br8667              F     Control
-```
-
-This is what the sample metadata looks like at this stage. I can bring over more of the metadata columns like Age, `RIN`, and `PMI` depending on the analysis and homework steps.
 
 ## Prepare a `spatialGE` project with `STlist`
 
