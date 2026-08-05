@@ -1,9 +1,13 @@
 acknowledgements
+ai
 Arunachalam
 automations
 Bioinformatics
+callout
 centroid
 centroids
+chatbot
+Chatbots
 cheatsheet
 codeword
 css
@@ -31,6 +35,7 @@ HPC
 HTTPS
 hw
 iconpacks
+knuth
 lightblue
 lightbox
 lightgreen
@@ -46,8 +51,11 @@ ottrproject
 prereq
 quarto
 qmd
+qs
 readr
 repo
+reproducibility
+Reproducibility
 rhdf
 Rmd
 RStudio
@@ -68,3 +76,4 @@ viridis
 Visium
 Xenium
 www
+Zotero
