@@ -9,15 +9,27 @@ Fill out the table and add rows as necessary providing a link to the source and 
 
 We will begin by loading the packages that we will need:
 
-```{r}
 #add library() calls
 library(here)
+library(tidyverse)
+library(readr)
+library(dplyr)
+library(sf)
+library(spatialGE)
+library(ggpubr)
 ```
 
-Package    | Use
----------- |-------------
-[{Package Name}]({Documentation URL}){target="_blank"}      | {Package use}
-[{Package Name}]({Documentation URL}){target="_blank"}      | {Package use}
+Package        | Use
+-------------- |-------------
+[here](https://cran.r-project.org/web/packages/here/refman/here.html){target="_blank"}      | Constructs paths within project
+[tidyverse](https://cran.r-project.org/web/packages/tidyverse/refman/tidyverse.html){target="_blank"}      | Data wrangling
+[readr](https://cran.r-project.org/web/packages/readr/refman/readr.html){target="_blank"} | Reading in data
+[dplyr](https://cran.r-project.org/web/packages/dplyr/refman/dplyr.html){target="_blank"} | Data wrangling
+[sf](https://cran.r-project.org/web/packages/sf/refman/sf.html){target="_blank"} | Enables storing and working with spatial data
+[rhdf5](https://www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.html){target="_blank"} | Reading and working with H5 files
+[Matrix](https://cran.r-project.org/web/packages/Matrix/refman/Matrix.html){target="_blank"} | Working with sparse and dense matrices
+[spatialGE](https://cran.r-project.org/web/packages/spatialGE/refman/spatialGE.html){target="_blank"} | Package for QC, normalization, filtering, visualization, and analysis of spatially-resolved gene expression data
+[ggpubr](https://cran.r-project.org/web/packages/ggpubr/refman/ggpubr.html){target="_blank"} | Further functions to customize and prepare ggplot2 plots for publication
 
 
 The first time we use a function, we will use the `::` to indicate which package we are using. Unless we have overlapping function names, this is not necessary, but we will include it here to be informative about where the functions we will use come from.
