@@ -14,6 +14,13 @@
     "text": "Objectives Map\n\n\n\n\n\n\nNoteObjectives Map: Where It Is Covered\n\n\n\n\n\n\n\n\nLearning Goal\nApplications / Practice\nLocation\n\n\n\n\nTerm related to a learning objective\nDescription of action or activity that will reinforce that LO\nData Import\n\n\nAnother term\nDescription of its activity\nData Wrangling\n\n\nAnother learning objective concept\nAnother description of this one’s activity\nData Visualization"
   },
   {
+    "objectID": "index.html#metadata",
+    "href": "index.html#metadata",
+    "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",
+    "section": "Metadata",
+    "text": "Metadata\nFor the Xenium experiments, there were 24 donors:\n\n12 Neurotypical controls [NTC]\n\n5 males\n7 females\n\n12 Schizophrenia [SCZ]\n\n6 males\n6 females\n\n\nThere are two metadata files (that we’ll need to combine to relate GEO IDs to sample IDs)\n\nspatial_samples.csv – this file is from the supplementary information and provides metadata such as Sex, Diagnosis, age, and if the sample has corresponding Visium or Xenium data.\n\nComma separated values with a header\nfirst column is Brain Number (ID) (e.g., BR####)\nsecond column is Race\nthird column is Sex\nfourth is Age\nfifth is RIN - RNA Integrity Number (add info in context section about this)\nsixth is PMI - Postmortem Interval (add info in context section about this)\nseventh is PrimaryDx (e.g., Control or Schizophrenia)\neighth is Visium-SPG (does this sample have corresponding Visium data YES/NO)\nninth is Xenium (does this sample have corresponding Xenium data YES/NO)\n\ngeo_to_spatial_samples.csv – this file I made by wrangling the file names to create a dataframe (and saved that to a .csv)\n\nComma separates values, no header\nfirst column is the GEO number for each sample\nsecond column is the Brain Number (ID) (e.g., BR####) matching those in the spatial_samples.csv file\n\n\nCode for creating geo_to_spatial_samples.csv:\n\nlist.files(path=\"/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/\", pattern = \"cell_boundaries.csv.gz$\") %&gt;% stringr::str_replace(\"-cell_boundaries.csv.gz\", \"\") %&gt;% strsplit(\"_\") %&gt;% do.call(rbind.data.frame, .) %&gt;% `colnames&lt;-`(c(\"X1\", \"X2\"))"
+  },
+  {
     "objectID": "index.html#spatial-coordinates",
     "href": "index.html#spatial-coordinates",
     "title": "Biomedical Open Case Studies: Assessing Quality, Normalization, and Expression Patterns in Spatially-Informed Gene Expression Data",

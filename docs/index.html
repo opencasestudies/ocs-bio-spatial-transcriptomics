@@ -208,14 +208,17 @@ gtag('config', 'G-WPXDVW923P', { 'anonymize_ip': true});
   <ul class="collapse">
   <li><a href="#objectives-map" id="toc-objectives-map" class="nav-link" data-scroll-target="#objectives-map"><strong>Objectives Map</strong></a></li>
   </ul></li>
-  <li><a href="#packages-and-setup" id="toc-packages-and-setup" class="nav-link" data-scroll-target="#packages-and-setup"><strong>Packages and Setup</strong></a>
+  <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context"><strong>Context</strong></a></li>
+  <li><a href="#what-are-the-data" id="toc-what-are-the-data" class="nav-link" data-scroll-target="#what-are-the-data"><strong>What are the data?</strong></a>
   <ul class="collapse">
+  <li><a href="#metadata" id="toc-metadata" class="nav-link" data-scroll-target="#metadata">Metadata</a></li>
   <li><a href="#spatial-coordinates" id="toc-spatial-coordinates" class="nav-link" data-scroll-target="#spatial-coordinates">Spatial Coordinates</a></li>
   <li><a href="#rna-counts" id="toc-rna-counts" class="nav-link" data-scroll-target="#rna-counts">RNA counts</a></li>
   <li><a href="#what-spatialge-is-looking-for" id="toc-what-spatialge-is-looking-for" class="nav-link" data-scroll-target="#what-spatialge-is-looking-for">What <code>spatialGE</code> is looking for</a></li>
   </ul></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations"><strong>Limitations</strong></a></li>
   <li><a href="#ethical-considerations" id="toc-ethical-considerations" class="nav-link" data-scroll-target="#ethical-considerations"><strong>Ethical Considerations</strong></a></li>
+  <li><a href="#packages-and-setup" id="toc-packages-and-setup" class="nav-link" data-scroll-target="#packages-and-setup"><strong>Packages and Setup</strong></a></li>
   <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import"><strong>Data Import</strong></a>
   <ul class="collapse">
   <li><a href="#random-scz-samples-and-3-random-ntc-samples" id="toc-random-scz-samples-and-3-random-ntc-samples" class="nav-link" data-scroll-target="#random-scz-samples-and-3-random-ntc-samples">3 random SCZ samples and 3 random NTC samples</a></li>
@@ -545,95 +548,68 @@ Don't adjust the shortcode or the table header in this file, only the markdown t
 </div>
 </div>
 <hr>
-</section>
-</section>
-<section id="packages-and-setup" class="level1">
-<h1><strong>Packages and Setup</strong></h1>
-<hr>
 <!--
-load all the packages used in the case study analysis in the code chunk below
-(try to use tidyverse over base R).
-Fill out the table and add rows as necessary providing a link to the source and briefly explaining its use for each package
--->
-<p>We will begin by loading the packages that we will need:</p>
-<p>#add library() calls library(here) library(tidyverse) library(readr) library(dplyr) library(sf) library(spatialGE) library(ggpubr)</p>
-<pre><code>
-Package        | Use
--------------- |-------------
-[here](https://cran.r-project.org/web/packages/here/refman/here.html){target="_blank"}      | Constructs paths within project
-[tidyverse](https://cran.r-project.org/web/packages/tidyverse/refman/tidyverse.html){target="_blank"}      | Data wrangling
-[readr](https://cran.r-project.org/web/packages/readr/refman/readr.html){target="_blank"} | Reading in data
-[dplyr](https://cran.r-project.org/web/packages/dplyr/refman/dplyr.html){target="_blank"} | Data wrangling
-[sf](https://cran.r-project.org/web/packages/sf/refman/sf.html){target="_blank"} | Enables storing and working with spatial data
-[rhdf5](https://www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.html){target="_blank"} | Reading and working with H5 files
-[Matrix](https://cran.r-project.org/web/packages/Matrix/refman/Matrix.html){target="_blank"} | Working with sparse and dense matrices
-[spatialGE](https://cran.r-project.org/web/packages/spatialGE/refman/spatialGE.html){target="_blank"} | Package for QC, normalization, filtering, visualization, and analysis of spatially-resolved gene expression data
-[ggpubr](https://cran.r-project.org/web/packages/ggpubr/refman/ggpubr.html){target="_blank"} | Further functions to customize and prepare ggplot2 plots for publication
-
-
-The first time we use a function, we will use the `::` to indicate which package we are using. Unless we have overlapping function names, this is not necessary, but we will include it here to be informative about where the functions we will use come from.
-
-
-&lt;!--
 More details on the background on the case study topic as well its relation to biomedical science.
 Videos or images may be helpful so this includes an example of embedding a video.
---&gt;
-
-# **Context**
-***
-
-{FILL IN}
-
-
-
-***
-
-
-&lt;!--
+-->
+</section>
+</section>
+<section id="context" class="level1">
+<h1><strong>Context</strong></h1>
+<hr>
+<p>{FILL IN}</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/j-I0Zgicjsk" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<hr>
+<!--
 Describe the data to be analyzed and where it came from.
 You may want to include a table about file or variable info.
---&gt;
-
-# **What are the data?**
-***
-
-## Metadata
-
-For the Xenium experiments, there were 24 donors:
-
-  * 12 Neurotypical controls [NTC]
-    * 5 males
-    * 7 females
-  * 12 Schizophrenia [SCZ]
-    * 6 males
-    * 6 females
-
-There are two metadata files (that we'll need to combine to relate GEO IDs to sample IDs)
-
-* `spatial_samples.csv` -- this file is from the [supplementary information](https://www.biorxiv.org/content/biorxiv/early/2026/02/17/2026.02.16.706214/DC2/embed/media-2.xlsx?download=true) and provides metadata such as Sex, Diagnosis, age, and if the sample has corresponding Visium or Xenium data.
-  * Comma separated values with a header
-  * first column is `Brain Number (ID)` (e.g., BR####)
-  * second column is `Race`
-  * third column is `Sex`
-  * fourth is `Age`
-  * fifth is `RIN` - RNA Integrity Number (add info in context section about this)
-  * sixth is `PMI` - Postmortem Interval (add info in context section about this)
-  * seventh is `PrimaryDx` (e.g., Control or Schizophrenia)
-  * eighth is `Visium-SPG` (does this sample have corresponding Visium data YES/NO)
-  * ninth is `Xenium` (does this sample have corresponding Xenium data YES/NO)
-* `geo_to_spatial_samples.csv` -- this file I made by wrangling the file names to create a dataframe (and saved that to a `.csv`)
-  * Comma separates values, no header
-  * first column is the GEO number for each sample
-  * second column is the Brain Number (ID) (e.g., BR####) matching those in the `spatial_samples.csv` file
-
-Code for creating `geo_to_spatial_samples.csv`:
-
-
-::: {.cell}
-
-```{.r .cell-code}
-list.files(path="/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/", pattern = "cell_boundaries.csv.gz$") %&gt;% stringr::str_replace("-cell_boundaries.csv.gz", "") %&gt;% strsplit("_") %&gt;% do.call(rbind.data.frame, .) %&gt;% `colnames&lt;-`(c("X1", "X2"))</code></pre>
-<p>:::</p>
+-->
+</section>
+<section id="what-are-the-data" class="level1">
+<h1><strong>What are the data?</strong></h1>
+<hr>
+<section id="metadata" class="level2">
+<h2 class="anchored" data-anchor-id="metadata">Metadata</h2>
+<p>For the Xenium experiments, there were 24 donors:</p>
+<ul>
+<li>12 Neurotypical controls [NTC]
+<ul>
+<li>5 males</li>
+<li>7 females</li>
+</ul></li>
+<li>12 Schizophrenia [SCZ]
+<ul>
+<li>6 males</li>
+<li>6 females</li>
+</ul></li>
+</ul>
+<p>There are two metadata files (that we’ll need to combine to relate GEO IDs to sample IDs)</p>
+<ul>
+<li><code>spatial_samples.csv</code> – this file is from the <a href="https://www.biorxiv.org/content/biorxiv/early/2026/02/17/2026.02.16.706214/DC2/embed/media-2.xlsx?download=true">supplementary information</a> and provides metadata such as Sex, Diagnosis, age, and if the sample has corresponding Visium or Xenium data.
+<ul>
+<li>Comma separated values with a header</li>
+<li>first column is <code>Brain Number (ID)</code> (e.g., BR####)</li>
+<li>second column is <code>Race</code></li>
+<li>third column is <code>Sex</code></li>
+<li>fourth is <code>Age</code></li>
+<li>fifth is <code>RIN</code> - RNA Integrity Number (add info in context section about this)</li>
+<li>sixth is <code>PMI</code> - Postmortem Interval (add info in context section about this)</li>
+<li>seventh is <code>PrimaryDx</code> (e.g., Control or Schizophrenia)</li>
+<li>eighth is <code>Visium-SPG</code> (does this sample have corresponding Visium data YES/NO)</li>
+<li>ninth is <code>Xenium</code> (does this sample have corresponding Xenium data YES/NO)</li>
+</ul></li>
+<li><code>geo_to_spatial_samples.csv</code> – this file I made by wrangling the file names to create a dataframe (and saved that to a <code>.csv</code>)
+<ul>
+<li>Comma separates values, no header</li>
+<li>first column is the GEO number for each sample</li>
+<li>second column is the Brain Number (ID) (e.g., BR####) matching those in the <code>spatial_samples.csv</code> file</li>
+</ul></li>
+</ul>
+<p>Code for creating <code>geo_to_spatial_samples.csv</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>(<span class="at">path=</span><span class="st">"/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/"</span>, <span class="at">pattern =</span> <span class="st">"cell_boundaries.csv.gz$"</span>) <span class="sc">%&gt;%</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(<span class="st">"-cell_boundaries.csv.gz"</span>, <span class="st">""</span>) <span class="sc">%&gt;%</span> <span class="fu">strsplit</span>(<span class="st">"_"</span>) <span class="sc">%&gt;%</span> <span class="fu">do.call</span>(rbind.data.frame, .) <span class="sc">%&gt;%</span> <span class="st">`</span><span class="at">colnames&lt;-</span><span class="st">`</span>(<span class="fu">c</span>(<span class="st">"X1"</span>, <span class="st">"X2"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
 <section id="spatial-coordinates" class="level2">
 <h2 class="anchored" data-anchor-id="spatial-coordinates">Spatial Coordinates</h2>
 <p>We have <code>{Sample}-cell_boundaries.csv.gz</code> files for the spatial coordinates rather than classical files with spatial coordinates (….add explanation of what these classical files/other options are). Specifically these files have many rows per cell describing each vertex that is part of a cell polygon. We can find the centroid of each cell by considering all of these polygon coordinates together.</p>
@@ -737,6 +713,73 @@ Examples may include: how identifiable (or re-identifiable) is your data? cell l
 Consider incorporating a checklist of statements that learners should answer/discuss for every case study for bioethics principles.
 -->
 </section>
+<section id="packages-and-setup" class="level1">
+<h1><strong>Packages and Setup</strong></h1>
+<hr>
+<!--
+load all the packages used in the case study analysis in the code chunk below
+(try to use tidyverse over base R).
+Fill out the table and add rows as necessary providing a link to the source and briefly explaining its use for each package
+-->
+<p>We will begin by loading the packages that we will need:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#add library() calls</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spatialGE)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Package</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://cran.r-project.org/web/packages/here/refman/here.html" target="_blank">here</a></td>
+<td>Constructs paths within project</td>
+</tr>
+<tr class="even">
+<td><a href="https://cran.r-project.org/web/packages/tidyverse/refman/tidyverse.html" target="_blank">tidyverse</a></td>
+<td>Data wrangling</td>
+</tr>
+<tr class="odd">
+<td><a href="https://cran.r-project.org/web/packages/readr/refman/readr.html" target="_blank">readr</a></td>
+<td>Reading in data</td>
+</tr>
+<tr class="even">
+<td><a href="https://cran.r-project.org/web/packages/dplyr/refman/dplyr.html" target="_blank">dplyr</a></td>
+<td>Data wrangling</td>
+</tr>
+<tr class="odd">
+<td><a href="https://cran.r-project.org/web/packages/sf/refman/sf.html" target="_blank">sf</a></td>
+<td>Enables storing and working with spatial data</td>
+</tr>
+<tr class="even">
+<td><a href="https://www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.html" target="_blank">rhdf5</a></td>
+<td>Reading and working with H5 files</td>
+</tr>
+<tr class="odd">
+<td><a href="https://cran.r-project.org/web/packages/Matrix/refman/Matrix.html" target="_blank">Matrix</a></td>
+<td>Working with sparse and dense matrices</td>
+</tr>
+<tr class="even">
+<td><a href="https://cran.r-project.org/web/packages/spatialGE/refman/spatialGE.html" target="_blank">spatialGE</a></td>
+<td>Package for QC, normalization, filtering, visualization, and analysis of spatially-resolved gene expression data</td>
+</tr>
+<tr class="odd">
+<td><a href="https://cran.r-project.org/web/packages/ggpubr/refman/ggpubr.html" target="_blank">ggpubr</a></td>
+<td>Further functions to customize and prepare ggplot2 plots for publication</td>
+</tr>
+</tbody>
+</table>
+<p>The first time we use a function, we will use the <code>::</code> to indicate which package we are using. Unless we have overlapping function names, this is not necessary, but we will include it here to be informative about where the functions we will use come from.</p>
+</section>
 <section id="data-import" class="level1 page-columns page-full">
 <h1><strong>Data Import</strong></h1>
 <hr>
@@ -751,22 +794,22 @@ Consider incorporating a checklist of statements that learners should answer/dis
 <li>We make a vector of those 6 sample IDs</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">567</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>spatial_samples <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"/fh/fast/leek_j/user/kisaac/ocs_spatial/spatial_samples.csv"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>geo_to_spatial <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"/fh/fast/leek_j/user/kisaac/ocs_spatial/geo_to_spatial_samples.csv"</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>spatial_sample_info <span class="ot">&lt;-</span> spatial_samples <span class="sc">%&gt;%</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Xenium <span class="sc">==</span> <span class="st">"YES"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(geo_to_spatial,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Brain Number (ID)"</span> <span class="ot">=</span> <span class="st">"X2"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"Brain Number (ID)"</span>, <span class="st">"Sex"</span>, <span class="st">"PrimaryDx"</span>, X1))</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#3 NTC samples</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>ntc_samples <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">sample</span>(<span class="fu">unlist</span>(spatial_sample_info[<span class="fu">which</span>(spatial_sample_info<span class="sc">$</span>PrimaryDx <span class="sc">==</span> <span class="st">"Control"</span>), <span class="st">"X1"</span>]), <span class="dv">3</span>))</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#3 SCZ samples</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>scz_samples <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">sample</span>(<span class="fu">unlist</span>(spatial_sample_info[<span class="fu">which</span>(spatial_sample_info<span class="sc">$</span>PrimaryDx <span class="sc">==</span> <span class="st">"Schizophrenia"</span>), <span class="st">"X1"</span>]), <span class="dv">3</span>))</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">c</span>(scz_samples, ntc_samples)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">567</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>spatial_samples <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">"/fh/fast/leek_j/user/kisaac/ocs_spatial/spatial_samples.csv"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>geo_to_spatial <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"/fh/fast/leek_j/user/kisaac/ocs_spatial/geo_to_spatial_samples.csv"</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>spatial_sample_info <span class="ot">&lt;-</span> spatial_samples <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Xenium <span class="sc">==</span> <span class="st">"YES"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(geo_to_spatial,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Brain Number (ID)"</span> <span class="ot">=</span> <span class="st">"X2"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"Brain Number (ID)"</span>, <span class="st">"Sex"</span>, <span class="st">"PrimaryDx"</span>, X1))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#3 NTC samples</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>ntc_samples <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">sample</span>(<span class="fu">unlist</span>(spatial_sample_info[<span class="fu">which</span>(spatial_sample_info<span class="sc">$</span>PrimaryDx <span class="sc">==</span> <span class="st">"Control"</span>), <span class="st">"X1"</span>]), <span class="dv">3</span>))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#3 SCZ samples</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>scz_samples <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">sample</span>(<span class="fu">unlist</span>(spatial_sample_info[<span class="fu">which</span>(spatial_sample_info<span class="sc">$</span>PrimaryDx <span class="sc">==</span> <span class="st">"Schizophrenia"</span>), <span class="st">"X1"</span>]), <span class="dv">3</span>))</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">c</span>(scz_samples, ntc_samples)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="what-are-the-3-random-samples" class="level2">
@@ -800,28 +843,28 @@ Consider incorporating a checklist of statements that learners should answer/dis
 <li>We store the Cell IDs and centroid coordinates as a dataframe for that sample</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>spatial_coords <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (sample <span class="cf">in</span> samples){</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  df_sample <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">paste0</span>(<span class="st">"/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/"</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                               sample,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"_"</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                               spatial_sample_info[<span class="fu">which</span>(spatial_sample_info<span class="sc">$</span>X1 <span class="sc">==</span> sample), <span class="st">"Brain Number (ID)"</span>],</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"-cell_boundaries.csv.gz"</span>))</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  centroids <span class="ot">&lt;-</span> df_sample <span class="sc">%&gt;%</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(cell_id) <span class="sc">%&gt;%</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(), <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">geometry =</span> sf<span class="sc">::</span><span class="fu">st_sfc</span>(<span class="fu">st_polygon</span>(<span class="fu">list</span>(<span class="fu">cbind</span>(vertex_x, vertex_y)))), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">centroid =</span> <span class="fu">st_centroid</span>(geometry)) <span class="sc">%&gt;%</span> <span class="co">#compute centroid location for each cell</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cx =</span> <span class="fu">st_coordinates</span>(centroid)[,<span class="dv">1</span>],</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>           <span class="at">cy =</span> <span class="fu">st_coordinates</span>(centroid)[,<span class="dv">2</span>])</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  spatial_coords[[sample]] <span class="ot">&lt;-</span> centroids <span class="sc">%&gt;%</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> <span class="co">#so that we can grab just the cell IDs and centroid x,y values</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(cell_id, cx, cy)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>spatial_coords <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (sample <span class="cf">in</span> samples){</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  df_sample <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">paste0</span>(<span class="st">"/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                               sample,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"_"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                               spatial_sample_info[<span class="fu">which</span>(spatial_sample_info<span class="sc">$</span>X1 <span class="sc">==</span> sample), <span class="st">"Brain Number (ID)"</span>],</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"-cell_boundaries.csv.gz"</span>))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  centroids <span class="ot">&lt;-</span> df_sample <span class="sc">%&gt;%</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(cell_id) <span class="sc">%&gt;%</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(), <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(<span class="at">geometry =</span> sf<span class="sc">::</span><span class="fu">st_sfc</span>(<span class="fu">st_polygon</span>(<span class="fu">list</span>(<span class="fu">cbind</span>(vertex_x, vertex_y)))), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">centroid =</span> <span class="fu">st_centroid</span>(geometry)) <span class="sc">%&gt;%</span> <span class="co">#compute centroid location for each cell</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cx =</span> <span class="fu">st_coordinates</span>(centroid)[,<span class="dv">1</span>],</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>           <span class="at">cy =</span> <span class="fu">st_coordinates</span>(centroid)[,<span class="dv">2</span>])</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  spatial_coords[[sample]] <span class="ot">&lt;-</span> centroids <span class="sc">%&gt;%</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span> <span class="co">#so that we can grab just the cell IDs and centroid x,y values</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(cell_id, cx, cy)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Note: I know that working with <code>parquet</code> or <code>zarr</code> files is preferable to this approach. But I don’t have <code>zarr</code> files, and I’m still working to see if I now have <code>parquet</code> files that I can use. We will provide descriptions of these more canonical ways or perhaps switch out for <code>parquet</code> files once we can</p>
 
@@ -843,27 +886,27 @@ Consider incorporating a checklist of statements that learners should answer/dis
 <li>Finally we store this matrix in our named list for that sample</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rnacounts_input <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (sample <span class="cf">in</span> samples){</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  rna_h5data <span class="ot">&lt;-</span> rhdf5<span class="sc">::</span><span class="fu">h5read</span>(<span class="fu">paste0</span>(<span class="st">"/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                                     sample,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"_"</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                                     spatial_sample_info[<span class="fu">which</span>(spatial_sample_info<span class="sc">$</span>X1 <span class="sc">==</span> sample), <span class="st">"Brain Number (ID)"</span>],</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"-cell_feature_matrix.h5"</span>),</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                              <span class="at">name =</span> <span class="st">"matrix"</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  rnacounts_input[[sample]] <span class="ot">&lt;-</span> Matrix<span class="sc">::</span><span class="fu">sparseMatrix</span>(<span class="at">i =</span> rna_h5data<span class="sc">$</span>indices,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">p =</span> rna_h5data<span class="sc">$</span>indptr,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">x =</span> <span class="fu">as.integer</span>(rna_h5data<span class="sc">$</span>data),</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">dims =</span> rna_h5data<span class="sc">$</span>shape,</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">index1 =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">`</span><span class="at">rownames&lt;-</span><span class="st">`</span>(rna_h5data<span class="sc">$</span>features<span class="sc">$</span>name) <span class="sc">%&gt;%</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">`</span><span class="at">colnames&lt;-</span><span class="st">`</span>(rna_h5data<span class="sc">$</span>barcodes) <span class="sc">%&gt;%</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">rownames_to_column</span>(<span class="st">"genes"</span>)</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rnacounts_input <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (sample <span class="cf">in</span> samples){</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  rna_h5data <span class="ot">&lt;-</span> rhdf5<span class="sc">::</span><span class="fu">h5read</span>(<span class="fu">paste0</span>(<span class="st">"/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                                     sample,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"_"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                                     spatial_sample_info[<span class="fu">which</span>(spatial_sample_info<span class="sc">$</span>X1 <span class="sc">==</span> sample), <span class="st">"Brain Number (ID)"</span>],</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"-cell_feature_matrix.h5"</span>),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                              <span class="at">name =</span> <span class="st">"matrix"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  rnacounts_input[[sample]] <span class="ot">&lt;-</span> Matrix<span class="sc">::</span><span class="fu">sparseMatrix</span>(<span class="at">i =</span> rna_h5data<span class="sc">$</span>indices,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">p =</span> rna_h5data<span class="sc">$</span>indptr,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">x =</span> <span class="fu">as.integer</span>(rna_h5data<span class="sc">$</span>data),</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">dims =</span> rna_h5data<span class="sc">$</span>shape,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                                                    <span class="at">index1 =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">as.matrix</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">`</span><span class="at">rownames&lt;-</span><span class="st">`</span>(rna_h5data<span class="sc">$</span>features<span class="sc">$</span>name) <span class="sc">%&gt;%</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">`</span><span class="at">colnames&lt;-</span><span class="st">`</span>(rna_h5data<span class="sc">$</span>barcodes) <span class="sc">%&gt;%</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">rownames_to_column</span>(<span class="st">"genes"</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="sample-metadata" class="level3">
@@ -873,9 +916,9 @@ Consider incorporating a checklist of statements that learners should answer/dis
 <li>Relocate the GEO sample IDs to the first column</li>
 </ol>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>samples_metadata <span class="ot">&lt;-</span> spatial_sample_info <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(X1 <span class="sc">%in%</span> samples) <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(X1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>samples_metadata <span class="ot">&lt;-</span> spatial_sample_info <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(X1 <span class="sc">%in%</span> samples) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(X1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <pre><code># A tibble: 6 × 4
   X1         `Brain Number (ID)` Sex   PrimaryDx
@@ -892,10 +935,10 @@ Consider incorporating a checklist of statements that learners should answer/dis
 <section id="prepare-a-spatialge-project-with-stlist" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="prepare-a-spatialge-project-with-stlist">Prepare a <code>spatialGE</code> project with <code>STlist</code></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> spatialGE<span class="sc">::</span><span class="fu">STlist</span>(<span class="at">rnacounts =</span> rnacounts_input,</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">spotcoords =</span> spatial_coords,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">samples =</span> samples_metadata</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> spatialGE<span class="sc">::</span><span class="fu">STlist</span>(<span class="at">rnacounts =</span> rnacounts_input,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">spotcoords =</span> spatial_coords,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">samples =</span> samples_metadata</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Then we’ll save the data so people can pick up at the next step after a break if they’d like. In testing the data, I’ve saved an input list as an <code>.rds</code> file before I’ve input it into <code>STlist</code> with no problem. Just want to make sure that the <code>STlist</code> object is being saved in an appropriate way that won’t cause issues.</p>
 
@@ -917,7 +960,7 @@ If you skipped the data import section click here.
 </details>
 <hr>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_STlist</span>(scz_spatial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_STlist</span>(scz_spatial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This is a 6 X 9 dataframe that provides</p>
 <ol type="1">
@@ -1027,12 +1070,12 @@ If you skipped the data import section click here.
 </table>
 <p>Violin plot of counts per spot/cell for each sample</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distribution_plots</span>(scz_spatial, <span class="at">plot_type=</span><span class="st">'violin'</span>, <span class="at">plot_meta=</span><span class="st">'total_counts'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distribution_plots</span>(scz_spatial, <span class="at">plot_type=</span><span class="st">'violin'</span>, <span class="at">plot_meta=</span><span class="st">'total_counts'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><a href="img/total_counts_qc.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="img/total_counts_qc.png" class="img-fluid" alt="six violins showing how many counts each spot or cell has for each sample" width="800"></a></p>
 <p>Violin plot of genes per spot/cell for each sample</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distribution_plots</span>(scz_spatial, <span class="at">plot_type=</span><span class="st">'violin'</span>, <span class="at">plot_meta=</span><span class="st">'total_genes'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distribution_plots</span>(scz_spatial, <span class="at">plot_type=</span><span class="st">'violin'</span>, <span class="at">plot_meta=</span><span class="st">'total_genes'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><a href="img/total_genes_qc.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="img/total_genes_qc.png" class="img-fluid" alt="six violins showing how many genes each spot or cell has for each sample" width="800"></a></p>
 <p>What do we observe:</p>
@@ -1077,9 +1120,9 @@ If you skipped the data import section click here.
 <h2 class="anchored" data-anchor-id="filtering">Filtering</h2>
 <p>Note that values used for filtering here are based on results in the data exploration section above. So it and the data exploration section should either be combined in the final case study draft, or we’ll add a note about people needing to visit the data exploration step to under the values we’re using.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">filter_data</span>(scz_spatial,</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">spot_minreads=</span><span class="dv">500</span>,</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">spot_mingenes=</span><span class="dv">50</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">filter_data</span>(scz_spatial,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">spot_minreads=</span><span class="dv">500</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">spot_mingenes=</span><span class="dv">50</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>I haven’t tried a lot of other values here, but based on the summarize table the violin plots, I’m happy to try other values you might suggest. Will definitely discuss the topic of choosing filter values here and what that impacts/what should motivate those choices/in a real analysis, you’re probably trying the analysis with a few to see how robust findings are</p>
 <p>I did try a lower number for minimum genes (25), but the quilt plots were much more cramped.</p>
@@ -1092,7 +1135,7 @@ What do the Violin plots look like now?
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_STlist</span>(scz_spatial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_STlist</span>(scz_spatial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <table class="caption-top table">
 <colgroup>
@@ -1191,13 +1234,13 @@ What do the Violin plots look like now?
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distribution_plots</span>(scz_spatial, <span class="at">plot_type=</span><span class="st">'violin'</span>, <span class="at">plot_meta=</span><span class="st">'total_counts'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distribution_plots</span>(scz_spatial, <span class="at">plot_type=</span><span class="st">'violin'</span>, <span class="at">plot_meta=</span><span class="st">'total_counts'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><a href="img/total_counts_afterfilter.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="img/total_counts_afterfilter.png" class="img-fluid" alt="six violins showing how many counts each spot or cell has for each sample following filtering" width="800"></a></p>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distribution_plots</span>(scz_spatial, <span class="at">plot_type=</span><span class="st">'violin'</span>, <span class="at">plot_meta=</span><span class="st">'total_genes'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">distribution_plots</span>(scz_spatial, <span class="at">plot_type=</span><span class="st">'violin'</span>, <span class="at">plot_meta=</span><span class="st">'total_genes'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><a href="img/total_genes_afterfilter.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="img/total_genes_afterfilter.png" class="img-fluid" alt="six violins showing how many genes each spot or cell has for each sample following filtering" width="800"></a></p>
 </div>
@@ -1209,7 +1252,7 @@ What do the Violin plots look like now?
 <h2 class="anchored" data-anchor-id="normalizing">Normalizing</h2>
 <p>We’re using a log transform. Another option is the SCTransform which we’ll explain in a click to expand section. We can even compare the two normalization methods (but I’ll have to make two separate <code>STlist</code>’s for that)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">transform_data</span>(scz_spatial, <span class="at">method=</span><span class="st">'log'</span>, <span class="at">cores=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">transform_data</span>(scz_spatial, <span class="at">method=</span><span class="st">'log'</span>, <span class="at">cores=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <hr>
 
@@ -1248,25 +1291,9 @@ If you skipped the data import section click here.
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>quilt25 <span class="ot">&lt;-</span> <span class="fu">STplot</span>(scz_spatial,</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">samples =</span> samples_metadata<span class="sc">$</span>X1[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>)],</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"CX3CR1"</span>, <span class="st">"FKBP5"</span>),</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color_pal=</span><span class="st">'PuBuGn'</span>,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ptsize=</span><span class="fl">0.05</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist=</span>quilt25,</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nrow=</span><span class="dv">2</span>,</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ncol=</span><span class="dv">2</span>,</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend=</span><span class="st">'bottom'</span>,</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">common.legend =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><a href="img/quilt_plots_ntc81_scz83_cx3cr1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="img/quilt_plots_ntc81_scz83_cx3cr1.png" class="img-fluid" alt="Quilt plot showing the expression of two genes for a control neurotypical sample on the top and a Schizophrenia diagnosis sample on the bottom. Points in each quilt plot represent a single cell or spot within its spatial context. Expression levels are displayed with a color gradient where light purple corresponds to low expression, blue corresponds to medium expression, and green corresponds to high expression. The first gene on the left is CX3CR1 a downregulated gene and we see lower expression levels on the bottom quilt plot because it is paler overall. The gene on the right is FKBP5 an upregulated gene and we see higher levels of expression on the bottom quilt plot because it has more blues and greens." width="800"></a></p>
-</div>
-<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>quilt25 <span class="ot">&lt;-</span> <span class="fu">STplot</span>(scz_spatial,</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">samples =</span> samples_metadata<span class="sc">$</span>X1[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>)],</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"SST"</span>, <span class="st">"FKBP5"</span>),</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"CX3CR1"</span>, <span class="st">"FKBP5"</span>),</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color_pal=</span><span class="st">'PuBuGn'</span>,</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ptsize=</span><span class="fl">0.05</span>)</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -1275,6 +1302,22 @@ If you skipped the data import section click here.
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ncol=</span><span class="dv">2</span>,</span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend=</span><span class="st">'bottom'</span>,</span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">common.legend =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><a href="img/quilt_plots_ntc81_scz83_cx3cr1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="img/quilt_plots_ntc81_scz83_cx3cr1.png" class="img-fluid" alt="Quilt plot showing the expression of two genes for a control neurotypical sample on the top and a Schizophrenia diagnosis sample on the bottom. Points in each quilt plot represent a single cell or spot within its spatial context. Expression levels are displayed with a color gradient where light purple corresponds to low expression, blue corresponds to medium expression, and green corresponds to high expression. The first gene on the left is CX3CR1 a downregulated gene and we see lower expression levels on the bottom quilt plot because it is paler overall. The gene on the right is FKBP5 an upregulated gene and we see higher levels of expression on the bottom quilt plot because it has more blues and greens." width="800"></a></p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>quilt25 <span class="ot">&lt;-</span> <span class="fu">STplot</span>(scz_spatial,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">samples =</span> samples_metadata<span class="sc">$</span>X1[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>)],</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"SST"</span>, <span class="st">"FKBP5"</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color_pal=</span><span class="st">'PuBuGn'</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ptsize=</span><span class="fl">0.05</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist=</span>quilt25,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nrow=</span><span class="dv">2</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ncol=</span><span class="dv">2</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend=</span><span class="st">'bottom'</span>,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">common.legend =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><a href="img/quilt_plots_ntc81_scz83_sst.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="img/quilt_plots_ntc81_scz83_sst.png" class="img-fluid" alt="Quilt plot showing the expression of two genes for a control neurotypical sample on the top and a Schizophrenia diagnosis sample on the bottom. Points in each quilt plot represent a single cell or spot within its spatial context. Expression levels are displayed with a color gradient where light purple corresponds to low expression, blue corresponds to medium expression, and green corresponds to high expression. The first gene on the left is FKBP5 an upregulated gene and we see higher levels of expression on the bottom quilt plot because it has more blues and greens. The gene on the right is SST a downregulated gene and we see lower expression levels on the bottom quilt plot because it is paler overall." width="800"></a></p>
 </div>
@@ -1348,8 +1391,8 @@ You can use a collapsible details section to provide an answer
 <p>And <code>get_gene_meta()</code> takes a couple extra minutes after that. My personal computer can’t run this step at all without crashing (though every <code>spatialGE</code> step before this it can handle).</p>
 <p>Prior to running this step, the data/<code>STlist</code> is several hundred MB. Once I’ve run this step, the data is several hundred GB.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">SThet</span>(scz_spatial, <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"CX3CR1"</span>, <span class="st">"MBP"</span>, <span class="st">"FKBP5"</span>))</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">get_gene_meta</span>(scz_spatial, <span class="at">sthet_only =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">SThet</span>(scz_spatial, <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"CX3CR1"</span>, <span class="st">"MBP"</span>, <span class="st">"FKBP5"</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">get_gene_meta</span>(scz_spatial, <span class="at">sthet_only =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Possibilities for feasibility</strong>:</p>
 <ul>
@@ -1377,9 +1420,9 @@ You can use a collapsible details section to provide an answer
 </div></div><p>If so, I think that’s the best possible “analysis” we can have people do if we give them the dataframe … have them compute the z-score.</p>
 <p>So something like …?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>gene_meta_out <span class="ot">&lt;-</span> gene_meta_out <span class="sc">%&gt;%</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">summarize</span>(<span class="at">gene_sample_z =</span> (moran_i <span class="sc">-</span> gene_mean) <span class="sc">/</span> gene_stdevs)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#And do one-tailed tests comparing to difference from 0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>gene_meta_out <span class="ot">&lt;-</span> gene_meta_out <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">summarize</span>(<span class="at">gene_sample_z =</span> (moran_i <span class="sc">-</span> gene_mean) <span class="sc">/</span> gene_stdevs)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#And do one-tailed tests comparing to difference from 0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <hr>
 </section>
@@ -1474,12 +1517,12 @@ Don't adjust the shortcode or the table header in this file, only the markdown t
 </div>
 <p>For the suggested homework, I think it would make sense to do a PCA of the samples, which is something Brooke had suggested. We can do this locally like all the steps except for the autocorrelation analysis.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">pseudobulk_samples</span>(scz_spatial, <span class="at">max_var_genes =</span> <span class="dv">150</span>) <span class="co">#decreased compared to the default since the Xenium panel is based on a lower number of genes than say Visium data</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudobulk_heatmap</span>(scz_spatial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">pseudobulk_samples</span>(scz_spatial, <span class="at">max_var_genes =</span> <span class="dv">150</span>) <span class="co">#decreased compared to the default since the Xenium panel is based on a lower number of genes than say Visium data</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudobulk_heatmap</span>(scz_spatial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img src="img/pseudobulk_heatmap.png" class="img-fluid"></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudobulk_dim_plot</span>(scz_spatial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudobulk_dim_plot</span>(scz_spatial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img src="img/pseudobulk_pca.png" class="img-fluid"></p>
 <p>When I try to color the PCA plot by a variable in my sample metadata (using <code>plot_meta</code> parameter), it errors and tells me that data doesn’t exist. I’ve tried changing capitalization and several other steps, but the value should be there.</p>
@@ -1562,7 +1605,7 @@ Automatically include the packages table from _packages.qmd?
 <h2 class="anchored" data-anchor-id="session-info"><strong>Session Info</strong></h2>
 <hr>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">session_info</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">session_info</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>─ Session info ───────────────────────────────────────────────────────────────
  setting  value
