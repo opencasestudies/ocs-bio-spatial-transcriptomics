@@ -1,7 +1,7 @@
 # **Data Import**
 ***
 
-Note that the sample files were fetched with `GEOquery` for `GSE307404`
+Provide instructions on how to get the `spatial_samples.csv` and `geo_to_spatial_samples.csv` files.
 
 ## 3 random SCZ samples and 3 random NTC samples
 
@@ -13,8 +13,8 @@ Note that the sample files were fetched with `GEOquery` for `GSE307404`
 
 ```{r, eval = FALSE}
 set.seed(567)
-spatial_samples <- readr::read_csv("/fh/fast/leek_j/user/kisaac/ocs_spatial/spatial_samples.csv")
-geo_to_spatial <- read_csv("/fh/fast/leek_j/user/kisaac/ocs_spatial/geo_to_spatial_samples.csv", col_names = FALSE)
+spatial_samples <- readr::read_csv(here("data/raw/spatial_samples.csv"))
+geo_to_spatial <- read_csv(here("data/raw/geo_to_spatial_samples.csv"), col_names = FALSE)
 spatial_sample_info <- spatial_samples %>%
   filter(Xenium == "YES") %>%
   full_join(geo_to_spatial,
@@ -38,32 +38,39 @@ samples <- c(scz_samples, ntc_samples)
 * SCZ Samples:
   * all 3 females
 
+```{r, eval = FALSE}
+spatial_sample_info[spatial_sample_info$X1 %in% samples]
+```
+
+## Fetch GEO data for these samples
+
+This `lapply` will loop through the samples vector and fetch the following files for each sample:
+
+* `-cell_boundaries.csv.gz` for computing spatial coordinates 
+* `parquet.gz` for spatial coordinates
+* `-cell_feature_matrix.h5` for RNA expression
+
+```{r, eval = FALSE}
+lapply(1:length(samples), 
+       function(x) 
+       getGEOSuppFiles(GEO = samples[x], 
+                      filter_regex = "\\-cell_boundaries|\\-cell_feature_matrix|\\parquet", 
+                      baseDir = here("data/raw")
+                      )
+      )
+```
+
 ## Prepare the data for import into `spatialGE` (with `STlist`)
 
 ### Sample metadata
 
 1. Filter to the 6 random samples
-2. Relocate the GEO sample IDs to the first column
+2. Rename the column with a space in its name to have no spaces
+3. Combine the Brain Number ID with the Primary Dx to create an ID that provides more information about each sample
+4. Relocate this new ID to the first column
+5. Arrange so the rows are in the same order as the `samples` vector.
 
-```{r, eval = FALSE}
-samples_metadata <- spatial_sample_info %>%
-  filter(X1 %in% samples) %>%
-  relocate(X1)
-```
-
-```
-# A tibble: 6 × 4
-  X1         `Brain Number (ID)` Sex   PrimaryDx
-  <chr>      <chr>               <chr> <chr>
-1 GSM9223477 Br5314              F     Control
-2 GSM9223481 Br8433              M     Control
-3 GSM9223479 Br5746              F     Schizophrenia
-4 GSM9223484 Br5973              F     Schizophrenia
-5 GSM9223483 Br1139              F     Schizophrenia
-6 GSM9223485 Br8667              F     Control
-```
-
-This is what the sample metadata looks like at this stage. I can bring over more of the metadata columns like Age, `RIN`, and `PMI` depending on the analysis and homework steps.
+I can bring over more of the metadata columns like Age, `RIN`, and `PMI` depending on the analysis and homework steps.
 
 ```{r, eval = FALSE}
 lookup <- c(sampleID = "X1", brainNumID = "Brain Number (ID)")
@@ -76,12 +83,70 @@ samples_metadata <- samples_metadata %>%
                brainNumID, PrimaryDx, 
                sep = "", 
                remove = FALSE) %>%
-  relocate(DxID)
+  relocate(DxID) %>%
+  arrange(match(sampleID, samples))
 ```
 
-Doing this because wondering if having a space in a column name may be causing an issue later in the workflow for `spatialGE`. And reviewers suggested we should combine the IDs with the diagnosis for visualization.
+  DxID       sampleID   brainNumID Sex   PrimaryDx
+  <chr>      <chr>      <chr>      <chr> <chr>    
+1 Br5314CTRL GSM9223477 Br5314     F     CTRL     
+2 Br8433CTRL GSM9223481 Br8433     M     CTRL     
+3 Br5746SCZ  GSM9223479 Br5746     F     SCZ      
+4 Br5973SCZ  GSM9223484 Br5973     F     SCZ      
+5 Br1139SCZ  GSM9223483 Br1139     F     SCZ      
+6 Br8667CTRL GSM9223485 Br8667     F     CTRL
+
+
+Let's get rid of the other data frames so we don't accidentally use them going forward and to reclaim some memory.
+
+```{r, eval = FALSE}
+rm(spatial_samples, geo_to_spatial, spatial_sample_info, ntc_samples, scz_samples, samples, lookup)
+```
+
+```
 
 ### Spatial Coordinates
+
+```{r, eval = FALSE}
+decompress_read_parquet <- function(samples_metadata, sample){
+  #Build file paths
+  gz_file <- here(paste0("data/raw/",
+                         sample,
+                         "/",
+                         sample,
+                         "_",
+                         samples_metadata[which(samples_metadata$sampleID == sample), "brainNumID"],
+                         "-cells.parquet.gz"))
+  
+  decompressed_file <- str_replace(gz_file, ".gz", "")
+
+  #Decompress
+  R.utils::gunzip(gz_file, destname = decompressed_file, remove = FALSE, skip = TRUE)
+
+  #Read in
+  df <- arrow::read_parquet(decompressed_file)
+
+  #Remove the decompressed file because we no longer need it
+  file.remove(decompressed_file)
+  
+  #Select columns of interest
+  centroids <- df %>%
+    select(cell_id, x_centroid, y_centroid)
+
+  #reclaim some R resources
+  rm(df, gz_file, decompressed_file)
+  gc()
+
+  #Return
+  return(centroids)
+
+}
+
+spatial_coords <- lapply(1:nrow(samples_metadata), function(x) decompress_read_parquet(samples_metadata, samples_metadata$sampleID[x]))
+names(spatial_coords) <- samples_metadata$DxID
+```
+
+<details><summary>What if you don't have the canonical parquet files?</summary>
 
 1. We make a list that we can store a dataframe in for each sample
 2. We loop through all 6 of the samples .... for each sample ....
@@ -101,12 +166,14 @@ Want to show how to turn this `for` loop into an `lapply` statement instead per 
 ```{r, eval = FALSE}
 spatial_coords <- list()
 
-for (sample in samples_metadata$DxID){
-  df_sample <- read_csv(paste0("/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/",
-                                 samples_metadata[which(samples_metadata$DxID == sample), "sampleID"],
+for (sample in samples_metadata$sampleID){
+  df_sample <- read_csv(here(paste0("data/raw/",
+                                 sample,
+                                 "/",
+                                 sample,
                                  "_",
-                                 samples_metadata[which(samples_metadata$DxID == sample), "brainNumID"],
-                               "-cell_boundaries.csv.gz"))
+                                 samples_metadata[which(samples_metadata$sampleID == sample), "brainNumID"],
+                               "-cell_boundaries.csv.gz")))
 
   centroids <- df_sample %>%
     group_by(cell_id) %>%
@@ -124,11 +191,9 @@ for (sample in samples_metadata$DxID){
 
 ```
 
-Note: I know that working with `parquet` or `zarr` files is preferable to this approach. But I don't have `zarr` files, and I'm still working to see if I now have `parquet` files that I can use. We will provide descriptions of these more canonical ways or perhaps switch out for `parquet` files once we can
+I got access to the parquet files and figured out how to read them in with the `arrow` package (had to uncompress them first). Comparing the results from my method with the parquet files, we see that my method is accurate! So going to move it to a click to expand section, but have students work with parquet files.
 
-::: {.column-margin}
-**Without access to the canonical files for this task, does this approach seem to be accurate, robust, and a sufficient method in place of those?**
-:::
+</details>
 
 ### RNA counts
 
@@ -149,27 +214,39 @@ Turn this into an `lapply` statement instead of a `for` loop, utilizing a functi
 :::
 
 ```{r, eval = FALSE}
-rnacounts_input <- list()
+read_rna <- function(samples_metadata, sample){
 
-for (sample in samples_metadata$DxID){
-  rna_h5data <- rhdf5::h5read(paste0("/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/",
-                                     samples_metadata[which(samples_metadata$DxID == sample), "sampleID"],
-                                     "_",
-                                     samples_metadata[which(samples_metadata$DxID == sample), "brainNumID"],
-                                     "-cell_feature_matrix.h5"),
-                              name = "matrix")
+  h5file <- here(paste0("data/raw/",
+                         sample,
+                         "/",
+                         sample,
+                         "_",
+                         samples_metadata[which(samples_metadata$sampleID == sample), "brainNumID"],
+                        "-cell_feature_matrix.h5"))
+                              
 
-  rnacounts_input[[sample]] <- Matrix::sparseMatrix(i = rna_h5data$indices,
-                                                    p = rna_h5data$indptr,
-                                                    x = as.integer(rna_h5data$data),
-                                                    dims = rna_h5data$shape,
-                                                    index1 = FALSE) %>%
-                                  as.matrix() %>%
-                                  as.data.frame() %>%
-                                  `rownames<-`(rna_h5data$features$name) %>%
-                                  `colnames<-`(rna_h5data$barcodes) %>%
-                                  rownames_to_column("genes")
+  rna_h5data <- rhdf5::h5read(h5file, name = "matrix")
+
+  rna_mat <- Matrix::sparseMatrix(i = rna_h5data$indices,
+                       p = rna_h5data$indptr,
+                       x = as.integer(rna_h5data$data),
+                       dims = rna_h5data$shape,
+                       index1 = FALSE) %>%
+      as.matrix() %>%
+      as.data.frame() %>%
+      `rownames<-`(rna_h5data$features$name) %>%
+      `colnames<-`(rna_h5data$barcodes) %>%
+      rownames_to_column("genes")
+
+  rm(rna_h5data, h5file)
+  gc()
+
+  return(rna_mat)
 }
+
+rnacounts_input <- lapply(1:nrow(samples_metadata), function(x) read_rna(samples_metadata, samples_metadata$sampleID[x]))
+names(rnacounts_input) <- samples_metadata$DxID
+
 ```
 
 ## Prepare a `spatialGE` project with `STlist`
@@ -179,12 +256,15 @@ scz_spatial <- spatialGE::STlist(rnacounts = rnacounts_input,
                                  spotcoords = spatial_coords,
                                  samples = samples_metadata
                                 )
+
+rm(rnacounts_input, spatial_coords)
+gc()                               
 ```
 
 Then we'll save the data so people can pick up at the next step after a break if they'd like. In testing the data, I've saved an input list as an `.rds` file before I've input it into `STlist` with no problem. Just want to make sure that the `STlist` object is being saved in an appropriate way that won't cause issues.
 
-::: {.column-margin}
-**Would either an `.rda` or `.rds` work for this `STlist` data?**
-:::
+```{r, eval = FALSE}
+saveRDS(scz_spatial, here("data/imported/scz_spatial.rds"))
+```
 
 ***

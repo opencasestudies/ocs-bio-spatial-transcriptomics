@@ -3,13 +3,13 @@ title: "**Biomedical Open Case Studies: Assessing Quality, Normalization, and Ex
 bibliography: resources/references.bib
 include-sections:
   stat-los: false
-  lo-map: true
+  lo-map: false
   data-import: true
   data-exploration: true
   data-wrangling: true
   data-viz: true
   data-analysis: true
-  main-q-table: true
+  main-q-table: false
 ---
 
 <!--

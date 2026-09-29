@@ -12,7 +12,7 @@ Add instructions for loading the data...
 ***
 
 ```{r, eval = FALSE}
-summarize_STlist(scz_spatial)
+spatialGE::summarize_STlist(scz_spatial)
 ```
 
 This is a 6 X 9 dataframe that provides
@@ -27,19 +27,20 @@ This is a 6 X 9 dataframe that provides
   8. `mean_genes_per_spotcell`: average number of genes (with non-zero counts?) per spot or cell for that sample
   9. `max_genes_per_spotcell`: maximum number of genes (with non-zero counts?) per spot or cell for that sample
 
-|sample_name|spotscells|genes|min_counts|mean_counts|max_counts|min_genes|mean_genes|max_genes|
-|:--------:|:--------:|:----:|:-------:|:-----------:|:------:|:--------:|:--------:|:-------:|
-| GSM9223477 | 48542 |  541 | 0 | 680. | 3365 | 0 | 97.5 | 219 |
-| GSM9223479 | 45675 |  541 | 0 | 615. | 2912 | 0 | 92.4 | 194 |
-| GSM9223481 | 61932 |  541 | 0 | 860. | 4241 | 0 | 108. | 219 |
-| GSM9223483 | 59962 |  541 | 2 | 750. | 4327 | 2 | 86.0 | 211 |
-| GSM9223484 | 44655 |  541 | 0 | 619. | 3048 | 0 | 94.3 | 204 |
-| GSM9223485 | 68976 |  541 | 0 | 939. | 4024 | 0 | 110. | 218 |
+# A tibble: 6 × 9
+  sample_name spotscells genes min_counts_per_spotcell mean_counts_per_spotcell max_counts_per_spotcell min_genes_per_spotcell mean_genes_per_spotcell max_genes_per_spotcell
+  <chr>            <int> <int>                   <dbl>                    <dbl>                   <dbl>                  <int>                  <dbl>                  <int>
+1 Br1139SCZ        59962   541                       2                     750.                    4327                      2                   86.0                    211
+2 Br5314CTRL       48542   541                       0                     680.                    3365                      0                   97.5                    219
+3 Br5746SCZ        45675   541                       0                     615.                    2912                      0                   92.4                    194
+4 Br5973SCZ        44655   541                       0                     619.                    3048                      0                   94.3                    204
+5 Br8433CTRL       61932   541                       0                     860.                    4241                      0                  108.                     219
+6 Br8667CTRL       68976   541                       0                     939.                    4024                      0                  110.                     218
 
 Violin plot of counts per spot/cell for each sample
 
 ```{r, eval = FALSE}
-distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_counts')
+spatialGE::distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_counts')
 ```
 
 ![](img/total_counts_qc.png){fig-alt="six violins showing how many counts each spot or cell has for each sample" width=800 .lightbox}
