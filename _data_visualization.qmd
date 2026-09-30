@@ -31,7 +31,7 @@ We have `ggpubr` combine the common legends and display them on the bottom. It a
 ## CX3CR1
 
 ```{r, eval = FALSE}
-quilt25 <- STplot(scz_spatial,
+quilt25 <- spatialGE::STplot(scz_spatial,
                   samples = samples_metadata$X1[c(2,5)],
                   genes = c("CX3CR1", "FKBP5"),
                   color_pal='PuBuGn',

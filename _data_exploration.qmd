@@ -11,8 +11,8 @@ Add instructions for loading the data...
 </details>
 ***
 
-```{r, eval = FALSE}
-spatialGE::summarize_STlist(scz_spatial)
+```{r}
+spatialGE::summarize_STlist(scz_spatial) %>% print(width = Inf)
 ```
 
 This is a 6 X 9 dataframe that provides
@@ -39,7 +39,7 @@ This is a 6 X 9 dataframe that provides
 
 Violin plot of counts per spot/cell for each sample
 
-```{r, eval = FALSE}
+```{r}
 spatialGE::distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_counts')
 ```
 
@@ -47,7 +47,7 @@ spatialGE::distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_
 
 Violin plot of genes per spot/cell for each sample
 
-```{r, eval = FALSE}
+```{r}
 distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_genes')
 ```
 

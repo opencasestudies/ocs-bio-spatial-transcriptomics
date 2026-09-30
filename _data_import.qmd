@@ -11,12 +11,12 @@ Provide instructions on how to get the `spatial_samples.csv` and `geo_to_spatial
 4) We select 3 random SCZ samples
 5) We make a vector of those 6 sample IDs
 
-```{r, eval = FALSE}
+```{r message = FALSE, warning = FALSE}
 set.seed(567)
-spatial_samples <- readr::read_csv(here("data/raw/spatial_samples.csv"))
+spatial_samples <- readr::read_csv(here::here("data/raw/spatial_samples.csv"))
 geo_to_spatial <- read_csv(here("data/raw/geo_to_spatial_samples.csv"), col_names = FALSE)
 spatial_sample_info <- spatial_samples %>%
-  filter(Xenium == "YES") %>%
+  dplyr::filter(Xenium == "YES") %>%
   full_join(geo_to_spatial,
             by = c("Brain Number (ID)" = "X2")) %>%
   select(c("Brain Number (ID)", "Sex", "PrimaryDx", X1))
@@ -28,6 +28,8 @@ ntc_samples <- unname(sample(unlist(spatial_sample_info[which(spatial_sample_inf
 scz_samples <- unname(sample(unlist(spatial_sample_info[which(spatial_sample_info$PrimaryDx == "Schizophrenia"), "X1"]), 3))
 
 samples <- c(scz_samples, ntc_samples)
+
+samples
 ```
 
 ## What are the 3 samples subest from the larger cohort for each condition?
@@ -38,8 +40,8 @@ samples <- c(scz_samples, ntc_samples)
 * SCZ Samples:
   * all 3 females
 
-```{r, eval = FALSE}
-spatial_sample_info[spatial_sample_info$X1 %in% samples]
+```{r}
+spatial_sample_info[spatial_sample_info$X1 %in% samples,]
 ```
 
 ## Fetch GEO data for these samples
@@ -50,10 +52,10 @@ This `lapply` will loop through the samples vector and fetch the following files
 * `parquet.gz` for spatial coordinates
 * `-cell_feature_matrix.h5` for RNA expression
 
-```{r, eval = FALSE}
+```{r}
 lapply(1:length(samples), 
        function(x) 
-       getGEOSuppFiles(GEO = samples[x], 
+       GEOquery::getGEOSuppFiles(GEO = samples[x], 
                       filter_regex = "\\-cell_boundaries|\\-cell_feature_matrix|\\parquet", 
                       baseDir = here("data/raw")
                       )
@@ -64,18 +66,19 @@ lapply(1:length(samples),
 
 ### Sample metadata
 
-1. Filter to the 6 random samples
-2. Rename the column with a space in its name to have no spaces
+1. Rename the column with a space in its name to have no spaces
+2. Filter to include only the subset 6 samples
 3. Combine the Brain Number ID with the Primary Dx to create an ID that provides more information about each sample
 4. Relocate this new ID to the first column
 5. Arrange so the rows are in the same order as the `samples` vector.
 
 I can bring over more of the metadata columns like Age, `RIN`, and `PMI` depending on the analysis and homework steps.
 
-```{r, eval = FALSE}
+```{r}
 lookup <- c(sampleID = "X1", brainNumID = "Brain Number (ID)")
-samples_metadata <- samples_metadata %>% 
+samples_metadata <- spatial_sample_info %>% 
   dplyr::rename(., all_of(lookup)) %>%
+  filter(sampleID %in% samples) %>%
   mutate(PrimaryDx = case_when(PrimaryDx == "Control" ~ "CTRL", 
                                PrimaryDx == "Schizophrenia" ~ "SCZ")
         ) %>% 
@@ -85,29 +88,19 @@ samples_metadata <- samples_metadata %>%
                remove = FALSE) %>%
   relocate(DxID) %>%
   arrange(match(sampleID, samples))
+
+samples_metadata  
 ```
-
-  DxID       sampleID   brainNumID Sex   PrimaryDx
-  <chr>      <chr>      <chr>      <chr> <chr>    
-1 Br5314CTRL GSM9223477 Br5314     F     CTRL     
-2 Br8433CTRL GSM9223481 Br8433     M     CTRL     
-3 Br5746SCZ  GSM9223479 Br5746     F     SCZ      
-4 Br5973SCZ  GSM9223484 Br5973     F     SCZ      
-5 Br1139SCZ  GSM9223483 Br1139     F     SCZ      
-6 Br8667CTRL GSM9223485 Br8667     F     CTRL
-
 
 Let's get rid of the other data frames so we don't accidentally use them going forward and to reclaim some memory.
 
-```{r, eval = FALSE}
+```{r}
 rm(spatial_samples, geo_to_spatial, spatial_sample_info, ntc_samples, scz_samples, samples, lookup)
-```
-
 ```
 
 ### Spatial Coordinates
 
-```{r, eval = FALSE}
+```{r}
 decompress_read_parquet <- function(samples_metadata, sample){
   #Build file paths
   gz_file <- here(paste0("data/raw/",
@@ -159,9 +152,6 @@ names(spatial_coords) <- samples_metadata$DxID
 9. We grab x and y coordinates for the centroids, storing them in their own columns
 10. We store the Cell IDs and centroid coordinates as a dataframe for that sample
 
-:::{.column-margin}
-Want to show how to turn this `for` loop into an `lapply` statement instead per reviewer comments. Consider creating a function.
-:::
 
 ```{r, eval = FALSE}
 spatial_coords <- list()
@@ -191,7 +181,7 @@ for (sample in samples_metadata$sampleID){
 
 ```
 
-I got access to the parquet files and figured out how to read them in with the `arrow` package (had to uncompress them first). Comparing the results from my method with the parquet files, we see that my method is accurate! So going to move it to a click to expand section, but have students work with parquet files.
+This method is accurate if compared to the parquet files.
 
 </details>
 
@@ -213,7 +203,7 @@ Note, will show in a click to expand section that `rhdf5::h5dump` can be used to
 Turn this into an `lapply` statement instead of a `for` loop, utilizing a function for the main steps.
 :::
 
-```{r, eval = FALSE}
+```{r}
 read_rna <- function(samples_metadata, sample){
 
   h5file <- here(paste0("data/raw/",
@@ -251,7 +241,7 @@ names(rnacounts_input) <- samples_metadata$DxID
 
 ## Prepare a `spatialGE` project with `STlist`
 
-```{r, eval = FALSE}
+```{r}
 scz_spatial <- spatialGE::STlist(rnacounts = rnacounts_input,
                                  spotcoords = spatial_coords,
                                  samples = samples_metadata
