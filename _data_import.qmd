@@ -194,7 +194,7 @@ This method is accurate if compared to the parquet files.
 ```{r}
 right_join(spatial_coords[[samples_metadata[which(samples_metadata$sampleID == testsample), "brainNumID"]]],
            centroids,
-           by = "cell_id) %>%
+           by = "cell_id") %>%
     rename(x_dataset_parquet = x_centroid, 
            y_dataset_parquet = y_centroid, 
            x_dataset_compute = cx, 
