@@ -6,9 +6,16 @@ You may want to include a table about file or variable info.
 # **What are the data?**
 ***
 
+Xenium spatial transcriptomics data represents mRNA counts for panel target transcripts mapped to spatial locations in the tissue. As such there are 3 main data types or files that we will be working with.
+
+1. Tissue/sample Metadata
+2. Spatial Coordinates
+3. mRNA Counts
+
+
 ## Metadata
 
-For the Xenium experiments, there were 24 donors:
+For the Xenium experiments in @, there were 24 donors:
 
   * 12 Neurotypical controls [NTC]
     * 5 males

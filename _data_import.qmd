@@ -1,6 +1,15 @@
 # **Data Import**
 ***
 
+Since we are working with Xenium spatial transcriptomics data for multiple samples, we need to provide `spatialGE` with 3 types of data.
+
+1. Sample Metadata (primarily the sample IDs)
+2. Spatial Coordinates
+3. The mRNA counts
+
+
+`spatialGE` provides the user some flexibility in how they import their data. Users can either provide file paths or they can provide named lists with each list containing data frames for 
+
 Provide instructions on how to get the `spatial_samples.csv` and `geo_to_spatial_samples.csv` files.
 
 ## 3 random SCZ samples and 3 random NTC samples
@@ -72,7 +81,10 @@ lapply(1:length(samples),
 4. Relocate this new ID to the first column
 5. Arrange so the rows are in the same order as the `samples` vector.
 
+<!--
 I can bring over more of the metadata columns like Age, `RIN`, and `PMI` depending on the analysis and homework steps.
+-->
+
 
 ```{r}
 lookup <- c(sampleID = "X1", brainNumID = "Brain Number (ID)")
@@ -153,35 +165,52 @@ names(spatial_coords) <- samples_metadata$DxID
 10. We store the Cell IDs and centroid coordinates as a dataframe for that sample
 
 
-```{r, eval = FALSE}
-spatial_coords <- list()
+```{r spatial_coords_compute}
 
-for (sample in samples_metadata$sampleID){
-  df_sample <- read_csv(here(paste0("data/raw/",
-                                 sample,
+testsample <- samples_metadata$sampleID[1]
+
+df_test_sample <- read_csv(here(paste0("data/raw/",
+                                 testsample,
                                  "/",
-                                 sample,
+                                 testsample,
                                  "_",
-                                 samples_metadata[which(samples_metadata$sampleID == sample), "brainNumID"],
+                                 samples_metadata[which(samples_metadata$sampleID == testsample), "brainNumID"],
                                "-cell_boundaries.csv.gz")))
 
-  centroids <- df_sample %>%
+centroids <- df_test_sample %>%
     group_by(cell_id) %>%
     slice(1:n(), 1) %>%
     summarize(geometry = sf::st_sfc(st_polygon(list(cbind(vertex_x, vertex_y)))), .groups = "drop") %>%
     st_as_sf() %>%
     mutate(centroid = st_centroid(geometry)) %>% #compute centroid location for each cell
     mutate(cx = st_coordinates(centroid)[,1],
-           cy = st_coordinates(centroid)[,2])
-
-  spatial_coords[[sample]] <- centroids %>%
+           cy = st_coordinates(centroid)[,2]) %>%
     st_drop_geometry() %>% #so that we can grab just the cell IDs and centroid x,y values
     select(cell_id, cx, cy)
-}
-
 ```
 
 This method is accurate if compared to the parquet files.
+
+```{r}
+right_join(spatial_coords[[samples_metadata[which(samples_metadata$sampleID == testsample), "brainNumID"]]],
+           centroids,
+           by = "cell_id) %>%
+    rename(x_dataset_parquet = x_centroid, 
+           y_dataset_parquet = y_centroid, 
+           x_dataset_compute = cx, 
+           y_dataset_compute = cy) %>% 
+    pivot_longer(cols = - cell_id, 
+                 names_to = c("variable", "dataset"), 
+                 names_pattern = "(x|y)_(.*)") %>% 
+    pivot_wider(names_from = dataset, 
+                values_from = value) %>% 
+    ggplot(aes(x = dataset_parquet, 
+               y = dataset_compute)) + 
+      geom_point(alpha = 0.2) + 
+      facet_wrap(~variable) + 
+      ggpubr::stat_regline_equation(label.x = 3, label.y = 5000)
+
+```
 
 </details>
 
@@ -189,14 +218,14 @@ This method is accurate if compared to the parquet files.
 
 Note, will show in a click to expand section that `rhdf5::h5dump` can be used to look at the headers of the data, especially because we have to provide a "name" in the reading function and knowing that name requires knowing the headers
 
-1. We make a list that we can store a dataframe in for each sample
-2. We loop through all 6 of the samples .... for each sample ....
+
+2. We create a function to use for all 6 of the samples .... for each sample ....
 3. We read in the corresponding cell feature matrix file
 4. We build a sparse matrix, using the elements of the h5 file that correspond to each argument (as explained in the data description section above)
 5. We expand it to be a dense matrix that can be turned into a dataframe
 6. We set the row names to be the feature names from the h5 file
 7. We set the column names to be the cell IDs from the h5 file
-8. We also move the rownames to the first column and name it "genes" because `spatialGE` looks for gene names in the first column, not as rownames, making sure they are unique. [Got an error here](https://github.com/FridleyLab/spatialGE/blob/849c174f2c1537dc871987dfefb68da91beb96e3/R/STList.R#L415) until I fixed that and it wasn't super obvious to me in the documentation.
+8. We also move the rownames to the first column and name it "genes" because [`spatialGE` looks for gene names in the first column, not as rownames, making sure they are unique.](https://github.com/FridleyLab/spatialGE/blob/849c174f2c1537dc871987dfefb68da91beb96e3/R/STList.R#L415).
 9. Finally we store this matrix in our named list for that sample
 
 :::{.column-margin}

@@ -32,9 +32,8 @@ Note that values used for filtering here are based on results in the data explor
 ```{r}
 scz_spatial <- spatialGE::filter_data(scz_spatial,
                            spot_minreads=50,
-                           spot_maxreads=3000,
-                           spot_mingenes=10,
-                           spot_maxgenes = 185)
+                           spot_maxreads=3500,
+                           spot_mingenes=10)
 ```
 
 
@@ -46,18 +45,8 @@ What do the distributions look like now?
 ### Table
 
 ```{r}
-summarize_STlist(scz_spatial)
+summarize_STlist(scz_spatial) %>% print(width = Inf)
 ```
-
-# A tibble: 6 × 9
-  sample_name spotscells genes min_counts_per_spotcell mean_counts_per_spotcell max_counts_per_spotcell min_genes_per_spotcell mean_genes_per_spotc…¹ max_genes_per_spotcell
-  <chr>            <int> <int>                   <dbl>                    <dbl>                   <dbl>                  <int>                  <dbl>                  <int>
-1 Br1139SCZ        59438   541                      50                     749.                    2998                     10                   86.2                    185
-2 Br5314CTRL       48410   541                      50                     680.                    2977                     10                   97.6                    185
-3 Br5746SCZ        45531   541                      50                     617.                    2912                     11                   92.6                    185
-4 Br5973SCZ        44479   541                      50                     621.                    2981                     10                   94.6                    185
-5 Br8433CTRL       59234   541                      50                     872.                    2998                     11                  111.                     185
-6 Br8667CTRL       68202   541                      50                     937.                    2998                     10                  111.                     185
 
 ### Total Counts
 
@@ -65,15 +54,11 @@ summarize_STlist(scz_spatial)
 distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_counts')
 ```
 
-![](img/total_counts_afterLessStringentFilter.png){fig-alt="six violins showing how many counts each spot or cell has for each sample following filtering" width=800 .lightbox}
-
 ### Total Genes
 
 ```{r}
 distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_genes')
 ```
-
-![](img/total_genes_afterLessStringentFilter.png){fig-alt="six violins showing how many genes each spot or cell has for each sample following filtering" width=800 .lightbox}
 
 :::
 
@@ -95,19 +80,14 @@ transformed_plots <- distribution_plots(scz_spatial, genes = c("CX3CR1", "FKBP5"
 
 raw_plots$CX3CR1 + transformed_plots$CX3CR1 + patchwork::plot_layout(guides = "collect")
 ```
-![](img/crx3cr1_expression_before_after.png){fig-alt="Two panels with six violin plots each showing the distribution of the CX3CR1 gene prior to normalization and after normalization for each sample."}
 
 ```{r}
 raw_plots$FKBP5 + transformed_plots$FKBP5 + plot_layout(guides="collect")
 ```
 
-![](img/fkbp5_expression_before_after.png){fig-alt="Two panels with six violin plots each showing the distribution of the FKBP5 gene prior to normalization and after normalization for each sample."}
-
 ```{r}
 raw_plots$SST + transformed_plots$SST + plot_layout(guides = "collect")
 ```
-
-![](img/sst_expression_before_after.png){fig-alt="Two panels with six violin plots each showing the distribution of the SST gene prior to normalization and after normalization for each sample."}
 
 ```{r, eval = FALSE}
 saveRDS(scz_spatial, here("data/wrangled/scz_spatial.rds"))
