@@ -15,12 +15,12 @@ Xenium spatial transcriptomics data represents mRNA counts for panel target tran
 
 ## Metadata
 
-For the Xenium experiments in @, there were 24 donors:
+For the data in @Kwon_etal_2026, postmortem tissue samples from 24 donors were used to generate Xenium data:
 
-  * 12 Neurotypical controls [NTC]
+  * 12 Neurotypical donors [NTC]
     * 5 males
     * 7 females
-  * 12 Schizophrenia [SCZ]
+  * 12 donors diagnosed with Schizophrenia [SCZ]
     * 6 males
     * 6 females
 
