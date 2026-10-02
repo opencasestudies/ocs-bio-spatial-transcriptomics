@@ -9,15 +9,20 @@ Fill out the table and add rows as necessary providing a link to the source and 
 
 We will begin by loading the packages that we will need:
 
-```{r, eval = FALSE}
-#add library() calls
+```{r warning = FALSE, message = FALSE}
 library(here)
 library(tidyverse)
 library(readr)
 library(dplyr)
 library(sf)
+library(arrow)
+library(R.utils)
+library(rhdf5)
+library(Matrix)
 library(spatialGE)
 library(ggpubr)
+library(patchwork)
+library(colorblindr)
 ```
 
 Package        | Use

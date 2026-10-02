@@ -11,8 +11,8 @@ Add instructions for loading the data...
 </details>
 ***
 
-```{r, eval = FALSE}
-summarize_STlist(scz_spatial)
+```{r}
+spatialGE::summarize_STlist(scz_spatial) %>% print(width = Inf)
 ```
 
 This is a 6 X 9 dataframe that provides
@@ -27,30 +27,17 @@ This is a 6 X 9 dataframe that provides
   8. `mean_genes_per_spotcell`: average number of genes (with non-zero counts?) per spot or cell for that sample
   9. `max_genes_per_spotcell`: maximum number of genes (with non-zero counts?) per spot or cell for that sample
 
-|sample_name|spotscells|genes|min_counts|mean_counts|max_counts|min_genes|mean_genes|max_genes|
-|:--------:|:--------:|:----:|:-------:|:-----------:|:------:|:--------:|:--------:|:-------:|
-| GSM9223477 | 48542 |  541 | 0 | 680. | 3365 | 0 | 97.5 | 219 |
-| GSM9223479 | 45675 |  541 | 0 | 615. | 2912 | 0 | 92.4 | 194 |
-| GSM9223481 | 61932 |  541 | 0 | 860. | 4241 | 0 | 108. | 219 |
-| GSM9223483 | 59962 |  541 | 2 | 750. | 4327 | 2 | 86.0 | 211 |
-| GSM9223484 | 44655 |  541 | 0 | 619. | 3048 | 0 | 94.3 | 204 |
-| GSM9223485 | 68976 |  541 | 0 | 939. | 4024 | 0 | 110. | 218 |
-
 Violin plot of counts per spot/cell for each sample
 
-```{r, eval = FALSE}
-distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_counts')
+```{r}
+spatialGE::distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_counts')
 ```
-
-![](img/total_counts_qc.png){fig-alt="six violins showing how many counts each spot or cell has for each sample" width=800 .lightbox}
 
 Violin plot of genes per spot/cell for each sample
 
-```{r, eval = FALSE}
+```{r}
 distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_genes')
 ```
-
-![](img/total_genes_qc.png){fig-alt="six violins showing how many genes each spot or cell has for each sample" width=800 .lightbox}
 
 What do we observe:
 
@@ -62,9 +49,5 @@ What do we observe:
 * Mean genes is around 80-110, with maxes around 200.
 * Going to set a minimum of 50 genes for each spot/cell since that's a little below the mean.
 * Some samples have a lot more spots/cells than others .... I should probably make a table after filtering to see if there are a similar number of spots/cells after filtering. But I also figure that means the tissue is different sizes?
-
-::: {.column-margin}
-**Given this table and these violin plots, are there filtering parameters you would suggest besides the ones I mentioned?**
-:::
 
 Won't need to save data at the end of this step because we haven't changed anything.

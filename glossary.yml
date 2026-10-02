@@ -1,4 +1,118 @@
-Term 1: |
-  Definition of Term 1
-Term2: |
-  Definition of Term 2
+Postmortem samples: |
+  Samples collected after death.
+Metadata: |
+  Descriptive information describing other data. Descriptions may include how or when that data was generated, source organisms, associated patient IDs, or demographic information.
+Visium: |
+  Filler. 
+Xenium: |
+  Filler.
+Sequence-based technologies: |
+  Filler.
+Droplet: |
+  Filler.
+Image-based technologies: |
+  Filler.
+Spot: |
+  Filler.
+Panel: |
+  Filler.
+Resolution: |
+  Filler.
+Subcellular: |
+  Filler.
+Multicellular: |
+  Filler.
+Schizophrenia: |
+  Filler.
+Neurotypical: |
+  Filler.
+RIN: |
+  RNA Integrity Number.
+PMI: |
+  Postmortem Interval.
+Spatial Transcriptomics: |
+  Gene expression and the location of the gene within a tissue. Spatially-informed gene expression data.
+GEO: |
+  Gene Expression Omnibus.
+Coordinates: |
+  Filler.
+Barcodes: |
+  Filler.
+Features: |
+  Filler.
+Index: |
+  Filler.
+Directories: |
+  Filler.
+Counts: |
+  Filler.
+mRNA: |
+  messenger RNA.
+Random seed: |
+  Filler.
+Cohort: |
+  Filler.
+lapply: |
+  Filler.
+Loop: |
+  Filler.
+R-squared: |
+  Filler.
+Slope: |
+  Filler.
+Coefficient: |
+  Filler.
+log transformation: |
+  Filler.
+GUI: |
+  Graphical User Interface.
+Package: |
+  Software.
+Sparse: |
+  Low coverage; lots of zeros.
+Deconvolution: |
+   Filler. 
+Segmentation: |
+  Filler.
+Doublet: |
+  Filler.
+Clustering: |
+  Filler. 
+Enrichment: |
+  Filler.
+Classification: |
+  Filler.
+STlist: |
+  Filler.
+Filtering: |
+  Filler.
+Quality Control: |
+  Filler.
+Normalization: |
+  Filler.
+Guide: |
+  Another term for legend.
+Distribution: |
+  Filler.
+Histology: |
+  Filler.
+Differential Expression: |
+  Filler.
+Specialized cell: |
+  Filler.
+Parquet: |
+  Filler.
+Quilt plot: |
+  Filler.
+Vertex: |
+  Filler.
+Compressed: |
+  Filler.
+Matrix: |
+  Filler.
+Personally Identifiable Information: |
+  Data unique to an individual person that can be used to distinguish their identity, including full names, Social Security numbers, contact information, etc.; abbreviated as "PII".
+Protected Health Information: |
+  A subset of PII that includes any health information that can identify an individual that is regulated by HIPAA, including full name, contact information, medical records, health insurance information, biometric elements, etc.; abbreviated as "PHI".
+Sequencing: |
+  A laboratory technique that extracts and analyzes the genetic material from a sample.
