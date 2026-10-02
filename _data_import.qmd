@@ -192,7 +192,7 @@ centroids <- df_test_sample %>%
 This method is accurate if compared to the parquet files.
 
 ```{r}
-right_join(spatial_coords[[unlist(samples_metadata[which(samples_metadata$sampleID == testsample), "brainNumID"])]],
+right_join(spatial_coords[[unlist(samples_metadata[which(samples_metadata$sampleID == testsample), "DxID"])]],
            centroids,
            by = "cell_id") %>%
     rename(x_dataset_parquet = x_centroid, 
