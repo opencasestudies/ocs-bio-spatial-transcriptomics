@@ -35,13 +35,13 @@ We have `ggpubr` combine the common legends and display them on the bottom. It a
 ### CX3CR1
 
 ```{r diff_exp1_quilt}
-quilt25CX3CR1 <- spatialGE::STplot(scz_spatial,
-                  samples = samples_metadata$DxID[c(2,5)],
+quilt26CX3CR1 <- spatialGE::STplot(scz_spatial,
+                  samples = samples_metadata$DxID[c(2,6)],
                   genes = c("CX3CR1"),
                   color_pal='PuBuGn',
                   ptsize=0.05)
 
-quiltArrange <- ggpubr::ggarrange(plotlist=quilt25CX3CR1,
+quiltArrange <- ggpubr::ggarrange(plotlist=quilt26CX3CR1,
                   nrow=1,
                   ncol=2,
                   legend='bottom',
@@ -53,13 +53,13 @@ quiltArrange
 ### FKBP5
 
 ```{r diff_exp2_quilt}
-quilt25FKBP5 <- STplot(scz_spatial,
-                  samples = samples_metadata$DxID[c(2,5)],
+quilt26FKBP5 <- STplot(scz_spatial,
+                  samples = samples_metadata$DxID[c(2,6)],
                   genes = c("FKBP5"),
                   color_pal='PuBuGn',
                   ptsize=0.05)
 
-ggarrange(plotlist=quilt25FKBP5,
+ggarrange(plotlist=quilt26FKBP5,
                   nrow=1,
                   ncol=2,
                   legend='bottom',
@@ -71,13 +71,13 @@ ggarrange(plotlist=quilt25FKBP5,
 ### MBP
 
 ```{r diff_spatial1_quilt}
-quilt25MBP <- STplot(scz_spatial,
-                  samples = samples_metadata$DxID[c(2,5)],
+quilt26MBP <- STplot(scz_spatial,
+                  samples = samples_metadata$DxID[c(2,6)],
                   genes = c("MBP"),
                   color_pal='PuBuGn',
                   ptsize=0.05)
 
-ggarrange(plotlist=quilt25MBP,
+ggarrange(plotlist=quilt26MBP,
                   nrow=1,
                   ncol=2,
                   legend='bottom',
@@ -87,13 +87,13 @@ ggarrange(plotlist=quilt25MBP,
 ### PVALB
 
 ```{r diff_spatial2_quilt}
-quilt25PVALB <- spatialGE::STplot(scz_spatial,
-                  samples = samples_metadata$DxID[c(2,5)],
+quilt26PVALB <- spatialGE::STplot(scz_spatial,
+                  samples = samples_metadata$DxID[c(2,6)],
                   genes = c("PVALB"),
                   color_pal='PuBuGn',
                   ptsize=0.05)
 
-ggpubr::ggarrange(plotlist=quilt25PVALB,
+ggpubr::ggarrange(plotlist=quilt26PVALB,
                   nrow=1,
                   ncol=2,
                   legend='bottom',

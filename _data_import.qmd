@@ -41,7 +41,7 @@ samples <- c(scz_samples, ntc_samples)
 samples
 ```
 
-## What are the 3 samples subest from the larger cohort for each condition?
+## What are the 3 samples subset from the larger cohort for each condition?
 
 * NTC Samples:
   * 2 females
@@ -208,7 +208,9 @@ right_join(spatial_coords[[unlist(samples_metadata[which(samples_metadata$sample
                y = dataset_compute)) + 
       geom_point(alpha = 0.2) + 
       facet_wrap(~variable) + 
-      ggpubr::stat_regline_equation(label.x = 3, label.y = 5000)
+      ggpubr::stat_regline_equation(aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~")), 
+                                    label.x = 3, 
+                                    label.y = 5000)
 
 ```
 
