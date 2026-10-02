@@ -36,28 +36,30 @@ We have `ggpubr` combine the common legends and display them on the bottom. It a
 
 ```{r diff_exp1_quilt}
 quilt25CX3CR1 <- spatialGE::STplot(scz_spatial,
-                  samples = samples_metadata$X1[c(2,5)],
+                  samples = samples_metadata$DxID[c(2,5)],
                   genes = c("CX3CR1"),
                   color_pal='PuBuGn',
                   ptsize=0.05)
 
-ggpubr::ggarrange(plotlist=quilt25CX3CR1,
+quiltArrange <- ggpubr::ggarrange(plotlist=quilt25CX3CR1,
                   nrow=1,
                   ncol=2,
                   legend='bottom',
                   common.legend = TRUE)
+
+quiltArrange
 ```
 
 ### FKBP5
 
 ```{r diff_exp2_quilt}
-quilt25FKBP5 <- spatialGE::STplot(scz_spatial,
-                  samples = samples_metadata$X1[c(2,5)],
+quilt25FKBP5 <- STplot(scz_spatial,
+                  samples = samples_metadata$DxID[c(2,5)],
                   genes = c("FKBP5"),
                   color_pal='PuBuGn',
                   ptsize=0.05)
 
-ggpubr::ggarrange(plotlist=quilt25FKBP5,
+ggarrange(plotlist=quilt25FKBP5,
                   nrow=1,
                   ncol=2,
                   legend='bottom',
@@ -69,13 +71,13 @@ ggpubr::ggarrange(plotlist=quilt25FKBP5,
 ### MBP
 
 ```{r diff_spatial1_quilt}
-quilt25MBP <- spatialGE::STplot(scz_spatial,
-                  samples = samples_metadata$X1[c(2,5)],
+quilt25MBP <- STplot(scz_spatial,
+                  samples = samples_metadata$DxID[c(2,5)],
                   genes = c("MBP"),
                   color_pal='PuBuGn',
                   ptsize=0.05)
 
-ggpubr::ggarrange(plotlist=quilt25MBP,
+ggarrange(plotlist=quilt25MBP,
                   nrow=1,
                   ncol=2,
                   legend='bottom',
@@ -86,7 +88,7 @@ ggpubr::ggarrange(plotlist=quilt25MBP,
 
 ```{r diff_spatial2_quilt}
 quilt25PVALB <- spatialGE::STplot(scz_spatial,
-                  samples = samples_metadata$X1[c(2,5)],
+                  samples = samples_metadata$DxID[c(2,5)],
                   genes = c("PVALB"),
                   color_pal='PuBuGn',
                   ptsize=0.05)
@@ -115,6 +117,10 @@ I tested several color palettes and settled on `PuBuGn` for several reasons. (No
 1. Easier to distinguish changes in expression (e.g., up vs down regulated). `BuRd` and `Spectral` were best for this otherwise.
 2. The lighter color was no longer in the center (as if the log expression values were "centered") and instead is on the lower level of the spectrum. `Spectral` was the only other one not centered on white, but it was still centered on a lighter color.
 3. Looking at the result with a color vision deficiency simulator (`cvg_grid()` from `colorblindr`) the general conclusions are still possible in my opinion. This wasn't the case with `PrGn`, `BuRd`, or `Spectral` when I tested them.
+
+```{r}
+colorblindr::cvs_grid(plot = quiltArrange)
+```
 
 ![](img/simulator_results.png)
 

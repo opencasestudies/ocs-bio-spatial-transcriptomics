@@ -22,6 +22,7 @@ library(Matrix)
 library(spatialGE)
 library(ggpubr)
 library(patchwork)
+library(colorblindr)
 ```
 
 Package        | Use
