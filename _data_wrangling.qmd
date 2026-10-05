@@ -89,6 +89,13 @@ raw_plots$FKBP5 + transformed_plots$FKBP5 + plot_layout(guides="collect")
 raw_plots$SST + transformed_plots$SST + plot_layout(guides = "collect")
 ```
 
+Now we want to clear up some R memory
+
+```{r}
+rm(raw_plots, transformed_plots)
+gc()
+```
+
 ```{r, eval = FALSE}
 saveRDS(scz_spatial, here("data/wrangled/scz_spatial.rds"))
 ```

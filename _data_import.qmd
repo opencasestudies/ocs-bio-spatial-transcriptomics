@@ -61,7 +61,7 @@ This `lapply` will loop through the samples vector and fetch the following files
 * `parquet.gz` for spatial coordinates
 * `-cell_feature_matrix.h5` for RNA expression
 
-```{r}
+```{r, eval = FALSE}
 lapply(1:length(samples), 
        function(x) 
        GEOquery::getGEOSuppFiles(GEO = samples[x], 
@@ -278,7 +278,7 @@ scz_spatial <- spatialGE::STlist(rnacounts = rnacounts_input,
                                  samples = samples_metadata
                                 )
 
-rm(rnacounts_input, spatial_coords)
+rm(rnacounts_input, spatial_coords, centroids, df_test_sample, testsample)
 gc()                               
 ```
 
