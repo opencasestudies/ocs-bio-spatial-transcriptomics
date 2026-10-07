@@ -28,6 +28,61 @@ You can use a collapsible details section to provide an answer
 
 -->
 
+## Clustering
+
+Should be able to use `STclust`, but I'm struggling with that. So I grabbed the [cluster assignments from the study](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/blob/devel/processed-data/06_cell_type_clustering/banksy_clustering_lambda0.1_res0.7.csv). The [cluster annotations are here in their code](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/blob/2c0ec1319137fa1c108ec6ea0c6935b32ad50e1b/code/analysis/06_cell_type_clustering/06_plot_clusters_on_tissue.R#L41-L52).
+
+<!--
+```{.default}
+awk -F, -v OFS=',' 'NR==1 {print "","Cluster","Sample","CoordIndex"} $3 ~ /(Br1139|Br5314|Br5746|Br5973|Br8433|Br8667)/ { gsub(/"/, "", $3); split($3, arr, "_"); print $1, $2, "\""arr[1] "\"", "\""arr[2] "\"" }' data/raw/banksy_clustering_lambda0.1_res0.7.csv > data/wrangled/cluster_assignments.csv
+```
+
+Need to take the output of this and join it to the original spatial coordinates. I think that the fourth column is the row number and I need the libname from the original file to join the coordinates to the spatial_meta STlist object
+
+```{r, eval = FALSE}
+cluster_assignments <- read.csv(here("data/wrangled/cluster_assignments.csv"))
+
+new_cluster_assignments <- data.table::rbindlist(
+  lapply(1:length(spatial_coords), function(x) spatial_coords[[names(spatial_coords)[x]]] %>%
+        mutate(CoordIndex = row_number()) %>%
+        select(CoordIndex, cell_id) %>%
+        right_join(cluster_assignments %>% filter(Sample == substring(names(spatial_coords)[x], 1, 6))) %>%
+        rename(libname = cell_id)
+)) %>%
+  mutate(SampleSuffix = case_when(Sample %in% c("Br8667", "Br5314", "Br8433") ~ "CTRL", 
+                                  Sample %in% c("Br5973", "Br1139", "Br5746") ~ "SCZ", 
+                                  .default= NA_character_)) %>% 
+  unite("SampleName", c(Sample, SampleSuffix), sep = "")
+
+for (name in names(scz_spatial@spatial_meta)){
+  scz_spatial@spatial_meta[[name]] <- left_join(scz_spatial@spatial_meta[[name]], 
+                                                new_cluster_assignments %>% 
+                                                  filter(SampleName == name) %>% 
+                                                  select(libname, Cluster)
+                                                )  %>%
+                                          rename(annot = Cluster) %>%
+                                          fill(annot) %>%
+                                          mutate(annot=case_when(
+                                            annot %in% c(6, 8, 1) ~ "Oligo",
+                                            annot == 10 ~ "Ambig/Oligo",
+                                            annot == 7 ~ "Mic",
+                                            annot == 15 ~ "Ambig/In/Endo",
+                                            annot == 18 ~ "L5 Ex",
+                                            annot == 14 ~ "L6 Ex",
+                                            annot == 11 ~ "L4/5 Ex",
+                                            annot == 2 ~ "L2/3 Ex",
+                                            annot %in% c(17, 16, 4) ~ "Ast",
+                                            annot %in% c(5, 13, 3) ~ "Endo",
+                                            annot == 12 ~ "CGE",
+                                            annot == 9 ~ "MGE",
+                                            .default ~ NA_character_))
+                                                
+
+}
+```
+
+-->
+
 We will use `SThet` to look at the autocorrelation of the expression of genes throughout the samples.
 
 Moran's I Interpretation:
