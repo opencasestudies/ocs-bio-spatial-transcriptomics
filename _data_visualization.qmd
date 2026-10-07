@@ -54,7 +54,7 @@ quiltCX3CR1
 
 #### Set of samples 2
 
-```{r}
+```{r quilt_fxn}
 displayQuilt <- function(stlist, sampleNames, gene){
 
     quiltPlots <- spatialGE::STplot(stlist,
@@ -78,7 +78,7 @@ displayQuilt <- function(stlist, sampleNames, gene){
 
 
 
-```{r}
+```{r diff_exp1_quilt2}
 sampleset2 <- samples_metadata$DxID[c(1,4)]
 quiltCX3CR1_sampleset2 <- displayQuilt(scz_spatial_tr, 
                                        sampleset2,
@@ -109,7 +109,7 @@ quiltFKBP5_sampleset1
 
 #### Set of samples 2
 
-```{r}
+```{r diff_exp2_quilt2}
 quiltFKBP5_sampleset2 <- displayQuilt(scz_spatial_tr, 
                                        sampleset2,
                                        "FKBP5")
@@ -128,7 +128,7 @@ quiltFKBP5_sampleset2
 
 #### Set of samples 1
 
-```{r diff_exp2_quilt}
+```{r diff_spat1_quilt}
 
 quiltMBP_sampleset1 <- displayQuilt(scz_spatial_tr, 
                                        sampleset1,
@@ -140,7 +140,7 @@ quiltMBP_sampleset1
 
 #### Set of samples 2
 
-```{r}
+```{r diff_spat1_quilt2}
 quiltMBP_sampleset2 <- displayQuilt(scz_spatial_tr, 
                                        sampleset2,
                                        "MBP")
@@ -157,7 +157,7 @@ quiltMBP_sampleset2
 
 #### Set of samples 1
 
-```{r diff_exp2_quilt}
+```{r diff_spat2_quilt}
 
 quiltPVALB_sampleset1 <- displayQuilt(scz_spatial_tr, 
                                        sampleset1,
@@ -169,7 +169,7 @@ quiltPVALB_sampleset1
 
 #### Set of samples 2
 
-```{r}
+```{r diff_spat2_quilt2}
 quiltPVALB_sampleset2 <- displayQuilt(scz_spatial_tr, 
                                        sampleset2,
                                        "PVALB")
