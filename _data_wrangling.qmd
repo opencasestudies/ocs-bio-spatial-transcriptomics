@@ -74,7 +74,7 @@ Transformation with `spatialGE` uses either log-transformation or the `SCTransfo
 We'll need a second `STlist` object so we can run two different transformations and compare them.
 
 ```{r}
-scz_spatial_tr <- duplicate(scz_spatial)
+scz_spatial_tr <- rlang::duplicate(scz_spatial)
 ```
 
 ### Log Transformation
