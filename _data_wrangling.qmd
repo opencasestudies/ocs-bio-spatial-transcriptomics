@@ -36,7 +36,11 @@ scz_spatial <- spatialGE::filter_data(scz_spatial,
                            spot_mingenes=10)
 ```
 
-
+:::{.emphasis_block}
+<details><summary>How do you report which cell barcodes were filtered?</summary>
+Add info here on how to assess and report which cell barcodes were filtered out. Note that we can compare to the ones that the original study filtered out. 
+</details>
+:::
 
 What do the distributions look like now?
 
@@ -65,34 +69,83 @@ distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_genes')
 
 ## Normalizing
 
-We're using a log transform. Another option is the SCTransform which we'll explain in a click to expand section. We can even compare the two normalization methods (but I'll have to make two separate `STlist`'s for that)
+Transformation with `spatialGE` uses either log-transformation or the `SCTransform` method. 
+
+We'll need a second `STlist` object so we can run two different transformations and compare them.
+
+```{r}
+scz_spatial_tr <- duplicate(scz_spatial)
+```
+
+### Log Transformation
+
+Explain log transformation.
 
 ```{r}
 scz_spatial <- spatialGE::transform_data(scz_spatial, method='log', cores=2)
 ```
 
-We can visualize the distribution of expression of a couple of genes (before and after the normalization) using the `distribution_plots()` function.
+### SCTransform
+
+Explain SCTransform method.
 
 ```{r}
-raw_plots <- distribution_plots(scz_spatial, genes = c("CX3CR1", "FKBP5", "SST"), data_type = "raw")
-
-transformed_plots <- distribution_plots(scz_spatial, genes = c("CX3CR1", "FKBP5", "SST"), data_type = "tr")
-
-raw_plots$CX3CR1 + transformed_plots$CX3CR1 + patchwork::plot_layout(guides = "collect")
+scz_spatial_tr <- transform_data(scz_spatial_tr, method = 'sct', cores = 2)
 ```
+
+### Visualize
+
+We can visualize the library size for each cell within each sample.
 
 ```{r}
-raw_plots$FKBP5 + transformed_plots$FKBP5 + plot_layout(guides="collect")
+visualize_lib_size <- function(mat, title_name){
+    Matrix::colSums(mat) %>% 
+        as.data.frame() %>%
+        ggplot(aes(x=`.`)) + geom_histogram(bins = 500) + theme_bw() + ggtitle(title_name)
+}
+
+patchwork::wrap_plots(purrr::map2(scz_spatial@tr_counts, names(scz_spatial@tr_counts), visualize_lib_size), nrow = 2)
+
+wrap_plots(map2(scz_spatial_tr@tr_counts, names(scz_spatial_tr@tr_counts), visualize_lib_size), nrow = 2)
+
 ```
 
+We can visualize the distribution of expression of a few genes (before and after the normalization) using the `distribution_plots()` function.
+
 ```{r}
-raw_plots$SST + transformed_plots$SST + plot_layout(guides = "collect")
+raw_plots <- distribution_plots(scz_spatial, genes = c("CX3CR1", "FKBP5", "PVALB"), data_type = "raw")
+
+transformed_log_plots <- distribution_plots(scz_spatial, genes = c("CX3CR1", "FKBP5", "PVALB"), data_type = "tr")
+
+transformed_sct_plots <- distribution_plots(scz_spatial_tr, genes = c("CX3CR1", "FKBP5", "PVALB"), data_type = "tr")
 ```
+
+:::{.panel-tabset}
+
+#### CX3CR1
+
+```{r}
+raw_plots$CX3CR1 + transformed_log_plots$CX3CR1 + transformed_sct_plots$CX3CR1 + patchwork::plot_layout(guides = "collect", nrow=3)
+```
+
+#### FKBP5
+
+```{r}
+raw_plots$FKBP5 + transformed_log_plots$FKBP5 + transformed_sct_plots$FKBP5 + patchwork::plot_layout(guides = "collect", nrow=3)
+```
+
+#### PVALB
+
+```{r}
+raw_plots$PVALB + transformed_log_plots$PVALB + transformed_sct_plots$PVALB + patchwork::plot_layout(guides = "collect", nrow=3)
+```
+
+:::
 
 Now we want to clear up some R memory
 
 ```{r}
-rm(raw_plots, transformed_plots)
+rm(raw_plots, transformed_log_plots, transformed_sct_plots)
 gc()
 ```
 

@@ -41,6 +41,15 @@ samples <- c(scz_samples, ntc_samples)
 samples
 ```
 
+:::{.reproducibility_box}
+::::{.reproducibility_box_header}
+Reproducibility considerations
+::::
+::::{.inner_block}
+Any steps in an analysis that rely on randomness or stochasticity are not reproducible later or by others unless a random seed is set prior to the running those steps (and used every time before running those steps).
+::::
+:::
+
 ## What are the 3 samples subset from the larger cohort for each condition?
 
 * NTC Samples:

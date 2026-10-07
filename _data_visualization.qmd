@@ -28,14 +28,16 @@ I tested several color palettes and settled on `PuBuGn`.... more explanation bel
 
 We have `ggpubr` combine the common legends and display them on the bottom. It also is plotting the quilt plots in a 2 X 2 grid
 
-::: {.panel-tabset}
-
 ## Differential Expression Only
 
 ### CX3CR1
 
+::: {.panel-tabset}
+
+#### Set of samples 1
+
 ```{r diff_exp1_quilt}
-quilt26CX3CR1 <- spatialGE::STplot(scz_spatial,
+quilt26CX3CR1 <- spatialGE::STplot(scz_spatial_tr,
                   samples = samples_metadata$DxID[c(2,6)],
                   genes = c("CX3CR1"),
                   color_pal='PuBuGn',
@@ -47,63 +49,135 @@ quiltArrange <- ggpubr::ggarrange(plotlist=quilt26CX3CR1,
                   legend='bottom',
                   common.legend = TRUE)
 
-quiltArrange
+quiltCX3CR1
 ```
+
+#### Set of samples 2
+
+```{r}
+displayQuilt <- function(stlist, sampleNames, gene){
+
+    quiltPlots <- spatialGE::STplot(stlist,
+                                    samples = sampleNames,
+                                    genes = gene,
+                                    color_pal = 'PuBuGn',
+                                    ptsize=0.05
+                                   )
+
+    quiltArrange <- ggpubr::ggarrange(plotlist=quiltPlots,
+                                      nrow = 1,
+                                      ncol = 2,
+                                      legend = 'bottom',
+                                      common.legend = TRUE)
+
+    return(quiltArrange)
+
+}
+```
+:::
+
+
+
+```{r}
+sampleset2 <- samples_metadata$DxID[c(1,4)]
+quiltCX3CR1_sampleset2 <- displayQuilt(scz_spatial_tr, 
+                                       sampleset2,
+                                       "CX3CR1")
+
+quiltCX3CR1_sampleset2
+
+```
+
+:::
 
 ### FKBP5
 
-```{r diff_exp2_quilt}
-quilt26FKBP5 <- STplot(scz_spatial,
-                  samples = samples_metadata$DxID[c(2,6)],
-                  genes = c("FKBP5"),
-                  color_pal='PuBuGn',
-                  ptsize=0.05)
+::: {.panel-tabset}
 
-ggarrange(plotlist=quilt26FKBP5,
-                  nrow=1,
-                  ncol=2,
-                  legend='bottom',
-                  common.legend = TRUE)
+#### Set of samples 1
+
+```{r diff_exp2_quilt}
+
+sampleset1 <- samples_metadata$DxID[c(2,6)]
+quiltFKBP5_sampleset1 <- displayQuilt(scz_spatial_tr, 
+                                       sampleset1,
+                                       "FKBP5")
+
+quiltFKBP5_sampleset1
+
 ```
+
+#### Set of samples 2
+
+```{r}
+quiltFKBP5_sampleset2 <- displayQuilt(scz_spatial_tr, 
+                                       sampleset2,
+                                       "FKBP5")
+
+quiltFKBP5_sampleset2
+
+```
+
+:::
 
 ## Differential Spatial Distribution
 
 ### MBP
 
-```{r diff_spatial1_quilt}
-quilt26MBP <- STplot(scz_spatial,
-                  samples = samples_metadata$DxID[c(2,6)],
-                  genes = c("MBP"),
-                  color_pal='PuBuGn',
-                  ptsize=0.05)
+::: {.panel-tabset}
 
-ggarrange(plotlist=quilt26MBP,
-                  nrow=1,
-                  ncol=2,
-                  legend='bottom',
-                  common.legend = TRUE)
+#### Set of samples 1
+
+```{r diff_exp2_quilt}
+
+quiltMBP_sampleset1 <- displayQuilt(scz_spatial_tr, 
+                                       sampleset1,
+                                       "MBP")
+
+quiltMBP_sampleset1
+
 ```
 
-### PVALB
+#### Set of samples 2
 
-```{r diff_spatial2_quilt}
-quilt26PVALB <- spatialGE::STplot(scz_spatial,
-                  samples = samples_metadata$DxID[c(2,6)],
-                  genes = c("PVALB"),
-                  color_pal='PuBuGn',
-                  ptsize=0.05)
+```{r}
+quiltMBP_sampleset2 <- displayQuilt(scz_spatial_tr, 
+                                       sampleset2,
+                                       "MBP")
 
-ggpubr::ggarrange(plotlist=quilt26PVALB,
-                  nrow=1,
-                  ncol=2,
-                  legend='bottom',
-                  common.legend = TRUE)
+quiltMBP_sampleset2
+
 ```
-
-### 
 
 :::
 
+### PVALB
+
+::: {.panel-tabset}
+
+#### Set of samples 1
+
+```{r diff_exp2_quilt}
+
+quiltPVALB_sampleset1 <- displayQuilt(scz_spatial_tr, 
+                                       sampleset1,
+                                       "PVALB")
+
+quiltPVALB_sampleset1
+
+```
+
+#### Set of samples 2
+
+```{r}
+quiltPVALB_sampleset2 <- displayQuilt(scz_spatial_tr, 
+                                       sampleset2,
+                                       "PVALB")
+
+quiltPVALB_sampleset2
+```
+
+:::
 
 
 
