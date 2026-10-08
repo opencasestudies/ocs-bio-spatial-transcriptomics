@@ -132,12 +132,12 @@ We can also look at summaries of the expression of a few of these genes in these
 
 ```{r}
 combine_counts_annot <- function(matannot, matcount, sample_name, gene_name){
-  full_join(
-    matannot[[sample_name]][,c("libname", "annot")],
-    matcount[[sample_name]][gene_name, ] %>% 
-      data.frame() %>% 
-      rownames_to_column("libname")
-  ) %>% `colnames<-`(c("libname", sample_name, "annot"))
+    full_join(
+        matannot[[sample_name]][,c("libname", "annot")],
+        matcount[[sample_name]][gene_name, ] %>% 
+            data.frame() %>% 
+            rownames_to_column("libname")
+    ) %>% `colnames<-`(c("libname", "annot", sample_name))
 }
 
 bind_rows(combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br1139SCZ", "PVALB"), 
