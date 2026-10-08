@@ -200,11 +200,4 @@ colorblindr::cvd_grid(plot = quiltArrange)
 Look at these genes to try to see differences in spatial distribution not just up/down: MBP, GFAP, NTRK2, MT1E, PVALB, BDNF
 -->
 
-Let's clear some R memory again.
-
-```{r}
-rm(quilt26CX3CR1, quilt26FKBP5, quilt26MBP, quilt26PVALB, quiltArrange)
-gc()
-```
-
 ***
