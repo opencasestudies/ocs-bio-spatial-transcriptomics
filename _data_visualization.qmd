@@ -49,7 +49,7 @@ quiltArrange <- ggpubr::ggarrange(plotlist=quilt26CX3CR1,
                   legend='bottom',
                   common.legend = TRUE)
 
-quiltCX3CR1
+quilt26CX3CR1
 ```
 
 #### Set of samples 2
