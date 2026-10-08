@@ -70,12 +70,10 @@ displayQuilt <- function(stlist, sampleNames, gene){
                                       legend = 'bottom',
                                       common.legend = TRUE)
 
-    return(quiltArrange)
+    return(list(plots = quiltPlots, arranged = quiltArrange))
 
 }
 ```
-:::
-
 
 
 ```{r diff_exp1_quilt2}
@@ -84,7 +82,7 @@ quiltCX3CR1_sampleset2 <- displayQuilt(scz_spatial_tr,
                                        sampleset2,
                                        "CX3CR1")
 
-quiltCX3CR1_sampleset2
+quiltCX3CR1_sampleset2$arranged
 
 ```
 
@@ -103,7 +101,7 @@ quiltFKBP5_sampleset1 <- displayQuilt(scz_spatial_tr,
                                        sampleset1,
                                        "FKBP5")
 
-quiltFKBP5_sampleset1
+quiltFKBP5_sampleset1$arranged
 
 ```
 
@@ -114,7 +112,7 @@ quiltFKBP5_sampleset2 <- displayQuilt(scz_spatial_tr,
                                        sampleset2,
                                        "FKBP5")
 
-quiltFKBP5_sampleset2
+quiltFKBP5_sampleset2$arranged
 
 ```
 
@@ -134,7 +132,7 @@ quiltMBP_sampleset1 <- displayQuilt(scz_spatial_tr,
                                        sampleset1,
                                        "MBP")
 
-quiltMBP_sampleset1
+quiltMBP_sampleset1$arranged
 
 ```
 
@@ -145,7 +143,7 @@ quiltMBP_sampleset2 <- displayQuilt(scz_spatial_tr,
                                        sampleset2,
                                        "MBP")
 
-quiltMBP_sampleset2
+quiltMBP_sampleset2$arranged
 
 ```
 
@@ -163,7 +161,7 @@ quiltPVALB_sampleset1 <- displayQuilt(scz_spatial_tr,
                                        sampleset1,
                                        "PVALB")
 
-quiltPVALB_sampleset1
+quiltPVALB_sampleset1$arranged
 
 ```
 
@@ -174,7 +172,7 @@ quiltPVALB_sampleset2 <- displayQuilt(scz_spatial_tr,
                                        sampleset2,
                                        "PVALB")
 
-quiltPVALB_sampleset2
+quiltPVALB_sampleset2$arranged
 ```
 
 :::

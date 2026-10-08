@@ -89,15 +89,150 @@ for (name in names(scz_spatial_tr@spatial_meta)){
 }
 ```
 
+### Observed cell types
+
+We can look at the proportion of cells in each sample that are each cell type.
+
+```
+num_cell_types <- function(mat, colname){
+  return(mat %>% 
+    group_by(annot) %>% summarize("{colname}" := n())
+  )
+
+}
+
+bind_rows(map2(scz_spatial@spatial_meta, 
+               names(scz_spatial@spatial_meta), 
+               num_cell_types)) %>% 
+    pivot_longer(starts_with("Br"), 
+                names_to = "sample", 
+                values_to = "count") %>% 
+    drop_na() %>% 
+    group_by(sample) %>% 
+    mutate(total_cells = sum(count), 
+           prop = count / total_cells * 100, 
+           sample = factor(sample, 
+                           levels = c("Br5314CTRL", "Br8433CTRL", "Br8667CTRL", "Br1139SCZ", "Br5746SCZ", "Br5973SCZ"))) %>% 
+    ggplot(aes(x = sample, 
+               y = prop, 
+               fill = annot)) + 
+    geom_bar(stat = "identity") + 
+    theme_bw() + 
+    scale_fill_viridis_d() +
+    ylab("Proportion of cells")
+```
+
+### Gene specific summaries of expression
+
+We can also look at summaries of the expression of a few of these genes in these cell types. 
+
+:::{panel.tabet}
+
+#### PVALB
+
+```{r}
+combine_counts_annot <- function(matannot, matcount, sample_name, gene_name){
+  full_join(
+    matannot[[sample_name]][,c("libname", "annot")],
+    matcount[[sample_name]][gene_name, ] %>% 
+      data.frame() %>% 
+      rownames_to_column("libname")
+  ) %>% `colnames<-`(c("libname", sample_name, "annot"))
+}
+
+bind_rows(combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br1139SCZ", "PVALB"), 
+          combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br5314CTRL", "PVALB")) %>% 
+    pivot_longer(starts_with("Br"), 
+                 values_to = "tr_counts", 
+                 names_to = "sample") %>% 
+    drop_na() %>% 
+    ggplot(aes(x = sample, 
+               y = tr_counts, 
+               fill = sample)) + 
+    geom_violin() + 
+    facet_wrap(~annot) + 
+    theme_bw() + 
+    scale_fill_viridis_d(end = 0.6) + 
+    ggtitle("PVALB")
+```
+
+```{r}
+bind_rows(combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br1139SCZ", "PVALB"), 
+          combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br5314CTRL", "PVALB")) %>% 
+    pivot_longer(starts_with("Br"), 
+                 values_to = "tr_counts", 
+                 names_to = "sample") %>% 
+    drop_na() %>% 
+    group_by(annot, sample) %>% 
+    summarize(min_exp = min(tr_counts), 
+              max_exp = max(tr_counts), 
+              avg_exp = mean(tr_counts),
+              median_exp = median(tr_counts)) %>% 
+    print(n=24)
+```
+
+#### MBP
+
+```{r}
+
+bind_rows(combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br1139SCZ", "MBP"), 
+          combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br5314CTRL", "MBP")) %>% 
+    pivot_longer(starts_with("Br"), 
+                 values_to = "tr_counts", 
+                 names_to = "sample") %>% 
+    drop_na() %>% 
+    ggplot(aes(x = sample, 
+               y = tr_counts, 
+               fill = sample)) + 
+    geom_violin() + 
+    facet_wrap(~annot) + 
+    theme_bw() + 
+    scale_fill_viridis_d(end = 0.6) + 
+    ggtitle("MBP")
+```
+
+```{r}
+bind_rows(combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br1139SCZ", "MBP"), 
+          combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br5314CTRL", "MBP")) %>% 
+    pivot_longer(starts_with("Br"), 
+                 values_to = "tr_counts", 
+                 names_to = "sample") %>% 
+    drop_na() %>% 
+    group_by(annot, sample) %>% 
+    summarize(min_exp = min(tr_counts), 
+              max_exp = max(tr_counts), 
+              avg_exp = mean(tr_counts),
+              median_exp = median(tr_counts)) %>% 
+    print(n=24)
+```
+
+::::
+
+### Spatial distribution of expression
+
+:::{.panel-tabset}
+
+#### PVALB
 
 ```{r}
 cellType <- STplot(scz_spatial_tr, plot_meta = "annot", samples = sampleset1)
 
-combined_list <- c(cellType, quilt26CX3CR1)
+combined_list <- c(cellType, quiltPVALB_sampleset1$plots)
 
 ggpubr::ggarrange(plotlist = combined_list, ncol=2, nrow=2, labels = "AUTO")
 
 ```
 
+#### MBP
+
+
+```{r}
+combined_list2 <- c(cellType, quiltMVP_sampleset1$plots)
+
+ggpubr::ggarrange(plotlist = combined_list2, ncol=2, nrow=2, labels = "AUTO")
+
+```
+
+:::
 
 ***
