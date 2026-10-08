@@ -193,7 +193,7 @@ I tested several color palettes and settled on `PuBuGn` for several reasons. (No
 3. Looking at the result with a color vision deficiency simulator (`cvg_grid()` from `colorblindr`) the general conclusions are still possible in my opinion. This wasn't the case with `PrGn`, `BuRd`, or `Spectral` when I tested them.
 
 ```{r}
-colorblindr::cvd_grid(plot = quiltArrange)
+colorblindr::cvd_grid(plot = quiltArrangeCX3CR1)
 ```
 
 <!--
