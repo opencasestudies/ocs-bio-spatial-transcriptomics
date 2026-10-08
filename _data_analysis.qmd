@@ -95,7 +95,7 @@ cellType <- STplot(scz_spatial_tr, plot_meta = "annot", samples = sampleset1)
 
 combined_list <- c(cellType, quilt26CX3CR1)
 
-ggpubr::ggarrange(combined_list, ncol=2, nrow=2)
+ggpubr::ggarrange(plotlist = combined_list, ncol=2, nrow=2, labels = "AUTO")
 
 ```
 

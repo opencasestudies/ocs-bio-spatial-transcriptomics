@@ -43,13 +43,13 @@ quilt26CX3CR1 <- spatialGE::STplot(scz_spatial_tr,
                   color_pal='PuBuGn',
                   ptsize=0.05)
 
-quiltArrange <- ggpubr::ggarrange(plotlist=quilt26CX3CR1,
+quiltArrangeCX3CR1 <- ggpubr::ggarrange(plotlist=quilt26CX3CR1,
                   nrow=1,
                   ncol=2,
                   legend='bottom',
                   common.legend = TRUE)
 
-quilt26CX3CR1
+quiltArrangeCX3CR1
 ```
 
 #### Set of samples 2
