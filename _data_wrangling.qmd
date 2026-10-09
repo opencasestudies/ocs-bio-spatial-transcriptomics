@@ -113,11 +113,11 @@ wrap_plots(map2(scz_spatial_tr@tr_counts, names(scz_spatial_tr@tr_counts), visua
 We can visualize the distribution of expression of a few genes (before and after the normalization) using the `distribution_plots()` function.
 
 ```{r}
-raw_plots <- distribution_plots(scz_spatial, genes = c("CX3CR1", "FKBP5", "PVALB"), data_type = "raw")
+raw_plots <- distribution_plots(scz_spatial, genes = c("CX3CR1", "FKBP5", "PVALB", "MBP"), data_type = "raw")
 
-transformed_log_plots <- distribution_plots(scz_spatial, genes = c("CX3CR1", "FKBP5", "PVALB"), data_type = "tr")
+transformed_log_plots <- distribution_plots(scz_spatial, genes = c("CX3CR1", "FKBP5", "PVALB", "MBP"), data_type = "tr")
 
-transformed_sct_plots <- distribution_plots(scz_spatial_tr, genes = c("CX3CR1", "FKBP5", "PVALB"), data_type = "tr")
+transformed_sct_plots <- distribution_plots(scz_spatial_tr, genes = c("CX3CR1", "FKBP5", "PVALB", "MBP"), data_type = "tr")
 ```
 
 :::{.panel-tabset}
@@ -138,6 +138,12 @@ raw_plots$FKBP5 + transformed_log_plots$FKBP5 + transformed_sct_plots$FKBP5 + pa
 
 ```{r}
 raw_plots$PVALB + transformed_log_plots$PVALB + transformed_sct_plots$PVALB + patchwork::plot_layout(guides = "collect", nrow=3)
+```
+
+#### MBP
+
+```{r}
+raw_plots$MBP + transformed_log_plots$MBP + transformed_sct_plots$MBP + patchwork::plot_layout(guides = "collect", nrow=3)
 ```
 
 :::
