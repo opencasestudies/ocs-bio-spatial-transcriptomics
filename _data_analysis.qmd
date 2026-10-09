@@ -101,8 +101,8 @@ num_cell_types <- function(mat, colname){
 
 }
 
-bind_rows(map2(scz_spatial@spatial_meta, 
-               names(scz_spatial@spatial_meta), 
+bind_rows(map2(scz_spatial_tr@spatial_meta, 
+               names(scz_spatial_tr@spatial_meta), 
                num_cell_types)) %>% 
     pivot_longer(starts_with("Br"), 
                 names_to = "sample", 
@@ -140,8 +140,8 @@ combine_counts_annot <- function(matannot, matcount, sample_name, gene_name){
     ) %>% `colnames<-`(c("libname", "annot", sample_name))
 }
 
-bind_rows(combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br1139SCZ", "PVALB"), 
-          combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br5314CTRL", "PVALB")) %>% 
+bind_rows(combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial_tr@tr_counts, "Br1139SCZ", "PVALB"), 
+          combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial_tr@tr_counts, "Br5314CTRL", "PVALB")) %>% 
     pivot_longer(starts_with("Br"), 
                  values_to = "tr_counts", 
                  names_to = "sample") %>% 
@@ -157,8 +157,8 @@ bind_rows(combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, 
 ```
 
 ```{r}
-bind_rows(combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br1139SCZ", "PVALB"), 
-          combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br5314CTRL", "PVALB")) %>% 
+bind_rows(combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial_tr@tr_counts, "Br1139SCZ", "PVALB"), 
+          combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial_tr@tr_counts, "Br5314CTRL", "PVALB")) %>% 
     pivot_longer(starts_with("Br"), 
                  values_to = "tr_counts", 
                  names_to = "sample") %>% 
@@ -175,8 +175,8 @@ bind_rows(combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, 
 
 ```{r}
 
-bind_rows(combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br1139SCZ", "MBP"), 
-          combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br5314CTRL", "MBP")) %>% 
+bind_rows(combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial_tr@tr_counts, "Br1139SCZ", "MBP"), 
+          combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial_tr@tr_counts, "Br5314CTRL", "MBP")) %>% 
     pivot_longer(starts_with("Br"), 
                  values_to = "tr_counts", 
                  names_to = "sample") %>% 
@@ -192,8 +192,8 @@ bind_rows(combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, 
 ```
 
 ```{r}
-bind_rows(combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br1139SCZ", "MBP"), 
-          combine_counts_annot(scz_spatial@spatial_meta, scz_spatial@tr_counts, "Br5314CTRL", "MBP")) %>% 
+bind_rows(combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial@tr_counts, "Br1139SCZ", "MBP"), 
+          combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial@tr_counts, "Br5314CTRL", "MBP")) %>% 
     pivot_longer(starts_with("Br"), 
                  values_to = "tr_counts", 
                  names_to = "sample") %>% 
