@@ -227,7 +227,7 @@ ggpubr::ggarrange(plotlist = combined_list, ncol=2, nrow=2, labels = "AUTO")
 
 
 ```{r}
-combined_list2 <- c(cellType, quiltMVP_sampleset1$plots)
+combined_list2 <- c(cellType, quiltMBP_sampleset1$plots)
 
 ggpubr::ggarrange(plotlist = combined_list2, ncol=2, nrow=2, labels = "AUTO")
 
