@@ -61,156 +61,53 @@ new_cluster_assignments <- data.table::rbindlist(
 ```{r}
 
 cluster_assignments <- read.csv(here("data/wrangled/cluster_assignments_withlibname.csv"))
+                          rename(annot = Cluster) %>%
+                          fill(annot) %>%
+                          mutate(annot=case_when(
+                                 annot %in% c(6, 8, 1) ~ "Oligo",
+                                 annot == 10 ~ "Ambig/Oligo",
+                                 annot == 7 ~ "Mic",
+                                 annot == 15 ~ "Ambig/In/Endo",
+                                 annot == 18 ~ "L5 Ex",
+                                 annot == 14 ~ "L6 Ex",
+                                 annot == 11 ~ "L4/5 Ex",
+                                 annot == 2 ~ "L2/3 Ex",
+                                 annot %in% c(17, 16, 4) ~ "Ast",
+                                 annot %in% c(5, 13, 3) ~ "Endo",
+                                 annot == 12 ~ "CGE",
+                                 annot == 9 ~ "MGE",
+                                 .default = NA_character_))
 
 for (name in names(scz_spatial_tr@spatial_meta)){
+
+  scz_spatial@spatial_meta[[name]] <- left_join(scz_spatial@spatial_meta[[name]], 
+                                                cluster_assignments %>% 
+                                                  filter(SampleName == name) %>% 
+                                                  select(libname, annot)
+                                                )
+
   scz_spatial_tr@spatial_meta[[name]] <- left_join(scz_spatial_tr@spatial_meta[[name]], 
                                                 cluster_assignments %>% 
                                                   filter(SampleName == name) %>% 
-                                                  select(libname, Cluster)
-                                                )  %>%
-                                          rename(annot = Cluster) %>%
-                                          fill(annot) %>%
-                                          mutate(annot=case_when(
-                                            annot %in% c(6, 8, 1) ~ "Oligo",
-                                            annot == 10 ~ "Ambig/Oligo",
-                                            annot == 7 ~ "Mic",
-                                            annot == 15 ~ "Ambig/In/Endo",
-                                            annot == 18 ~ "L5 Ex",
-                                            annot == 14 ~ "L6 Ex",
-                                            annot == 11 ~ "L4/5 Ex",
-                                            annot == 2 ~ "L2/3 Ex",
-                                            annot %in% c(17, 16, 4) ~ "Ast",
-                                            annot %in% c(5, 13, 3) ~ "Endo",
-                                            annot == 12 ~ "CGE",
-                                            annot == 9 ~ "MGE",
-                                            .default = NA_character_))
-                                                
-
+                                                  select(libname, annot)
+                                                )
+  
 }
 ```
-
-### Observed cell types
-
-We can look at the proportion of cells in each sample that are each cell type.
-
-```{r}
-num_cell_types <- function(mat, colname){
-  return(mat %>% 
-    group_by(annot) %>% summarize("{colname}" := n())
-  )
-
-}
-
-bind_rows(map2(scz_spatial_tr@spatial_meta, 
-               names(scz_spatial_tr@spatial_meta), 
-               num_cell_types)) %>% 
-    pivot_longer(starts_with("Br"), 
-                names_to = "sample", 
-                values_to = "count") %>% 
-    drop_na() %>% 
-    group_by(sample) %>% 
-    mutate(total_cells = sum(count), 
-           prop = count / total_cells * 100, 
-           sample = factor(sample, 
-                           levels = c("Br5314CTRL", "Br8433CTRL", "Br8667CTRL", "Br1139SCZ", "Br5746SCZ", "Br5973SCZ"))) %>% 
-    ggplot(aes(x = sample, 
-               y = prop, 
-               fill = annot)) + 
-    geom_bar(stat = "identity") + 
-    theme_bw() + 
-    scale_fill_viridis_d() +
-    ylab("Proportion of cells")
-```
-
-### Gene specific summaries of expression
-
-We can also look at summaries of the expression of a few of these genes in these cell types. 
-
-:::{panel.tabet}
-
-#### PVALB
-
-```{r}
-combine_counts_annot <- function(matannot, matcount, sample_name, gene_name){
-    full_join(
-        matannot[[sample_name]][,c("libname", "annot")],
-        matcount[[sample_name]][gene_name, ] %>% 
-            data.frame() %>% 
-            rownames_to_column("libname")
-    ) %>% `colnames<-`(c("libname", "annot", sample_name))
-}
-
-bind_rows(combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial_tr@tr_counts, "Br1139SCZ", "PVALB"), 
-          combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial_tr@tr_counts, "Br5314CTRL", "PVALB")) %>% 
-    pivot_longer(starts_with("Br"), 
-                 values_to = "tr_counts", 
-                 names_to = "sample") %>% 
-    drop_na() %>% 
-    ggplot(aes(x = sample, 
-               y = tr_counts, 
-               fill = sample)) + 
-    geom_violin() + 
-    facet_wrap(~annot) + 
-    theme_bw() + 
-    scale_fill_viridis_d(end = 0.6) + 
-    ggtitle("PVALB")
-```
-
-```{r}
-bind_rows(combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial_tr@tr_counts, "Br1139SCZ", "PVALB"), 
-          combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial_tr@tr_counts, "Br5314CTRL", "PVALB")) %>% 
-    pivot_longer(starts_with("Br"), 
-                 values_to = "tr_counts", 
-                 names_to = "sample") %>% 
-    drop_na() %>% 
-    group_by(annot, sample) %>% 
-    summarize(min_exp = min(tr_counts), 
-              max_exp = max(tr_counts), 
-              avg_exp = mean(tr_counts),
-              median_exp = median(tr_counts)) %>% 
-    print(n=24)
-```
-
-#### MBP
-
-```{r}
-
-bind_rows(combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial_tr@tr_counts, "Br1139SCZ", "MBP"), 
-          combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial_tr@tr_counts, "Br5314CTRL", "MBP")) %>% 
-    pivot_longer(starts_with("Br"), 
-                 values_to = "tr_counts", 
-                 names_to = "sample") %>% 
-    drop_na() %>% 
-    ggplot(aes(x = sample, 
-               y = tr_counts, 
-               fill = sample)) + 
-    geom_violin() + 
-    facet_wrap(~annot) + 
-    theme_bw() + 
-    scale_fill_viridis_d(end = 0.6) + 
-    ggtitle("MBP")
-```
-
-```{r}
-bind_rows(combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial@tr_counts, "Br1139SCZ", "MBP"), 
-          combine_counts_annot(scz_spatial_tr@spatial_meta, scz_spatial@tr_counts, "Br5314CTRL", "MBP")) %>% 
-    pivot_longer(starts_with("Br"), 
-                 values_to = "tr_counts", 
-                 names_to = "sample") %>% 
-    drop_na() %>% 
-    group_by(annot, sample) %>% 
-    summarize(min_exp = min(tr_counts), 
-              max_exp = max(tr_counts), 
-              avg_exp = mean(tr_counts),
-              median_exp = median(tr_counts)) %>% 
-    print(n=24)
-```
-
-::::
 
 ### Spatial distribution of expression
 
 :::{.panel-tabset}
+
+#### MBP
+
+
+```{r}
+combined_list2 <- c(cellType, quiltMBP_sampleset1$plots)
+
+ggpubr::ggarrange(plotlist = combined_list2, ncol=2, nrow=2, labels = "AUTO")
+
+```
 
 #### PVALB
 
@@ -223,16 +120,126 @@ ggpubr::ggarrange(plotlist = combined_list, ncol=2, nrow=2, labels = "AUTO")
 
 ```
 
-#### MBP
+:::
 
+### Gene specific summaries of expression
+
+We can also look at summaries of the expression of a few of these genes in these cell types.
 
 ```{r}
-combined_list2 <- c(cellType, quiltMBP_sampleset1$plots)
 
-ggpubr::ggarrange(plotlist = combined_list2, ncol=2, nrow=2, labels = "AUTO")
+combine_counts_annot <- function(matannot, matcount, sample_name, gene_name){
+    full_join(
+        matannot[[sample_name]][,c("libname", "annot")],
+        matcount[[sample_name]][gene_name, ] %>% 
+            data.frame() %>% 
+            rownames_to_column("libname")
+    ) %>% `colnames<-`(c("libname", "annot", sample_name))
+}
+
+use_combined_data <- function(mat, gene_name, use = "violin", samples = c("Br1139SCZ", "Br5314CTRL")){
+  combined_data <- bind_rows(combine_counts_annot(mat@spatial_meta, mat@tr_counts, samples[1], gene_name),
+                             combine_counts_annot(mat@spatial_meta, mat@tr_counts, samples[2], gene_name)) %>%
+                      pivot_longer(starts_with("Br"),
+                                   values_to = "tr_counts",
+                                   names_to = "sample") %>%
+                      drop_na()
+
+  if (use == "violin"){
+    return(
+      combined_data %>%
+        ggplot(aes(x = sample, 
+               y = tr_counts, 
+               fill = sample)) + 
+        geom_violin() + 
+        facet_wrap(~annot) + 
+        theme_bw() + 
+        scale_fill_viridis_d(end = 0.6) + 
+        ggtitle(gene_name)
+    )
+  } else if (use == "summary"){
+    table_length <- length(unique(combined_data$annot)) * 2
+    return(
+      combined_data %>%
+        group_by(annot, sample) %>% 
+        summarize(
+              min_exp = min(tr_counts), 
+              max_exp = max(tr_counts), 
+              avg_exp = mean(tr_counts),
+              median_exp = median(tr_counts),
+              var_exp = var(tr_counts)
+        ) %>% 
+    print(n=table_length)
+    )
+  } else {
+    message("No other downstream uses supported besides 'violin' and 'summary'")
+  }
+}
 
 ```
 
+:::{.panel-tabset}
+
+#### Log transformation
+ 
+:::{panel.tabet}
+
+##### MBP
+
+```{r}
+use_combined_data(scz_spatial, use = "violin", gene_name = "MBP")
+```
+
+```{r}
+use_combined_data(scz_spatial, use = "summary", gene_name = "PVALB")
+```
+
+##### PVALB
+
+Violin plots of normalized expression by cell type and sample.
+
+```{r}
+
+use_combined_data(scz_spatial, use = "violin", gene_name = "PVALB")
+
+```
+
+Summary tables of normalized expression by cell type and sample.
+
+```{r}
+use_combined_data(scz_spatial, use = "summary", gene_name = "PVALB")
+```
+
 :::
+
+#### SCTransform
+
+:::{.panel-tabset}
+
+##### MBP
+
+```{r}
+use_combined_data(scz_spatial_tr, use = "violin", gene_name = "MBP")
+```
+
+```{r}
+use_combined_data(scz_spatial_tr, use = "summary", gene_name = "MBP")
+```
+
+##### PVALB
+
+```{r}
+use_combined_data(scz_spatial_tr, use = "violin", gene_name = "PVALB")
+```
+
+```{r}
+use_combined_data(scz_spatial_tr, use = "summary", gene_name = "PVALB")
+```
+
+:::
+
+:::
+
+
 
 ***

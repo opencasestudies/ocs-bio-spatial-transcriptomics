@@ -104,9 +104,11 @@ visualize_lib_size <- function(mat, title_name){
         ggplot(aes(x=`.`)) + geom_histogram(bins = 500) + theme_bw() + ggtitle(title_name)
 }
 
-patchwork::wrap_plots(purrr::map2(scz_spatial@tr_counts, names(scz_spatial@tr_counts), visualize_lib_size), nrow = 2)
+patchwork::wrap_plots(purrr::map2(scz_spatial@counts, names(scz_spatial@counts), visualize_lib_size), nrow = 2) + patchwork::plot_annotation(title = "Raw counts")
 
-wrap_plots(map2(scz_spatial_tr@tr_counts, names(scz_spatial_tr@tr_counts), visualize_lib_size), nrow = 2)
+wrap_plots(purrr::map2(scz_spatial@tr_counts, names(scz_spatial@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "Log transformed counts")
+
+wrap_plots(map2(scz_spatial_tr@tr_counts, names(scz_spatial_tr@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "SCTransform counts)
 
 ```
 

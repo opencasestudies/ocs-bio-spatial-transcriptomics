@@ -28,7 +28,7 @@ I tested several color palettes and settled on `PuBuGn`.... more explanation bel
 
 We have `ggpubr` combine the common legends and display them on the bottom. It also is plotting the quilt plots in a 2 X 2 grid
 
-## Differential Expression Only
+## Differential Expression of Diffusely Distributed Genes
 
 ### CX3CR1
 
@@ -118,7 +118,7 @@ quiltFKBP5_sampleset2$arranged
 
 :::
 
-## Differential Spatial Distribution
+## Differential Expression of Spatially Distributed Genes
 
 ### MBP
 
