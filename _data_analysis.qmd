@@ -93,7 +93,7 @@ for (name in names(scz_spatial_tr@spatial_meta)){
 
 We can look at the proportion of cells in each sample that are each cell type.
 
-```
+```{r}
 num_cell_types <- function(mat, colname){
   return(mat %>% 
     group_by(annot) %>% summarize("{colname}" := n())
