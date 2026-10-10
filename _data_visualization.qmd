@@ -28,82 +28,154 @@ I tested several color palettes and settled on `PuBuGn`.... more explanation bel
 
 We have `ggpubr` combine the common legends and display them on the bottom. It also is plotting the quilt plots in a 2 X 2 grid
 
-::: {.panel-tabset}
-
-## Differential Expression Only
+## Differential Expression of Diffusely Distributed Genes
 
 ### CX3CR1
 
+::: {.panel-tabset}
+
+#### Set of samples 1
+
 ```{r diff_exp1_quilt}
-quilt26CX3CR1 <- spatialGE::STplot(scz_spatial,
+quilt26CX3CR1 <- spatialGE::STplot(scz_spatial_tr,
                   samples = samples_metadata$DxID[c(2,6)],
                   genes = c("CX3CR1"),
                   color_pal='PuBuGn',
                   ptsize=0.05)
 
-quiltArrange <- ggpubr::ggarrange(plotlist=quilt26CX3CR1,
+quiltArrangeCX3CR1 <- ggpubr::ggarrange(plotlist=quilt26CX3CR1,
                   nrow=1,
                   ncol=2,
                   legend='bottom',
                   common.legend = TRUE)
 
-quiltArrange
+quiltArrangeCX3CR1
 ```
 
-### FKBP5
+#### Set of samples 2
 
-```{r diff_exp2_quilt}
-quilt26FKBP5 <- STplot(scz_spatial,
-                  samples = samples_metadata$DxID[c(2,6)],
-                  genes = c("FKBP5"),
-                  color_pal='PuBuGn',
-                  ptsize=0.05)
+```{r quilt_fxn}
+displayQuilt <- function(stlist, sampleNames, gene){
 
-ggarrange(plotlist=quilt26FKBP5,
-                  nrow=1,
-                  ncol=2,
-                  legend='bottom',
-                  common.legend = TRUE)
+    quiltPlots <- spatialGE::STplot(stlist,
+                                    samples = sampleNames,
+                                    genes = gene,
+                                    color_pal = 'PuBuGn',
+                                    ptsize=0.05
+                                   )
+
+    quiltArrange <- ggpubr::ggarrange(plotlist=quiltPlots,
+                                      nrow = 1,
+                                      ncol = 2,
+                                      legend = 'bottom',
+                                      common.legend = TRUE)
+
+    return(list(plots = quiltPlots, arranged = quiltArrange))
+
+}
 ```
 
-## Differential Spatial Distribution
 
-### MBP
+```{r diff_exp1_quilt2}
+sampleset2 <- samples_metadata$DxID[c(1,4)]
+quiltCX3CR1_sampleset2 <- displayQuilt(scz_spatial_tr, 
+                                       sampleset2,
+                                       "CX3CR1")
 
-```{r diff_spatial1_quilt}
-quilt26MBP <- STplot(scz_spatial,
-                  samples = samples_metadata$DxID[c(2,6)],
-                  genes = c("MBP"),
-                  color_pal='PuBuGn',
-                  ptsize=0.05)
+quiltCX3CR1_sampleset2$arranged
 
-ggarrange(plotlist=quilt26MBP,
-                  nrow=1,
-                  ncol=2,
-                  legend='bottom',
-                  common.legend = TRUE)
 ```
-
-### PVALB
-
-```{r diff_spatial2_quilt}
-quilt26PVALB <- spatialGE::STplot(scz_spatial,
-                  samples = samples_metadata$DxID[c(2,6)],
-                  genes = c("PVALB"),
-                  color_pal='PuBuGn',
-                  ptsize=0.05)
-
-ggpubr::ggarrange(plotlist=quilt26PVALB,
-                  nrow=1,
-                  ncol=2,
-                  legend='bottom',
-                  common.legend = TRUE)
-```
-
-### 
 
 :::
 
+### FKBP5
+
+::: {.panel-tabset}
+
+#### Set of samples 1
+
+```{r diff_exp2_quilt}
+
+sampleset1 <- samples_metadata$DxID[c(2,6)]
+quiltFKBP5_sampleset1 <- displayQuilt(scz_spatial_tr, 
+                                       sampleset1,
+                                       "FKBP5")
+
+quiltFKBP5_sampleset1$arranged
+
+```
+
+#### Set of samples 2
+
+```{r diff_exp2_quilt2}
+quiltFKBP5_sampleset2 <- displayQuilt(scz_spatial_tr, 
+                                       sampleset2,
+                                       "FKBP5")
+
+quiltFKBP5_sampleset2$arranged
+
+```
+
+:::
+
+## Differential Expression of Spatially Distributed Genes
+
+### MBP
+
+::: {.panel-tabset}
+
+#### Set of samples 1
+
+```{r diff_spat1_quilt}
+
+quiltMBP_sampleset1 <- displayQuilt(scz_spatial_tr, 
+                                       sampleset1,
+                                       "MBP")
+
+quiltMBP_sampleset1$arranged
+
+```
+
+#### Set of samples 2
+
+```{r diff_spat1_quilt2}
+quiltMBP_sampleset2 <- displayQuilt(scz_spatial_tr, 
+                                       sampleset2,
+                                       "MBP")
+
+quiltMBP_sampleset2$arranged
+
+```
+
+:::
+
+### PVALB
+
+::: {.panel-tabset}
+
+#### Set of samples 1
+
+```{r diff_spat2_quilt}
+
+quiltPVALB_sampleset1 <- displayQuilt(scz_spatial_tr, 
+                                       sampleset1,
+                                       "PVALB")
+
+quiltPVALB_sampleset1$arranged
+
+```
+
+#### Set of samples 2
+
+```{r diff_spat2_quilt2}
+quiltPVALB_sampleset2 <- displayQuilt(scz_spatial_tr, 
+                                       sampleset2,
+                                       "PVALB")
+
+quiltPVALB_sampleset2$arranged
+```
+
+:::
 
 
 
@@ -119,18 +191,11 @@ I tested several color palettes and settled on `PuBuGn` for several reasons. (No
 3. Looking at the result with a color vision deficiency simulator (`cvg_grid()` from `colorblindr`) the general conclusions are still possible in my opinion. This wasn't the case with `PrGn`, `BuRd`, or `Spectral` when I tested them.
 
 ```{r}
-colorblindr::cvd_grid(plot = quiltArrange)
+colorblindr::cvd_grid(plot = quiltArrangeCX3CR1)
 ```
 
 <!--
 Look at these genes to try to see differences in spatial distribution not just up/down: MBP, GFAP, NTRK2, MT1E, PVALB, BDNF
 -->
-
-Let's clear some R memory again.
-
-```{r}
-rm(quilt26CX3CR1, quilt26FKBP5, quilt26MBP, quilt26PVALB, quiltArrange)
-gc()
-```
 
 ***

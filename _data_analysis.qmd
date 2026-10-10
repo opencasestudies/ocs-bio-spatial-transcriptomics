@@ -28,70 +28,221 @@ You can use a collapsible details section to provide an answer
 
 -->
 
-We will use `SThet` to look at the autocorrelation of the expression of genes throughout the samples.
+## Clustering
 
-Moran's I Interpretation:
+<!--
 
-* Positive: autocorrelation -- similar expression is located near similar expression
-* 0: random distribution
-* Negative: dissimilar expression is located near each other
+Should be able to use `STclust`, but I'm struggling with that. So I grabbed the [cluster assignments from the study](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/blob/devel/processed-data/06_cell_type_clustering/banksy_clustering_lambda0.1_res0.7.csv). The [cluster annotations are here in their code](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/blob/2c0ec1319137fa1c108ec6ea0c6935b32ad50e1b/code/analysis/06_cell_type_clustering/06_plot_clusters_on_tissue.R#L41-L52).
 
-Running `SThet` takes 12-15 minutes on our institutional HPC with 2 cores for 2-4 genes across the 6 samples (though only 5 of the 6 run successfully. The sixth fails somewhat silently).
-
-::: {.column-margin}
-**Why might the final sample be failing? ... I did find this warning message that talks about errors**
-:::
-
-```
-Warning messages:
-1: In parallel::mclapply(seq(names(x@spatial_meta)), function(i) { :
-  1 function calls resulted in an error
-2: In parallel::mclapply(seq_along(1:length(unique(as.vector(unlist(combo[[1]]))))),  :
-  1 function calls resulted in an error
+```{.default}
+awk -F, -v OFS=',' 'NR==1 {print "","Cluster","Sample","CoordIndex"} $3 ~ /(Br1139|Br5314|Br5746|Br5973|Br8433|Br8667)/ { gsub(/"/, "", $3); split($3, arr, "_"); print $1, $2, "\""arr[1] "\"", "\""arr[2] "\"" }' data/raw/banksy_clustering_lambda0.1_res0.7.csv > data/wrangled/cluster_assignments.csv
 ```
 
-And `get_gene_meta()` takes a couple extra minutes after that. My personal computer can't run this step at all without crashing (though every `spatialGE` step before this it can handle).
-
-
-Prior to running this step, the data/`STlist` is several hundred MB. Once I've run this step, the data is several hundred GB.
+Need to take the output of this and join it to the original spatial coordinates. I think that the fourth column is the row number and I need the libname from the original file to join the coordinates to the spatial_meta STlist object
 
 ```{r, eval = FALSE}
-scz_spatial <- SThet(scz_spatial, genes = c("CX3CR1", "MBP", "FKBP5"))
-get_gene_meta(scz_spatial, sthet_only = TRUE)
+cluster_assignments <- read.csv(here("data/wrangled/cluster_assignments.csv"))
+
+new_cluster_assignments <- data.table::rbindlist(
+  lapply(1:length(spatial_coords), function(x) spatial_coords[[names(spatial_coords)[x]]] %>%
+        mutate(CoordIndex = row_number()) %>%
+        select(CoordIndex, cell_id) %>%
+        right_join(cluster_assignments %>% filter(Sample == substring(names(spatial_coords)[x], 1, 6))) %>%
+        rename(libname = cell_id)
+)) %>%
+  mutate(SampleSuffix = case_when(Sample %in% c("Br8667", "Br5314", "Br8433") ~ "CTRL", 
+                                  Sample %in% c("Br5973", "Br1139", "Br5746") ~ "SCZ", 
+                                  .default= NA_character_)) %>% 
+  unite("SampleName", c(Sample, SampleSuffix), sep = "")
 ```
 
-**Possibilities for feasibility**:
+-->
 
-* From the documentation, I saw that the k-nearest neighbors approach will be faster, but less accurate, so we could try that.
-* We could provide the output and do an analysis task with the output from `get_gene_meta()` -- see thoughts on Z-score below in the "Questions on using this function list."
-* We could focus on just two samples instead of 6, but the quilt plot is already using just two samples, so I don't think it makes sense to not use as many as we can here.
-* We could subset the data to select a fewer number of cells (randomly drop some cell IDs from the data that we give learners)
-* We could compute the statistic for a fewer number of genes (just 2?) ... this didn't seem to speed up the process that much when I tried it
-* Focus on a specific subregion of the tissue only? Would I need to have or prepare a separate STlist object for this?
+```{r}
 
-::: {.column-margin}
-**Do you have any recommendations on how to make this combination of `SThet` and `get_gene_meta()` a more feasible step?**
-:::
+cluster_assignments <- read.csv(here("data/wrangled/cluster_assignments_withlibname.csv")) %>%
+                          rename(annot = Cluster) %>%
+                          fill(annot) %>%
+                          mutate(annot=case_when(
+                                 annot %in% c(6, 8, 1) ~ "Oligo",
+                                 annot == 10 ~ "Ambig/Oligo",
+                                 annot == 7 ~ "Mic",
+                                 annot == 15 ~ "Ambig/In/Endo",
+                                 annot == 18 ~ "L5 Ex",
+                                 annot == 14 ~ "L6 Ex",
+                                 annot == 11 ~ "L4/5 Ex",
+                                 annot == 2 ~ "L2/3 Ex",
+                                 annot %in% c(17, 16, 4) ~ "Ast",
+                                 annot %in% c(5, 13, 3) ~ "Endo",
+                                 annot == 12 ~ "CGE",
+                                 annot == 9 ~ "MGE",
+                                 .default = NA_character_))
 
-**Brainstorming on significance**
+for (name in names(scz_spatial_tr@spatial_meta)){
 
-* If I was trying to compute a z-score from the resulting dataframe ...
-  * should I use the `gene_mean` value as the expected value
-  * should I use the `gene_stdevs` value as the standard deviation.
+  scz_spatial@spatial_meta[[name]] <- left_join(scz_spatial@spatial_meta[[name]], 
+                                                cluster_assignments %>% 
+                                                  filter(SampleName == name) %>% 
+                                                  select(libname, annot)
+                                                )
 
-::: {.column-margin}
-**How do we know if a Moran's I value that is greater than 0 is significantly far from or greater than zero using this function? Does this function compute p-values or help me to compute a z-score?**
-:::
-
-
-If so, I think that's the best possible "analysis" we can have people do if we give them the dataframe ... have them compute the z-score.
-
-So something like ...?
-
-```{r, eval = FALSE}
-gene_meta_out <- gene_meta_out %>%
-                    summarize(gene_sample_z = (moran_i - gene_mean) / gene_stdevs)
-#And do one-tailed tests comparing to difference from 0
+  scz_spatial_tr@spatial_meta[[name]] <- left_join(scz_spatial_tr@spatial_meta[[name]], 
+                                                cluster_assignments %>% 
+                                                  filter(SampleName == name) %>% 
+                                                  select(libname, annot)
+                                                )
+  
+}
 ```
+
+### Spatial distribution of expression
+
+:::{.panel-tabset}
+
+#### MBP
+
+
+```{r}
+cellType <- STplot(scz_spatial_tr, plot_meta = "annot", samples = sampleset1)
+
+combined_list <- c(cellType, quiltMBP_sampleset1$plots)
+
+ggpubr::ggarrange(plotlist = combined_list, ncol=2, nrow=2, labels = "AUTO")
+
+```
+
+#### PVALB
+
+```{r}
+
+
+combined_list2 <- c(cellType, quiltPVALB_sampleset1$plots)
+
+ggpubr::ggarrange(plotlist = combined_list2, ncol=2, nrow=2, labels = "AUTO")
+
+```
+
+:::
+
+### Gene specific summaries of expression
+
+We can also look at summaries of the expression of a few of these genes in these cell types.
+
+```{r}
+
+combine_counts_annot <- function(matannot, matcount, sample_name, gene_name){
+    full_join(
+        matannot[[sample_name]][,c("libname", "annot")],
+        matcount[[sample_name]][gene_name, ] %>% 
+            data.frame() %>% 
+            rownames_to_column("libname")
+    ) %>% `colnames<-`(c("libname", "annot", sample_name))
+}
+
+use_combined_data <- function(mat, gene_name, use = "violin", samples = c("Br1139SCZ", "Br5314CTRL")){
+  combined_data <- bind_rows(combine_counts_annot(mat@spatial_meta, mat@tr_counts, samples[1], gene_name),
+                             combine_counts_annot(mat@spatial_meta, mat@tr_counts, samples[2], gene_name)) %>%
+                      pivot_longer(starts_with("Br"),
+                                   values_to = "tr_counts",
+                                   names_to = "sample") %>%
+                      drop_na()
+
+  if (use == "violin"){
+    return(
+      combined_data %>%
+        ggplot(aes(x = sample, 
+               y = tr_counts, 
+               fill = sample)) + 
+        geom_violin() + 
+        facet_wrap(~annot, scales = "free_y") + 
+        theme_bw() + 
+        scale_fill_viridis_d(end = 0.6) + 
+        ggtitle(gene_name) +
+        theme(legend.position = "bottom")
+    )
+  } else if (use == "summary"){
+    table_length <- length(unique(combined_data$annot)) * 2
+    return(
+      combined_data %>%
+        group_by(annot, sample) %>% 
+        summarize(
+              min_exp = min(tr_counts), 
+              max_exp = max(tr_counts), 
+              avg_exp = mean(tr_counts),
+              median_exp = median(tr_counts),
+              var_exp = var(tr_counts)
+        ) %>% 
+    print(n=table_length)
+    )
+  } else {
+    message("No other downstream uses supported besides 'violin' and 'summary'")
+  }
+}
+
+```
+
+:::{.panel-tabset}
+
+#### Log transformation
+ 
+:::{.panel-tabset}
+
+##### MBP
+
+```{r}
+use_combined_data(scz_spatial, use = "violin", gene_name = "MBP")
+```
+
+```{r}
+use_combined_data(scz_spatial, use = "summary", gene_name = "PVALB")
+```
+
+##### PVALB
+
+Violin plots of normalized expression by cell type and sample.
+
+```{r}
+
+use_combined_data(scz_spatial, use = "violin", gene_name = "PVALB")
+
+```
+
+Summary tables of normalized expression by cell type and sample.
+
+```{r}
+use_combined_data(scz_spatial, use = "summary", gene_name = "PVALB")
+```
+
+:::
+
+#### SCTransform
+
+:::{.panel-tabset}
+
+##### MBP
+
+```{r}
+use_combined_data(scz_spatial_tr, use = "violin", gene_name = "MBP")
+```
+
+```{r}
+use_combined_data(scz_spatial_tr, use = "summary", gene_name = "MBP")
+```
+
+##### PVALB
+
+```{r}
+use_combined_data(scz_spatial_tr, use = "violin", gene_name = "PVALB")
+```
+
+```{r}
+use_combined_data(scz_spatial_tr, use = "summary", gene_name = "PVALB")
+```
+
+:::
+
+:::
+
+
 
 ***
