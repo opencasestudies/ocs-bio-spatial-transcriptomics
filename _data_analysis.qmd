@@ -60,7 +60,7 @@ new_cluster_assignments <- data.table::rbindlist(
 
 ```{r}
 
-cluster_assignments <- read.csv(here("data/wrangled/cluster_assignments_withlibname.csv"))
+cluster_assignments <- read.csv(here("data/wrangled/cluster_assignments_withlibname.csv")) %>%
                           rename(annot = Cluster) %>%
                           fill(annot) %>%
                           mutate(annot=case_when(
@@ -103,20 +103,22 @@ for (name in names(scz_spatial_tr@spatial_meta)){
 
 
 ```{r}
-combined_list2 <- c(cellType, quiltMBP_sampleset1$plots)
+cellType <- STplot(scz_spatial_tr, plot_meta = "annot", samples = sampleset1)
 
-ggpubr::ggarrange(plotlist = combined_list2, ncol=2, nrow=2, labels = "AUTO")
+combined_list <- c(cellType, quiltMBP_sampleset1$plots)
+
+ggpubr::ggarrange(plotlist = combined_list, ncol=2, nrow=2, labels = "AUTO")
 
 ```
 
 #### PVALB
 
 ```{r}
-cellType <- STplot(scz_spatial_tr, plot_meta = "annot", samples = sampleset1)
 
-combined_list <- c(cellType, quiltPVALB_sampleset1$plots)
 
-ggpubr::ggarrange(plotlist = combined_list, ncol=2, nrow=2, labels = "AUTO")
+combined_list2 <- c(cellType, quiltPVALB_sampleset1$plots)
+
+ggpubr::ggarrange(plotlist = combined_list2, ncol=2, nrow=2, labels = "AUTO")
 
 ```
 
@@ -152,10 +154,11 @@ use_combined_data <- function(mat, gene_name, use = "violin", samples = c("Br113
                y = tr_counts, 
                fill = sample)) + 
         geom_violin() + 
-        facet_wrap(~annot) + 
+        facet_wrap(~annot, scales = "free_y") + 
         theme_bw() + 
         scale_fill_viridis_d(end = 0.6) + 
-        ggtitle(gene_name)
+        ggtitle(gene_name) +
+        theme(legend.position = "bottom")
     )
   } else if (use == "summary"){
     table_length <- length(unique(combined_data$annot)) * 2
@@ -182,7 +185,7 @@ use_combined_data <- function(mat, gene_name, use = "violin", samples = c("Br113
 
 #### Log transformation
  
-:::{panel.tabet}
+:::{.panel-tabset}
 
 ##### MBP
 
