@@ -221,10 +221,34 @@ gtag('config', 'G-WPXDVW923P', { 'anonymize_ip': true});
   <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling"><strong>Data Wrangling</strong></a>
   <ul class="collapse">
   <li><a href="#filtering" id="toc-filtering" class="nav-link" data-scroll-target="#filtering">Filtering</a></li>
-  <li><a href="#normalizing" id="toc-normalizing" class="nav-link" data-scroll-target="#normalizing">Normalizing</a></li>
+  <li><a href="#normalizing" id="toc-normalizing" class="nav-link" data-scroll-target="#normalizing">Normalizing</a>
+  <ul class="collapse">
+  <li><a href="#log-transformation" id="toc-log-transformation" class="nav-link" data-scroll-target="#log-transformation">Log Transformation</a></li>
+  <li><a href="#sctransform" id="toc-sctransform" class="nav-link" data-scroll-target="#sctransform">SCTransform</a></li>
+  <li><a href="#visualize" id="toc-visualize" class="nav-link" data-scroll-target="#visualize">Visualize</a></li>
   </ul></li>
-  <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization"><strong>Data Visualization</strong></a></li>
-  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis"><strong>Data Analysis</strong></a></li>
+  </ul></li>
+  <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization"><strong>Data Visualization</strong></a>
+  <ul class="collapse">
+  <li><a href="#differential-expression-of-diffusely-distributed-genes" id="toc-differential-expression-of-diffusely-distributed-genes" class="nav-link" data-scroll-target="#differential-expression-of-diffusely-distributed-genes">Differential Expression of Diffusely Distributed Genes</a>
+  <ul class="collapse">
+  <li><a href="#cx3cr1-1" id="toc-cx3cr1-1" class="nav-link" data-scroll-target="#cx3cr1-1">CX3CR1</a></li>
+  <li><a href="#fkbp5-1" id="toc-fkbp5-1" class="nav-link" data-scroll-target="#fkbp5-1">FKBP5</a></li>
+  </ul></li>
+  <li><a href="#differential-expression-of-spatially-distributed-genes" id="toc-differential-expression-of-spatially-distributed-genes" class="nav-link" data-scroll-target="#differential-expression-of-spatially-distributed-genes">Differential Expression of Spatially Distributed Genes</a>
+  <ul class="collapse">
+  <li><a href="#mbp-1" id="toc-mbp-1" class="nav-link" data-scroll-target="#mbp-1">MBP</a></li>
+  <li><a href="#pvalb-1" id="toc-pvalb-1" class="nav-link" data-scroll-target="#pvalb-1">PVALB</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis"><strong>Data Analysis</strong></a>
+  <ul class="collapse">
+  <li><a href="#clustering" id="toc-clustering" class="nav-link" data-scroll-target="#clustering">Clustering</a>
+  <ul class="collapse">
+  <li><a href="#spatial-distribution-of-expression" id="toc-spatial-distribution-of-expression" class="nav-link" data-scroll-target="#spatial-distribution-of-expression">Spatial distribution of expression</a></li>
+  <li><a href="#gene-specific-summaries-of-expression" id="toc-gene-specific-summaries-of-expression" class="nav-link" data-scroll-target="#gene-specific-summaries-of-expression">Gene specific summaries of expression</a></li>
+  </ul></li>
+  </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><strong>Summary</strong></a>
   <ul class="collapse">
   <li><a href="#synopsis" id="toc-synopsis" class="nav-link" data-scroll-target="#synopsis"><strong>Synopsis</strong></a></li>
@@ -430,12 +454,6 @@ Images or videos may be helpful so this includes an example of including an imag
 <p>Images are very helpful within this section….</p>
 <p><a href="img/motivation_map_of_monitors.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="img/motivation_map_of_monitors.jpg" class="img-fluid" alt="Map showing location of air pollution monitors across the US." width="800"></a></p>
 <hr>
-<!--
-Describe the main biological questions for this case study.
-What will our analysis aim to answer? There can be more than 2.
-Fill them in within the inner_block section, but leave the custom box syntax
-See this previous case study as an example: https://www.opencasestudies.org/ocs-bp-co2-emissions/#Main_Questions
--->
 </section>
 <section id="main-question" class="level1">
 <h1><strong>Main Question</strong></h1>
@@ -446,8 +464,10 @@ See this previous case study as an example: https://www.opencasestudies.org/ocs-
 </div>
 <div class="inner_block">
 <ol type="1">
-<li>Question 1</li>
-<li>Question 2</li>
+<li>How does the choice of technology/platform for generating spatially-resolved gene expression data impact the data that I will have to work with?</li>
+<li>What about my data should I consider during quality control in order to set filtering criteria?</li>
+<li>How will my choice of normalization methods impact my results?</li>
+<li>How do gene expression patterns compare for specific genes in dorsal prefrontal cortex tissue samples from cases with diagnosed schizophrenia to those from neurotypical cases?</li>
 </ol>
 </div>
 </div>
@@ -775,6 +795,14 @@ Fill out the table and add rows as necessary providing a link to the source and 
 [6] "GSM9223481"</code></pre>
 </div>
 </div>
+<div class="reproducibility_box">
+<div class="reproducibility_box_header">
+<p>Reproducibility considerations</p>
+</div>
+<div class="inner_block">
+<p>Any steps in an analysis that rely on randomness or stochasticity are not reproducible later or by others unless a random seed is set prior to the running those steps (and used every time before running those steps).</p>
+</div>
+</div>
 </section>
 <section id="what-are-the-3-samples-subset-from-the-larger-cohort-for-each-condition" class="level2">
 <h2 class="anchored" data-anchor-id="what-are-the-3-samples-subset-from-the-larger-cohort-for-each-condition">What are the 3 samples subset from the larger cohort for each condition?</h2>
@@ -1056,8 +1084,8 @@ Completed STlist!</code></pre>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()                               </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           used  (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells  3672084 196.2    7497158  400.4   7497158  400.4
-Vcells 58465465 446.1  301584044 2301.0 376302880 2871.0</code></pre>
+Ncells  3672868 196.2    7498430  400.5   7498430  400.5
+Vcells 58470601 446.1  301594268 2301.0 376308100 2871.1</code></pre>
 </div>
 </div>
 <p>Then we’ll save the data so people can pick up at the next step after a break if they’d like. In testing the data, I’ve saved an input list as an <code>.rds</code> file before I’ve input it into <code>STlist</code> with no problem. Just want to make sure that the <code>STlist</code> object is being saved in an appropriate way that won’t cause issues.</p>
@@ -1193,6 +1221,14 @@ If you skipped the data import section click here.
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">spot_maxreads=</span><span class="dv">3500</span>,</span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">spot_mingenes=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="emphasis_block">
+<details>
+<summary>
+How do you report which cell barcodes were filtered?
+</summary>
+Add info here on how to assess and report which cell barcodes were filtered out. Note that we can compare to the ones that the original study filtered out.
+</details>
+</div>
 <p>What do the distributions look like now?</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Table</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Total Counts</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Total Genes</a></li></ul>
@@ -1264,37 +1300,36 @@ If you skipped the data import section click here.
 </section>
 <section id="normalizing" class="level2">
 <h2 class="anchored" data-anchor-id="normalizing">Normalizing</h2>
-<p>We’re using a log transform. Another option is the SCTransform which we’ll explain in a click to expand section. We can even compare the two normalization methods (but I’ll have to make two separate <code>STlist</code>’s for that)</p>
+<p>Transformation with <code>spatialGE</code> uses either log-transformation or the <code>SCTransform</code> method.</p>
+<p>We’ll need a second <code>STlist</code> object so we can run two different transformations and compare them.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> spatialGE<span class="sc">::</span><span class="fu">transform_data</span>(scz_spatial, <span class="at">method=</span><span class="st">'log'</span>, <span class="at">cores=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>scz_spatial_tr <span class="ot">&lt;-</span> rlang<span class="sc">::</span><span class="fu">duplicate</span>(scz_spatial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can visualize the distribution of expression of a couple of genes (before and after the normalization) using the <code>distribution_plots()</code> function.</p>
+<section id="log-transformation" class="level3">
+<h3 class="anchored" data-anchor-id="log-transformation">Log Transformation</h3>
+<p>Explain log transformation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>raw_plots <span class="ot">&lt;-</span> <span class="fu">distribution_plots</span>(scz_spatial, <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"CX3CR1"</span>, <span class="st">"FKBP5"</span>, <span class="st">"SST"</span>), <span class="at">data_type =</span> <span class="st">"raw"</span>)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>transformed_plots <span class="ot">&lt;-</span> <span class="fu">distribution_plots</span>(scz_spatial, <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"CX3CR1"</span>, <span class="st">"FKBP5"</span>, <span class="st">"SST"</span>), <span class="at">data_type =</span> <span class="st">"tr"</span>)</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>raw_plots<span class="sc">$</span>CX3CR1 <span class="sc">+</span> transformed_plots<span class="sc">$</span>CX3CR1 <span class="sc">+</span> patchwork<span class="sc">::</span><span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> spatialGE<span class="sc">::</span><span class="fu">transform_data</span>(scz_spatial, <span class="at">method=</span><span class="st">'log'</span>, <span class="at">cores=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
+</section>
+<section id="sctransform" class="level3">
+<h3 class="anchored" data-anchor-id="sctransform">SCTransform</h3>
+<p>Explain SCTransform method.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>raw_plots<span class="sc">$</span>FKBP5 <span class="sc">+</span> transformed_plots<span class="sc">$</span>FKBP5 <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides=</span><span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>scz_spatial_tr <span class="ot">&lt;-</span> <span class="fu">transform_data</span>(scz_spatial_tr, <span class="at">method =</span> <span class="st">'sct'</span>, <span class="at">cores =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
+</section>
+<section id="visualize" class="level3">
+<h3 class="anchored" data-anchor-id="visualize">Visualize</h3>
+<p>We can visualize the library size for each cell within each sample.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>raw_plots<span class="sc">$</span>SST <span class="sc">+</span> transformed_plots<span class="sc">$</span>SST <span class="sc">+</span> <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>visualize_lib_size <span class="ot">&lt;-</span> <span class="cf">function</span>(mat, title_name){</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    Matrix<span class="sc">::</span><span class="fu">colSums</span>(mat) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">.</span><span class="st">`</span>)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">500</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(title_name)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>patchwork<span class="sc">::</span><span class="fu">wrap_plots</span>(purrr<span class="sc">::</span><span class="fu">map2</span>(scz_spatial<span class="sc">@</span>counts, <span class="fu">names</span>(scz_spatial<span class="sc">@</span>counts), visualize_lib_size), <span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">+</span> patchwork<span class="sc">::</span><span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">"Raw counts"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1302,21 +1337,99 @@ If you skipped the data import section click here.
 </figure>
 </div>
 </div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(purrr<span class="sc">::</span><span class="fu">map2</span>(scz_spatial<span class="sc">@</span>tr_counts, <span class="fu">names</span>(scz_spatial<span class="sc">@</span>tr_counts), visualize_lib_size), <span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">"Log transformed counts"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-23-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(<span class="fu">map2</span>(scz_spatial_tr<span class="sc">@</span>tr_counts, <span class="fu">names</span>(scz_spatial_tr<span class="sc">@</span>tr_counts), visualize_lib_size), <span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">plot_annotation</span>(<span class="at">title =</span> <span class="st">"SCTransform counts"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-23-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can visualize the distribution of expression of a few genes (before and after the normalization) using the <code>distribution_plots()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>raw_plots <span class="ot">&lt;-</span> <span class="fu">distribution_plots</span>(scz_spatial, <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"CX3CR1"</span>, <span class="st">"FKBP5"</span>, <span class="st">"PVALB"</span>, <span class="st">"MBP"</span>), <span class="at">data_type =</span> <span class="st">"raw"</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>transformed_log_plots <span class="ot">&lt;-</span> <span class="fu">distribution_plots</span>(scz_spatial, <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"CX3CR1"</span>, <span class="st">"FKBP5"</span>, <span class="st">"PVALB"</span>, <span class="st">"MBP"</span>), <span class="at">data_type =</span> <span class="st">"tr"</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>transformed_sct_plots <span class="ot">&lt;-</span> <span class="fu">distribution_plots</span>(scz_spatial_tr, <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"CX3CR1"</span>, <span class="st">"FKBP5"</span>, <span class="st">"PVALB"</span>, <span class="st">"MBP"</span>), <span class="at">data_type =</span> <span class="st">"tr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">CX3CR1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">FKBP5</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">PVALB</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false">MBP</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>raw_plots<span class="sc">$</span>CX3CR1 <span class="sc">+</span> transformed_log_plots<span class="sc">$</span>CX3CR1 <span class="sc">+</span> transformed_sct_plots<span class="sc">$</span>CX3CR1 <span class="sc">+</span> patchwork<span class="sc">::</span><span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>, <span class="at">nrow=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>raw_plots<span class="sc">$</span>FKBP5 <span class="sc">+</span> transformed_log_plots<span class="sc">$</span>FKBP5 <span class="sc">+</span> transformed_sct_plots<span class="sc">$</span>FKBP5 <span class="sc">+</span> patchwork<span class="sc">::</span><span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>, <span class="at">nrow=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>raw_plots<span class="sc">$</span>PVALB <span class="sc">+</span> transformed_log_plots<span class="sc">$</span>PVALB <span class="sc">+</span> transformed_sct_plots<span class="sc">$</span>PVALB <span class="sc">+</span> patchwork<span class="sc">::</span><span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>, <span class="at">nrow=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>raw_plots<span class="sc">$</span>MBP <span class="sc">+</span> transformed_log_plots<span class="sc">$</span>MBP <span class="sc">+</span> transformed_sct_plots<span class="sc">$</span>MBP <span class="sc">+</span> patchwork<span class="sc">::</span><span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>, <span class="at">nrow=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <p>Now we want to clear up some R memory</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(raw_plots, transformed_plots)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(raw_plots, transformed_log_plots, transformed_sct_plots)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            used  (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells   3815419 203.8    7497158  400.4   7497158  400.4
-Vcells 115941885 884.6  442054193 3372.7 552562879 4215.8</code></pre>
+<pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
+Ncells   3842939  205.3    7498430  400.5   7498430  400.5
+Vcells 223394921 1704.4  678440229 5176.1 678433776 5176.1</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(scz_spatial, <span class="fu">here</span>(<span class="st">"data/wrangled/scz_spatial.rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(scz_spatial, <span class="fu">here</span>(<span class="st">"data/wrangled/scz_spatial.rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
+</section>
 </section>
 </section>
 <section id="data-visualization" class="level1">
@@ -1339,26 +1452,28 @@ If you skipped the data import section click here.
 <p>Also note that this is Xenium data which means there are a lot of cells! So we’re going to use the <code>ptsize</code> argument to set the point size of the spots or cells to be really small. If we make it too large, it’s dense/cramped/hard to view the quilt plot</p>
 <p>I tested several color palettes and settled on <code>PuBuGn</code>…. more explanation below.</p>
 <p>We have <code>ggpubr</code> combine the common legends and display them on the bottom. It also is plotting the quilt plots in a 2 X 2 grid</p>
+<section id="differential-expression-of-diffusely-distributed-genes" class="level2">
+<h2 class="anchored" data-anchor-id="differential-expression-of-diffusely-distributed-genes">Differential Expression of Diffusely Distributed Genes</h2>
+<section id="cx3cr1-1" class="level3">
+<h3 class="anchored" data-anchor-id="cx3cr1-1">CX3CR1</h3>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Differential Expression Only</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Differential Spatial Distribution</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Set of samples 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Set of samples 2</a></li></ul>
 <div class="tab-content">
-<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<section id="cx3cr1" class="level3">
-<h3 class="anchored" data-anchor-id="cx3cr1">CX3CR1</h3>
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>quilt26CX3CR1 <span class="ot">&lt;-</span> spatialGE<span class="sc">::</span><span class="fu">STplot</span>(scz_spatial,</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">samples =</span> samples_metadata<span class="sc">$</span>DxID[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)],</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"CX3CR1"</span>),</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color_pal=</span><span class="st">'PuBuGn'</span>,</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ptsize=</span><span class="fl">0.05</span>)</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>quiltArrange <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist=</span>quilt26CX3CR1,</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nrow=</span><span class="dv">1</span>,</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ncol=</span><span class="dv">2</span>,</span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend=</span><span class="st">'bottom'</span>,</span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">common.legend =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>quiltArrange</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>quilt26CX3CR1 <span class="ot">&lt;-</span> spatialGE<span class="sc">::</span><span class="fu">STplot</span>(scz_spatial_tr,</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">samples =</span> samples_metadata<span class="sc">$</span>DxID[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)],</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"CX3CR1"</span>),</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color_pal=</span><span class="st">'PuBuGn'</span>,</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ptsize=</span><span class="fl">0.05</span>)</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>quiltArrangeCX3CR1 <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist=</span>quilt26CX3CR1,</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nrow=</span><span class="dv">1</span>,</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ncol=</span><span class="dv">2</span>,</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend=</span><span class="st">'bottom'</span>,</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">common.legend =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>quiltArrangeCX3CR1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1367,21 +1482,60 @@ If you skipped the data import section click here.
 </div>
 </div>
 </div>
-</section>
-<section id="fkbp5" class="level3">
-<h3 class="anchored" data-anchor-id="fkbp5">FKBP5</h3>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>quilt26FKBP5 <span class="ot">&lt;-</span> <span class="fu">STplot</span>(scz_spatial,</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">samples =</span> samples_metadata<span class="sc">$</span>DxID[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)],</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"FKBP5"</span>),</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color_pal=</span><span class="st">'PuBuGn'</span>,</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ptsize=</span><span class="fl">0.05</span>)</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist=</span>quilt26FKBP5,</span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nrow=</span><span class="dv">1</span>,</span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ncol=</span><span class="dv">2</span>,</span>
-<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend=</span><span class="st">'bottom'</span>,</span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">common.legend =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>displayQuilt <span class="ot">&lt;-</span> <span class="cf">function</span>(stlist, sampleNames, gene){</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    quiltPlots <span class="ot">&lt;-</span> spatialGE<span class="sc">::</span><span class="fu">STplot</span>(stlist,</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">samples =</span> sampleNames,</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">genes =</span> gene,</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">color_pal =</span> <span class="st">'PuBuGn'</span>,</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">ptsize=</span><span class="fl">0.05</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>                                   )</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>    quiltArrange <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist=</span>quiltPlots,</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">nrow =</span> <span class="dv">1</span>,</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">ncol =</span> <span class="dv">2</span>,</span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">legend =</span> <span class="st">'bottom'</span>,</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">common.legend =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">plots =</span> quiltPlots, <span class="at">arranged =</span> quiltArrange))</span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>sampleset2 <span class="ot">&lt;-</span> samples_metadata<span class="sc">$</span>DxID[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)]</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>quiltCX3CR1_sampleset2 <span class="ot">&lt;-</span> <span class="fu">displayQuilt</span>(scz_spatial_tr, </span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>                                       sampleset2,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"CX3CR1"</span>)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>quiltCX3CR1_sampleset2<span class="sc">$</span>arranged</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/diff_exp1_quilt2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="fkbp5-1" class="level3">
+<h3 class="anchored" data-anchor-id="fkbp5-1">FKBP5</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Set of samples 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Set of samples 2</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>sampleset1 <span class="ot">&lt;-</span> samples_metadata<span class="sc">$</span>DxID[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)]</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>quiltFKBP5_sampleset1 <span class="ot">&lt;-</span> <span class="fu">displayQuilt</span>(scz_spatial_tr, </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>                                       sampleset1,</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"FKBP5"</span>)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>quiltFKBP5_sampleset1<span class="sc">$</span>arranged</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1390,58 +1544,105 @@ If you skipped the data import section click here.
 </div>
 </div>
 </div>
-</section>
 </div>
-<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<section id="mbp" class="level3">
-<h3 class="anchored" data-anchor-id="mbp">MBP</h3>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>quilt26MBP <span class="ot">&lt;-</span> <span class="fu">STplot</span>(scz_spatial,</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">samples =</span> samples_metadata<span class="sc">$</span>DxID[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)],</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"MBP"</span>),</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color_pal=</span><span class="st">'PuBuGn'</span>,</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ptsize=</span><span class="fl">0.05</span>)</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist=</span>quilt26MBP,</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nrow=</span><span class="dv">1</span>,</span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ncol=</span><span class="dv">2</span>,</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend=</span><span class="st">'bottom'</span>,</span>
-<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">common.legend =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>quiltFKBP5_sampleset2 <span class="ot">&lt;-</span> <span class="fu">displayQuilt</span>(scz_spatial_tr, </span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>                                       sampleset2,</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"FKBP5"</span>)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>quiltFKBP5_sampleset2<span class="sc">$</span>arranged</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/diff_spatial1_quilt-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/diff_exp2_quilt2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 </section>
-<section id="pvalb" class="level3">
-<h3 class="anchored" data-anchor-id="pvalb">PVALB</h3>
+</section>
+<section id="differential-expression-of-spatially-distributed-genes" class="level2">
+<h2 class="anchored" data-anchor-id="differential-expression-of-spatially-distributed-genes">Differential Expression of Spatially Distributed Genes</h2>
+<section id="mbp-1" class="level3">
+<h3 class="anchored" data-anchor-id="mbp-1">MBP</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Set of samples 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Set of samples 2</a></li></ul>
+<div class="tab-content">
+<div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>quilt26PVALB <span class="ot">&lt;-</span> spatialGE<span class="sc">::</span><span class="fu">STplot</span>(scz_spatial,</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">samples =</span> samples_metadata<span class="sc">$</span>DxID[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)],</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"PVALB"</span>),</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color_pal=</span><span class="st">'PuBuGn'</span>,</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ptsize=</span><span class="fl">0.05</span>)</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist=</span>quilt26PVALB,</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nrow=</span><span class="dv">1</span>,</span>
-<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">ncol=</span><span class="dv">2</span>,</span>
-<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">legend=</span><span class="st">'bottom'</span>,</span>
-<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">common.legend =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>quiltMBP_sampleset1 <span class="ot">&lt;-</span> <span class="fu">displayQuilt</span>(scz_spatial_tr, </span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>                                       sampleset1,</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"MBP"</span>)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>quiltMBP_sampleset1<span class="sc">$</span>arranged</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/diff_spatial2_quilt-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/diff_spat1_quilt-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+</div>
+<div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>quiltMBP_sampleset2 <span class="ot">&lt;-</span> <span class="fu">displayQuilt</span>(scz_spatial_tr, </span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>                                       sampleset2,</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"MBP"</span>)</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>quiltMBP_sampleset2<span class="sc">$</span>arranged</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/diff_spat1_quilt2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="section-2" class="level3">
-<h3 class="anchored" data-anchor-id="section-2"></h3>
-</section>
+<section id="pvalb-1" class="level3">
+<h3 class="anchored" data-anchor-id="pvalb-1">PVALB</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Set of samples 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Set of samples 2</a></li></ul>
+<div class="tab-content">
+<div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>quiltPVALB_sampleset1 <span class="ot">&lt;-</span> <span class="fu">displayQuilt</span>(scz_spatial_tr, </span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>                                       sampleset1,</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"PVALB"</span>)</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>quiltPVALB_sampleset1<span class="sc">$</span>arranged</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/diff_spat2_quilt-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>quiltPVALB_sampleset2 <span class="ot">&lt;-</span> <span class="fu">displayQuilt</span>(scz_spatial_tr, </span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>                                       sampleset2,</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"PVALB"</span>)</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>quiltPVALB_sampleset2<span class="sc">$</span>arranged</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/diff_spat2_quilt2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1454,11 +1655,11 @@ If you skipped the data import section click here.
 <li>Looking at the result with a color vision deficiency simulator (<code>cvg_grid()</code> from <code>colorblindr</code>) the general conclusions are still possible in my opinion. This wasn’t the case with <code>PrGn</code>, <code>BuRd</code>, or <code>Spectral</code> when I tested them.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>colorblindr<span class="sc">::</span><span class="fu">cvd_grid</span>(<span class="at">plot =</span> quiltArrange)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>colorblindr<span class="sc">::</span><span class="fu">cvd_grid</span>(<span class="at">plot =</span> quiltArrangeCX3CR1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1466,19 +1667,11 @@ If you skipped the data import section click here.
 <!--
 Look at these genes to try to see differences in spatial distribution not just up/down: MBP, GFAP, NTRK2, MT1E, PVALB, BDNF
 -->
-<p>Let’s clear some R memory again.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(quilt26CX3CR1, quilt26FKBP5, quilt26MBP, quilt26PVALB, quiltArrange)</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            used  (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells   3870947 206.8    7497158  400.4   7497158  400.4
-Vcells 109714783 837.1  353643355 2698.1 552562879 4215.8</code></pre>
-</div>
-</div>
 <hr>
 </section>
-<section id="data-analysis" class="level1 page-columns page-full">
+</section>
+</section>
+<section id="data-analysis" class="level1">
 <h1><strong>Data Analysis</strong></h1>
 <hr>
 <p>If you have been following along but stopped, we could load our imported data like so:</p>
@@ -1505,59 +1698,424 @@ You can use a collapsible details section to provide an answer
 :::
 
 -->
-<p>We will use <code>SThet</code> to look at the autocorrelation of the expression of genes throughout the samples.</p>
-<p>Moran’s I Interpretation:</p>
-<ul>
-<li>Positive: autocorrelation – similar expression is located near similar expression</li>
-<li>0: random distribution</li>
-<li>Negative: dissimilar expression is located near each other</li>
-</ul>
-<p>Running <code>SThet</code> takes 12-15 minutes on our institutional HPC with 2 cores for 2-4 genes across the 6 samples (though only 5 of the 6 run successfully. The sixth fails somewhat silently).</p>
+<section id="clustering" class="level2">
+<h2 class="anchored" data-anchor-id="clustering">Clustering</h2>
+<!--
 
-<div class="no-row-height column-margin column-container"><div class="">
-<p><strong>Why might the final sample be failing? … I did find this warning message that talks about errors</strong></p>
-</div></div><pre><code>Warning messages:
-1: In parallel::mclapply(seq(names(x@spatial_meta)), function(i) { :
-  1 function calls resulted in an error
-2: In parallel::mclapply(seq_along(1:length(unique(as.vector(unlist(combo[[1]]))))),  :
-  1 function calls resulted in an error</code></pre>
-<p>And <code>get_gene_meta()</code> takes a couple extra minutes after that. My personal computer can’t run this step at all without crashing (though every <code>spatialGE</code> step before this it can handle).</p>
-<p>Prior to running this step, the data/<code>STlist</code> is several hundred MB. Once I’ve run this step, the data is several hundred GB.</p>
+Should be able to use `STclust`, but I'm struggling with that. So I grabbed the [cluster assignments from the study](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/blob/devel/processed-data/06_cell_type_clustering/banksy_clustering_lambda0.1_res0.7.csv). The [cluster annotations are here in their code](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/blob/2c0ec1319137fa1c108ec6ea0c6935b32ad50e1b/code/analysis/06_cell_type_clustering/06_plot_clusters_on_tissue.R#L41-L52).
+
+```{.default}
+awk -F, -v OFS=',' 'NR==1 {print "","Cluster","Sample","CoordIndex"} $3 ~ /(Br1139|Br5314|Br5746|Br5973|Br8433|Br8667)/ { gsub(/"/, "", $3); split($3, arr, "_"); print $1, $2, "\""arr[1] "\"", "\""arr[2] "\"" }' data/raw/banksy_clustering_lambda0.1_res0.7.csv > data/wrangled/cluster_assignments.csv
+```
+
+Need to take the output of this and join it to the original spatial coordinates. I think that the fourth column is the row number and I need the libname from the original file to join the coordinates to the spatial_meta STlist object
+
+
+::: {.cell}
+
+```{.r .cell-code}
+cluster_assignments <- read.csv(here("data/wrangled/cluster_assignments.csv"))
+
+new_cluster_assignments <- data.table::rbindlist(
+  lapply(1:length(spatial_coords), function(x) spatial_coords[[names(spatial_coords)[x]]] %>%
+        mutate(CoordIndex = row_number()) %>%
+        select(CoordIndex, cell_id) %>%
+        right_join(cluster_assignments %>% filter(Sample == substring(names(spatial_coords)[x], 1, 6))) %>%
+        rename(libname = cell_id)
+)) %>%
+  mutate(SampleSuffix = case_when(Sample %in% c("Br8667", "Br5314", "Br8433") ~ "CTRL", 
+                                  Sample %in% c("Br5973", "Br1139", "Br5746") ~ "SCZ", 
+                                  .default= NA_character_)) %>% 
+  unite("SampleName", c(Sample, SampleSuffix), sep = "")
+```
+:::
+
+
+-->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">SThet</span>(scz_spatial, <span class="at">genes =</span> <span class="fu">c</span>(<span class="st">"CX3CR1"</span>, <span class="st">"MBP"</span>, <span class="st">"FKBP5"</span>))</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">get_gene_meta</span>(scz_spatial, <span class="at">sthet_only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>cluster_assignments <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">here</span>(<span class="st">"data/wrangled/cluster_assignments_withlibname.csv"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">rename</span>(<span class="at">annot =</span> Cluster) <span class="sc">%&gt;%</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">fill</span>(annot) <span class="sc">%&gt;%</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">mutate</span>(<span class="at">annot=</span><span class="fu">case_when</span>(</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">1</span>) <span class="sc">~</span> <span class="st">"Oligo"</span>,</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">"Ambig/Oligo"</span>,</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">7</span> <span class="sc">~</span> <span class="st">"Mic"</span>,</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">"Ambig/In/Endo"</span>,</span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">18</span> <span class="sc">~</span> <span class="st">"L5 Ex"</span>,</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">14</span> <span class="sc">~</span> <span class="st">"L6 Ex"</span>,</span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">11</span> <span class="sc">~</span> <span class="st">"L4/5 Ex"</span>,</span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"L2/3 Ex"</span>,</span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">16</span>, <span class="dv">4</span>) <span class="sc">~</span> <span class="st">"Ast"</span>,</span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">13</span>, <span class="dv">3</span>) <span class="sc">~</span> <span class="st">"Endo"</span>,</span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">12</span> <span class="sc">~</span> <span class="st">"CGE"</span>,</span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">9</span> <span class="sc">~</span> <span class="st">"MGE"</span>,</span>
+<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">.default =</span> <span class="cn">NA_character_</span>))</span>
+<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (name <span class="cf">in</span> <span class="fu">names</span>(scz_spatial_tr<span class="sc">@</span>spatial_meta)){</span>
+<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a>  scz_spatial<span class="sc">@</span>spatial_meta[[name]] <span class="ot">&lt;-</span> <span class="fu">left_join</span>(scz_spatial<span class="sc">@</span>spatial_meta[[name]], </span>
+<span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a>                                                cluster_assignments <span class="sc">%&gt;%</span> </span>
+<span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">filter</span>(SampleName <span class="sc">==</span> name) <span class="sc">%&gt;%</span> </span>
+<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">select</span>(libname, annot)</span>
+<span id="cb59-25"><a href="#cb59-25" aria-hidden="true" tabindex="-1"></a>                                                )</span>
+<span id="cb59-26"><a href="#cb59-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-27"><a href="#cb59-27" aria-hidden="true" tabindex="-1"></a>  scz_spatial_tr<span class="sc">@</span>spatial_meta[[name]] <span class="ot">&lt;-</span> <span class="fu">left_join</span>(scz_spatial_tr<span class="sc">@</span>spatial_meta[[name]], </span>
+<span id="cb59-28"><a href="#cb59-28" aria-hidden="true" tabindex="-1"></a>                                                cluster_assignments <span class="sc">%&gt;%</span> </span>
+<span id="cb59-29"><a href="#cb59-29" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">filter</span>(SampleName <span class="sc">==</span> name) <span class="sc">%&gt;%</span> </span>
+<span id="cb59-30"><a href="#cb59-30" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">select</span>(libname, annot)</span>
+<span id="cb59-31"><a href="#cb59-31" aria-hidden="true" tabindex="-1"></a>                                                )</span>
+<span id="cb59-32"><a href="#cb59-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb59-33"><a href="#cb59-33" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`</code></pre>
 </div>
-<p><strong>Possibilities for feasibility</strong>:</p>
-<ul>
-<li>From the documentation, I saw that the k-nearest neighbors approach will be faster, but less accurate, so we could try that.</li>
-<li>We could provide the output and do an analysis task with the output from <code>get_gene_meta()</code> – see thoughts on Z-score below in the “Questions on using this function list.”</li>
-<li>We could focus on just two samples instead of 6, but the quilt plot is already using just two samples, so I don’t think it makes sense to not use as many as we can here.</li>
-<li>We could subset the data to select a fewer number of cells (randomly drop some cell IDs from the data that we give learners)</li>
-<li>We could compute the statistic for a fewer number of genes (just 2?) … this didn’t seem to speed up the process that much when I tried it</li>
-<li>Focus on a specific subregion of the tissue only? Would I need to have or prepare a separate STlist object for this?</li>
-</ul>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p><strong>Do you have any recommendations on how to make this combination of <code>SThet</code> and <code>get_gene_meta()</code> a more feasible step?</strong></p>
-</div></div><p><strong>Brainstorming on significance</strong></p>
-<ul>
-<li>If I was trying to compute a z-score from the resulting dataframe …
-<ul>
-<li>should I use the <code>gene_mean</code> value as the expected value</li>
-<li>should I use the <code>gene_stdevs</code> value as the standard deviation.</li>
-</ul></li>
-</ul>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p><strong>How do we know if a Moran’s I value that is greater than 0 is significantly far from or greater than zero using this function? Does this function compute p-values or help me to compute a z-score?</strong></p>
-</div></div><p>If so, I think that’s the best possible “analysis” we can have people do if we give them the dataframe … have them compute the z-score.</p>
-<p>So something like …?</p>
+</div>
+<section id="spatial-distribution-of-expression" class="level3">
+<h3 class="anchored" data-anchor-id="spatial-distribution-of-expression">Spatial distribution of expression</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">MBP</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">PVALB</a></li></ul>
+<div class="tab-content">
+<div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>gene_meta_out <span class="ot">&lt;-</span> gene_meta_out <span class="sc">%&gt;%</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">summarize</span>(<span class="at">gene_sample_z =</span> (moran_i <span class="sc">-</span> gene_mean) <span class="sc">/</span> gene_stdevs)</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="co">#And do one-tailed tests comparing to difference from 0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>cellType <span class="ot">&lt;-</span> <span class="fu">STplot</span>(scz_spatial_tr, <span class="at">plot_meta =</span> <span class="st">"annot"</span>, <span class="at">samples =</span> sampleset1)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>combined_list <span class="ot">&lt;-</span> <span class="fu">c</span>(cellType, quiltMBP_sampleset1<span class="sc">$</span>plots)</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> combined_list, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">labels =</span> <span class="st">"AUTO"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>combined_list2 <span class="ot">&lt;-</span> <span class="fu">c</span>(cellType, quiltPVALB_sampleset1<span class="sc">$</span>plots)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> combined_list2, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">labels =</span> <span class="st">"AUTO"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="gene-specific-summaries-of-expression" class="level3">
+<h3 class="anchored" data-anchor-id="gene-specific-summaries-of-expression">Gene specific summaries of expression</h3>
+<p>We can also look at summaries of the expression of a few of these genes in these cell types.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>combine_counts_annot <span class="ot">&lt;-</span> <span class="cf">function</span>(matannot, matcount, sample_name, gene_name){</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">full_join</span>(</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>        matannot[[sample_name]][,<span class="fu">c</span>(<span class="st">"libname"</span>, <span class="st">"annot"</span>)],</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>        matcount[[sample_name]][gene_name, ] <span class="sc">%&gt;%</span> </span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">rownames_to_column</span>(<span class="st">"libname"</span>)</span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> <span class="st">`</span><span class="at">colnames&lt;-</span><span class="st">`</span>(<span class="fu">c</span>(<span class="st">"libname"</span>, <span class="st">"annot"</span>, sample_name))</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>use_combined_data <span class="ot">&lt;-</span> <span class="cf">function</span>(mat, gene_name, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">samples =</span> <span class="fu">c</span>(<span class="st">"Br1139SCZ"</span>, <span class="st">"Br5314CTRL"</span>)){</span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>  combined_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">combine_counts_annot</span>(mat<span class="sc">@</span>spatial_meta, mat<span class="sc">@</span>tr_counts, samples[<span class="dv">1</span>], gene_name),</span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">combine_counts_annot</span>(mat<span class="sc">@</span>spatial_meta, mat<span class="sc">@</span>tr_counts, samples[<span class="dv">2</span>], gene_name)) <span class="sc">%&gt;%</span></span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">"Br"</span>),</span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">values_to =</span> <span class="st">"tr_counts"</span>,</span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">names_to =</span> <span class="st">"sample"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">drop_na</span>()</span>
+<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (use <span class="sc">==</span> <span class="st">"violin"</span>){</span>
+<span id="cb63-19"><a href="#cb63-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(</span>
+<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a>      combined_data <span class="sc">%&gt;%</span></span>
+<span id="cb63-21"><a href="#cb63-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sample, </span>
+<span id="cb63-22"><a href="#cb63-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> tr_counts, </span>
+<span id="cb63-23"><a href="#cb63-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill =</span> sample)) <span class="sc">+</span> </span>
+<span id="cb63-24"><a href="#cb63-24" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_violin</span>() <span class="sc">+</span> </span>
+<span id="cb63-25"><a href="#cb63-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">facet_wrap</span>(<span class="sc">~</span>annot, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> </span>
+<span id="cb63-26"><a href="#cb63-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb63-27"><a href="#cb63-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_fill_viridis_d</span>(<span class="at">end =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
+<span id="cb63-28"><a href="#cb63-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggtitle</span>(gene_name) <span class="sc">+</span></span>
+<span id="cb63-29"><a href="#cb63-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
+<span id="cb63-30"><a href="#cb63-30" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb63-31"><a href="#cb63-31" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (use <span class="sc">==</span> <span class="st">"summary"</span>){</span>
+<span id="cb63-32"><a href="#cb63-32" aria-hidden="true" tabindex="-1"></a>    table_length <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(combined_data<span class="sc">$</span>annot)) <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb63-33"><a href="#cb63-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(</span>
+<span id="cb63-34"><a href="#cb63-34" aria-hidden="true" tabindex="-1"></a>      combined_data <span class="sc">%&gt;%</span></span>
+<span id="cb63-35"><a href="#cb63-35" aria-hidden="true" tabindex="-1"></a>        <span class="fu">group_by</span>(annot, sample) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-36"><a href="#cb63-36" aria-hidden="true" tabindex="-1"></a>        <span class="fu">summarize</span>(</span>
+<span id="cb63-37"><a href="#cb63-37" aria-hidden="true" tabindex="-1"></a>              <span class="at">min_exp =</span> <span class="fu">min</span>(tr_counts), </span>
+<span id="cb63-38"><a href="#cb63-38" aria-hidden="true" tabindex="-1"></a>              <span class="at">max_exp =</span> <span class="fu">max</span>(tr_counts), </span>
+<span id="cb63-39"><a href="#cb63-39" aria-hidden="true" tabindex="-1"></a>              <span class="at">avg_exp =</span> <span class="fu">mean</span>(tr_counts),</span>
+<span id="cb63-40"><a href="#cb63-40" aria-hidden="true" tabindex="-1"></a>              <span class="at">median_exp =</span> <span class="fu">median</span>(tr_counts),</span>
+<span id="cb63-41"><a href="#cb63-41" aria-hidden="true" tabindex="-1"></a>              <span class="at">var_exp =</span> <span class="fu">var</span>(tr_counts)</span>
+<span id="cb63-42"><a href="#cb63-42" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-43"><a href="#cb63-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="at">n=</span>table_length)</span>
+<span id="cb63-44"><a href="#cb63-44" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb63-45"><a href="#cb63-45" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb63-46"><a href="#cb63-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"No other downstream uses supported besides 'violin' and 'summary'"</span>)</span>
+<span id="cb63-47"><a href="#cb63-47" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb63-48"><a href="#cb63-48" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">Log transformation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">SCTransform</a></li></ul>
+<div class="tab-content">
+<div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">MBP</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">PVALB</a></li></ul>
+<div class="tab-content">
+<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`
+`summarise()` has grouped output by 'annot'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 24 × 7
+# Groups:   annot [12]
+   annot         sample     min_exp max_exp avg_exp median_exp var_exp
+   &lt;chr&gt;         &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Ambig/In/Endo Br1139SCZ        0    4.28  0.150           0   0.389
+ 2 Ambig/In/Endo Br5314CTRL       0    5.07  0.201           0   0.577
+ 3 Ambig/Oligo   Br1139SCZ        0    3.95  0.105           0   0.298
+ 4 Ambig/Oligo   Br5314CTRL       0    4.36  0.202           0   0.632
+ 5 Ast           Br1139SCZ        0    4.96  0.134           0   0.346
+ 6 Ast           Br5314CTRL       0    4.79  0.184           0   0.458
+ 7 CGE           Br1139SCZ        0    4.05  0.117           0   0.265
+ 8 CGE           Br5314CTRL       0    4.03  0.239           0   0.561
+ 9 Endo          Br1139SCZ        0    4.59  0.0619          0   0.182
+10 Endo          Br5314CTRL       0    4.66  0.109           0   0.335
+11 L2/3 Ex       Br1139SCZ        0    4.35  0.123           0   0.278
+12 L2/3 Ex       Br5314CTRL       0    4.95  0.229           0   0.568
+13 L4/5 Ex       Br1139SCZ        0    4.48  0.198           0   0.443
+14 L4/5 Ex       Br5314CTRL       0    4.63  0.346           0   0.759
+15 L5 Ex         Br1139SCZ        0    2.59  0.0828          0   0.175
+16 L5 Ex         Br5314CTRL       0    3.42  0.265           0   0.611
+17 L6 Ex         Br1139SCZ        0    3.29  0.0567          0   0.132
+18 L6 Ex         Br5314CTRL       0    3.69  0.0837          0   0.210
+19 MGE           Br1139SCZ        0    5.78  1.25            0   3.22 
+20 MGE           Br5314CTRL       0    5.97  1.89            0   4.73 
+21 Mic           Br1139SCZ        0    4.73  0.163           0   0.430
+22 Mic           Br5314CTRL       0    4.81  0.247           0   0.677
+23 Oligo         Br1139SCZ        0    5.69  0.0978          0   0.343
+24 Oligo         Br5314CTRL       0    5.01  0.101           0   0.294</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
+<p>Violin plots of normalized expression by cell type and sample.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Summary tables of normalized expression by cell type and sample.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`
+`summarise()` has grouped output by 'annot'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 24 × 7
+# Groups:   annot [12]
+   annot         sample     min_exp max_exp avg_exp median_exp var_exp
+   &lt;chr&gt;         &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Ambig/In/Endo Br1139SCZ        0    4.28  0.150           0   0.389
+ 2 Ambig/In/Endo Br5314CTRL       0    5.07  0.201           0   0.577
+ 3 Ambig/Oligo   Br1139SCZ        0    3.95  0.105           0   0.298
+ 4 Ambig/Oligo   Br5314CTRL       0    4.36  0.202           0   0.632
+ 5 Ast           Br1139SCZ        0    4.96  0.134           0   0.346
+ 6 Ast           Br5314CTRL       0    4.79  0.184           0   0.458
+ 7 CGE           Br1139SCZ        0    4.05  0.117           0   0.265
+ 8 CGE           Br5314CTRL       0    4.03  0.239           0   0.561
+ 9 Endo          Br1139SCZ        0    4.59  0.0619          0   0.182
+10 Endo          Br5314CTRL       0    4.66  0.109           0   0.335
+11 L2/3 Ex       Br1139SCZ        0    4.35  0.123           0   0.278
+12 L2/3 Ex       Br5314CTRL       0    4.95  0.229           0   0.568
+13 L4/5 Ex       Br1139SCZ        0    4.48  0.198           0   0.443
+14 L4/5 Ex       Br5314CTRL       0    4.63  0.346           0   0.759
+15 L5 Ex         Br1139SCZ        0    2.59  0.0828          0   0.175
+16 L5 Ex         Br5314CTRL       0    3.42  0.265           0   0.611
+17 L6 Ex         Br1139SCZ        0    3.29  0.0567          0   0.132
+18 L6 Ex         Br5314CTRL       0    3.69  0.0837          0   0.210
+19 MGE           Br1139SCZ        0    5.78  1.25            0   3.22 
+20 MGE           Br5314CTRL       0    5.97  1.89            0   4.73 
+21 Mic           Br1139SCZ        0    4.73  0.163           0   0.430
+22 Mic           Br5314CTRL       0    4.81  0.247           0   0.677
+23 Oligo         Br1139SCZ        0    5.69  0.0978          0   0.343
+24 Oligo         Br5314CTRL       0    5.01  0.101           0   0.294</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">MBP</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">PVALB</a></li></ul>
+<div class="tab-content">
+<div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_tr, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_tr, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`
+`summarise()` has grouped output by 'annot'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 24 × 7
+# Groups:   annot [12]
+   annot         sample     min_exp max_exp avg_exp median_exp var_exp
+   &lt;chr&gt;         &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Ambig/In/Endo Br1139SCZ        0    4.01   1.33       1.10    1.00 
+ 2 Ambig/In/Endo Br5314CTRL       0    3.85   1.37       1.39    0.757
+ 3 Ambig/Oligo   Br1139SCZ        0    4.06   1.74       1.79    0.715
+ 4 Ambig/Oligo   Br5314CTRL       0    3.78   1.86       1.95    0.644
+ 5 Ast           Br1139SCZ        0    3.99   1.09       1.10    0.856
+ 6 Ast           Br5314CTRL       0    3.81   1.15       1.10    0.672
+ 7 CGE           Br1139SCZ        0    3.40   0.444      0       0.409
+ 8 CGE           Br5314CTRL       0    3.22   0.607      0.693   0.413
+ 9 Endo          Br1139SCZ        0    4.33   0.957      0.693   0.605
+10 Endo          Br5314CTRL       0    3.69   0.867      0.693   0.480
+11 L2/3 Ex       Br1139SCZ        0    2.64   0.274      0       0.238
+12 L2/3 Ex       Br5314CTRL       0    2.83   0.357      0       0.270
+13 L4/5 Ex       Br1139SCZ        0    2.89   0.847      0.693   0.397
+14 L4/5 Ex       Br5314CTRL       0    2.89   1.02       1.10    0.355
+15 L5 Ex         Br1139SCZ        0    2.48   0.890      0.693   0.383
+16 L5 Ex         Br5314CTRL       0    2.77   1.06       1.10    0.369
+17 L6 Ex         Br1139SCZ        0    3.83   1.27       1.10    0.639
+18 L6 Ex         Br5314CTRL       0    3.00   1.23       1.10    0.380
+19 MGE           Br1139SCZ        0    4.14   0.777      0.693   0.579
+20 MGE           Br5314CTRL       0    3.47   0.953      1.10    0.523
+21 Mic           Br1139SCZ        0    4.22   1.38       1.39    1.15 
+22 Mic           Br5314CTRL       0    4.03   1.50       1.61    0.849
+23 Oligo         Br1139SCZ        0    4.79   3.00       3.14    0.506
+24 Oligo         Br5314CTRL       0    4.08   2.64       2.71    0.211</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_tr, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_tr, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(libname)`
+Joining with `by = join_by(libname)`
+`summarise()` has grouped output by 'annot'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 24 × 7
+# Groups:   annot [12]
+   annot         sample     min_exp max_exp avg_exp median_exp var_exp
+   &lt;chr&gt;         &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Ambig/In/Endo Br1139SCZ        0   1.79   0.0439          0 0.0353 
+ 2 Ambig/In/Endo Br5314CTRL       0   2.40   0.0546          0 0.0518 
+ 3 Ambig/Oligo   Br1139SCZ        0   1.39   0.0273          0 0.0204 
+ 4 Ambig/Oligo   Br5314CTRL       0   1.61   0.0522          0 0.0459 
+ 5 Ast           Br1139SCZ        0   2.56   0.0374          0 0.0296 
+ 6 Ast           Br5314CTRL       0   1.79   0.0381          0 0.0286 
+ 7 CGE           Br1139SCZ        0   1.61   0.0327          0 0.0237 
+ 8 CGE           Br5314CTRL       0   1.39   0.0492          0 0.0351 
+ 9 Endo          Br1139SCZ        0   1.61   0.0163          0 0.0129 
+10 Endo          Br5314CTRL       0   1.95   0.0284          0 0.0245 
+11 L2/3 Ex       Br1139SCZ        0   1.61   0.0311          0 0.0226 
+12 L2/3 Ex       Br5314CTRL       0   1.95   0.0476          0 0.0385 
+13 L4/5 Ex       Br1139SCZ        0   1.79   0.0536          0 0.0408 
+14 L4/5 Ex       Br5314CTRL       0   2.08   0.0628          0 0.0459 
+15 L5 Ex         Br1139SCZ        0   0.693  0.0190          0 0.0129 
+16 L5 Ex         Br5314CTRL       0   1.10   0.0475          0 0.0341 
+17 L6 Ex         Br1139SCZ        0   1.10   0.0143          0 0.00993
+18 L6 Ex         Br5314CTRL       0   1.10   0.0180          0 0.0130 
+19 MGE           Br1139SCZ        0   3.37   0.493           0 0.633  
+20 MGE           Br5314CTRL       0   3.22   0.749           0 0.958  
+21 Mic           Br1139SCZ        0   2.40   0.0475          0 0.0391 
+22 Mic           Br5314CTRL       0   1.79   0.0654          0 0.0536 
+23 Oligo         Br1139SCZ        0   2.89   0.0267          0 0.0264 
+24 Oligo         Br5314CTRL       0   2.30   0.0264          0 0.0224 </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <hr>
+</section>
+</section>
 </section>
 <section id="summary" class="level1">
 <h1><strong>Summary</strong></h1>
@@ -1597,12 +2155,12 @@ construct a plot here that summarizes the conclusions found in the data, if appl
 </div>
 <p>For the suggested homework, I think it would make sense to do a PCA of the samples, which is something Brooke had suggested. We can do this locally like all the steps except for the autocorrelation analysis.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">pseudobulk_samples</span>(scz_spatial, <span class="at">max_var_genes =</span> <span class="dv">150</span>) <span class="co">#decreased compared to the default since the Xenium panel is based on a lower number of genes than say Visium data</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudobulk_heatmap</span>(scz_spatial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">pseudobulk_samples</span>(scz_spatial, <span class="at">max_var_genes =</span> <span class="dv">150</span>) <span class="co">#decreased compared to the default since the Xenium panel is based on a lower number of genes than say Visium data</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudobulk_heatmap</span>(scz_spatial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="img/pseudobulk_heatmap.png" class="img-fluid"></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudobulk_dim_plot</span>(scz_spatial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudobulk_dim_plot</span>(scz_spatial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="img/pseudobulk_pca.png" class="img-fluid"></p>
 <p>When I try to color the PCA plot by a variable in my sample metadata (using <code>plot_meta</code> parameter), it errors and tells me that data doesn’t exist. I’ve tried changing capitalization and several other steps, but the value should be there.</p>
@@ -1923,7 +2481,7 @@ Kwon, Sang Ho, Boyi Guo, Cindy Fang, Madhavi Tippani, Svitlana V. Bach, Ryan A. 
 <h2 class="anchored" data-anchor-id="session-info"><strong>Session Info</strong></h2>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>─ Session info ───────────────────────────────────────────────────────────────
  setting  value
@@ -1935,7 +2493,7 @@ Kwon, Sang Ho, Boyi Guo, Cindy Fang, Madhavi Tippani, Svitlana V. Bach, Ryan A. 
  collate  en_US.UTF-8
  ctype    en_US.UTF-8
  tz       Etc/UTC
- date     2026-10-05
+ date     2026-10-10
  pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────
@@ -2045,6 +2603,7 @@ Kwon, Sang Ho, Boyi Guo, Cindy Fang, Madhavi Tippani, Svitlana V. Bach, Ryan A. 
  usethis        2.2.3   2024-02-19 [1] RSPM (R 4.3.0)
  utf8           1.2.4   2023-10-22 [1] RSPM (R 4.3.0)
  vctrs          0.6.5   2023-12-01 [1] RSPM (R 4.3.0)
+ viridisLite    0.4.2   2023-05-02 [1] RSPM (R 4.3.0)
  vroom          1.6.5   2023-12-05 [1] RSPM (R 4.3.0)
  withr          3.0.2   2024-10-28 [1] CRAN (R 4.3.2)
  xfun           0.56    2026-01-18 [1] CRAN (R 4.3.2)
@@ -2519,7 +3078,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"loop":false,"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom"});
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom","selector":".lightbox","loop":false});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
