@@ -31,7 +31,7 @@ You can use a collapsible details section to provide an answer
 ## Clustering
 
 ```{r}
-scz_spatial <- STclust(scz_spatial, topgenes = 300, samples = names(scz_spatial@spatial_meta)[c(1,2)])
+scz_spatial <- STclust(scz_spatial, topgenes = 300, samples = names(scz_spatial@spatial_meta)[c(1,2)], cores = 1)
 ```
 
 <!--
