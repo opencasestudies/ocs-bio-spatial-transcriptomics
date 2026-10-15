@@ -78,17 +78,17 @@ cluster_assignments <- read.csv(here("data/wrangled/cluster_assignments_withlibn
                                  annot == 9 ~ "MGE",
                                  .default = NA_character_))
 
-for (name in names(scz_spatial_tr@spatial_meta)){
+for (sample_name in names(scz_spatial_tr@spatial_meta)){
 
-  scz_spatial@spatial_meta[[name]] <- left_join(scz_spatial@spatial_meta[[name]], 
+  scz_spatial@spatial_meta[[sample_name]] <- left_join(scz_spatial@spatial_meta[[sample_name]], 
                                                 cluster_assignments %>% 
-                                                  filter(SampleName == name) %>% 
+                                                  filter(SampleName == sample_name) %>% 
                                                   select(libname, annot)
                                                 )
 
-  scz_spatial_tr@spatial_meta[[name]] <- left_join(scz_spatial_tr@spatial_meta[[name]], 
+  scz_spatial_tr@spatial_meta[[sample_name]] <- left_join(scz_spatial_tr@spatial_meta[[sample_name]], 
                                                 cluster_assignments %>% 
-                                                  filter(SampleName == name) %>% 
+                                                  filter(SampleName == sample_name) %>% 
                                                   select(libname, annot)
                                                 )
   

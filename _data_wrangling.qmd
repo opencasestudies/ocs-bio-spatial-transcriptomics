@@ -25,9 +25,77 @@ Add instructions for loading the data...
 </details>
 ***
 
+## Adding more sample metadata
+
+```{r}
+scz_spatial@spatial_meta <- scz_spatial@spatial_meta %>% left_join(samples_metadata, by = c("sample_name" = "DxID"))
+```
+
 ## Filtering
 
-Note that values used for filtering here are based on results in the data exploration section above. So it and the data exploration section should either be combined in the final case study draft, or we'll add a note about people needing to visit the data exploration step to under the values we're using.
+### Using Control Probes and Codewords
+
+First we create a function that we can use with lapply that takes the filtering thresholds that we found previously as well as the counts matrix as inputs. Notice that the thresholds are named arguments meaning they have default values set to the exact variables we were working with earlier. We find the combined expression within each cell of each of the three associated controls using column sums and identify the cell IDs where the combined expression of any one of these types of controls is greater than or equal to the 99th percentile threshold. Finally, we take a union of the identified cell IDs.
+
+By calling this function with `lapply`, we'll have named list (`to_remove_all`) where the sample name stores a vector of cell IDs that should be removed for that sample.
+
+We use a `for` loop to then loop through the sample names and actually filter the cell IDs within the count matrix. Recall that the cells correspond to the columns in the count matrix. Our filter is specifically using an exclamation point (`!`) to specify that if a column name is **not** the list of cell IDs to be filtered, then keep it.
+
+```{r}
+findOverlap <- function(mat, negcp = negcontrol_probe_cutoff, negcc = negcontrol_cdwd_cutoff, ucc = unassigned_cdwd_cutoff){
+    which_negcp <- names(which(mat[startsWith(rownames(mat), "NegControlProbe"), ] %>% Matrix::colSums() >= negcp))
+    which_negcc <- names(which(mat[startsWith(rownames(mat), "NegControlCodeword"), ] %>% Matrix::colSums() >= negcc))
+    which_ucc <- names(which(mat[startsWith(rownames(mat), "Unassigned"), ] %>% Matrix::colSums() >= ucc))
+
+    to_remove <- union(union(which_negcp, which_negcc), which_ucc)
+
+    return(to_remove)
+}
+
+to_remove_all <- lapply(scz_spatial@counts function(x) findOverlap(x))
+
+for (sample_name in names(to_remove_all)){
+    scz_spatial@counts[[sample_name]] <- scz_spatial@counts[[sample_name]][,!colnames(scz_spatial@counts[[sample_name]]) %in% to_remove_all[[sample_name]]]
+}
+```
+
+How many cells do we have per sample now?
+
+```{r}
+lapply(scz_spatial@counts, function(i) ncol(i))
+```
+
+We also want to remove the spatial metadata information about these cells since they're no longer in the counts matrix. Recall that each row corresponds to a cell, and the cell IDs are stored in the `libname` column of the `spatial_meta` slot.
+
+```{r}
+for (sample_name in names(to_remove_all)){
+    scz_spatial@spatial_meta[[sample_name]] <- scz_spatial@spatial_meta[[sample_name]][!scz_spatial@spatial_meta[[sample_name]]$libname %in% to_remove_all[[sample_name]],]
+}
+```
+
+### Removing Control Probes and Codewords
+
+Now that we've used the control probes and codewords to filter out cells, we can remove them as "genes" from our counts matrix.
+
+```{r}
+for (sample_name in names(scz_spatial@counts)){
+    scz_spatial@counts[[sample_name]] <- scz_spatial@counts[[sample_name]][!grepl("^NegControl|Unassigned",rownames(scz_spatial@counts[[sample_name]])), ]
+}
+```
+
+All of the counts matrices will now be 300 rows representing data for the 300 Xenium panel genes.
+
+```{r}
+lapply(scz_spatial@counts, function(i) nrow(i))
+```
+
+### Using spatialGE
+
+The filtering that we've done, while important, isn't enough. We also need to consider the overall library size of and number of features in cells. 
+
+<!--
+Fill in explanation of why
+-->
 
 ```{r}
 scz_spatial <- spatialGE::filter_data(scz_spatial,
@@ -36,13 +104,7 @@ scz_spatial <- spatialGE::filter_data(scz_spatial,
                            spot_mingenes=10)
 ```
 
-:::{.emphasis_block}
-<details><summary>How do you report which cell barcodes were filtered?</summary>
-Add info here on how to assess and report which cell barcodes were filtered out. Note that we can compare to the ones that the original study filtered out. 
-</details>
-:::
-
-What do the distributions look like now?
+What do the summary statistics and distributions look like now?
 
 ::: {.panel-tabset}
 
@@ -51,6 +113,8 @@ What do the distributions look like now?
 ```{r}
 summarize_STlist(scz_spatial) %>% print(width = Inf)
 ```
+
+Notice that the number of cells retained decreased for each sample again. Some decreased by only about one hundred while another sample decreased by a little over two thousand!
 
 ### Total Counts
 
@@ -66,6 +130,18 @@ distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_genes')
 
 :::
 
+
+:::{.emphasis_block}
+<details><summary>How do you report which cell barcodes were filtered?</summary>
+
+Add info here on how to assess and report which cell barcodes were filtered out. Note that we can compare to the ones that the original study filtered out (Reinforcement exercise?). 
+
+Can I create a list of filtered out spots?
+
+Can I recreate Figure S25? I think I may need to create a new STlist to do this? Maybe I should have duplicated it before I filtered.
+
+</details>
+:::
 
 ## Normalizing
 

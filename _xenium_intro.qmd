@@ -1,0 +1,19 @@
+# **Introduction to Xenium data**
+
+***
+
+Before we start to work with the Spatial Transcriptomics data from this study, we will provide an introduction previewing some of the specifics of Xenium data: how it's generated, what is produced or generally what you can expect working with it, and any special considerations to keep in mind when working with Xenium data. Some of these topics will be discussed in more detail throughout the case study.
+
+## Data generation
+
+Xenium is an image-based spatial transcriptomics platform. 
+
+Cell segmentation for v1 utilizes DAPI for nucleus and an isotropic nuclear expansion algorithm to approximate the cell boundaries. An alternative approach (not used in the process of this paper) 
+
+
+
+## Data products
+
+## Summary
+
+In Summary, Xenium data utilizes a gene panel of probes to assay the spatially-resolved expression of specific genes at a cellular or subcellular resolution within tissue samples. Samples used to generate Xenium data are either fresh frozen (FF) or formalin-fixed paraffin-embedded (FFPE) tissue samples. After sample preparation, imaging cycles are performed using a Xenium Analyzer. Cellular segmentation is performed to approximate boundaries between cells.

@@ -4,21 +4,23 @@
 Since we are working with Xenium spatial transcriptomics data for multiple samples, we need to provide `spatialGE` with 3 types of data.
 
 1. Sample Metadata (primarily the sample IDs)
-2. Spatial Coordinates
-3. The mRNA counts
+2. Spatial coordinates (for each visualized cell in each tissue sample)
+3. The mRNA counts for the panel genes (corresponding to each visualized cell in each tissue sample)
 
 
 `spatialGE` provides the user some flexibility in how they import their data. Users can either provide file paths or they can provide named lists with each list containing data frames for 
 
 Provide instructions on how to get the `spatial_samples.csv` and `geo_to_spatial_samples.csv` files.
 
-## 3 random SCZ samples and 3 random NTC samples
+## Subset samples
 
-1) We set the random seed
-2) We read in metadata files, joining them so that we can relate the sample information with the `PrimaryDx` column
-3) We select 3 random NTC samples
-4) We select 3 random SCZ samples
-5) We make a vector of those 6 sample IDs
+We want to subset 6 samples (3 for each diagnosis) from the larger set of samples so that we still have multiple samples to compare, but aren't working with every possible sample as that would require a lot of memory and storage.
+
+1. We set the random seed
+1. We read in metadata files, joining them so that we can relate the sample information with the `PrimaryDx` column
+1. We select 3 random NTC samples
+1. We select 3 random SCZ samples
+1. We make a vector of those 6 sample IDs
 
 ```{r message = FALSE, warning = FALSE}
 set.seed(567)
@@ -28,7 +30,7 @@ spatial_sample_info <- spatial_samples %>%
   dplyr::filter(Xenium == "YES") %>%
   full_join(geo_to_spatial,
             by = c("Brain Number (ID)" = "X2")) %>%
-  select(c("Brain Number (ID)", "Sex", "PrimaryDx", X1))
+  select(c("Brain Number (ID)", "Sex", "PrimaryDx", X1, "Age", "RIN", "PMI"))
 
 #3 NTC samples
 ntc_samples <- unname(sample(unlist(spatial_sample_info[which(spatial_sample_info$PrimaryDx == "Control"), "X1"]), 3))
@@ -89,10 +91,6 @@ lapply(1:length(samples),
 3. Combine the Brain Number ID with the Primary Dx to create an ID that provides more information about each sample
 4. Relocate this new ID to the first column
 5. Arrange so the rows are in the same order as the `samples` vector.
-
-<!--
-I can bring over more of the metadata columns like Age, `RIN`, and `PMI` depending on the analysis and homework steps.
--->
 
 
 ```{r}
@@ -287,7 +285,7 @@ scz_spatial <- spatialGE::STlist(rnacounts = rnacounts_input,
                                  samples = samples_metadata
                                 )
 
-rm(rnacounts_input, spatial_coords, centroids, df_test_sample, testsample)
+rm(rnacounts_input, centroids, df_test_sample, testsample)
 gc()                               
 ```
 
