@@ -28,7 +28,7 @@ Add instructions for loading the data...
 ## Adding more sample metadata
 
 ```{r}
-scz_spatial@spatial_meta <- scz_spatial@spatial_meta %>% left_join(samples_metadata, by = c("sample_name" = "DxID"))
+scz_spatial@sample_meta <- scz_spatial@sample_meta %>% left_join(samples_metadata, by = c("sample_name" = "DxID"))
 ```
 
 ## Filtering
