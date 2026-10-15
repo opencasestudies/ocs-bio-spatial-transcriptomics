@@ -52,7 +52,7 @@ findOverlap <- function(mat, negcp = negcontrol_probe_cutoff, negcc = negcontrol
     return(to_remove)
 }
 
-to_remove_all <- lapply(scz_spatial@counts function(x) findOverlap(x))
+to_remove_all <- lapply(scz_spatial@counts, function(x) findOverlap(x))
 
 for (sample_name in names(to_remove_all)){
     scz_spatial@counts[[sample_name]] <- scz_spatial@counts[[sample_name]][,!colnames(scz_spatial@counts[[sample_name]]) %in% to_remove_all[[sample_name]]]
