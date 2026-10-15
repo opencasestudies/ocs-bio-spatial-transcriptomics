@@ -1,10 +1,3 @@
-<!--
-Describe the main biological questions for this case study.
-What will our analysis aim to answer? There can be more than 2.
-Fill them in within the inner_block section, but leave the custom box syntax
-See this previous case study as an example: https://www.opencasestudies.org/ocs-bp-co2-emissions/#Main_Questions
--->
-
 # **Main Question**
 ***
 
@@ -13,8 +6,10 @@ See this previous case study as an example: https://www.opencasestudies.org/ocs-
 Our main question(s)
 ::::
 ::::{.inner_block}
-1. Question 1
-1. Question 2
+1. How does the choice of technology/platform for generating spatially-resolved gene expression data impact the data that I will have to work with?
+1. What about my data should I consider during quality control in order to set filtering criteria?
+1. How will my choice of normalization methods impact my results?
+1. How do gene expression patterns compare for specific genes in dorsal prefrontal cortex tissue samples from cases with diagnosed schizophrenia to those from neurotypical cases?
 ::::
 :::
 ***

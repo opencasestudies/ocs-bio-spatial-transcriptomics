@@ -11,29 +11,165 @@ Add instructions for loading the data...
 </details>
 ***
 
+## The STlist object
+
+We can look at the type of an object using the `typeof()` function.
+
+```{r}
+typeof(scz_spatial)
+```
+The `STlist` object is an S4 class in R. This means that the object has "slots". Slots are accessed using an `@`, rather than a `$`. 
+
+Typically you would see the names in a list using the `names()` function. Instead, for an S4 class object you use the function `slotNames()`.
+
+```{r}
+slotNames(scz_spatial)
+```
+
+With an S4 class, you have to pre-specify slots prior to the object's creation. You can't add slots as you go through an analysis. Therefore, some of these slots currently have data and others will have data added once some spatialGE functions are used. 
+
+If we tried to assign a new slot, we would see an error.
+
+```{r, eval = FALSE}
+scz_spatial@test <- "This is a test"
+```
+
+> Error in (function (cl, name, valueClass)  : 
+  ‘test’ is not a slot in class “STlist”
+
+### Slots with data currently 
+
+#### counts
+
+The `counts` slot stores a named list
+
+```{r}
+typeof(scz_spatial@counts)
+```
+
+The named list stores sparse matrices of gene counts -- one sparse matrix for each sample.
+
+```{r}
+names(scz_spatial@counts)
+```
+
+For each sparse matrix, the rows store counts for each gene across cells and the columns store counts for each cell across genes. Rather than looking at counts for all of the genes (which would be several hundred rows), we can use the `head()` function to look at only a few.
+
+```{r}
+head(scz_spatial@counts$Br1139SCZ)
+```
+
+We can see that this is a sparse matrix because a period (`.`) is used instead of a zero for cells where a gene doesn't have any observed counts. 
+
+<!--
+Add a thought question about whether the rows or columns tell you how many cells there are. How about the number of genes?
+-->
+
+#### spatial_meta
+
+Similarly, the `spatial_meta` slot stores a named list.
+
+```{r}
+typeof(scz_spatial@spatial_meta)
+```
+
+The named list stores tibbles (a type of data frame) of metadata for cells in each sample. This info includes the x (`xpos`) and y (`ypos`) positions for each cell, the total number of counts for each cell (`total_counts`), as well as the total number of genes with observed counts for that cell (`total_genes`). The cell ID in the `libname` column corresponds to the cell names in the column names of the count matrices in the `counts` slot.
+
+```{r}
+head(scz_spatial@spatial_meta$Br1139SCZ)
+```
+
+The number of rows of these dataframes corresponds to the number cells in each sample. We can look at the number of rows using the function `nrow()`. Notice we're using the `lapply` function like we did previously to do this task for every sample in the named list.
+
+```{r}
+lapply(scz_spatial@spatial_meta, function(i) nrow(i))
+```
+
+#### sample_meta
+
+The `sample_meta` slot stores a tibble of metadata associated with the samples.
+
+```{r}
+scz_spatial@sample_meta
+```
+
+Because we passed a dataframe to the `samples` argument of `STlist` when we imported the data, we might assume that the whole data frame would be stored as sample metadata. However, STlist appears to only have kept the first column (the `sample_name` values). We will want to add more metadata to this so that later we have the potential to visualize metadata (such as sample Sex or Age).
+
+### Slots without data currently
+
+Several of these slots are currently empty lists, such as `gene_meta`, `tr_counts`, and `gene_krige`. These lists would be filled for each sample by certain spatialGE functions. For example, `tr_counts` will be filled with the transformed counts when we transform the data in the Data Wrangling section of the case study.
+
+## Expression data 
+
+The `summarize_STlist()` function can be used to explore the expression data for each sample. Much of the `spatial_meta` slot that we already explored is getting summarized with this function (e.g., number of cells per sample, summary stats for the `total_counts` and `total_genes` columns).   
+
 ```{r}
 spatialGE::summarize_STlist(scz_spatial) %>% print(width = Inf)
 ```
 
 This is a 6 X 9 dataframe that provides
 
-  1. `sample_name`: GEO IDs we provided in sample metadata
+  1. `sample_name`: The sample names we provided in sample metadata. In this case, these are the combination of the study's Brain IDs and the Primary Diagnosis abbreviations (CTRL or SCZ).
   2. `spotscells`: how many spots or cells that sample has
   3. `genes`: how many genes that sample has
-  4. `min_counts_per_spotcell`: minimum number of counts per spot or cell for that sample
-  5. `mean_counts_per_spotcell`: average number of counts per spot or cell for that sample
-  6. `max_counts_per_spotcell`: maximum number of counts per spot or cell for that sample
-  7. `min_genes_per_spotcell`: minimum number of genes (with non-zero counts?) per spot or cell for that sample
-  8. `mean_genes_per_spotcell`: average number of genes (with non-zero counts?) per spot or cell for that sample
-  9. `max_genes_per_spotcell`: maximum number of genes (with non-zero counts?) per spot or cell for that sample
+  4. `min_counts_per_spotcell`: minimum number of counts per cell for that sample
+  5. `mean_counts_per_spotcell`: average number of counts per cell for that sample
+  6. `max_counts_per_spotcell`: maximum number of counts per cell for that sample
+  7. `min_genes_per_spotcell`: minimum number of genes with non-zero counts per cell for that sample
+  8. `mean_genes_per_spotcell`: average number of genes with non-zero counts per cell for that sample
+  9. `max_genes_per_spotcell`: maximum number of genes with non-zero counts per cell for that sample
 
-Violin plot of counts per spot/cell for each sample
+:::{.emphasis_block}
+
+<details><summary>Verifing that non-zero count genes are being counted</summary>
+
+```{r}
+which(Matrix::colSums(scz_spatial@counts$Br1139SCZ) == 2)
+```
+
+We will store that cell ID in a variable `cell_id_oi` because it is the cell ID of interest.
+
+```{r}
+cell_id_oi <- names(which(Matrix::colSums(scz_spatial@counts$Br1139SCZ) == 2))
+```
+
+Notice that using that cell ID, counts are returned as 0, not a period. We have to use the `[,cell_id_oi]` syntax because we're indexing -- specifically providing a column name and want all of the rows (specified using only the comma `,` before the variable with the column name within the brackets).
+
+```{r}
+head(scz_spatial@counts$Br1139SCZ[,cell_id_oi])
+```
+
+Now, for that cell ID, which genes do not have a count of zero?
+
+```{r}
+which(scz_spatial@counts$Br1139SCZ[,cell_id_oi] != 0)
+```
+
+Again, we'll store those gene names in a variable.
+
+```{r}
+gene_names_oi <- names(which(scz_spatial@counts$Br1139SCZ[,cell_id_oi] != 0))
+```
+
+We can then look at the counts for those genes. Since there are two of them, we would expect the count to be 1 for each. 
+
+```{r}
+scz_spatial@counts$Br1139SCZ[gene_names_oi,cell_id_oi]
+```
+
+And it is -- suggesting that the `summarize_STlist` function is and `spatial_meta` slot are assessing how many genes in each cell have a non-zero count.
+
+</details>
+
+:::
+
+The `distribution_plots` function can be used to visually summarizes this data using a violin plot. First, we specify we want to visualize the distribution of counts per cell for each sample.
 
 ```{r}
 spatialGE::distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_counts')
 ```
 
-Violin plot of genes per spot/cell for each sample
+Then we use it to create a violin plot of genes per cell for each sample.
 
 ```{r}
 distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_genes')
@@ -41,13 +177,186 @@ distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_genes')
 
 What do we observe:
 
-* There aren't any samples that have a huge number of counts or genes higher than other samples, so I don't think we'll need to use a spot_max* argument within the `filter_data` function
-* Every sample has at least 0 or 2 counts as a minimum (I'm surprised that it reports 0 and not the lowest non-zero value)
-* Every sample has at least 0 or 2 genes as a minimum as well.
-* Mean counts is around 600-900, with maxes in the thousands.
-* Going to set a minimum of 500 reads/counts for each spot/cell since that's a little below the mean.
-* Mean genes is around 80-110, with maxes around 200.
-* Going to set a minimum of 50 genes for each spot/cell since that's a little below the mean.
-* Some samples have a lot more spots/cells than others .... I should probably make a table after filtering to see if there are a similar number of spots/cells after filtering. But I also figure that means the tissue is different sizes?
+* Every sample has cells with at least 0 or 2 counts as a minimum meaning that there are cells without any observed counts.
+* Every sample has cells with at least 0 or 2 genes with observed counts as well. 
+* Mean counts per cell are around 600-900, with max counts in the thousands.
+* Mean genes with observed counts per cell is around 80-110, with max genes around 200.
+* Some samples have a lot more cells than others. This could be due to differences in tissue size.
+* The number of genes reported in the `genes` column of the `summarize_STlist` output is not what we would expect at all! The Xenium panel used had 300 genes, so why does spatialGE think that we have 541 genes?
 
-Won't need to save data at the end of this step because we haven't changed anything.
+We can look at the gene names by exploring our `STlist` object some more.
+
+## Number of genes
+
+We could list all of the gene names like so:
+
+```{r, eval = FALSE}
+rownames(scz_spatial@counts$Br1139SCZ)
+```
+
+but that would print out 541 names -- which is a lot.
+
+We learned earlier that Xenium uses control codewords and probes for their own quality control (QC). We could look to see if any of the gene names have words associated with these.
+
+Specifically, we'll use the `stringr::str_detect()` function to search the gene names for either the word "Codeword" or (`|`) the word "Probe". This will return a list of TRUEs and FALSEs where TRUE means one of those words was found and FALSE means neither of those words were found. Rather than looking at 541 TRUEs and FALSEs, we will use the `sum()` function to count the number of TRUEs.
+
+```{r}
+stringr::str_detect(rownames(scz_spatial@counts$Br1139SCZ), 
+           "Codeword|Probe") %>% 
+  sum()
+```
+
+Sure enough, there are 241 gene names with "Codeword" or "Probe" in the gene name. These are from the Xenium QC. What exactly are the names?
+
+We still don't really want to print out 241 gene names so we can get an idea of what they might look like using the `head()` function again to just look at a few. We'll take the rownames and pipe that to a data frame and use the `dplyr:filter()` function with our `str_detect` from before to keep only the names with "Codeword" or "Probe" and then pipe that to `head()`.
+
+```{r}
+rownames(scz_spatial@counts$Br1139SCZ) %>% 
+  as.data.frame() %>% 
+  dplyr::filter(str_detect(., "Codeword|Probe")) %>% 
+  head()
+```
+
+These gene names appear to have an underscore (`_`) followed by some numerical ID to differentiate different probes from each other. We can remove these IDs and look at the unique result of the names. Specifically, we use the `mutate`() function to create a new column. The new column uses the `stringr::str_extract()` function together with a regex pattern to extract all consecutive (`+`) non-numerical (`\D`) characters. We then select this new column pipe the output to the `table()` function to see what the unique values and how many of them there are.
+
+```{r}
+rownames(scz_spatial@counts$Br1139SCZ) %>% 
+  as.data.frame() %>% 
+  filter(str_detect(., "Codeword|Probe")) %>%
+  mutate(simplified_name = stringr::str_extract(.,
+                                                "\\D+")) %>%
+  select(simplified_name) %>%
+  table()
+```
+
+We appear to have negative control codewords, negative control probes, and unassigned codewords. We can use the negative control probes to make sure that we are only keeping cells with very little expression of these probes. 
+
+```{r}
+neg_control_probes_only <- scz_spatial@counts$Br1139SCZ[startsWith(rownames(scz_spatial@counts$Br1139SCZ), 
+                                                                    "NegControlProbe_"), ] %>% 
+                                Matrix::colSums() %>% 
+                                as.data.frame()
+colnames(neg_control_probes_only) <- "CountPerCell"
+```
+
+```{r}
+neg_control_probe_summary <- neg_control_probes_only %>% group_by(CountPerCell) %>% summarize(n = n()) %>% mutate(prop = n / sum(n) * 100)
+neg_control_probe_summary
+```
+
+We can visualize these summaries a few ways:
+
+:::{.panel-tabset}
+
+### Bar Graph for cell count
+
+```{r}
+neg_control_probe_summary %>% 
+  ggplot(aes(x=CountPerCell, y = n)) + 
+  geom_bar(stat = "identity") + 
+  theme_bw() +
+  ylab("Number of cells")
+```
+
+### Bar Graph for cell proportion
+
+```{r}
+neg_control_probe_summary %>%
+  ggplot(aes(x=CountPerCell, y = prop)) +
+  geom_bar(stat = "identity") +
+  theme_bw() + 
+  ylab("Proportion of cells")
+```
+
+### Bar Graph for cumulative proportion
+
+```{r}
+neg_control_probe_summary %>%
+ggplot(aes(x=CountPerCell, y = cumsum(prop))) +
+  geom_line() +
+  geom_point() +
+  theme_bw() +
+  geom_hline(yintercept=99, linetype = 'dashed', color = 'blue') +
+  ylab("Cumulative proportion")
+```
+
+:::
+
+The authors of @Kwon_etal_2026 used the not just the Negative Control Probes, but also the Negative Control Codewords and Unassigned Codewords in their QC:
+
+> We used the negative control probes, negative control codewords, and unassigned codewords from the Xenium panel. We removed all cells with expression of any of the above three features in the 99th percentile.
+
+It doesn't look like this will filter out a lot of cells, but it will filter out a handful of them.
+
+What values specifically are we going to use when we filter given how the authors described their filtering?
+
+:::{.panel-tabset}
+
+### Negative Control Probe
+
+```{r}
+negcontrol_probe_cutoff <- 
+       unlist(lapply(scz_spatial@counts, 
+              function(x) x[startsWith(rownames(x), 
+                                       "NegControlProbe_"), ] %>% 
+                            Matrix::colSums()
+          )
+      ) %>%
+          quantile(0.99)
+
+negcontrol_probe_cutoff
+```
+
+### Negative Control Codeword
+
+```{r}
+negcontrol_cdwd_cutoff <- 
+       unlist(lapply(scz_spatial@counts, 
+              function(x) x[startsWith(rownames(x), 
+                                       "NegControlCodeword_"), ] %>% 
+                            Matrix::colSums()
+          )
+      ) %>%
+          quantile(0.99)
+
+negcontrol_cdwd_cutoff
+```
+
+### Unassigned Codeword
+
+```{r}
+unassigned_cdwd_cutoff <- 
+       unlist(lapply(scz_spatial@counts, 
+              function(x) x[startsWith(rownames(x), 
+                                       "Unassigned"), ] %>% 
+                            Matrix::colSums()
+          )
+      ) %>%
+          quantile(0.99)
+
+unassigned_cdwd_cutoff
+```
+
+:::
+
+If we use these probes and codewords to filter out some cells, and then we remove those probes and codewords, will all of the remaining genes have informative counts (e.g., have observed counts greater than 0 across cells?)
+
+```{r}
+scz_spatial@counts$Br1139SCZ[!grepl("^NegControl|Unassigned",rownames(scz_spatial@counts$Br1139SCZ)), ] %>% 
+  Matrix::rowSums() %>% 
+  quantile()
+```
+
+Yes, all remaining genes from the Xenium panel are informative, showing counts greater than 0 across cells (at least for this sample). The minimum count for a gene across the cells is 141 in this sample.
+
+::: {.emphasis_block}
+
+Given our data exploration, what steps do we want to do in the Data Wrangling section, with this data, prior to visualization and analysis?
+
+1. We want to add more sample metadata.
+2. Use the negative control probes, negative control keywords, and unassigned keywords to filter out cells that have counts >99th percentile as described by the authors using our `negcontrol_probe_cutoff`, `negcontrol_cdwd_cutoff`, and `unassigned_cdwd_cutoff` variables.
+3. Remove the control codeword and probe "genes" from the dataset.
+4. Use spatialGE's `filter_data()` function to remove cells based on library size and features detected.
+5. Use spatialGE's `tranform_data()` function to transform the raw counts.
+
+:::
