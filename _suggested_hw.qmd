@@ -10,36 +10,6 @@ Discuss common next steps for this type of an analysis in this box. Is there a s
 ::::
 :::
 
-For the suggested homework, I think it would make sense to do a PCA of the samples, which is something Brooke had suggested. We can do this locally like all the steps except for the autocorrelation analysis.
-
-```{r, eval = FALSE}
-scz_spatial <- pseudobulk_samples(scz_spatial, max_var_genes = 150) #decreased compared to the default since the Xenium panel is based on a lower number of genes than say Visium data
-pseudobulk_heatmap(scz_spatial)
-```
-![](img/pseudobulk_heatmap.png)
-
-```{r, eval = FALSE}
-pseudobulk_dim_plot(scz_spatial)
-```
-
-![](img/pseudobulk_pca.png)
-
-When I try to color the PCA plot by a variable in my sample metadata (using `plot_meta` parameter), it errors and tells me that data doesn't exist. I've tried changing capitalization and several other steps, but the value should be there.
-
-::: {.column-margin}
-**Do you know what I could be doing wrong here using the `plot_meta` argument?**
-:::
-
-Column names:
-```
-X1         `Brain Number (ID)` Sex   PrimaryDx
-```
-
-Error:
-```
-Error in prepare_pseudobulk_meta(x, plot_meta) :
-Variable not in sample metadata. Verify that input matches variable name in sample data
-```
 
 <!--
 ## Reinforcement Exercises
@@ -47,21 +17,36 @@ Variable not in sample metadata. Verify that input matches variable name in samp
 Uncomment this section if you're suggesting an exercise that reiterates a large portion of the case study so learners can practice a hard skill again, reinforcing topics from the case study
 -->
 
-
 ## Advancement Exercises
 
-Use this section to suggest different levels of exercises that build upon topics from the case study ... next steps, tangential skills, diving deeper into a side quest, etc.
-
-Perhaps explain how the suggested exercises relate to the common next steps.
-
 ### Beginner
+
+Use the `pseudobulk_samples()`, `pseudobulk_heatmap()`, and `pseudobulk_dim_plot()` functions to perform a principal component analysis (PCA) and create PCA plot(s) of the samples. What about the samples seems to explain the variance among them?
+
+<details><summary>Code for performing PCA</summary>
+
+<details><summary>Hint</summary>
+
+Consider using:
+
+* the `max_var_genes` argument with the `pseudobulk_samples()` function (since the Xenium panel has a limited number of genes)
+* the `plot_meta` argument of the `pseudobulk_dim_plot()` function to color the sample points on the PCA plot using metadata information about the samples stored as a column in data frame in the `@sample_meta` slot.
+* the `pseudobulk_dim_plot()` function more than once with different `plot_meta` arguments
+
+</details>
+
+```{r}
+scz_spatial <- pseudobulk_samples(scz_spatial, max_var_genes = 150) #decreased compared to the default since the Xenium panel is based on a lower number of genes than say Visium data
+pseudobulk_heatmap(scz_spatial)
+pseudobulk_dim_plot(scz_spatial, plot_meta = "Sex")
+```
+
+</details>
 
 ### Intermediate
 
 ### Advanced
 
-<!--
-Example from a previous case study: https://www.opencasestudies.org/ocs-bp-co2-emissions/#Suggested_Homework (though this example doesn't include different levels like Beginner, Intermediate, and Advanced)
--->
+
 
 ***
