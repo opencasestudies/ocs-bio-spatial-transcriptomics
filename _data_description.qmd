@@ -66,6 +66,7 @@ We will be fetching the Xenium generated data (spatial coordinates and mRNA coun
 We can preview the data files that are available from Xenium for this project using the `getGEO()` and `getGEOSuppFiles()` functions from the `GEOquery` package.
 
 ```{r}
+library(GEOquery)
 gse <- GEOquery::getGEO("GSE307404", GSEMatrix = TRUE)
 gse
 ```
