@@ -1,111 +1,243 @@
-<!--
-Describe the data to be analyzed and where it came from.
-You may want to include a table about file or variable info.
--->
-
 # **What are the data?**
+
 ***
 
-Xenium spatial transcriptomics data represents mRNA counts for panel target transcripts mapped to spatial locations in the tissue. As such there are 3 main data types or files that we will be working with.
+## Data context
 
-1. Tissue/sample Metadata
-2. Spatial Coordinates
-3. mRNA Counts
+***
 
+The data used in this case study are from @Kwon_etal_2026 which collected dorsolateral prefrontal cortex (dlPFC) samples postmortem from neurotypical donors and donors with diagnosed schizophrenia. Samples were fresh frozen following collection prior to spatial transcriptomics dataset generation. @Kwon_etal_2026 generated data using both the Visium and Xenium platforms, using analysis of the Visium data to inform what Xenium data to collect. Visium data was generated for all donors as explained in [Supplementary Table 1](https://www.biorxiv.org/content/biorxiv/early/2026/05/23/2026.02.16.706214/DC2/embed/media-2.xlsx?download=true) while Xenium data was generated for a subset of these donors. For donors where both Visium and Xenium datasets were generated, the tissue samples originated from the same fresh frozen tissue block or source for each donor, but the samples themselves (used to generate the data for each platform) are from adjacent tissue sections of each block. Since each platform requires its own slide mounting and chemical reagents, typically serial tissue sectioning is used to yield adjacent / comparable tissue samples that can be used for multiple experiments with different technologies.
 
-## Metadata
+Postmortem tissue samples from 24 donors were used to generate Xenium data. Twelve of those donors had been diagnosed with schizophrenia (denoted by **SCZ** within the study and this case study) while the other 12 were neurotypical (denoted by *NTC* within the study and **CTRL** within this case study).
 
-For the data in @Kwon_etal_2026, postmortem tissue samples from 24 donors were used to generate Xenium data:
+:::{.emphasis_block}
+This case study will work solely with the Xenium data, using only 6 of the 24 samples (3 CTRL and 3 SCZ).
+:::
 
-  * 12 Neurotypical donors [NTC]
-    * 5 males
-    * 7 females
-  * 12 donors diagnosed with Schizophrenia [SCZ]
-    * 6 males
-    * 6 females
+We will work with a reduced number of samples in order to keep the size of the data more manageable. It's important, especially in studies involving visualization of tissue sections, to work with multiple tissue sections per case (e.g., CTRL vs SCZ) to make sure that signal is not an artifact of how that sample was processed or cut and instead is generalizable across tissue sections/samples.
 
-There are two metadata files (that we'll need to combine to relate GEO IDs to sample IDs)
+<details><summary>Matching sample demographics</summary>
 
-* `spatial_samples.csv` -- this file is from the [supplementary information](https://www.biorxiv.org/content/biorxiv/early/2026/02/17/2026.02.16.706214/DC2/embed/media-2.xlsx?download=true) and provides metadata such as Sex, Diagnosis, age, and if the sample has corresponding Visium or Xenium data.
-  * Comma separated values with a header
-  * first column is `Brain Number (ID)` (e.g., BR####)
-  * second column is `Race`
-  * third column is `Sex`
-  * fourth is `Age`
-  * fifth is `RIN` - RNA Integrity Number (add info in context section about this)
-  * sixth is `PMI` - Postmortem Interval (add info in context section about this)
-  * seventh is `PrimaryDx` (e.g., Control or Schizophrenia)
-  * eighth is `Visium-SPG` (does this sample have corresponding Visium data YES/NO)
-  * ninth is `Xenium` (does this sample have corresponding Xenium data YES/NO)
-* `geo_to_spatial_samples.csv` -- this file I made by wrangling the file names to create a dataframe (and saved that to a `.csv`)
-  * Comma separates values, no header
-  * first column is the GEO number for each sample
-  * second column is the Brain Number (ID) (e.g., BR####) matching those in the `spatial_samples.csv` file
+Typically studies match donor demographics between case cohorts (e.g., having comparable average ages or number of individuals of each sex). @Kwon_etal_2026 does this for all of the samples overall as well as the subset of samples that were processed with the Xenium platform, reporting the information in [Supplementary Table 1](https://www.biorxiv.org/content/biorxiv/early/2026/05/23/2026.02.16.706214/DC2/embed/media-2.xlsx?download=true).
 
-Code for creating `geo_to_spatial_samples.csv`:
+</details>
 
-```{r, eval = FALSE}
-list.files(path="/fh/fast/leek_j/user/kisaac/ocs_spatial/GSE307404/", pattern = "cell_boundaries.csv.gz$") %>% stringr::str_replace("-cell_boundaries.csv.gz", "") %>% strsplit("_") %>% do.call(rbind.data.frame, .) %>% `colnames<-`(c("X1", "X2"))
+:::{.emphasis_block}
+
+The Xenium spatial transcriptomics data represents cellular mRNA counts for panel-targeted genes, mapping the transcripts from those genes to the cellular spatial locations in the tissue (where the probes bound, signifying expression). As such there are 3 main data types or files that we will be working with.
+
+1. Tissue/sample metadata
+2. Spatial coordinates of cells in the sample
+3. mRNA counts of panel-targeted transcripts for each cell
+
+:::
+
+<details><summary>The panel genes</summary>
+
+The panel targets 300 genes using probes designed specifically to target transcripts of these genes:
+
+| Categories of gene used for the panel | Source                | Number of genes |
+| :------------------------------------ | :-------------------: | :-------------: |
+| Differentially expressed genes        | Visium data analysis in @Kwon_etal_2026 | 168 |
+| dPFC Layer marker genes               | @Huuki-Myers_etal_2024 | 85 |
+| Schizophrenia associated genes        | Various literature/GWAS studies (see [Supplementary Table 8](https://www.biorxiv.org/content/biorxiv/early/2026/05/23/2026.02.16.706214/DC9/embed/media-9.xlsx?download=true)) | 18 |
+| Cell type marker genes                | @Huuki-Myers_etal_2024 | 35 |
+
+Six genes (A2M, MAPK3, PLP1, RCAN2, SERPINA3, SOX2-OT) overlap multiple categories within the panel, leading to a total of 300 unique genes represented in the panel. An additional 68 genes already in the panel were also marked as cell type marker genes (beyond the original 35) following further literature review. This can be explored in [Supplementary Table 8](https://www.biorxiv.org/content/biorxiv/early/2026/05/23/2026.02.16.706214/DC9/embed/media-9.xlsx?download=true).
+
+</details>
+
+## Specific Data Files
+
+***
+
+Specific data files that we will work with in this case study include files for each of the aspects of the Xenium data:
+
+* Sample metadata
+* Spatial coordinates
+* mRNA counts
+
+:::{.emphasis_block}
+We will be fetching the Xenium generated data (spatial coordinates and mRNA counts) from GEO in the [Data Import](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#data-import) section of the case study. The project's GEO accession number for the Xenium data is `GSE307404`. Each sample has its own specific GEO accession number which we will use to fetch the data rather than fetching data for all 24 samples.
+:::
+
+<details><summary>Previewing available files</summary>
+
+We can preview the data files that are available from Xenium for this project using the `getGEO()` and `getGEOSuppFiles()` functions from the `GEOquery` package.
+
+```{r}
+gse <- GEOquery::getGEO("GSE307404", GSEMatrix = TRUE)
+gse
 ```
 
-## Spatial Coordinates
+From this, we see that there are 24 samples total as part of this project.
 
-We have `{Sample}-cell_boundaries.csv.gz` files for the spatial coordinates rather than classical files with spatial coordinates (....add explanation of what these classical files/other options are). Specifically these files have many rows per cell describing each vertex that is part of a cell polygon. We can find the centroid of each cell by considering all of these polygon coordinates together.
+Using one sample name from that output, we can what files each sample has.
 
-For each row:
+This let's us grab a single GEO accession number for a sample from the `getGEO` results:
 
-  * cell_id
-  * vertex_x
-  * vertex_y
+```{r}
+pData(gse[[1]])$geo_accession[1]
+```
 
-Note that the Cell IDs in these files correspond to the `$barcodes` discussed in the RNA counts data
+Then we use that together with the `getGEOSuppFiles()` function to list the filenames (`$fname`) deposited for that sample:
 
-## RNA counts
+```{r}
+GEOquery::getGEOSuppFiles(pData(gse[[1]])$geo_accession[1], fetch_files = FALSE)$fname
+```
 
-The data for the RNA counts is stored in `.h5` files. Rather than storing large matrices, the data is more efficiently stored in named/nested lists that can be used to reconstruct the matrix. Of important note, only non-zero counts are stored as well as the indices where those counts are in the matrix (e.g., for which genes and spot IDs they correspond with). Information here: https://www.10xgenomics.com/support/software/space-ranger/latest/advanced/hdf5-feature-barcode-matrix-format
+The `-cells.parquet` and `-cell_feature_matrix.h5` files are the important files going forward.
 
-Can use `rhdf5::h5dump(file_name, load = FALSE)` to get a look at the names or headers of the data.
+</details>
 
-* `$matrix` is the top name
-  * `$barcodes` -- cell IDs
-  * `$data` -- the non-zero counts
-  * `$features` -- has subparts relating to the rows/genes
+### Sample metadata
+
+The sample metadata file that we will be working with combines the metadata from [Supplementary Table 1](https://www.biorxiv.org/content/biorxiv/early/2026/05/23/2026.02.16.706214/DC2/embed/media-2.xlsx?download=true) with the GEO accession number for each sample. When using secondary data, it is common for sample metadata to be available in supplementary information. You may need to combine multiple tables of information.
+
+<details><summary> Expansion of metadata from Supplementary Table 1</summary>
+
+We previously created a file for the Xenium samples which maps each sample's GEO Accession Number to the Brain Number ID (`geo_to_spatial_samples.csv`) and united this with the data from Supplementary Table 1 because we will need the GEO accession number in order to fetch the spatial coordaintes and mRNA counts for each sample. However, the sample metadata file provided in the supplementary table only includes the Brain Number ID (`Br####`). 
+
+The files for this project follow the naming pattern of {sample specific GEO accession number}_{sample Brain Number ID}-{file type specific pattern},                       
+
+* Listed files from GEO accession number GSE307404 (all Xenium data from this project) with `list.files()` function for one of the file types.
+* Used `stringr::str_replace()` function to the specific pattern for that file type with an empty string (`""`), removing all but the GEO accession number and Brain Number ID (separated by an underscore) for each sample.
+* Used `strsplit("_")` function to separate the GEO accession number and Brain Number ID for each string.
+* Used `do.call(rbind.data.frame, .)` to create a data frame with the sample GEO accession numbers in the first column and their associated Brain Number IDs in the second column.
+* Set the column names.
+* Saved to a `.csv` file.
+
+Alternatively, we could create this map using the `title` and `geo_accession` columns from the `pData(gse[[1]])` output we saw earlier.
+
+</details>
+
+The combined data from Supplementary Table 1 and the GEO to Brain Number ID map is contained in the file `spatial_samples.csv`. The `spatial_samples.csv` file is a file with a header (column names) where values are separated by a comma (`.csv`). The contents of each column are explained in the following table:
+
+| Variable | Details |
+|:-----------:|:-----------:|
+| `BrainNumberID` | An identifier representing which donor brain the sample originates from. Follows the pattern "Br####" |
+| `Race`          | Demographic information about donors. All samples are "CAUC" for caucasian. |
+| `Sex`           | Demographic information about donors. "M" for male or "F" for female. |
+| `Age`           | Demographic information about donors. Number / decimal representing age of donor in years. |
+| `RIN`           | RNA Integrity Number. Number / decimal representing the quality of the fresh frozen block tissue samples. Generally, [Visium](https://cdn.10xgenomics.com/image/upload/v1726523282/support-documents/CG000763_VisiumHDFFTissuePrepHandbook_RevA_1.pdf) and [Xenium recommend](https://kb.10xgenomics.com/s/article/34005267962125-What-should-I-consider-when-processing-Human-Brain-on-Xenium) brain tissues have an observed RIN of 4+ (though older resources may recommend 7+) (@Grases_Porta-Pardo_2026). Lower RINs may lead to reduced sensitivity. |
+| `PMI`           | Postemortem Interval. Number / decimal representing the time interval between the donor's death and the sample extraction and freezing from that donor. Typically reported in hours, but could be reported in days or another measurement of time. To promote greater fresh frozen block tissue quality, generally it is recommended to [minimize the post mortem interval](https://cdn.10xgenomics.com/image/upload/v1726523282/support-documents/CG000763_VisiumHDFFTissuePrepHandbook_RevA_1.pdf) |
+| `PrimaryDx`     | Demographic information about donors representing the primary diagnosis. "Control" for neurotypical donors and "Schizophrenia" for donors diagnosed with schizophrenia. | 
+| `Visium`        | "YES" or "NO" for whether Visium data was generated for this sample. All samples are "YES". |
+| `Xenium`        | "YES" or "NO" for whether Xenium data was generated for this sample. |
+| `GEO`           | The GEO accession number for samples with Xenium data. NA for samples with only Visium data. |
+
+The demographic information is useful for data exploration. We will primarily be using the `BrainNumberID`, `PrimaryDx`, `Xenium`, and `GEO` variables. 
+
+* The `Xenium` and `GEO` variables will be used to select a subset of samples of fetch the data for those samples from GEO. 
+* The `BrainNumberID` and `PrimaryDx` variables will be used to create informative sample IDs so that we can more easily observe the case (e.g., CTRL or SCZ) of samples throughout our analysis.
+ 
+### Spatial coordinates
+
+Classically, `-cells.parquet` files are used to store the spatial coordinates of the cells, specifically the {{ < glossary Centroid display=centroid > }} locations (or centers of the cells).
+
+The `.parquet` file type is a departure from the normal way we would expect data to be stored. Often our file types (e.g., `.csv`) store data row by row with each row containing a complete record or set of related information about a specific sample, timepoint, etc. Instead, `.parquet` files store data column-by-column. This leads to more efficient storage and querying of large data files.
+
+Additional information provided in this file is [described by 10X genomics](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/analysis/xoa-output-understanding-outputs#cell-summary).
+
+<details><summary>If `-cells.parquet` files are not available</summary>
+
+Sometimes when you are using publicly available data rather than generating new datasets yourself, files that you may expect are not deposited or archived. 
+
+If `.parquet` files are not available, first check if `cells.csv.gz` is available as this is an alternate format of the typical file. If not, you can use a different Xenium output to calculate the centroids typically stored in the `cells.parquet` files. This will be explored further within a click to expand section in the [Data Import](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#data-import) section of the case study, but this alternate file type is also introduced here:
+
+`-cell_boundaries.csv.gz` also stores spatial coordinates. Specifically these files have many rows per cell describing each vertex that is part of a polygon, where the polygon edges represent the borders of the cell. We can find the centroid of each cell by considering all of these polygon coordinates together. The contents of this file are the result of the nucleus segmentation algorithm that expands the nuclei DAPI-stained boundaries to determine cell boundaries.
+
+| Variable | Details |
+| :-------: | :----------------------:|
+| `cell_id` | A cell ID corresponding to the `barcode` variable in the mRNA counts data. Multiple rows will have the same `cell_id` value in these files. |
+| `vertex_x`| The x-coordinate of a vertex between two of the edges of the polygon representing that cell. |
+| `vertex_y`| The corresponding y-coordinate of that vertex between two of the edges of the polygon representing that cell. |
+
+```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.alt = "Illustration showing how centroid coordinates can be found for a polygon with vertex coordinates and the format by which the data is provided from Xenium."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h6a9b871c28945653_0_0#slide=id.h6a9b871c28945653_0_0")
+```
+
+Another file output that Xenium provides is `nucleus_boundaries`. This file is not sufficient for cell spatial coordinates because it's only providing the boundaries of the nucleus rather than the cells. Nuclear positioning varies across cells, so you can't make an assumption about the center of cell if you have coordinates for the nucleus. 
+
+These file types are described in greater [detail by 10X genomics](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/analysis/xoa-output-understanding-outputs#segmentation).
+
+</details>
+
+:::{.emphasis_block}
+This case study will use the `arrow` package to work with `-cells.parquet` files for the spatial coordinates data. 
+:::
+
+### mRNA counts
+
+The data for the mRNA counts that we'll be using is stored in `-cell_feature_matrix.h5` files. This file type efficiently stores large amounts of data that are typically represented by large matrices (n rows for genes * m columns for cells with counts for a given gene in a specific cell stored at each intersection). Instead, `.h5` files use nested named lists to store the data. Of important note, only non-zero counts are stored as well as the indices where those counts would be located in a matrix (e.g., indices for which genes and cell IDs they would correspond with). These nested named lists can be used to reconstruct the matrix structure of the data. 
+
+Note that "features" is an alternative word for genes in this field and will be used interchangeably throughout this case study.
+
+We can use either the `rhdf5::h5dump()` function or the `rhdf5::h5ls()` function to get a look at the nested lists (and their names) for this data.
+
+For example:
+
+:::{.panel-tabset}
+
+#### `h5dump`
+
+```{r}
+rhdf5::h5dump(here("data/raw/GSM9223477/GSM9223477_Br5314-cell_feature_matrix.h5"), load = FALSE)
+```
+
+#### `h5ls`
+
+```{r}
+rhdf5::h5ls("data/raw/GSM9223477/GSM9223477_Br5314-cell_feature_matrix.h5")
+```
+
+:::
+
+* `$matrix` is the top list name
+  * `$barcodes` -- nested list under `matrix`; the cell IDs
+  * `$data` -- nested list under `matrix`; the non-zero counts
+  * `$features` -- nested list under `matrix`; has its own nested subparts relating to the rows/genes
     * `$_all_tag_keys` -- "genome" for our data
-    * `$feature_type` -- specifies Gene Expression vs negative control probe, negative control codeword, unassigned codeword
+    * `$feature_type` -- specifies "Gene Expression" for the panel genes or Xenium QC probes/codewords such as negative control probe, negative control codeword, or unassigned codeword
     * `$genome` -- unknown for our data
     * `$id` -- gene ID or control/probe ID for elements of `$data`
     * `$name` -- gene name or control/probe name for elements of `$data`
-  * `$indices` -- zero based row index for non-zero values found in `$data` (`i` equivalent for `Matrix::sparseMatrix`)
-  * `$indptr` -- zero based index for `$data` and `$indices` where columns start (`p` equivalent of `Matrix::sparseMatrix`)
-  * `$shape` -- dimensions of the data (number of genes or features X number of cells).
+  * `$indices` -- nested list under `matrix`; zero-based row index for non-zero values found in `$data` (`i` equivalent for `Matrix::sparseMatrix()` function used in the [Data Import](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#data-import) section of the case study)
+  * `$indptr` -- nested list under `matrix`; zero-based index for `$data` and `$indices` where columns start (`p` equivalent of `Matrix::sparseMatrix()` function in the [Data Import](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#data-import) section of the case study)
+  * `$shape` -- nested list under `matrix`; dimensions of the data (number of genes or features X number of cells).
     * Note that the number of cells >>>>> number of genes (Xenium panel with limited number of genes)
-    * Note that the product of the dimensions will be greater than the length of `$data` since this is representing non-zero counts only and therefore is a sparse representation
+    * Note that the product of the dimensions will be greater than the length of `$data` since this data format is representing non-zero counts only and therefore is a sparse representation
 
-## What `spatialGE` is looking for
+The most important parts of this file for us will be `barcodes`, `data`, `features$name`, `indices`, `indptr`, and `shape`. Each of these will be used as we build sparse matrices from the `.h5` formatted data. 
 
-`spatialGE` will accept file directories, but it will also accept lists of dataframes for each sample. Because we have to wrangle our generic format input data, we'll be providing named lists of dataframes for both the spatial coordinates (`spotcoords`) and the feature counts (`rnacounts`).
+For more information about the `.h5` file format, [consider this 10X Genomics resource](https://www.10xgenomics.com/support/software/space-ranger/latest/advanced/hdf5-feature-barcode-matrix-format).
 
-For spatial coordinates, the dataframes should have
+<details><summary>If `-cells_feature_matrix.h5` files are not available</summary>
 
-* 3 columns
-  * Spot or Cell IDs
-  * X value (center)
-  * Y value (center)
-* One row per each unique spot or cell ID
+Alternative formats for mRNA counts that may be provided as [Xenium outputs (MEX or Zarr) are discussed here](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/analysis/xoa-output-understanding-outputs#feature-matrix) with [specific explanations for Zarr files here](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/1.9/analysis/xoa-output-zarr). Tools such as [`Rarr`](https://bioconductor.org/packages/devel/bioc/manuals/Rarr/man/Rarr.pdf), [`zarr`](https://cran.r-project.org/web/packages/zarr/zarr.pdf), [`XeniumIO`](https://github.com/waldronlab/XeniumIO), or [`Seurat`](https://cran.r-project.org/web/packages/Seurat/Seurat.pdf) may be useful for working with these file types.
+ 
+</details>
 
-For the feature counts, the dataframes should have
+:::{.emphasis_block}
+This case study will use the `rhdf5` and `Matrix` packages to work with `cell_feature_matrix.h5` files for the mRNA counts data
+:::
 
-* n features/rows
-* (m+1) spots or cells/columns
-  * The plus 1 is because the first column will list the feature/gene names
+### General note on variety of Xenium outputs
 
-For samples metadata (if passing a dataframe with additional metadata beyond sample names), the sample names used in the named lists for `spotcoords` and `rnacounts` should be the first column of the samples dataframe.
+Xenium produces a [variety of output files](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/analysis/xoa-output-at-a-glance). Not all of these will be shared / deposited into an archive. While some file types may be more usual or preferred by some in the field (e.g., because it's more efficient to store or it's a file type they are more comfortable with), there doesn't appear to be a specific industry standard or accepted practice on files to always use. For example, morphology images (likely stained with DAPI to mark nuclei) are often output but are not always shared. An output may be shared as a `.csv` file instead of a `.parquet` file or as a `Zarr` file instead of an `.h5` file. It may seem like you can't proceed if you don't see the file types you expect, but it's not necessarily a lost cause. Make sure that you understand:
 
-<!--
-Variable   | Details
----------- |-------------
-**variable1**  | Variable info  <br> -- more details <br> -- more details <br>  **Example**: Content content
-**variable2**  | Variable info  <br> -- more details <br> -- more details <br>  **Example**: Content content
--->
+1. What files are available and what they represent about the data. You may be able to use an alternate file type for a specific aspect of the data (e.g., spatial coordiantes).
+1. What file types your downstream tools expect or can work with. 
+1. If you can use a file type that you have in place of a file type that you or a downstream tool usually expects, or at least wrangle it to meet your needs.
+1. What (if any) specialized packages are necessary to read in and work with certain file types.
+
+:::{.reproducibility_box}
+::::{.reproducibility_box_header}
+Reproducibility Considerations
+::::
+::::{.inner_block}
+If you need a specific file but don't see it in an archive, contact the study personnel and ask if that file can be added. Data reuse benefits the scientific community and promotes reproducible, robust, and generalizable scientific discovery.
+::::
+:::
 
 ***

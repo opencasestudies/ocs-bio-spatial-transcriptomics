@@ -1,42 +1,66 @@
 # **Data Import**
 ***
 
-Since we are working with Xenium spatial transcriptomics data for multiple samples, we need to provide `spatialGE` with 3 types of data.
+## What `spatialGE` is looking for
 
-1. Sample Metadata (primarily the sample IDs)
-2. Spatial coordinates (for each visualized cell in each tissue sample)
-3. The mRNA counts for the panel genes (corresponding to each visualized cell in each tissue sample)
+***
+
+`spatialGE` provides the user flexibility in how they import their data. Users can either provide file paths or they can provide named lists with each list containing data frames for each sample. To better understand the data we have and are working with, we will provide named lists of data frames for both the spatial coordinates and the mRNA/feature counts.
+
+### Spatial coordinates
+
+For spatial coordinates, each data frame should have:
+
+* 3 columns
+  * Cell IDs
+  * X coordinate for the center of the cell
+  * Y coordiante for the center of the cell
+* One row per each unique cell ID; let's say we have `m` cells
+
+### mRNA counts
+
+For the mRNA counts, each data frame should have:
+
+* n rows
+  * 1 for each feature
+  * let's say we have n features.
+* (m+1) columns
+  * 1 for each cell 
+  * For our spatial coordinates, we said we had `m` cells
+  * Add 1 because the first column will list the feature/gene names
+
+```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.alt = "Illustration showing a typical matrix like view of mRNA gene counts. In this case it is a data frame with n rows for n genes and m plus 1 columns for m cells plus the first column having the gene names."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h6a9b871c28945653_0_39#slide=id.h6a9b871c28945653_0_39")
+```
+
+Both of these will be stored in separate named lists where the names correspond to samples, and each sample has its own data frame.
+
+### Sample metadata
+
+`spatialGE` also requires sample information. We will provide sample names / metadata where the sample names match those used in the named lists. The sample names will be in the first column of the samples metadata data frame.
 
 
-`spatialGE` provides the user some flexibility in how they import their data. Users can either provide file paths or they can provide named lists with each list containing data frames for 
-
-Provide instructions on how to get the `spatial_samples.csv` and `geo_to_spatial_samples.csv` files.
-
-## Subset samples
+## Subsetting samples
 
 We want to subset 6 samples (3 for each diagnosis) from the larger set of samples so that we still have multiple samples to compare, but aren't working with every possible sample as that would require a lot of memory and storage.
 
 1. We set the random seed
-1. We read in metadata files, joining them so that we can relate the sample information with the `PrimaryDx` column
+1. We read in the sample metadata file
 1. We select 3 random NTC samples
 1. We select 3 random SCZ samples
 1. We make a vector of those 6 sample IDs
 
 ```{r message = FALSE, warning = FALSE}
 set.seed(567)
-spatial_samples <- readr::read_csv(here::here("data/raw/spatial_samples.csv"))
-geo_to_spatial <- read_csv(here("data/raw/geo_to_spatial_samples.csv"), col_names = FALSE)
-spatial_sample_info <- spatial_samples %>%
-  dplyr::filter(Xenium == "YES") %>%
-  full_join(geo_to_spatial,
-            by = c("Brain Number (ID)" = "X2")) %>%
-  select(c("Brain Number (ID)", "Sex", "PrimaryDx", X1, "Age", "RIN", "PMI"))
+spatial_sample_info <- readr::read_csv(here::here("data/raw/spatial_samples.csv"))
+spatial_sample_info <- spatial_sample_info %>%
+  dplyr::filter(Xenium == "YES")
 
 #3 NTC samples
-ntc_samples <- unname(sample(unlist(spatial_sample_info[which(spatial_sample_info$PrimaryDx == "Control"), "X1"]), 3))
+ntc_samples <- unname(sample(unlist(spatial_sample_info[which(spatial_sample_info$PrimaryDx == "Control"), "GEO"]), 3))
 
 #3 SCZ samples
-scz_samples <- unname(sample(unlist(spatial_sample_info[which(spatial_sample_info$PrimaryDx == "Schizophrenia"), "X1"]), 3))
+scz_samples <- unname(sample(unlist(spatial_sample_info[which(spatial_sample_info$PrimaryDx == "Schizophrenia"), "GEO"]), 3))
 
 samples <- c(scz_samples, ntc_samples)
 
@@ -61,10 +85,10 @@ Any steps in an analysis that rely on randomness or stochasticity are not reprod
   * all 3 females
 
 ```{r}
-spatial_sample_info[spatial_sample_info$X1 %in% samples,]
+spatial_sample_info[spatial_sample_info$GEO %in% samples,]
 ```
 
-## Fetch GEO data for these samples
+## Fetching GEO data for these samples
 
 This `lapply` will loop through the samples vector and fetch the following files for each sample:
 
@@ -82,11 +106,11 @@ lapply(1:length(samples),
       )
 ```
 
-## Prepare the data for import into `spatialGE` (with `STlist`)
+## Preparing the data for import into `spatialGE` (with `STlist`)
 
 ### Sample metadata
 
-1. Rename the column with a space in its name to have no spaces
+1. Rename some column names
 2. Filter to include only the subset 6 samples
 3. Combine the Brain Number ID with the Primary Dx to create an ID that provides more information about each sample
 4. Relocate this new ID to the first column
@@ -94,7 +118,7 @@ lapply(1:length(samples),
 
 
 ```{r}
-lookup <- c(sampleID = "X1", brainNumID = "Brain Number (ID)")
+lookup <- c(sampleID = "GEO", brainNumID = "BrainNumberID")
 samples_metadata <- spatial_sample_info %>% 
   dplyr::rename(., all_of(lookup)) %>%
   filter(sampleID %in% samples) %>%
@@ -114,7 +138,7 @@ samples_metadata
 Let's get rid of the other data frames so we don't accidentally use them going forward and to reclaim some memory.
 
 ```{r}
-rm(spatial_samples, geo_to_spatial, spatial_sample_info, ntc_samples, scz_samples, samples, lookup)
+rm(spatial_sample_info, ntc_samples, scz_samples, samples, lookup)
 ```
 
 ### Spatial Coordinates
@@ -223,7 +247,7 @@ right_join(spatial_coords[[unlist(samples_metadata[which(samples_metadata$sample
 
 </details>
 
-### RNA counts
+### mRNA counts
 
 Note, will show in a click to expand section that `rhdf5::h5dump` can be used to look at the headers of the data, especially because we have to provide a "name" in the reading function and knowing that name requires knowing the headers
 
@@ -277,15 +301,23 @@ names(rnacounts_input) <- samples_metadata$DxID
 
 ```
 
-## Prepare a `spatialGE` project with `STlist`
+## Preparing a `spatialGE` object with `STlist`
+
+We can import our data in a way that the `spatialGE` package can work with it, by using the `STlist()` function from `spatialGE`. This function creates an object in a standardized format that `spatialGE` functions can utilize in a predictable and generalizable way across datasets.
 
 ```{r}
 scz_spatial <- spatialGE::STlist(rnacounts = rnacounts_input,
                                  spotcoords = spatial_coords,
                                  samples = samples_metadata
                                 )
+```
 
-rm(rnacounts_input, centroids, df_test_sample, testsample)
+We will explore this object (what it contains, how to access it, etc.) in the [Data Exploration](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/) section of the case study.
+
+First, let's release some memory for variables we don't need anymore.
+
+```{r}
+rm(spatial_coords, rnacounts_input, centroids, df_test_sample, testsample)
 gc()                               
 ```
 

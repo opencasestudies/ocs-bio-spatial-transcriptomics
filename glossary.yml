@@ -36,10 +36,12 @@ GEO: |
   Gene Expression Omnibus.
 Coordinates: |
   Filler.
+Centroid: |
+  The point corresponding to the geometric center of a shape.
 Barcodes: |
   Filler.
 Features: |
-  Filler.
+  Used to describe the rows in a gene count matrix. Since genes correspond to the rows, the term features is often used interchangeably with "genes".
 Index: |
   Filler.
 Directories: |
@@ -115,7 +117,7 @@ Vertex: |
 Compressed: |
   Filler.
 Matrix: |
-  Filler.
+  A two-dimensional or rectangular structure with horizontal rows and vertical columns that can be used to store related data (like cell-specific gene counts) in entries (where each row and column intersects).
 Personally Identifiable Information: |
   Data unique to an individual person that can be used to distinguish their identity, including full names, Social Security numbers, contact information, etc.; abbreviated as "PII".
 Protected Health Information: |
