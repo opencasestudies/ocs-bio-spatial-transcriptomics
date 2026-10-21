@@ -183,13 +183,13 @@ For example:
 #### `h5dump`
 
 ```{r}
-rhdf5::h5dump(here("data/raw/GSM9223477/GSM9223477_Br5314-cell_feature_matrix.h5"), load = FALSE)
+rhdf5::h5dump(here::here("data/raw/GSM9223477/GSM9223477_Br5314-cell_feature_matrix.h5"), load = FALSE)
 ```
 
 #### `h5ls`
 
 ```{r}
-rhdf5::h5ls("data/raw/GSM9223477/GSM9223477_Br5314-cell_feature_matrix.h5")
+rhdf5::h5ls(here::here("data/raw/GSM9223477/GSM9223477_Br5314-cell_feature_matrix.h5"))
 ```
 
 :::
