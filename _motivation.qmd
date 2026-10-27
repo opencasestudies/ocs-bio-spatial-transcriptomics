@@ -14,7 +14,7 @@ Spatial Transcriptomics refers to molecular methods used to measure gene express
 
 Spatial Transcriptomics describes gene expression within a spatial context. It is a rapidly-evolving area of development that can be used for hypothesis generation to describe cell neighborhoods, cell-cell interactions, and to discover biomarkers and drug targets, etc. 
 
-```{r, echo = FALSE, fig.align = 'center', out.width = "100%', fig.alt = "Illustration showing the uses of spatial transcriptomics, underlining that it is largely used to generate hypotheses, desciribing cell neighborhoods and cell interactions as well as discovering biomarkers or niche interface processes. It can complement results from single cell RNA seq and be integrated with images for deeper understanding."}
+```{r, echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Illustration showing the uses of spatial transcriptomics, underlining that it is largely used to generate hypotheses, desciribing cell neighborhoods and cell interactions as well as discovering biomarkers or niche interface processes. It can complement results from single cell RNA seq and be integrated with images for deeper understanding."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h51840eb841718f1d_6_7#slide=id.h51840eb841718f1d_6_7")
 ```
 
