@@ -121,29 +121,29 @@ A function like the `getGEOSuppFiles()` function from the `GEOquery` package acc
 
 When you use a loop to call a function for a set of inputs, the loop provides each input individually to the function. For each individual input, the function performs its specified steps and produces an output. Then the loop gives the function the next input and the process is repeated until there are no more inputs to give the function.
 
-```{r function_loop_image echo=FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Generally, functions use some input to perform certain steps in certain order and provide an output. When using a loop with a function, the loop provides the function multiple inputs individually. The function takes each input separately, performs the steps, and returns an output for that input. Repeat for each input until it's all out of inputs to use because the loop doesn't have any more inputs to give the function."}
+```{r function_loop_image, echo=FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Generally, functions use some input to perform certain steps in certain order and provide an output. When using a loop with a function, the loop provides the function multiple inputs individually. The function takes each input separately, performs the steps, and returns an output for that input. Repeat for each input until it's all out of inputs to use because the loop doesn't have any more inputs to give the function."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_0#slide=id.h7553ddbe789f499c_0_0")
 ```
 
 We'll use an example with lab pets to show this in a more concrete way.
 
-```{r lab_pets_intro echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "This image shows avatars for 4 lab members and their pets. Three of pets are cats and the fourth is a dog."}
+```{r lab_pets_intro, echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "This image shows avatars for 4 lab members and their pets. Three of pets are cats and the fourth is a dog."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_80#slide=id.h7553ddbe789f499c_0_80")
 ```
 
 We could specify a loop (that doesn't use or call a function yet), but just goes through each of the lab members who has a cat and outputs their cat's name. Outside of the loop, we could specify the dog's name for the fourth lab member who has a dog, not a cat. Because that last part is happening outside of the loop, it is only output once rather than being output every time we go through the loop. And the number of times we go through the loop relates to the number of inputs we're looping through (in this case 3 because there are 3 lab members with cats).
 
-```{r loop_no_function echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "This image shows a loop that goes through lab members with cats, outputting each cat's name. Outside of the loop, the dog's name for the fourth lab member is output."}
+```{r loop_no_function, echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "This image shows a loop that goes through lab members with cats, outputting each cat's name. Outside of the loop, the dog's name for the fourth lab member is output."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_70#slide=id.h7553ddbe789f499c_0_70")
 ```
 
 We could write a function that generalizes that process, specifically reporting the lab member and who their pet is, even specifying whether that pet is a dog or a cat, after evaluating the input. Functions are especially useful in cases like this where there is a process that has related tasks with specifiable, but slightly different behavior dependent on how an input is evaluated.
 
-```{r function_no_loop echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "This image shows a lab that evaluates whether the pet is a cat or dog and outputs the correct message that we were doing earlier with a loop given that info. Notice that we call that function for one lab member and their pet, in this case a cat. The function is useful because we have related tasks with slightly different behavior depending on the input and so we can have dry generalized code that performs the specified tasks."}
+```{r function_no_loop, echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "This image shows a lab that evaluates whether the pet is a cat or dog and outputs the correct message that we were doing earlier with a loop given that info. Notice that we call that function for one lab member and their pet, in this case a cat. The function is useful because we have related tasks with slightly different behavior depending on the input and so we can have dry generalized code that performs the specified tasks."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_106#slide=id.h7553ddbe789f499c_0_106")
 ```
 
-```{r function_no_loop_dog echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "This image shows the function being called for the lab member with the dog and what the output would be. Notice that again, we have to call the function for this one lab member and their pet."}
+```{r function_no_loop_dog, echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "This image shows the function being called for the lab member with the dog and what the output would be. Notice that again, we have to call the function for this one lab member and their pet."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_144#slide=id.h7553ddbe789f499c_0_144")
 ```
 
@@ -151,13 +151,13 @@ Notice that we have to explicitly call this function for every lab member that w
 
 To reduce redundancy, we could call the function with a `for` loop. Notice because of how we defined our function, the lab member with a dog is part of the `for` loop now, instead of outside of it!
 
-```{r function_loop echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Image showing calling the function for all lab members and their pets using a for loop and the ouput."}
+```{r function_loop, echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Image showing calling the function for all lab members and their pets using a for loop and the ouput."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_123#slide=id.h7553ddbe789f499c_0_123")
 ```
 
 `lapply` is another function that provides the functionality of a loop, meant specifically to work with functions. One intricacy of `lapply` is that the output from calling the function for a set of a items is returned in a list. (That's what the `l` in `lapply` stands for: "list".) Given that we've said that we want our `spatialGE` inputs to be in named lists, `lapply` will be helpful for us in constructing those inputs down the line.
 
-```{r function_with_loop_list echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Image showing calling the function for all lab members and their pets using an L apply statement instead of a for loop. The output is a list, but does work for all lab members."}
+```{r function_with_loop_list, echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Image showing calling the function for all lab members and their pets using an L apply statement instead of a for loop. The output is a list, but does work for all lab members."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_168#slide=id.h7553ddbe789f499c_0_168")
 ```
 
