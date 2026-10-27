@@ -6,14 +6,18 @@ Before we start to work with the Spatial Transcriptomics data from this study, w
 
 ## Data generation
 
-Xenium is an image-based spatial transcriptomics platform. 
+Xenium is an image-based spatial transcriptomics platform. Tissue samples are either fresh frozen (FF) or formalin-fixed paraffin-embedded (FFPE). Each of these options has its own specific protocols necessary for further sample preparation. 
 
-Cell segmentation for v1 utilizes DAPI for nucleus and an isotropic nuclear expansion algorithm to approximate the cell boundaries. An alternative approach (not used in the process of this paper) 
+{{< video https://www.youtube.com/watch?v=EhTgNYs9Vuw&list=PLfaSRwcfHcq3BngbACXhBci870L8iSCoj&index=1 >}}
+
+Cell segmentation for v1 utilizes DAPI for nucleus and an isotropic nuclear expansion algorithm to approximate the cell boundaries. An alternative approach (not used for this study) utilizes multiple stains and for cell boundaries and segments using those stains rather than expanding the nucleus. 
 
 
 
 ## Data products
 
+https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/analysis/xoa-output-at-a-glance#output-bundle-files
+
 ## Summary
 
-In Summary, Xenium data utilizes a gene panel of probes to assay the spatially-resolved expression of specific genes at a cellular or subcellular resolution within tissue samples. Samples used to generate Xenium data are either fresh frozen (FF) or formalin-fixed paraffin-embedded (FFPE) tissue samples. After sample preparation, imaging cycles are performed using a Xenium Analyzer. Cellular segmentation is performed to approximate boundaries between cells.
+In summary, Xenium technology utilizes a panel of gene-specific probes to assay the spatially-resolved expression for a targeted set of genes at a single-cell or sub-cellular resolution within tissue samples. Samples for Xenium analysis are prepared from either fresh frozen (FF) or formalin-fixed paraffin-embedded (FFPE) tissue blocks. While preparation protocols differ by sample type (e.g, FF or FFPE), generally tissue sections are taken from the tissue block, mounted on specialized slides, and undergo chemical treatments for fixation, permeabilization, probe hybridization, and staining. Following sample preparation, imaging cycles are performed using a Xenium Analyzer. The Xenium Analyzer's onboard software performs nuclear and cellular segmentation to approximate boundaries between cells and assign observed transcripts to individual cells. Xenium platforms use automated real-time quality control to remove noise and lower quality data. Researchers receive a variety of data including data that reports on the localization of cells, nuclei, and transcripts, observed counts for the transcripts, and morphology images for the tissue sample sections.

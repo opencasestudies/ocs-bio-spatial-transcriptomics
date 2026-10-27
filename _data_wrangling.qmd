@@ -1,45 +1,43 @@
-<!--
-Update the file paths as needed throughout
--->
-
-<!--
-Some case studies may wish to merge Data Exploration with this Wrangling subsection
--->
-
-<!--
-At the end of this section, save incremental data so that users can pause and come back later
--->
-
 # **Data Wrangling**
+
 ***
 
 If you have been following along but stopped, we could load our imported data like so:
 
-Add instructions for loading the data...
+Will add instructions on how to fetch the data from the end of the Data Import section (both `scz_spatial` object and `samples_metadata` data frame) (and cutoffs from the Data Exploration section) from zenodo.
 
 ***
 <details> <summary> If you skipped the data import section click here. </summary>
 
-Add instructions for loading the data...
+Will add instructions on how to fetch the data from the end of the Data Import section (and cutoffs from the Data Exploration section) from zenodo.
 
 </details>
 ***
 
 ## Adding more sample metadata
 
+***
+
+We can use a joining function (`left_join()`) to combine the sample metadata in the `sample_meta` slot with our `samples_metadata` data frame from the [Data Import]() section of the case study. This adds columns such as Sex and Age to the sample metadata stored in the `spatialGE` object.
+
 ```{r}
-scz_spatial@sample_meta <- scz_spatial@sample_meta %>% left_join(samples_metadata, by = c("sample_name" = "DxID"))
+scz_spatial@sample_meta <- scz_spatial@sample_meta %>% 
+    dplyr::left_join(samples_metadata, by = c("sample_name" = "DxID"))
 ```
 
 ## Filtering
 
+***
+
 ### Using Control Probes and Codewords
 
-First we create a function that we can use with lapply that takes the filtering thresholds that we found previously as well as the counts matrix as inputs. Notice that the thresholds are named arguments meaning they have default values set to the exact variables we were working with earlier. We find the combined expression within each cell of each of the three associated controls using column sums and identify the cell IDs where the combined expression of any one of these types of controls is greater than or equal to the 99th percentile threshold. Finally, we take a union of the identified cell IDs.
+First we create a function that we can use with `lapply` that takes the filtering thresholds that we found previously as well as each counts matrix as inputs. Notice that the thresholds are named arguments meaning they have default values set to the exact variables we were working with earlier. We don't have to specify them when we call the function because they have these default values. We find the combined expression within each cell of each of the three associated controls using column sums and identify the cell IDs where the combined expression of any one of these types of controls is greater than or equal to the 99th percentile threshold. Finally, we take a union of the identified cell IDs.
 
-By calling this function with `lapply`, we'll have named list (`to_remove_all`) where the sample name stores a vector of cell IDs that should be removed for that sample.
+By calling this function with `lapply`, we'll have a named list (`to_remove_all`) where each sample name stores a vector of cell IDs that should be removed for that sample.
 
 We use a `for` loop to then loop through the sample names and actually filter the cell IDs within the count matrix. Recall that the cells correspond to the columns in the count matrix. Our filter is specifically using an exclamation point (`!`) to specify that if a column name is **not** the list of cell IDs to be filtered, then keep it.
+
+We use a `for` loop for the actual filtering because we don't want to output a list. Rather we want to overwite the `counts` slot, doing the same filtering steps for all of the samples (just using a different set of cell IDs to keep).
 
 ```{r}
 findOverlap <- function(mat, negcp = negcontrol_probe_cutoff, negcc = negcontrol_cdwd_cutoff, ucc = unassigned_cdwd_cutoff){
@@ -52,7 +50,7 @@ findOverlap <- function(mat, negcp = negcontrol_probe_cutoff, negcc = negcontrol
     return(to_remove)
 }
 
-to_remove_all <- lapply(scz_spatial@counts, function(x) findOverlap(x))
+to_remove_all <- lapply(scz_spatial@counts, findOverlap)
 
 for (sample_name in names(to_remove_all)){
     scz_spatial@counts[[sample_name]] <- scz_spatial@counts[[sample_name]][,!colnames(scz_spatial@counts[[sample_name]]) %in% to_remove_all[[sample_name]]]
@@ -62,10 +60,10 @@ for (sample_name in names(to_remove_all)){
 How many cells do we have per sample now?
 
 ```{r}
-lapply(scz_spatial@counts, function(i) ncol(i))
+lapply(scz_spatial@counts, ncol)
 ```
 
-We also want to remove the spatial metadata information about these cells since they're no longer in the counts matrix. Recall that each row corresponds to a cell, and the cell IDs are stored in the `libname` column of the `spatial_meta` slot.
+We also want to remove the spatial metadata information about these cells since they no longer have counts associated with them in the counts matrix. Recall that each row corresponds to a cell, and the cell IDs are stored in the `libname` column of the `spatial_meta` slot.
 
 ```{r}
 for (sample_name in names(to_remove_all)){
@@ -86,16 +84,27 @@ for (sample_name in names(scz_spatial@counts)){
 All of the counts matrices will now be 300 rows representing data for the 300 Xenium panel genes.
 
 ```{r}
-lapply(scz_spatial@counts, function(i) nrow(i))
+lapply(scz_spatial@counts, nrow)
 ```
 
 ### Using spatialGE
 
 The filtering that we've done, while important, isn't enough. We also need to consider the overall library size of and number of features in cells. 
 
-<!--
-Fill in explanation of why
--->
+:::{.definition_box}
+::::{.definition_box_header}
+Library size and number of features
+::::
+::::{.inner_block}
+The **library size** is the total sum of the counts in a single cell across genes. 
+
+The **number of features** in a cell is the count of unique genes that have a count of at least one in a given cell.
+::::
+:::
+
+Both the library size and the number of features in a cell serve as indicators of cell quality. Cells may be damaged during the sample extraction or preparation steps
+
+
 
 ```{r}
 scz_spatial <- spatialGE::filter_data(scz_spatial,
@@ -134,20 +143,26 @@ distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_genes')
 :::{.emphasis_block}
 <details><summary>How do you report which cell barcodes were filtered?</summary>
 
-Add info here on how to assess and report which cell barcodes were filtered out. Note that we can compare to the ones that the original study filtered out (Reinforcement exercise?). 
+We may need to report what cell IDs are filtered out. We can create a list of cell IDs by comparing the cell IDs that are still in our `spatialGE` object's `spatial_meta` slot with those that were originally in pre-filtered object's `spatial_meta` slot. We specifically, would want the cell IDs that were in the original but aren't in there anymore. The `set_diff()` function is useful for this task.
 
-Can I create a list of filtered out spots?
-
-Can I recreate Figure S25? I think I may need to create a new STlist to do this? Maybe I should have duplicated it before I filtered.
+@Kwon_etal_2026 didn't just report a list of what they filtered out, they also created a visualization of which cells were filtered out (Figure S25). We'll discuss this and how to create this in the [Data Visualizaiton]() section of the case study.
 
 </details>
 :::
 
 ## Normalizing
 
-Transformation with `spatialGE` uses either log-transformation or the `SCTransform` method. 
+Transforming the raw mRNA counts is again necessary because of technical biases. Typically if working with single cell RNAseq data or data from sequencing based spatial transcriptomics assays (e.g., Visium), normalization methods try to correct for different sequencing depths in different cells. 
 
-We'll need a second `STlist` object so we can run two different transformations and compare them.
+Transformation with `spatialGE` can be performed with either the log-transformation or the `SCTransform` method. Both of these methods are best suited to working with 
+
+https://bioconductor.org/books/release/OSTA/pages/ind-normalization.html
+
+:::{.colum-margin}
+In the future, would like to use an alternative normalization method like using cell area or SpaNorm and adding result to the `tr_counts` slot instead of using SCTransform since this data is imaging based instead of sequencing based. We can get cell area from the parquet files. We would have to join that information with the `@spatial_meta` slot.
+:::
+
+We can only perform one transformation of the data since the transformed counts will be stored in the `tr_counts` slot and we can't create another one. If we wanted to run both and compare them, we would need two different `spatialGE` `STlist` objects.
 
 ```{r}
 scz_spatial_tr <- rlang::duplicate(scz_spatial)

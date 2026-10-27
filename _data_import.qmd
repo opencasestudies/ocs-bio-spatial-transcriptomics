@@ -1,4 +1,5 @@
 # **Data Import**
+
 ***
 
 ## What `spatialGE` is looking for
@@ -6,6 +7,12 @@
 ***
 
 `spatialGE` provides the user flexibility in how they import their data. Users can either provide file paths or they can provide named lists with each list containing data frames for each sample. To better understand the data we have and are working with, we will provide named lists of data frames for both the spatial coordinates and the mRNA/feature counts.
+
+Each named list will use the same sample names to show which data goes with which sample. Each data frame within a given named list will have similar structure, but different underlying data points specific to that sample.
+
+```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.alt = "Illustration showing the idea that named lists can be provided to spatialGE for data import where the named lists would have sample names that point to the data frames with the data. Within each list the same kind of data frame will be used for each sample, but it will have different underlying data."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h51840eb841718f1d_0_58#slide=id.h51840eb841718f1d_0_58")
+```
 
 ### Spatial coordinates
 
@@ -16,6 +23,10 @@ For spatial coordinates, each data frame should have:
   * X coordinate for the center of the cell
   * Y coordiante for the center of the cell
 * One row per each unique cell ID; let's say we have `m` cells
+
+```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.alt = "Illustration showing a typical data frame for the spatial coordinates input that spatialGE expects where the center of each cell is passed as x and y coordiantes."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h51840eb841718f1d_0_4#slide=id.h51840eb841718f1d_0_4")
+```
 
 ### mRNA counts
 
@@ -33,22 +44,15 @@ For the mRNA counts, each data frame should have:
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h6a9b871c28945653_0_39#slide=id.h6a9b871c28945653_0_39")
 ```
 
-Both of these will be stored in separate named lists where the names correspond to samples, and each sample has its own data frame.
+Recall that both of these (spatial coordinates and mRNA counts data) will be stored in separate named lists where the names correspond to samples, and each sample has its own data frame.
 
 ### Sample metadata
 
-`spatialGE` also requires sample information. We will provide sample names / metadata where the sample names match those used in the named lists. The sample names will be in the first column of the samples metadata data frame.
-
+`spatialGE` also requires sample information. We will provide sample names / metadata where the **sample names match those used in the named lists**. The sample names will be in the first column of the samples metadata data frame (though they could also be passed as just a vector of names).
 
 ## Subsetting samples
 
-We want to subset 6 samples (3 for each diagnosis) from the larger set of samples so that we still have multiple samples to compare, but aren't working with every possible sample as that would require a lot of memory and storage.
-
-1. We set the random seed
-1. We read in the sample metadata file
-1. We select 3 random NTC samples
-1. We select 3 random SCZ samples
-1. We make a vector of those 6 sample IDs
+We want to subset 6 samples (3 for each diagnosis) from the larger set of samples so that we still have multiple samples to compare, but aren't working with every possible sample as that would require a lot of memory and storage (as explained in the [What are the data?](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#what-are-the-data) section of the case study).
 
 ```{r message = FALSE, warning = FALSE}
 set.seed(567)
@@ -67,12 +71,25 @@ samples <- c(scz_samples, ntc_samples)
 samples
 ```
 
+:::{.emphasis_block}
+<details><summary>What is this code doing?</summary>
+
+1. We set the random seed.
+1. We read in the sample metadata file.
+1. We filter the data frame to include only samples used for Xenium data generation.
+1. We subselect 3 random CTRL samples from all samples where the primary diagnosis is "Control" (`PrimaryDx == "Control"`) using the [`sample()` function](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/sample).
+1. We subselect 3 random SCZ samples from all samples where the primary diagnosis is instead "Schizophrenia", again using the `sample()` function.
+1. We make a vector combining those 6 sample IDs.
+
+</details>
+:::
+
 :::{.reproducibility_box}
 ::::{.reproducibility_box_header}
 Reproducibility considerations
 ::::
 ::::{.inner_block}
-Any steps in an analysis that rely on randomness or stochasticity are not reproducible later or by others unless a random seed is set prior to the running those steps (and used every time before running those steps).
+Any steps in an analysis that rely on randomness or stochasticity are not reproducible later or by others unless a random seed is set prior to the running those steps (and that specific random seed is then used every time before running those steps).
 ::::
 :::
 
@@ -90,58 +107,180 @@ spatial_sample_info[spatial_sample_info$GEO %in% samples,]
 
 ## Fetching GEO data for these samples
 
-This `lapply` will loop through the samples vector and fetch the following files for each sample:
+***
 
-* `-cell_boundaries.csv.gz` for computing spatial coordinates 
-* `parquet.gz` for spatial coordinates
-* `-cell_feature_matrix.h5` for RNA expression
+This `lapply` will loop through the samples vector and fetch the following files for each sample from GEO using the `getGEOSuppFiles()` function from the `GEOquery` package:
+
+* `-cell_boundaries.csv.gz` for computing spatial coordinates (a side quest explored later in a click to expand section)
+* `cells.parquet.gz` for spatial coordinates
+* `-cell_feature_matrix.h5` for mRNA counts
+
+:::{.emphasis_block}
+<details><summary>How does `lapply` or "loop"ing work?</summary>
+A function like the `getGEOSuppFiles()` function from the `GEOquery` package accepts inputs and performs specified steps with that input, providing some output following those steps.
+
+When you use a loop to call a function for a set of inputs, the loop provides each input individually to the function. For each individual input, the function performs its specified steps and produces an output. Then the loop gives the function the next input and the process is repeated until there are no more inputs to give the function.
+
+```{r function_loop_image echo=FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Generally, functions use some input to perform certain steps in certain order and provide an output. When using a loop with a function, the loop provides the function multiple inputs individually. The function takes each input separately, performs the steps, and returns an output for that input. Repeat for each input until it's all out of inputs to use because the loop doesn't have any more inputs to give the function."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_0#slide=id.h7553ddbe789f499c_0_0")
+```
+
+We'll use an example with lab pets to show this in a more concrete way.
+
+```{r lab_pets_intro echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "This image shows avatars for 4 lab members and their pets. Three of pets are cats and the fourth is a dog."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_80#slide=id.h7553ddbe789f499c_0_80")
+```
+
+We could specify a loop (that doesn't use or call a function yet), but just goes through each of the lab members who has a cat and outputs their cat's name. Outside of the loop, we could specify the dog's name for the fourth lab member who has a dog, not a cat. Because that last part is happening outside of the loop, it is only output once rather than being output every time we go through the loop. And the number of times we go through the loop relates to the number of inputs we're looping through (in this case 3 because there are 3 lab members with cats).
+
+```{r loop_no_function echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "This image shows a loop that goes through lab members with cats, outputting each cat's name. Outside of the loop, the dog's name for the fourth lab member is output."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_70#slide=id.h7553ddbe789f499c_0_70")
+```
+
+We could write a function that generalizes that process, specifically reporting the lab member and who their pet is, even specifying whether that pet is a dog or a cat, after evaluating the input. Functions are especially useful in cases like this where there is a process that has related tasks with specifiable, but slightly different behavior dependent on how an input is evaluated.
+
+```{r function_no_loop echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "This image shows a lab that evaluates whether the pet is a cat or dog and outputs the correct message that we were doing earlier with a loop given that info. Notice that we call that function for one lab member and their pet, in this case a cat. The function is useful because we have related tasks with slightly different behavior depending on the input and so we can have dry generalized code that performs the specified tasks."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_106#slide=id.h7553ddbe789f499c_0_106")
+```
+
+```{r function_no_loop_dog echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "This image shows the function being called for the lab member with the dog and what the output would be. Notice that again, we have to call the function for this one lab member and their pet."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_144#slide=id.h7553ddbe789f499c_0_144")
+```
+
+Notice that we have to explicitly call this function for every lab member that we want to use it for. We would have to call the function four times, one for each lab member. Generally, we want to reduce redundancy in our code, so it might make sense to use a loop to loop through our data and call the function multiple times that way.
+
+To reduce redundancy, we could call the function with a `for` loop. Notice because of how we defined our function, the lab member with a dog is part of the `for` loop now, instead of outside of it!
+
+```{r function_loop echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Image showing calling the function for all lab members and their pets using a for loop and the ouput."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_123#slide=id.h7553ddbe789f499c_0_123")
+```
+
+`lapply` is another function that provides the functionality of a loop, meant specifically to work with functions. One intricacy of `lapply` is that the output from calling the function for a set of a items is returned in a list. (That's what the `l` in `lapply` stands for: "list".) Given that we've said that we want our `spatialGE` inputs to be in named lists, `lapply` will be helpful for us in constructing those inputs down the line.
+
+```{r function_with_loop_list echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Image showing calling the function for all lab members and their pets using an L apply statement instead of a for loop. The output is a list, but does work for all lab members."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_168#slide=id.h7553ddbe789f499c_0_168")
+```
+
+</details>
+
+<details><summary>How to construct an `lapply` statement</summary>
+
+`lapply` statements have 2 parts.
+
+1. Some iterable object such as a list or vector. This may be:
+  * a named list
+  * a vector with character elements
+  * a vector of indices (`1:length(some_vector)`).
+2. Some function to apply for each element of the iterable object. This may be:
+  * a base R function 
+  * a function from a loaded package or library
+  * a function you've defined elsewhere in your code
+
+
+If you iterate directly over a named list, the output list from `lapply` will use the same names from the input for the corresponding output. If you instead iterate using a vector of indices, the list won't have names and you may need to name the output yourself.
+
+For more explanation and examples of using `lapply`, consider the post @andrews2021 or the [function's documentation](https://stat.ethz.ch/R-manual/R-devel/library/base/html/lapply.html).
+
+</details>
+:::
+
+A regex pattern is used to specify which files to download (there are more available than just these 3 for each sample). 
+
+<details><summary>Details on the regex pattern</summary>
+
+Regex is another term for a [regular expression](https://r4ds.hadley.nz/regexps.html) that is used to match a pattern. In this case, we're matching any one of 3 patterns and asking `GEOquery` to fetch only the files that match one of these 3 patterns.
+ 
+* The "or" like behavior of this is from the vertical pipes (`|` ) in the regex. 
+* The double backslashes (`\\`) are escape characters which are used in front of special or meta characters (e.g., `.`, `*`, `-`, `+`) that may otherwise be used for specific, programmatic purposes aside from literal string matching. Using an escape character in front of the special character is necessary to make sure they are considered as literal characters within the string matching rather than any special purpose or role they may serve. If only a single backslash was used, R would evaluate and drop that backslash, passing only the "unescaped" special character to regex. Therefore we have to also escape the backslash that regex uses. R will recognize and drop the first one in its string parsing, while the second backslash will remain and be recognized by the regex parsing, escaping the special characters (a dash or period in this case).
+
+</details>
 
 ```{r, eval = FALSE}
 lapply(1:length(samples), 
        function(x) 
        GEOquery::getGEOSuppFiles(GEO = samples[x], 
-                      filter_regex = "\\-cell_boundaries|\\-cell_feature_matrix|\\parquet", 
+                      filter_regex = "\\-cell_boundaries|\\-cell_feature_matrix|\\.parquet", 
                       baseDir = here("data/raw")
                       )
       )
 ```
 
+Note: You will need about 127 M (Megabytes) or (0.127 GB / Gigabytes) available on your system to fetch and store this data using this code.
+
+Typically, `lapply` returns outputs from calling the specified function in a list. Because we don't need to store anything in R from this function (`getGEOSuppFiles` is going to store files in our computer's file system where we tell it to instead.), we're not going to assign the output to any variables. We could use a `for` loop here instead of `lapply` and it would work just as well. However, `lapply` is a tad more efficient at looping in R than `for` loops, so we use it here for its efficiency gains rather than how it outputs the function outputs.
+
 ## Preparing the data for import into `spatialGE` (with `STlist`)
+
+***
+
+Now that we've fetched our data from GEO, we can work with it to make sure that we understand what it contains and that it's in the correct formats that `spatialGE` expects.
 
 ### Sample metadata
 
-1. Rename some column names
-2. Filter to include only the subset 6 samples
-3. Combine the Brain Number ID with the Primary Dx to create an ID that provides more information about each sample
-4. Relocate this new ID to the first column
-5. Arrange so the rows are in the same order as the `samples` vector.
-
+We will use the `samples` vector that we created earlier to subset our spatial sample metadata to include only those 6 samples, and we will create a new column that can serve as a more informative sample ID (reporting not just a sample ID but also the primary diagnosis / case) for our use throughout this case study.
 
 ```{r}
 lookup <- c(sampleID = "GEO", brainNumID = "BrainNumberID")
 samples_metadata <- spatial_sample_info %>% 
   dplyr::rename(., all_of(lookup)) %>%
-  filter(sampleID %in% samples) %>%
-  mutate(PrimaryDx = case_when(PrimaryDx == "Control" ~ "CTRL", 
+  dplyr::filter(sampleID %in% samples) %>%
+  dplyr::mutate(PrimaryDx = case_when(PrimaryDx == "Control" ~ "CTRL", 
                                PrimaryDx == "Schizophrenia" ~ "SCZ")
         ) %>% 
   tidyr::unite("DxID", 
                brainNumID, PrimaryDx, 
                sep = "", 
                remove = FALSE) %>%
-  relocate(DxID) %>%
-  arrange(match(sampleID, samples))
+  dplyr::relocate(DxID) %>%
+  dplyr::arrange(match(sampleID, samples))
 
 samples_metadata  
 ```
 
-Let's get rid of the other data frames so we don't accidentally use them going forward and to reclaim some memory.
+:::{.emphasis_block}
+<details><summary>What is this code doing?</summary>
+
+1. Rename some column names.
+1. Filter the data frame to include only the subset samples from the `samples` vector.
+1. Combine the Brain Number ID with the Primary Dx to create a sample ID that provides more information about each sample.
+1. Relocate this new ID to be the first column (because this is the sample ID we want `spatialGE` to use when we input our data).
+1. Arrange so the rows are in the same order as the `samples` vector.
+
+</details>
+:::
+
+Let's get rid of the other data frames and extra vectors so we don't accidentally use them going forward and to reclaim some memory.
 
 ```{r}
 rm(spatial_sample_info, ntc_samples, scz_samples, samples, lookup)
 ```
 
 ### Spatial Coordinates
+
+:::{.emphasis_block}
+
+Files from @Kwon_etal_2026 use the following naming convention:
+
+`{sample specific GEO accession number}_{sample Brain Number ID}-{file type specific pattern}`
+
+:::{.reproducibility_box}
+::::{.reproducibility_box_header}
+Reproducibility considerations
+::::
+::::{.inner_block}
+Using consistent file naming schemes within a project is an important reproducibility consideration. One reason is because this practice supports more automated data retrieval and handling, reducing the risk of errors from manual processes. For more, consider the [ITCR's Introduction to Reproducibility in Cancer Informatics course's discussion on the topic](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/organizing-your-project.html#organizational-strategies) or this [File naming and organization guide from UT Dallas](https://data.utdallas.edu/research-project-lifecycle/organize/)
+::::
+:::
+
+We will utilize the consistent naming conventions as we construct file paths in order to read in the files to work with them, specifically iterating over the samples to construct the file paths.
+
+:::
+
+For each sample, we want to read in the relevant file, process it (storing the data `spatialGE` needs in a dataframe) and then storing each sample's data frame in a named list. Using `lapply` again will be a good fit for this.
+
+Because we're working with the spatial coordinates data, our file type specific pattern will be `-cells.parquet.gz`. Notice that these files are compressed (denoted by the `.gz` file extension) and the `arrow` package (which is typically used to read and wrangle `.parquet` files), needs them to not be compressed in order to read them in.
+
+
 
 ```{r}
 decompress_read_parquet <- function(samples_metadata, sample){
@@ -167,7 +306,7 @@ decompress_read_parquet <- function(samples_metadata, sample){
   
   #Select columns of interest
   centroids <- df %>%
-    select(cell_id, x_centroid, y_centroid)
+    dplyr::select(cell_id, x_centroid, y_centroid)
 
   #reclaim some R resources
   rm(df, gz_file, decompressed_file)
@@ -182,19 +321,26 @@ spatial_coords <- lapply(1:nrow(samples_metadata), function(x) decompress_read_p
 names(spatial_coords) <- samples_metadata$DxID
 ```
 
+:::{.emphasis_block}
+<details><summary>What is this code doing?</summary>
+
+1. We define a function that we can call with `lapply` in order to process the parquet files and produce a list to give to spatialGE eventually.
+1. We construct the path for a given sample's cell centroid coordinates `.parquet` file, using our sample metadata data frame to match the GEO sample ID we're giving the function to the corresponding sample brain number ID also needed for the file path.
+1. We create a string for what a decompressed version of the file should be named.
+1. We decompress the file, storing it in our file system
+1. We read in the data with the `arrow` package and its `read_parquet()` function.
+1. We remove the decompressed file from our file system because we no longer need it.
+1. We select only the columns that `spatialGE` needs, reporting the centroid coordiantes for each cell:
+  * `cell_id`
+  * `x_centroid`
+  * `y_centroid`
+1. We remove some variables that are no longer needed to reclaim some R resources.
+1. We return a data frame with only those 3 columns.
+
+</details>
+:::
+
 <details><summary>What if you don't have the canonical parquet files?</summary>
-
-1. We make a list that we can store a dataframe in for each sample
-2. We loop through all 6 of the samples .... for each sample ....
-3. We read in the corresponding cell boundaries file
-4. We group that data by the `cell_id` column since multiple rows are present for each cell ID
-5. (with `slice`) We have to append the first row for each cell ID also to the bottom in order to "close the polygon" by going back to the starting vertex
-6. We grab coordinates for each cell's polygon and store all coordinates in geometry column
-7. (with `st_as_sf()`) we convert the data frame into a simple feature object so that we can work within a spatial context (to compute the cell's centroid) for non-spatial data structures
-8. `st_centroid` computes the centroid location for each cell using the `geometry` column from step 6
-9. We grab x and y coordinates for the centroids, storing them in their own columns
-10. We store the Cell IDs and centroid coordinates as a dataframe for that sample
-
 
 ```{r spatial_coords_compute}
 
@@ -209,61 +355,73 @@ df_test_sample <- read_csv(here(paste0("data/raw/",
                                "-cell_boundaries.csv.gz")))
 
 centroids <- df_test_sample %>%
-    group_by(cell_id) %>%
-    slice(1:n(), 1) %>%
-    summarize(geometry = sf::st_sfc(st_polygon(list(cbind(vertex_x, vertex_y)))), .groups = "drop") %>%
-    st_as_sf() %>%
-    mutate(centroid = st_centroid(geometry)) %>% #compute centroid location for each cell
-    mutate(cx = st_coordinates(centroid)[,1],
+    dplyr::group_by(cell_id) %>%
+    dplyr::slice(1:n(), 1) %>%
+    dplyr::summarize(geometry = sf::st_sfc(st_polygon(list(cbind(vertex_x, vertex_y)))), .groups = "drop") %>%
+    sf::st_as_sf() %>%
+    mutate(centroid = sf::st_centroid(geometry)) %>% #compute centroid location for each cell
+    mutate(cx = sf::st_coordinates(centroid)[,1],
            cy = st_coordinates(centroid)[,2]) %>%
-    st_drop_geometry() %>% #so that we can grab just the cell IDs and centroid x,y values
+    sf::st_drop_geometry() %>% #so that we can grab just the cell IDs and centroid x,y values
     select(cell_id, cx, cy)
 ```
+
+This method
+
+1. Uses a similar method to read in the data files as the `decompress_read_parquet()` function we defined, but it 
+  * doesn't need to decompress them first because `read_csv` from `readr` can handle compressed files. 
+  * uses `-cell_boundaries.csv.gz` as the file type specific pattern.
+1. We group the data by the `cell_id` column since multiple rows are present for each cell ID.
+1. (with `slice`) We have to append the first row for each cell ID also to the bottom in order to "close the polygon" by going back to the starting vertex.
+1. We grab coordinates for each cell's polygon vertices and store all coordinates in a `geometry` column.
+1. (with `st_as_sf()`) We convert the data frame into a simple feature object so that we can work within a spatial context (to compute the cell's centroid) for non-spatial data structures.
+1. (with `st_centroid()`) We compute the centroid location for each cell using the `geometry` column created earlier.
+1. We grab the x and y coordinates for the centroids, storing them in their own columns within the feature object.
+1. (with `st_drop_geometry()`) We drop the geometry or feature object aspect of the data so that we'll be able to select just the columns we want in a dataframe. 
+1. We store the Cell IDs and centroid coordinates as a dataframe for that sample.
 
 This method is accurate if compared to the parquet files.
 
 ```{r}
-right_join(spatial_coords[[unlist(samples_metadata[which(samples_metadata$sampleID == testsample), "DxID"])]],
+dplyr::right_join(spatial_coords[[unlist(samples_metadata[which(samples_metadata$sampleID == testsample), "DxID"])]],
            centroids,
            by = "cell_id") %>%
     rename(x_dataset_parquet = x_centroid, 
            y_dataset_parquet = y_centroid, 
            x_dataset_compute = cx, 
            y_dataset_compute = cy) %>% 
-    pivot_longer(cols = - cell_id, 
+    tidyr::pivot_longer(cols = - cell_id, 
                  names_to = c("variable", "dataset"), 
                  names_pattern = "(x|y)_(.*)") %>% 
-    pivot_wider(names_from = dataset, 
+    tidyr::pivot_wider(names_from = dataset, 
                 values_from = value) %>% 
-    ggplot(aes(x = dataset_parquet, 
+    ggplot2::ggplot(ggplot2::aes(x = dataset_parquet, 
                y = dataset_compute)) + 
-      geom_point(alpha = 0.2) + 
-      facet_wrap(~variable) + 
+      ggplot2::geom_point(alpha = 0.2) + 
+      ggplot2::facet_wrap(~variable) + 
       ggpubr::stat_regline_equation(aes(label =  paste(..eq.label.., ..rr.label.., sep = "*`,`~")), 
                                     label.x = 3, 
                                     label.y = 7500)
 
 ```
 
+1. Join the earlier results from the test sample that we stored in the named list with the results from this computation approach (`centroids`) so that we have 5 columns of data (the cell_id and the x and y coordinates from each method)
+1. Rename the columns so they are more informative
+1. Pivot the data longer for every column except the cell_id column such that there will be 4 columns (the cell_id, a column with each coordinate value (named `value`), and two columns describing where each coordinate value is from: (`variable` x or y) and dataset (computed or parquet)).
+1. We then use pivot wider to create two columns from the single `dataset` column so that the parquet coordinate values are in their own column and the computed coordinate values are in their own column. This final dataframe has 4 columns
+  * cell_id
+  * variable: x or y
+  * dataset_parquet: the x or y coordinate for that cell_id from the parquet file
+  * dataset_compute: the x or y coordinate for that cell_id from the computation method
+1. This is passed to ggplot where we create scatter plots of the dataset_parquet coordinates on the x-axis and the dataset_compute coordinates on the y-axis for two different panels (`facet_wrap`) with one panel comparing the x coordinates and one panel comparing the y coordinates.
+1. We add a regression line with a label for the regression coefficient and R^2 value. 
+
+
 </details>
 
 ### mRNA counts
 
-Note, will show in a click to expand section that `rhdf5::h5dump` can be used to look at the headers of the data, especially because we have to provide a "name" in the reading function and knowing that name requires knowing the headers
-
-
-2. We create a function to use for all 6 of the samples .... for each sample ....
-3. We read in the corresponding cell feature matrix file
-4. We build a sparse matrix, using the elements of the h5 file that correspond to each argument (as explained in the data description section above)
-5. We expand it to be a dense matrix that can be turned into a dataframe
-6. We set the row names to be the feature names from the h5 file
-7. We set the column names to be the cell IDs from the h5 file
-8. We also move the rownames to the first column and name it "genes" because [`spatialGE` looks for gene names in the first column, not as rownames, making sure they are unique.](https://github.com/FridleyLab/spatialGE/blob/849c174f2c1537dc871987dfefb68da91beb96e3/R/STList.R#L415).
-9. Finally we store this matrix in our named list for that sample
-
-:::{.column-margin}
-Turn this into an `lapply` statement instead of a `for` loop, utilizing a function for the main steps.
-:::
+Earlier we explored what the `.h5` files look like because reading in the mRNA counts from the h5 files requires that we know the names used in those files. 
 
 ```{r}
 read_rna <- function(samples_metadata, sample){
@@ -301,7 +459,32 @@ names(rnacounts_input) <- samples_metadata$DxID
 
 ```
 
+:::{.emphasis_block}
+<details><summary>What is this code doing?</summary>
+
+1. We define a function that we can call with `lapply` in order to process the `.h5` files and produce a list to give to spatialGE eventually.
+1. Uses a similar method to read in the data files as our previous `decompress_read_parquet()` function for the parquet files, but it 
+  * doesn't need to decompress them  
+  * uses `-cell_feature_matrix.h5` as the file type specific pattern.
+1. We read in the corresponding cell feature matrix file using `h5read()` from the `rhdf5` package. This package requires a `name` parameter which corresponds to the name of the top list. In the [What are the data?](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#what-are-the-data) section of the case study, we found that name to be "matrix".
+1. We build a sparse matrix, using the elements of the `.h5` file that correspond to each argument
+  * i: specifies the positions or indices of the rows with non-zero values in the matrix -- `indices` from the `.h5` file.
+  * p: specifies the first column with a non-zero value for each row -- `indptr` from the `.h5` file.
+  * x: non-zero values for the matrix entires -- `data` from the `.h5` file.
+  * dims: matrix dimensions -- `shape` from the `.h5` file.
+  * index1 we set to FALSE because our values are 0-based indices meaning that we start counting indices from 0 instead of 1.
+1. We expand the sparse matrix to be a dense matrix that can then be turned into a data frame.
+1. We set the row names to be the feature names from the `.h5` file (`features$name`)
+1. We set the column names to be the cell IDs from the `.h5` file (`barcodes`)
+1. We also move the rownames to the first column and name it "genes" because [`spatialGE` looks for gene names in the first column, not as rownames, making sure they are unique.](https://github.com/FridleyLab/spatialGE/blob/849c174f2c1537dc871987dfefb68da91beb96e3/R/STList.R#L415).
+1. Finally we store this data frame in our named list for that sample
+
+</details>
+:::
+
 ## Preparing a `spatialGE` object with `STlist`
+
+***
 
 We can import our data in a way that the `spatialGE` package can work with it, by using the `STlist()` function from `spatialGE`. This function creates an object in a standardized format that `spatialGE` functions can utilize in a predictable and generalizable way across datasets.
 
@@ -312,6 +495,26 @@ scz_spatial <- spatialGE::STlist(rnacounts = rnacounts_input,
                                 )
 ```
 
+:::{.emphasis_block}
+<details><summary>Alternative way to import the data using only file paths</summary>
+
+If we tried to read in the data directly following fetching it from GEO, we would get a warning message about not being able to find the coordinates for each sample.
+
+So first, we would have to decompress the `cells.parquet.gz` files for each sample. Once we've done that, we would be able to use the following code to read in the data with `spatialGE` doing all of the work to extract the data from the Xenium outputs. This code lists the directories where the files are located so that `spatialGE` can look in those directories for the files it expects. You only have to provide these file paths to the `rnacounts` paramter. You also have to provide it with the samples it should be looking for. These are the names of the directories.
+
+```{r, eval = FALSE}
+rnacounts <- paste0(here("data/raw/"), list.files(here("data/raw/"), pattern = "GSM"))
+
+#rnacounts would be a list of the directories, but not the files themselves.
+
+scz_spatial <- STlist(rnacounts = rnacounts, samples = str_replace(rnacounts, here("data/raw/"), ""))
+```
+
+One downside of this approach is that it's using the GEO accession numbers as the sample ID that `spatialGE` is going to use going forward. We would have to change the directory names to have different sample names.
+
+</details>
+:::
+
 We will explore this object (what it contains, how to access it, etc.) in the [Data Exploration](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/) section of the case study.
 
 First, let's release some memory for variables we don't need anymore.
@@ -321,7 +524,7 @@ rm(spatial_coords, rnacounts_input, centroids, df_test_sample, testsample)
 gc()                               
 ```
 
-Then we'll save the data so people can pick up at the next step after a break if they'd like. In testing the data, I've saved an input list as an `.rds` file before I've input it into `STlist` with no problem. Just want to make sure that the `STlist` object is being saved in an appropriate way that won't cause issues.
+Because we have had to do some work in order to import the data, we will save the `spatialGE` object to an `.rds` file that can be used later without needing to repeat these steps.
 
 ```{r, eval = FALSE}
 saveRDS(scz_spatial, here("data/imported/scz_spatial.rds"))

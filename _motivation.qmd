@@ -1,25 +1,32 @@
-<!--
-Describe the biological motivation for this case study.
-Include relevant explanatory images and references throughout.
-See this previous case study as an example: https://www.opencasestudies.org/ocs-bp-co2-emissions/#Motivation
-Images or videos may be helpful so this includes an example of including an image.
--->
-
 # **Motivation**
-***
-This case study explores {}...
 
-:::{.definition_box}
+***
+
+This case study explores working with spatially-resolved gene expression data, also known as Spatial Trancriptomics.
+
 ::::{.definition_box_header}
-Definition
+Spatial Transcriptomics
 ::::
 ::::{.inner_block}
-Provide the definition here
+Spatial Transcriptomics refers to molecular methods used to measure gene expression at or near single-cell resolution, reporting where observed transcripts are physically located within the source tissue, preserving spatial context.
 ::::
 :::
 
-Images are very helpful within this section....
+Spatial Transcriptomics describes gene expression within a spatial context. It is a rapidly-evolving area of development that can be used for hypothesis generation to describe cell neighborhoods, cell-cell interactions, and to discover biomarkers and drug targets, etc. 
 
-![](img/motivation_map_of_monitors.jpg){fig-alt="Map showing location of air pollution monitors across the US." width=800 .lightbox}
+```{r, echo = FALSE, fig.align = 'center', out.width = "100%', fig.alt = "Illustration showing the uses of spatial transcriptomics, underlining that it is largely used to generate hypotheses, desciribing cell neighborhoods and cell interactions as well as discovering biomarkers or niche interface processes. It can complement results from single cell RNA seq and be integrated with images for deeper understanding."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h51840eb841718f1d_6_7#slide=id.h51840eb841718f1d_6_7")
+```
+
+The two types of technology used to generate spatial transcriptomics data are generally categorized as sequencing-based or image-based and lie across two inverse spectra. Sequencing-based technologies typically provide a whole transcriptome view (broad molecular resultion), but not at a single-cell or sub-cellular resolution -- instead at a Region of Interest (ROI) or "spot" resolution (where a "spot" is made up of tens to hundreds of cells.) In other words, sequencing-based technologies provide low precision / cellular resolution. Image-based technologies instead typically provide data for a panel-based subset or a limited selection of the transcriptome (in other narrow molecular resolution). However, image-based technologies provide data at a single-cell or even sub-cellular resolution (high precision cellular resolution). Due to this, researchers may first collect spatially-resolved gene expression data with a sequencing-based technology for initial hypothesis generation to identify a specific region of interest in a tissue or specific genes to probe where greater cellular resolution would be beneficial and then follow up with generating a higher cellular resolution spatially-resolved dataset using an image-based technology.
+
+| Technology category | Example        | Molecular Resolution | Cellular resolution  |
+|:--------------------|:--------------:|:--------------------:|:--------------------:|
+|Sequencing-based     | Visium, GeoMx, Slide-seq | Broad; whole transcriptome | Low; Near single-cell but typically spots with tens to hundreds of cells represented |
+|Image-based          | Xenium, CosMx, MERFISH | Limited; panel of specific genes | High; single- or sub-cellular resolution |
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Visium and Xenium provide spatially resolved mRNA expression at different molecular and cellular scales. The molecular resolution of Visium, a sequencing-based technology is high because it gives a view of the whole transcriptome. The Molecular resolution of Xenium, an image-based technology, is low because it gives a view of a only a limited number of genes from a specified panel. On the other hand, the cellular resolution of Visium is lower than that of Xenium. Visium does not provide a single-cell resolution. Rather its spot-level resolution can have multiple cells represented. Xenium provides single-cell or even sub-cellular resolution."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_65#slide=id.h7553ddbe789f499c_0_65")
+```
 
 ***

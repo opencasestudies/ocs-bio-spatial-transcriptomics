@@ -15,6 +15,8 @@ Discuss common next steps for this type of an analysis in this box. Is there a s
 ## Reinforcement Exercises
 
 Uncomment this section if you're suggesting an exercise that reiterates a large portion of the case study so learners can practice a hard skill again, reinforcing topics from the case study
+
+Having them compare which cells were filtered out between our process and the process of the authors.
 -->
 
 ## Advancement Exercises
@@ -45,8 +47,11 @@ pseudobulk_dim_plot(scz_spatial, plot_meta = "Sex")
 
 ### Intermediate
 
+Bringing over the spatial domains from Visium data following a similar technique the authors did and re-looking at the quilt plots with that annotation rather than the cell type.
+
 ### Advanced
 
+Trying to run a spatialGE function for looking at spatial gene expression.
 
 
 ***

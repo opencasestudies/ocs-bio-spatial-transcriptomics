@@ -58,15 +58,17 @@ Specific data files that we will work with in this case study include files for 
 * mRNA counts
 
 :::{.emphasis_block}
-We will be fetching the Xenium generated data (spatial coordinates and mRNA counts) from GEO in the [Data Import](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#data-import) section of the case study. The project's GEO accession number for the Xenium data is `GSE307404`. Each sample has its own specific GEO accession number which we will use to fetch the data rather than fetching data for all 24 samples.
+We will be fetching the Xenium generated data (spatial coordinates and mRNA counts) from GEO in the [Data Import](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#data-import) section of the case study. The project's GEO accession number for all of the Xenium data is `GSE307404`. However, each sample has its own specific GEO accession number, which we will use to fetch the data for our reduced number of samples rather than fetching data for all 24 samples.
 :::
 
 <details><summary>Previewing available files</summary>
 
 We can preview the data files that are available from Xenium for this project using the `getGEO()` and `getGEOSuppFiles()` functions from the `GEOquery` package.
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 library(GEOquery)
+
+```{r}
 gse <- GEOquery::getGEO("GSE307404", GSEMatrix = TRUE)
 gse
 ```
@@ -99,7 +101,7 @@ The sample metadata file that we will be working with combines the metadata from
 
 We previously created a file for the Xenium samples which maps each sample's GEO Accession Number to the Brain Number ID (`geo_to_spatial_samples.csv`) and united this with the data from Supplementary Table 1 because we will need the GEO accession number in order to fetch the spatial coordaintes and mRNA counts for each sample. However, the sample metadata file provided in the supplementary table only includes the Brain Number ID (`Br####`). 
 
-The files for this project follow the naming pattern of {sample specific GEO accession number}_{sample Brain Number ID}-{file type specific pattern},                       
+The files for this project follow the naming pattern of `{sample specific GEO accession number}_{sample Brain Number ID}-{file type specific pattern}`,                       
 
 * Listed files from GEO accession number GSE307404 (all Xenium data from this project) with `list.files()` function for one of the file types.
 * Used `stringr::str_replace()` function to the specific pattern for that file type with an empty string (`""`), removing all but the GEO accession number and Brain Number ID (separated by an underscore) for each sample.
@@ -220,7 +222,7 @@ Alternative formats for mRNA counts that may be provided as [Xenium outputs (MEX
 </details>
 
 :::{.emphasis_block}
-This case study will use the `rhdf5` and `Matrix` packages to work with `cell_feature_matrix.h5` files for the mRNA counts data
+This case study will use the `rhdf5` and `Matrix` packages to work with `cell_feature_matrix.h5` files for the mRNA counts data.
 :::
 
 ### General note on variety of Xenium outputs
