@@ -2,8 +2,19 @@
 
 ***
 
-This case study explores working with spatially-resolved gene expression data, also known as Spatial Trancriptomics.
+This case study explores working with spatially-resolved gene expression data, also known as {{< glossary "Spatial Trancriptomics" >}}, to explore {{< glossary "Differential Gene Expression" display="differential gene expression" >}}.
 
+:::{.definition_box}
+::::{.definition_box_header}
+Differential Gene Expression
+::::
+::::{.inner_block}
+The difference in expression of a gene between samples or cases. Differential expression is typically thought of as a difference in abundance or amount of expression, but may also be a difference in what cell types a gene is expressed in or where a gene is expressed spatially within a tissue.
+::::
+:::
+
+Spatial Transcriptomic methods produce data that allow for gene expression to be investigated and described within a spatial context. 
+:::{.definition_box}
 ::::{.definition_box_header}
 Spatial Transcriptomics
 ::::
@@ -12,7 +23,8 @@ Spatial Transcriptomics refers to molecular methods used to measure gene express
 ::::
 :::
 
-Spatial Transcriptomics describes gene expression within a spatial context. It is a rapidly-evolving area of development that can be used for hypothesis generation to describe cell neighborhoods, cell-cell interactions, and to discover biomarkers and drug targets, etc. 
+In this way, researchers can explore where a gene is expressed within a tissue and how that may change over time, based on experimental conditions, or for different clincal contexts. Spatial transcriptomics is a rapidly-evolving area of development that can be used for {{< glossary "Hypothesis generation" display = "hypothesis generation" >}} for a variety of biological questions such as describing cell neighborhoods, cell-cell interactions, and discovering biomarkers or drug targets. 
+
 
 ```{r, echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Illustration showing the uses of spatial transcriptomics, underlining that it is largely used to generate hypotheses, desciribing cell neighborhoods and cell interactions as well as discovering biomarkers or niche interface processes. It can complement results from single cell RNA seq and be integrated with images for deeper understanding."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h51840eb841718f1d_6_7#slide=id.h51840eb841718f1d_6_7")
@@ -28,5 +40,9 @@ The two types of technology used to generate spatial transcriptomics data are ge
 ```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Visium and Xenium provide spatially resolved mRNA expression at different molecular and cellular scales. The molecular resolution of Visium, a sequencing-based technology is high because it gives a view of the whole transcriptome. The Molecular resolution of Xenium, an image-based technology, is low because it gives a view of a only a limited number of genes from a specified panel. On the other hand, the cellular resolution of Visium is lower than that of Xenium. Visium does not provide a single-cell resolution. Rather its spot-level resolution can have multiple cells represented. Xenium provides single-cell or even sub-cellular resolution."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_65#slide=id.h7553ddbe789f499c_0_65")
 ```
+
+@Kwon_etal_2026 is a study ... Mention Motivating reference for data as an example of using both kinds of technology to generate data....
+
+Tools for working with spatial transcriptomics data ....
 
 ***
