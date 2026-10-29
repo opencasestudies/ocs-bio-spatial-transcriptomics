@@ -2,7 +2,7 @@
 
 ***
 
-This case study explores working with spatially-resolved gene expression data, also known as {{< glossary "Spatial Trancriptomics" >}}, to explore {{< glossary "Differential Gene Expression" display="differential gene expression" >}}.
+This case study explores working with spatially-resolved gene expression data, also known as {{< glossary "Spatial Transcriptomics" >}}, to explore {{< glossary "Differential Gene Expression" display="differential gene expression" >}}.
 
 :::{.definition_box}
 ::::{.definition_box_header}
@@ -14,6 +14,7 @@ The difference in expression of a gene between samples or cases. Differential ex
 :::
 
 Spatial Transcriptomic methods produce data that allow for gene expression to be investigated and described within a spatial context. 
+
 :::{.definition_box}
 ::::{.definition_box_header}
 Spatial Transcriptomics
@@ -30,19 +31,34 @@ In this way, researchers can explore where a gene is expressed within a tissue a
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h51840eb841718f1d_6_7#slide=id.h51840eb841718f1d_6_7")
 ```
 
-The two types of technology used to generate spatial transcriptomics data are generally categorized as sequencing-based or image-based and lie across two inverse spectra. Sequencing-based technologies typically provide a whole transcriptome view (broad molecular resultion), but not at a single-cell or sub-cellular resolution -- instead at a Region of Interest (ROI) or "spot" resolution (where a "spot" is made up of tens to hundreds of cells.) In other words, sequencing-based technologies provide low precision / cellular resolution. Image-based technologies instead typically provide data for a panel-based subset or a limited selection of the transcriptome (in other narrow molecular resolution). However, image-based technologies provide data at a single-cell or even sub-cellular resolution (high precision cellular resolution). Due to this, researchers may first collect spatially-resolved gene expression data with a sequencing-based technology for initial hypothesis generation to identify a specific region of interest in a tissue or specific genes to probe where greater cellular resolution would be beneficial and then follow up with generating a higher cellular resolution spatially-resolved dataset using an image-based technology.
+The types of technology used to generate spatial transcriptomics data are generally categorized as {{< glossary "Sequence-based technologies" display = "sequencing-based" >}} or {{< glossary "Image-based technologies" display = "image-based" >}} and lie across two inverse spectra: Molecular {{< glossary Resolution >}} and Cellular Resolution. Sequencing-based technologies typically provide a whole {{< glossary Transcriptome display = "transcriptome" >}} view (broad molecular resolution), but not at a single-cell or sub-cellular resolution -- instead at a Region of Interest (ROI) or {{< glossary Spot display = '"spot"' >}} resolution (where a "spot" is made up of tens to hundreds of cells.) In other words, sequencing-based technologies provide low precision / cellular resolution. In contrast, image-based technologies typically provide data for a panel-based subset or a limited selection of the transcriptome (in other words, narrow molecular resolution). However, image-based technologies provide data at a single-cell or even sub-cellular resolution (high precision cellular resolution). Due to this, researchers may first collect spatially-resolved gene expression data with a sequencing-based technology for initial hypothesis generation to identify a specific region of interest in a tissue or specific genes to probe where greater cellular resolution would be beneficial, and then follow-up with generating a higher cellular resolution spatially-resolved dataset using an image-based technology. @Kwon_etal_2026 is a study posted to bioRxiv recently where the researchers did just this: first using a sequencing-based technology followed by an image-based technology as complementary spatial transcriptomic approaches to study the impacts of {{< glossary Schizophrenia display = "schizophrenia (SCZ)" >}} within the {{< glossary "laminar domains" >}}, microenvironments, and cell types of {{< glossary "Postmortem samples" display = "postmortem samples" >}} from the human {{< glossary Dorsolateral prefrontal cortext display="dorsolateral prefrontal cortex (dlPFC)" >}}. 
 
-| Technology category | Example        | Molecular Resolution | Cellular resolution  |
-|:--------------------|:--------------:|:--------------------:|:--------------------:|
-|Sequencing-based     | Visium, GeoMx, Slide-seq | Broad; whole transcriptome | Low; Near single-cell but typically spots with tens to hundreds of cells represented |
-|Image-based          | Xenium, CosMx, MERFISH | Limited; panel of specific genes | High; single- or sub-cellular resolution |
 
 ```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Visium and Xenium provide spatially resolved mRNA expression at different molecular and cellular scales. The molecular resolution of Visium, a sequencing-based technology is high because it gives a view of the whole transcriptome. The Molecular resolution of Xenium, an image-based technology, is low because it gives a view of a only a limited number of genes from a specified panel. On the other hand, the cellular resolution of Visium is lower than that of Xenium. Visium does not provide a single-cell resolution. Rather its spot-level resolution can have multiple cells represented. Xenium provides single-cell or even sub-cellular resolution."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_65#slide=id.h7553ddbe789f499c_0_65")
 ```
 
-@Kwon_etal_2026 is a study ... Mention Motivating reference for data as an example of using both kinds of technology to generate data....
+| Technology category | Example        | Molecular Resolution | Cellular resolution  |
+|:--------------------|:--------------:|:--------------------:|:--------------------:|
+|Sequencing-based     | {{< glossary Visium >}}, GeoMx, Slide-seq | Broad; whole transcriptome | Low; Near single-cell but typically spots with tens to hundreds of cells represented |
+|Image-based          | {{< glossary Xenium >}}, CosMx, MERFISH | Limited; panel of specific genes | High; single- or sub-cellular resolution |
 
-Tools for working with spatial transcriptomics data ....
+@Lim_Wang_Buzdin_Li_2025 provides a deeper discussion comparing the various technologies available to generate Spatial Transcriptomics datasets.
+
+There are several tools available to analyze spatial transcriptomics data. Some are command line tools while others are more user-friendly tools which point and click interfaces or GUIs. Some of these point and click tools require a license to use while others are free to use. Some of the command line tools are analysis suites while others perform specific tasks such as normalization or downstream analyses. One tool, `spatialGE` can be used as either a command line tool (providing functions for a full range of tasks) [@Ospina_Wilson_Soupir_Berglund_Smalley_Tsai_Fridley_2022] or as a point and click interface that is free to use [@Ospina_etal_2025]. 
+
+In this case study, we will use `spatialGE` to work with Xenium data from SCZ and {{< glossary Neurotypical display = "neurotypical (CTRL)" >}} postmortem dlPFC samples, specifically focusing on 
+
+* What data is produced by and available from a Xenium experiment
+* How to import the data 
+* How to inspect and work with a `spatialGE` object that stores the data
+* How to perform quality control and filter out low quality or irrelevant data
+* How to transform or normalize the data to account for technical artifacts
+* How to create {{< glossary "Quilt plot" display="Quilt plots" >}} to visualize spatial patterns of gene expression
+* How to annotate cells within the dataset, exploring cell type specific spatial patterns of gene expression
+
+Downstream analyses for more global and statistical summaries of spatial patterns will be introduced but not shown within this case study.
 
 ***
+
+

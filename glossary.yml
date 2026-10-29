@@ -24,6 +24,8 @@ Directories: |
   Folders in a file system.
 Distribution: |
   A mathematical description of the possible values of a random variable and how often each occurs.
+Dorsolateral prefrontal cortex: |
+  dlPFC. An area of the prefrontal cortex in the frontal lobe of the brain. Situated towards the top and side of the prefrontal cortex. Involved in executive functioning and cognitive control, contributing to working memory, divergent thinking, executive attention, and decision making. Found to be central to cognitive dysfunction in schizophrenia. 
 Doublet: |
   A cell segmentation boundary that contains signals or mRNA counts from two or more distinct cells rather than just one cell -- the result of an error in the image segmentation process.
 Droplet: |
@@ -34,6 +36,10 @@ Features: |
   Used to describe the rows in a gene count matrix. Since genes correspond to the rows, the term features is often used interchangeably with "genes".
 Filtering: |
   The process of removing low quality or irrelevant data from a biological dataset. Often what will be filtered is identified during quality control.
+Fresh frozen: |
+  FF. Fresh frozen samples are biological tissue samples. Typically a sample is acquired through either surgical resection or biopsy and then rapidly frozen (without prior chemical fixation) using liquid nitrogen or dry ice to arrest cellular processes, and stored at ultra low temperatures until sectioning and further sample preparation steps can be performed. This method preserves cellular architecture and the quality nucleic acids for later analysis though overall morphological details may not be preserved. Additionally, any water inside the tissue will turn into ice crystals, distorting structure
+Formalin-fixed paraffin-embedded: |
+  FFPE. A biological sample is acquired through either surgial resection or biopsy and fixed with formalin to arrest cellular processes, crosslink proteins, and "fix" tissues. Then dehydration, clearing, and paraffin infiltration remove water and provide structural support to the sample before embedding the tissue in a paraffin block that can be sectioned or archived for long-term storage without ultra cold freezers. This method preserves tissue structure and morphological details though nucleic acids are often fragmented in the fixation process. 
 GEO: |
   Gene Expression Omnibus. A database storing high throughput gene expression datasets deposited by researchers.
 GUI: |
@@ -48,6 +54,8 @@ Image-based technologies: |
   Methods that are used to directly visualize and map RNA transcripts using labeled fluorescent probes that bind directly to the transcripts within intact tissue sections. Automated cycles of high-resolution microscopy rather than sequencing methods are used to detect the hybridization of probes to the transcripts. These methods typically offer high cellular resolution but low molecular resolution only being able to be utilized for a limited panel of genes for each sample.
 Index: |
   To use a location/coordinate, name, or combination of coordinates or names to extract a specific value from a vector, matrix, or data frame.
+laminar domains: |
+  Filler.
 lapply: |
   A function from base R that allows the user to loop through an input, performing a specified function on each input, returning the results in a list.
 libname: |
@@ -107,7 +115,7 @@ RIN: |
 R-squared: |
   Statistical measure relating to the proportion of variability within the dependent varaible that can be explained by the independent variable and the relationship between the variables. Often used as a measure of effect size. Also known as the "coefficient of determination".
 Schizophrenia: |
-  Mental illness associated with brain abnormalities that impacts a person's thoughts, feelings, and behavior.
+  Chronic neuropsychiatric disorder characterized by a spectrum of symptoms impacting a person's thoughts, emotions, and behavior. Symptoms are generally classified as positive, negative, or cognitive.
 Segmentation: |
   Process of inferring individual cell boundaries from tissue images, nuclear or other cell surface and interior marker staining, and transcript coordinates. Some algorithms if only provided nuclear staining first segment nuclear boundaries and expand them to approximate the cell boundaries. Others use the combination of stains to first find cell boundaries. After inferring cell boundaries, observed transcripts can be assigned to cells.
 Sequence-based technologies: |
@@ -128,6 +136,8 @@ STlist: |
   An S4 object that the spatialGE program uses to store spatially-resolved expression data for one or multiple samples. Utilizes slots for various aspects of the data and named lists within each slot to store data specific to each sample.
 Subcellular: |
   Represents part of a cell rather than a whole, single cell.
+Transcriptome: |
+  Complete collection of transcripts produced by the genome in a specific cell, tissue, or organism.
 Vertex: |
   Where the endpoints of two edges meet in a polygon.
 Violin plot: |

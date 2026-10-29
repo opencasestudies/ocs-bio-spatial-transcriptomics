@@ -3,14 +3,9 @@
 ## **Synopsis**
 ***
 
-<!--
-briefly recap everything that was covered in the case study from the motivation to the data analysis.
-Highlight conclusions made as well as limitations or future work to be done.
--->
-
-<!--
-Connect back to the main questions and what answers the analysis might have
--->
+```{r echo = FALSE, warning = FALSE, out.width = "100%", fig.align = 'center', fig.alt = "Diagram showing the process of working with Xenium data and the decision points along the way. The process begins by preparing samples for the Xenium Analyzer. Will tissues be fresh frozen (FF) or forma, "}
+ottrpal::include_slide("https://docs.google.com/presentation/d/19UCuIN3SfWj_gwQ9B9-OpJTin2dc9TriHRyDP8_SkEw/edit?slide=id.h4573fa7d1816554a_1_32#slide=id.h4573fa7d1816554a_1_32")
+```
 
 ***
 
@@ -18,7 +13,7 @@ Connect back to the main questions and what answers the analysis might have
 ***
 
 ```{r echo = FALSE, warning = FALSE, out.width=800, fig.alt = "Gene expression may differ in three main contexts. One the overall abundance in a sample. Two which cell types and how much within a cell type. Three the spatial location of expression within a tissue. Typically these may be visualized using the example plots shown such as a violin plot and quilt plot. Spatial Transcriptomics enables researchers to study the differences in gene expression for each of these contexts which is important when comparing control and disease cases. The Xenium platform is particularly useful for its high cellular resolution providing single cell or subcellular data. However it has lower molecular resolution and can only be used for a limited set of genes at a time specified in a panel."}
-ottrpal::include_slide("https://docs.google.com/presentation/d/1eZ19Zyo6U5AwmXdcJtu9_p0Yj-9hDm9MtMOf9ontIbU/edit?slide=id.p#slide=id.p")
+ottrpal::include_slide("https://docs.google.com/presentation/d/1eZ19Zyo6U5AwmXdcJtu9_p0Yj-9hDm9MtMOf9ontIbU/edit?slide=id.h44e67ee3028985f7_0_29#slide=id.h44e67ee3028985f7_0_29")
 ```
 
 ***
