@@ -61,9 +61,9 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Inject specific notes using the corresponding citation keys by calling the function defined above
-  addNoteBefore('Muller_Algavi_Borenstein_2022', 'Microbiome and metabolome data:');
-  addNoteBefore('Beaulieu-Jones_Greene_2017', 'Reproducibility and transparency:');
-  addNoteBefore('Tommaso_Palumbo_Chatzou_Prieto_Heuer_Notredame_2015', 'Containers:');
+  addNoteBefore('Kwon_etal_2026', 'Xenium data studying SCZ in the dlPFC:');
+  addNoteBefore('Lim_Wang_Buzdin_Li_2025', 'Spatial Transcriptomics Technologies:');
+  addNoteBefore('Ospina_Wilson_Soupir_Berglund_Smalley_Tsai_Fridley_2022', 'spatialGE package:');
   // Add or remove citation notes here as needed for each reference in resources/motivational_refs.bib following the pattern addNoteBefore('{Reference ID from .bib file}', '{Topic description}:');
 
 });
