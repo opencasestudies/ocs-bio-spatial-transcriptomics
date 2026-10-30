@@ -179,6 +179,7 @@ We can only perform one transformation of the data since the transformed counts 
 
 ```{r}
 scz_spatial_tr <- rlang::duplicate(scz_spatial)
+scz_spatial_sct <- rlang::duplicate(scz_spatial)
 ```
 
 ### Log Transformation
@@ -189,7 +190,13 @@ Explain log transformation.
 scz_spatial <- spatialGE::transform_data(scz_spatial, method='log', cores=2)
 ```
 
-### Area Normalization
+### SCTransform
+
+```{r}
+scz_spatial_sct <- spatialGE::tranform_data(scz_spatial_sct, method = 'sct', cores = 2)
+```
+
+### Cell Area Normalization
 
 Explain area normalization
 
@@ -224,7 +231,9 @@ patchwork::wrap_plots(purrr::map2(scz_spatial@counts, names(scz_spatial@counts),
 
 wrap_plots(purrr::map2(scz_spatial@tr_counts, names(scz_spatial@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "Log transformed counts")
 
-wrap_plots(map2(scz_spatial_tr@tr_counts, names(scz_spatial_tr@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "Cell area transformation")
+wrap_plots(map2(scz_spatial_sct@tr_counts, names(scz_spatial_sct@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "SCTransform")
+
+wrap_plots(map2(scz_spatial_tr@tr_counts, names(scz_spatial_tr@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "Cell area normalization")
 
 ```
 
@@ -235,7 +244,9 @@ raw_plots <- distribution_plots(scz_spatial, genes = c("CX3CR1", "FKBP5", "PVALB
 
 transformed_log_plots <- distribution_plots(scz_spatial, genes = c("CX3CR1", "FKBP5", "PVALB", "MBP"), data_type = "tr")
 
-transformed_sct_plots <- distribution_plots(scz_spatial_tr, genes = c("CX3CR1", "FKBP5", "PVALB", "MBP"), data_type = "tr")
+transformed_sct_plots <- distribution_plots(scz_spatial_sct, genes = c("CX3CR1", "FKBP5", "PVALB", "MBP"), data_type = "tr")
+
+transformed_tr_plots <- distribution_plots(scz_spatial_tr, genes = c("CX3CR1", "FKBP5", "PVALB", "MBP"), data_type = "tr")
 ```
 
 :::{.panel-tabset}
@@ -245,9 +256,10 @@ transformed_sct_plots <- distribution_plots(scz_spatial_tr, genes = c("CX3CR1", 
 ```{r}
 raw_plots$CX3CR1 + ggtitle("Raw data") + 
     transformed_log_plots$CX3CR1 + ggtitle("Log-transformed data") +
-    transformed_sct_plots$CX3CR1 + ggtitle("Cell area normalization") +
+    transformed_sct_plots$CX3CR1 + ggtitle("CSCTransform") +
+    transformed_tr_plots$CX3CR1 + ggtitle("Cell area normalization") +
     patchwork::plot_annotation(title = "CX3CR1") +
-    patchwork::plot_layout(guides = "collect", nrow=3, heights = c(2,2,2))
+    patchwork::plot_layout(guides = "collect", nrow=3, heights = c(4,4,4,4))
 ```
 
 #### FKBP5
@@ -255,9 +267,10 @@ raw_plots$CX3CR1 + ggtitle("Raw data") +
 ```{r}
 raw_plots$FKBP5 + ggtitle("Raw data") + 
     transformed_log_plots$FKBP5 + ggtitle("Log-transformed data") +
-    transformed_sct_plots$FKBP5 + ggtitle("Cell area normalization") +
+    transformed_sct_plots$FKBP5 + ggtitle("CSCTransform") +
+    transformed_tr_plots$FKBP5 + ggtitle("Cell area normalization") +
     plot_annotation(title = "FKBP5") +
-    plot_layout(guides = "collect", nrow=3, heights = c(2,2,2))
+    plot_layout(guides = "collect", nrow=3, heights = c(4,4,4,4))
 ```
 
 #### PVALB
@@ -265,9 +278,10 @@ raw_plots$FKBP5 + ggtitle("Raw data") +
 ```{r}
 raw_plots$PVALB + ggtitle("Raw data") +
     transformed_log_plots$PVALB + ggtitle("Log-transformed data") +
-    transformed_sct_plots$PVALB + ggtitle("Cell area normalization") +
+    transformed_sct_plots$PVALB + ggtitle("CSCTransform") +
+    transformed_tr_plots$PVALB + ggtitle("Cell area normalization") +
     plot_annotation(title = "PVALB") +
-    plot_layout(guides = "collect", nrow=3, heights = c(2,2,2))
+    plot_layout(guides = "collect", nrow=3, heights = c(4,4,4,4))
 ```
 
 #### MBP
@@ -275,9 +289,10 @@ raw_plots$PVALB + ggtitle("Raw data") +
 ```{r}
 raw_plots$MBP + ggtitle("Raw data") + 
     transformed_log_plots$MBP + ggtitle("Log-transformed data") +
-    transformed_sct_plots$MBP + ggtitle("Cell area normalization") +
+    transformed_sct_plots$MBP + ggtitle("SCTransform") +
+    transformed_tr_plots$MBP + ggtitle("Cell area normalization") +
     plot_annotation(title = "MBP") +
-    plot_layout(guides = "collect", nrow=3, heights = c(2,2,2))
+    plot_layout(guides = "collect", nrow=3, heights = c(4,4,4,4))
 ```
 
 :::
@@ -285,7 +300,7 @@ raw_plots$MBP + ggtitle("Raw data") +
 Now we want to clear up some R memory
 
 ```{r}
-rm(raw_plots, transformed_log_plots, transformed_sct_plots)
+rm(raw_plots, transformed_log_plots, transformed_sct_plots, transformed_tr_plots)
 gc()
 ```
 
