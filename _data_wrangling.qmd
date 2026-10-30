@@ -256,10 +256,10 @@ transformed_tr_plots <- distribution_plots(scz_spatial_tr, genes = c("CX3CR1", "
 ```{r}
 raw_plots$CX3CR1 + ggtitle("Raw data") + 
     transformed_log_plots$CX3CR1 + ggtitle("Log-transformed data") +
-    transformed_sct_plots$CX3CR1 + ggtitle("CSCTransform") +
+    transformed_sct_plots$CX3CR1 + ggtitle("SCTransform") +
     transformed_tr_plots$CX3CR1 + ggtitle("Cell area normalization") +
     patchwork::plot_annotation(title = "CX3CR1") +
-    patchwork::plot_layout(guides = "collect", nrow=3, heights = c(4,4,4,4))
+    patchwork::plot_layout(guides = "collect", nrow=2, heights = c(5,5)) & theme(legend.position = "none")
 ```
 
 #### FKBP5
@@ -267,10 +267,10 @@ raw_plots$CX3CR1 + ggtitle("Raw data") +
 ```{r}
 raw_plots$FKBP5 + ggtitle("Raw data") + 
     transformed_log_plots$FKBP5 + ggtitle("Log-transformed data") +
-    transformed_sct_plots$FKBP5 + ggtitle("CSCTransform") +
+    transformed_sct_plots$FKBP5 + ggtitle("SCTransform") +
     transformed_tr_plots$FKBP5 + ggtitle("Cell area normalization") +
     plot_annotation(title = "FKBP5") +
-    plot_layout(guides = "collect", nrow=3, heights = c(4,4,4,4))
+    plot_layout(guides = "collect", nrow=2, heights = c(5,5)) & theme(legend.position = "none")
 ```
 
 #### PVALB
@@ -278,10 +278,10 @@ raw_plots$FKBP5 + ggtitle("Raw data") +
 ```{r}
 raw_plots$PVALB + ggtitle("Raw data") +
     transformed_log_plots$PVALB + ggtitle("Log-transformed data") +
-    transformed_sct_plots$PVALB + ggtitle("CSCTransform") +
+    transformed_sct_plots$PVALB + ggtitle("SCTransform") +
     transformed_tr_plots$PVALB + ggtitle("Cell area normalization") +
     plot_annotation(title = "PVALB") +
-    plot_layout(guides = "collect", nrow=3, heights = c(4,4,4,4))
+    plot_layout(guides = "collect", nrow=2, heights = c(5,5)) & theme(legend.position = "none")
 ```
 
 #### MBP
@@ -292,7 +292,7 @@ raw_plots$MBP + ggtitle("Raw data") +
     transformed_sct_plots$MBP + ggtitle("SCTransform") +
     transformed_tr_plots$MBP + ggtitle("Cell area normalization") +
     plot_annotation(title = "MBP") +
-    plot_layout(guides = "collect", nrow=3, heights = c(4,4,4,4))
+    plot_layout(guides = "collect", nrow=2, heights = c(5,5)) & theme(legend.position = "none")
 ```
 
 :::
