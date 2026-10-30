@@ -86,6 +86,12 @@ for (sample_name in names(scz_spatial_tr@spatial_meta)){
                                                   select(libname, annot)
                                                 )
 
+  scz_spatial_sct@spatial_meta[[sample_name]] <- left_join(scz_spatial_sct@spatial_meta[[sample_name]], 
+                                                cluster_assignments %>% 
+                                                  filter(SampleName == sample_name) %>% 
+                                                  select(libname, annot)
+                                                )
+
   scz_spatial_tr@spatial_meta[[sample_name]] <- left_join(scz_spatial_tr@spatial_meta[[sample_name]], 
                                                 cluster_assignments %>% 
                                                   filter(SampleName == sample_name) %>% 
@@ -194,7 +200,7 @@ use_combined_data(scz_spatial, use = "violin", gene_name = "MBP")
 ```
 
 ```{r}
-use_combined_data(scz_spatial, use = "summary", gene_name = "PVALB")
+use_combined_data(scz_spatial, use = "summary", gene_name = "MBP")
 ```
 
 ##### PVALB
@@ -211,6 +217,38 @@ Summary tables of normalized expression by cell type and sample.
 
 ```{r}
 use_combined_data(scz_spatial, use = "summary", gene_name = "PVALB")
+```
+
+:::
+
+#### SCTransform
+
+:::{.panel-tabset}
+
+##### MBP
+
+```{r}
+use_combined_data(scz_spatial_sct, use = "violin", gene_name = "MBP")
+```
+
+```{r}
+use_combined_data(scz_spatial_sct, use = "summary", gene_name = "MBP")
+```
+
+##### PVALB
+
+Violin plots of normalized expression by cell type and sample.
+
+```{r}
+
+use_combined_data(scz_spatial_sct, use = "violin", gene_name = "PVALB")
+
+```
+
+Summary tables of normalized expression by cell type and sample.
+
+```{r}
+use_combined_data(scz_spatial_sct, use = "summary", gene_name = "PVALB")
 ```
 
 :::

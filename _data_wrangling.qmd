@@ -193,7 +193,7 @@ scz_spatial <- spatialGE::transform_data(scz_spatial, method='log', cores=2)
 ### SCTransform
 
 ```{r}
-scz_spatial_sct <- spatialGE::tranform_data(scz_spatial_sct, method = 'sct', cores = 2)
+scz_spatial_sct <- transform_data(scz_spatial_sct, method = 'sct', cores = 2)
 ```
 
 ### Cell Area Normalization
