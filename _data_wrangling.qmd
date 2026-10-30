@@ -247,7 +247,7 @@ raw_plots$CX3CR1 + ggtitle("Raw data") +
     transformed_log_plots$CX3CR1 + ggtitle("Log-transformed data") +
     transformed_sct_plots$CX3CR1 + ggtitle("Cell area normalization") +
     patchwork::plot_annotation(title = "CX3CR1") +
-    patchwork::plot_layout(guides = "collect", nrow=3)
+    patchwork::plot_layout(guides = "collect", nrow=3, heights = c(2,2,2))
 ```
 
 #### FKBP5
@@ -257,7 +257,7 @@ raw_plots$FKBP5 + ggtitle("Raw data") +
     transformed_log_plots$FKBP5 + ggtitle("Log-transformed data") +
     transformed_sct_plots$FKBP5 + ggtitle("Cell area normalization") +
     plot_annotation(title = "FKBP5") +
-    plot_layout(guides = "collect", nrow=3)
+    plot_layout(guides = "collect", nrow=3, heights = c(2,2,2))
 ```
 
 #### PVALB
@@ -267,7 +267,7 @@ raw_plots$PVALB + ggtitle("Raw data") +
     transformed_log_plots$PVALB + ggtitle("Log-transformed data") +
     transformed_sct_plots$PVALB + ggtitle("Cell area normalization") +
     plot_annotation(title = "PVALB") +
-    plot_layout(guides = "collect", nrow=3)
+    plot_layout(guides = "collect", nrow=3, heights = c(2,2,2))
 ```
 
 #### MBP
@@ -277,7 +277,7 @@ raw_plots$MBP + ggtitle("Raw data") +
     transformed_log_plots$MBP + ggtitle("Log-transformed data") +
     transformed_sct_plots$MBP + ggtitle("Cell area normalization") +
     plot_annotation(title = "MBP") +
-    plot_layout(guides = "collect", nrow=3)
+    plot_layout(guides = "collect", nrow=3, heights = c(2,2,2))
 ```
 
 :::

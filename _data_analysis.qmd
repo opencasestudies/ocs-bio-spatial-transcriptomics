@@ -215,7 +215,7 @@ use_combined_data(scz_spatial, use = "summary", gene_name = "PVALB")
 
 :::
 
-#### SCTransform
+#### Cell area normalization
 
 :::{.panel-tabset}
 
