@@ -1,25 +1,68 @@
-<!--
-Describe the biological motivation for this case study.
-Include relevant explanatory images and references throughout.
-See this previous case study as an example: https://www.opencasestudies.org/ocs-bp-co2-emissions/#Motivation
-Images or videos may be helpful so this includes an example of including an image.
--->
-
 # **Motivation**
+
 ***
-This case study explores {}...
+
+This case study explores working with spatially-resolved gene expression data, also known as {{< glossary "Spatial Transcriptomics" >}}, to explore {{< glossary "Differential Gene Expression" display="differential gene expression" >}}.
 
 :::{.definition_box}
 ::::{.definition_box_header}
-Definition
+Differential Gene Expression
 ::::
 ::::{.inner_block}
-Provide the definition here
+The difference in expression of a gene between samples or cases. Differential expression is typically thought of as a difference in abundance or amount of expression, but may also be a difference in what cell types a gene is expressed in or where a gene is expressed spatially within a tissue.
 ::::
 :::
 
-Images are very helpful within this section....
+Spatial Transcriptomic methods produce data that allow for gene expression to be investigated and described within a spatial context. 
 
-![](img/motivation_map_of_monitors.jpg){fig-alt="Map showing location of air pollution monitors across the US." width=800 .lightbox}
+:::{.definition_box}
+::::{.definition_box_header}
+Spatial Transcriptomics
+::::
+::::{.inner_block}
+Spatial Transcriptomics refers to molecular methods used to measure gene expression at or near single-cell resolution, reporting where observed transcripts are physically located within the source tissue, preserving spatial context.
+::::
+:::
+
+In this way, researchers can explore where a gene is expressed within a tissue and how that may change over time, based on experimental conditions, or for different clincal contexts. Spatial transcriptomics is a rapidly-evolving area of development that can be used for {{< glossary "Hypothesis generation" display = "hypothesis generation" >}} for a variety of biological questions such as describing cell neighborhoods, cell-cell interactions, and discovering biomarkers or drug targets. 
+
+
+```{r, echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Illustration showing the uses of spatial transcriptomics, underlining that it is largely used to generate hypotheses, desciribing cell neighborhoods and cell interactions as well as discovering biomarkers or niche interface processes. It can complement results from single cell RNA seq and be integrated with images for deeper understanding."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h51840eb841718f1d_6_7#slide=id.h51840eb841718f1d_6_7")
+```
+
+The types of technology used to generate spatial transcriptomics data are generally categorized as {{< glossary "Sequence-based technologies" display = "sequencing-based" >}} or {{< glossary "Image-based technologies" display = "image-based" >}} and lie across two inverse spectra: Molecular {{< glossary Resolution >}} and Cellular Resolution. Sequencing-based technologies typically provide a whole {{< glossary Transcriptome display = "transcriptome" >}} view (broad molecular resolution), but not at a single-cell or sub-cellular resolution -- instead at a Region of Interest (ROI) or {{< glossary Spot display = '"spot"' >}} resolution (where a "spot" is made up of tens to hundreds of cells.) In other words, sequencing-based technologies provide low precision / cellular resolution. In contrast, image-based technologies typically provide data for a panel-based subset or a limited selection of the transcriptome (in other words, narrow molecular resolution). However, image-based technologies provide data at a single-cell or even sub-cellular resolution (high precision cellular resolution). Due to this, researchers may first collect spatially-resolved gene expression data with a sequencing-based technology for initial hypothesis generation to identify a specific region of interest in a tissue or specific genes to probe where greater cellular resolution would be beneficial, and then follow-up with generating a higher cellular resolution spatially-resolved dataset using an image-based technology. @Kwon_etal_2026 is a study posted to bioRxiv recently where the researchers did just this: first using a sequencing-based technology followed by an image-based technology as complementary spatial transcriptomic approaches to study the impacts of {{< glossary Schizophrenia display = "schizophrenia (SCZ)" >}} within the {{< glossary "laminar domains" >}}, microenvironments, and cell types of {{< glossary "Postmortem samples" display = "postmortem samples" >}} from the human {{< glossary "Dorsolateral prefrontal cortext" display="dorsolateral prefrontal cortex (dlPFC)" >}}. 
+
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Visium and Xenium provide spatially resolved mRNA expression at different molecular and cellular scales. The molecular resolution of Visium, a sequencing-based technology is high because it gives a view of the whole transcriptome. The Molecular resolution of Xenium, an image-based technology, is low because it gives a view of a only a limited number of genes from a specified panel. On the other hand, the cellular resolution of Visium is lower than that of Xenium. Visium does not provide a single-cell resolution. Rather its spot-level resolution can have multiple cells represented. Xenium provides single-cell or even sub-cellular resolution."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_65#slide=id.h7553ddbe789f499c_0_65")
+```
+
+| Technology category | Example        | Molecular Resolution | Cellular resolution  |
+|:--------------------|:--------------:|:--------------------:|:--------------------:|
+|Sequencing-based     | {{< glossary Visium >}}, GeoMx, Slide-seq | Broad; whole transcriptome | Low; Near single-cell but typically spots with tens to hundreds of cells represented |
+|Image-based          | {{< glossary "Xenium" >}}, CosMx, MERFISH | Limited; panel of specific genes | High; single- or sub-cellular resolution |
+
+@Lim_Wang_Buzdin_Li_2025 provides a deeper discussion comparing the various technologies available to generate Spatial Transcriptomics datasets.
+
+There are several tools available to analyze spatial transcriptomics data. Some are command line tools or packages you can load while working with Python or R. Others are more user-friendly tools which point and click interfaces or GUIs. Some of these point and click tools require a license to use while others are free to use. Some of the command line tools / packages are analysis suites while others perform specific tasks such as normalization or downstream analyses. [The ITN course "Choosing Genomics Tools"](https://hutchdatascience.org/Choosing_Genomics_Tools/spatial-transcriptomics-1.html) provides a thorough discussion of the available tools. One tool, `spatialGE` can be used as either an R package (providing functions for a full range of tasks) [@Ospina_Wilson_Soupir_Berglund_Smalley_Tsai_Fridley_2022] or as a point and click interface that is free to use [@Ospina_etal_2025]. In this way, `spatialGE` is flexible, meeting users where they are at whether they are comfortable programming or not. Though this case study will focus on working with Xenium data for data import, quality control, normalization, and visualization tasks, `spatialGE` can be used to work with ST data from a variety of technologies and for downstream applications. 
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Diagram showing that tools to work with spatial transcriptomics data are either command line tools and software packages or user friendly point and click tools. Software packages may provide full analysis suites or just task specific functions. They may work with R or Python. The user friendly point and click tools are either licensed requiring users to pay to use them or free to use. spatial GE is both an R package and a free to use point and click tool providing users with an analysis suite of functions and meeting users where they are whether they are comfortable programming or not."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h5d1240d022ec01ab_0_104#slide=id.h5d1240d022ec01ab_0_104")
+```
+
+In this case study, we will use `spatialGE` to work with Xenium data from SCZ and {{< glossary Neurotypical display = "neurotypical (CTRL)" >}} postmortem dlPFC samples, specifically focusing on: 
+
+* What data is produced by and available from a Xenium experiment
+* How to import the data 
+* How to inspect and work with a `spatialGE` object that stores the data
+* How to perform quality control and filter out low quality or irrelevant data
+* How to transform or normalize the data to account for technical artifacts
+* How to create {{< glossary "Quilt plot" display="Quilt plots" >}} to visualize spatial patterns of gene expression
+* How to annotate cells within the dataset, exploring cell type specific spatial patterns of gene expression
+
+Downstream analyses for more global and statistical summaries of spatial patterns will be introduced but not shown in-depth within this case study.
 
 ***
+
+

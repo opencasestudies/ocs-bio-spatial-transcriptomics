@@ -4,10 +4,53 @@ Videos or images may be helpful so this includes an example of embedding a video
 -->
 
 # **Context**
+
 ***
 
-{FILL IN}
+## What is schizophrenia?
 
-{{< video https://www.youtube.com/watch?v=j-I0Zgicjsk >}}
+***
+
+## What is the dorsolateral prefrontal cortex?
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Diagram showing location of the dorsolateral prefrontal cortex, how 2D samples relate to the 3D location, and its laminar domains."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h3bff079e06902c2a_2_0#slide=id.h3bff079e06902c2a_2_0")
+```
+
+***
+
+## Why collect samples from the dlPFC?
+
+***
+
+## Why is spatially-resolved gene expression data necessary?
+
+***
+
+### Differential expression: abundance
+
+Explain Volcano plots
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Example volcano plot."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h5d1240d022ec01ab_0_14#slide=id.h5d1240d022ec01ab_0_14")
+```
+
+### Differential expression: cell type
+
+Explain Violin plots
+
+### Differential expression: spatial distribution
+
+Explain Quilt plots
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Example showing cell type with a quilt plot"}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_43#slide=id.h7553ddbe789f499c_0_43")
+```
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Example quilt plot showing expression"}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_26#slide=id.h7553ddbe789f499c_0_26")
+```
+
+## What analysis steps need to happen after data collection?
 
 ***

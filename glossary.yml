@@ -1,124 +1,150 @@
-Postmortem samples: |
-  Samples collected after death.
+Barcodes: |
+  Cell identifiers. Typically IDs of random letters and numbers assigned to cells in single-cell or spatial experiments.
+Centroid: |
+  The point corresponding to the geometric center of a shape. Has an x- and y- coordinate associated with it. Can be found if you know the vertices of a polygon.
+Clustering: |
+  Grouping similar data points together into distinct sets based on shared qualities or data patterns. Specifically, the process of organizing unlabeled data points into groups such that data points in the same group are more similar to each other than to data points in other groups. Some way to compute distance or similarity is required for clustering methods.
+Coefficient: |
+  Represents proportional relationship between variables. Within regression, quantifies how much the dependent variable changes when the independent variable changes by one unit.
+Cohort: |
+  Research participants within the same study.
+Color palette: |
+  Specific combination of colors used together within a visualization to represent data. May be a set of discrete colors from different color families or instead a range of different shades within a color family.
+Compressed: |
+  A way to store data so that it requires less space. Due to the way that it is stored, it's less readable and often needs to be decompressed in order to visually inspect it or work with it.
+Coordinates: |
+  A set of two numbers (x- and y-) used to represent a specific location on the two-dimensional Cartesian coordinate plane, specifically the x-axis communicates how far to move horizontally while the y-value communciates how far to move vertically from the origin of the plane (0,0). This can be visualized by drawing a vertical line from the x-coordinate on x-axis and a horizontal line from the y-coordinate on the y-axis and seeing where they intersect.
+Counts: |
+  The quantitative measurement of RNA molecules detected for specific genes within a spatial location (e.g., spot or cell). May be detected by sequencing or fluorescent imaging within Spatial Transcriptomics experiments. Often represented in a matrix where rows represent counts for a specific gene and columns represent counts for a specific cell.
+Deconvolution: |
+   A computational method used to estimate the types and proportions of individual cells present within a capture location that has a mixture of cells rather than representing a single-cell. Necessary for spatial technologies like Visium with their "spots", but generally can be used for any technology where there a mixture of cells is represented within the capture area. 
+Differential Gene Expression: |
+  The difference in expression of a gene between samples or cases. Differential expression is typically thought of as a difference in abundance or amount of expression but may also be a difference in what cell types a gene is expressed in or where a gene is expressed spatially within a tissue.
+Directories: |
+  Folders in a file system.
+Distribution: |
+  A mathematical description of the possible values of a random variable and how often each occurs.
+Dorsolateral prefrontal cortex: |
+  dlPFC. An area of the prefrontal cortex in the frontal lobe of the brain. Situated towards the top and side of the prefrontal cortex. Involved in executive functioning and cognitive control, contributing to working memory, divergent thinking, executive attention, and decision making. Found to be central to cognitive dysfunction in schizophrenia. 
+Doublet: |
+  A cell segmentation boundary that contains signals or mRNA counts from two or more distinct cells rather than just one cell -- the result of an error in the image segmentation process.
+Droplet: |
+  In single-cell sequencing, droplets are used to physically separate cells prior to sequencing. 
+Enrichment: |
+  Overrepresentation of something (e.g., a gene or set of genes) compared to expectation, other sets, or a background set.
+Features: |
+  Used to describe the rows in a gene count matrix. Since genes correspond to the rows, the term features is often used interchangeably with "genes".
+Filtering: |
+  The process of removing low quality or irrelevant data from a biological dataset. Often what will be filtered is identified during quality control.
+Fresh frozen: |
+  FF. Fresh frozen samples are biological tissue samples. Typically a sample is acquired through either surgical resection or biopsy and then rapidly frozen (without prior chemical fixation) using liquid nitrogen or dry ice to arrest cellular processes, and stored at ultra low temperatures until sectioning and further sample preparation steps can be performed. This method preserves cellular architecture and the quality nucleic acids for later analysis though overall morphological details may not be preserved. Additionally, any water inside the tissue will turn into ice crystals, distorting structure
+Formalin-fixed paraffin-embedded: |
+  FFPE. A biological sample is acquired through either surgial resection or biopsy and fixed with formalin to arrest cellular processes, crosslink proteins, and "fix" tissues. Then dehydration, clearing, and paraffin infiltration remove water and provide structural support to the sample before embedding the tissue in a paraffin block that can be sectioned or archived for long-term storage without ultra cold freezers. This method preserves tissue structure and morphological details though nucleic acids are often fragmented in the fixation process. 
+GEO: |
+  Gene Expression Omnibus. A database storing high throughput gene expression datasets deposited by researchers.
+GUI: |
+  Graphical User Interface. May be a web interface or a local application.
+Guide: |
+  Another term for a legend in a plot.
+Histology: |
+  The microscopic structure of a biological tissue, often visualized with a microscope and tissue staining to enhance contrast of structure. 
+Hypothesis generation: |
+  The process of formulating new ideas or testable answers for a research question by exploring data and other related knowledge or results within the field.
+Image-based technologies: |
+  Methods that are used to directly visualize and map RNA transcripts using labeled fluorescent probes that bind directly to the transcripts within intact tissue sections. Automated cycles of high-resolution microscopy rather than sequencing methods are used to detect the hybridization of probes to the transcripts. These methods typically offer high cellular resolution but low molecular resolution only being able to be utilized for a limited panel of genes for each sample.
+Index: |
+  To use a location/coordinate, name, or combination of coordinates or names to extract a specific value from a vector, matrix, or data frame.
+laminar domains: |
+  Functional and structural anatomical subdivisions or layers which are distinct, spanning the brain tissue.
+lapply: |
+  A function from base R that allows the user to loop through an input, performing a specified function on each input, returning the results in a list.
+libname: |
+  IDs assigned to "libraries". Used interchangeably with "barcodes" by spatialGE. 
+log transformation: |
+  A data transformation typically used for raw counts data because it is heavily right-skewed due to data sparsity. A pseudocount of one is added to raw values and then a logarithm function is applied, resulting in a more bell-shaped normal distribution by pulling far away data closer to the rest of the data.
+Loop: |
+  Automating a process by iterating over a set of inputs and executing the same code for each item in set (or until a stop condition is met).
+Matrix: |
+  A two-dimensional or rectangular structure with horizontal rows and vertical columns that can be used to store related data (like cell-specific gene counts) in entries (where each row and column intersects).
 Metadata: |
   Descriptive information describing other data. Descriptions may include how or when that data was generated, source organisms, associated patient IDs, or demographic information.
-Visium: |
-  Filler. 
-Xenium: |
-  Filler.
-Sequence-based technologies: |
-  Filler.
-Droplet: |
-  Filler.
-Image-based technologies: |
-  Filler.
-Spot: |
-  Filler.
-Panel: |
-  Filler.
-Resolution: |
-  Filler.
-Subcellular: |
-  Filler.
-Multicellular: |
-  Filler.
-Schizophrenia: |
-  Filler.
-Neurotypical: |
-  Filler.
-RIN: |
-  RNA Integrity Number.
-PMI: |
-  Postmortem Interval.
-Spatial Transcriptomics: |
-  Gene expression and the location of the gene within a tissue. Spatially-informed gene expression data.
-GEO: |
-  Gene Expression Omnibus.
-Coordinates: |
-  Filler.
-Barcodes: |
-  Filler.
-Features: |
-  Filler.
-Index: |
-  Filler.
-Directories: |
-  Filler.
-Counts: |
-  Filler.
+Mitochondrial reads: |
+  Reads from a sequencing experiment that map to the mitochondrial genome of cells rather than the nuclear genome.
+Morphology: |
+  The physical appearance within a biological sample like cells within a tissue. Histological images contain morphological information. Morphology images can represent the same tissue as a histological image, but they don't use the stains that histology does to visualize the tissue.
 mRNA: |
-  messenger RNA.
-Random seed: |
-  Filler.
-Cohort: |
-  Filler.
-lapply: |
-  Filler.
-Loop: |
-  Filler.
-R-squared: |
-  Filler.
-Slope: |
-  Filler.
-Coefficient: |
-  Filler.
-log transformation: |
-  Filler.
-GUI: |
-  Graphical User Interface.
+  Messenger RNA, a single-stranded nucleic acid which transfers genetic information. Transcribed from DNA, it will be translated into protein.
+Multicellular: |
+  More than one cell is represented.
+Neurotypical: |
+  A term used to describe donors / their brains based on neurological characterisics -- saying they align with the typical expectations for a population. Neurotypical refers to "control" in this case.
 Package: |
-  Software.
-Sparse: |
-  Low coverage; lots of zeros.
-Deconvolution: |
-   Filler. 
-Segmentation: |
-  Filler.
-Doublet: |
-  Filler.
-Clustering: |
-  Filler. 
-Enrichment: |
-  Filler.
-Classification: |
-  Filler.
-STlist: |
-  Filler.
-Filtering: |
-  Filler.
-Quality Control: |
-  Filler.
-Normalization: |
-  Filler.
-Guide: |
-  Another term for legend.
-Distribution: |
-  Filler.
-Histology: |
-  Filler.
-Color palette: |
-  Filler.
-Pseudobulk: |
-  Filler.
-PCA: |
-  Principal component analysis.
-Differential Expression: |
-  Filler.
-Specialized cell: |
-  Filler.
+  A bundled collection of code or software designed to perform specific tasks. Users load these packages and consult their documentation in order to use functions for specific tasks.
+Panel: |
+  A specific, curated set of molecular targets such as genes or transcripts.
 Parquet: |
-  Filler.
-Quilt plot: |
-  Filler.
-Vertex: |
-  Filler.
-Compressed: |
-  Filler.
-Matrix: |
-  Filler.
+  A file type that is used to efficiently store large amounts of data because it uses a column-by-column approach.
+PCA: |
+  Principal component analysis. A dimensionality reduction method that finds principal components or orthogonal components that explain variation within the original dataset.
 Personally Identifiable Information: |
-  Data unique to an individual person that can be used to distinguish their identity, including full names, Social Security numbers, contact information, etc.; abbreviated as "PII".
+  Data unique to an individual person that can be used to distinguish their identity, including full names, Social Security numbers, contact information, etc.; abbreviated as "PII".  
+PMI: |
+  Postmortem Interval. The amount of time between the passing of a donor and when a tissue sample is taken from the donor. This interval of time is typically reported within hours but may be reported in another unit representing measurement of time. Shorten post mortem intervals correlate with higher tissue quality, minimizing the time for natural degradation to occur.
+Polygon: |
+  A multi-sided two-dimensional shape. Each side is a straight line whose endpoints are each connected to an endpoint of another side. Circles or ovals can be approximated by a polygon with many sides.
+Postmortem samples: |
+  Samples collected after the death of the donor.
 Protected Health Information: |
   A subset of PII that includes any health information that can identify an individual that is regulated by HIPAA, including full name, contact information, medical records, health insurance information, biometric elements, etc.; abbreviated as "PHI".
+Pseudobulk: |
+  A data transformation where counts from single cells are aggregated and considered in bulk, typically by summing counts across all cells of the same cell type within a sample (though counts can be averaged alternatively). Pseudobulks mirror how the data would look if that specific cell population had been isolated and sequenced using a traditional bulk experiment.
+Quality Control: |
+  The process of exploring and evaluating raw biological data to detect technical artifacts, errors, low quality data, biases, etc prior to downstream analysis in order to promote higher confidence results.
+Quilt plot: |
+  A type of plot that is used to visualize the two-dimensional spatial distribution of gene expression or cell types/clusters within a sample, mirroring the physical architecture of the tissue sample. Colors are used to represent the expression values or cell type/domain classes. Can be thought of as a type of heatmap without any clustering.
+Random seed: |
+  A number provided as an initial starting value for random number generators, promoting the repeatability and reproducibility of random processes.
+Repeatability: |
+  The ability for the same researcher to run the same analysis on the same data and get the same results.
+Reproducible: |
+  A term used to describe research or a process that a new researcher can follow, running the same analysis on the same data and getting the same results as the original researcher..
+Resolution: |
+  Refers to the smallest unit of change or observation scale that can reliably be detected or measured. High resolution means that a scale has fine intervals and small differences can be observed. Low resolution means that a scale has broader intervals and small variations may be missed (e.g., harder to differentiate between individual cells or measure all molecules).
+RIN: |
+  RNA Integrity Number. A measure of sample quality determined by an automated software algorithm. Found by analyzing the electrophoretic separation of RNA molecules according to size, processing the resulting signal traces (electropherograms which representing how much of RNA of different sizes is present in samples) to evaluate and rank the signal features and combinations of features according to their predictive information content. Returns a value representing the overal level of RNA degradation within a sample on a standardized 1-10 scale.
+R-squared: |
+  Statistical measure relating to the proportion of variability within the dependent varaible that can be explained by the independent variable and the relationship between the variables. Often used as a measure of effect size. Also known as the "coefficient of determination".
+Schizophrenia: |
+  Chronic neuropsychiatric disorder characterized by a spectrum of symptoms impacting a person's thoughts, emotions, and behavior. Symptoms are generally classified as positive, negative, or cognitive.
+Segmentation: |
+  Process of inferring individual cell boundaries from tissue images, nuclear or other cell surface and interior marker staining, and transcript coordinates. Some algorithms if only provided nuclear staining first segment nuclear boundaries and expand them to approximate the cell boundaries. Others use the combination of stains to first find cell boundaries. After inferring cell boundaries, observed transcripts can be assigned to cells.
+Sequencing-based technologies: |
+  Methods that utilize microscopic regions or spots on specialized slides to sequence intact tissues, retaining the original physical location of observed RNA molecules within a tissue sample. These methods have high molecular resolution but low cellular resolution because they sequence the whole transcriptome rather than targeting a limited set of genes. However, the spots are not necessarily single-cells and data must be deconvoluted.
 Sequencing: |
-  A laboratory technique that extracts and analyzes the genetic material from a sample.
+  A laboratory technique that extracts and analyzes the genetic material from a sample.  
+Slope: |
+  Coefficient within a linear model that represents both the steepness and direction of the relationship between the independent and dependent variable.
+Sparse: |
+  Term used to describe the results from a single-cell or spatial transcriptomics experiment. Typically means that an experiment is low coverage, possibly because a given cell has a limited number of molecules that are being expressed at any given time. Within a data matrix, this looks like a lot of zeros. A sparse-matrix representation, on the other hand, omits these zeros, storing only the location of and values of non-zero data (though displays of this data may include periods instead of zeros if inspected). This sparse representation is used to reduce the overall storage size needed for the data.
+Spatial Transcriptomics: |
+  Spatial Transcriptomics refers to molecular methods used to measure gene expression at or near single-cell resolution, reporting where observed transcripts are physically located within the source tissue, preserving spatial context.
+Specialized cell: |
+  A highly differentiated cell that serves a specific purpose within a tissue. It may have a unique structure (physical shape or size) compared to other cells. It will express specific genes that other cells may not.
+Spot: |
+  Refers to the regions across a tissue section that sequencing-based methods use to capture spatially-resolved data. Spots often represent 10s to 100s of cells (e.g., multicellular) rather than single-cells. Each spot has a defined set of x- and y- coordinates on the slide used to capture data, relating captured data to physical locations within the tissue.
+STlist: |
+  An S4 object that the spatialGE program uses to store spatially-resolved expression data for one or multiple samples. Utilizes slots for various aspects of the data and named lists within each slot to store data specific to each sample.
+Subcellular: |
+  Represents part of a cell rather than a whole, single cell.
+Transcriptome: |
+  Complete collection of transcripts produced by the genome in a specific cell, tissue, or organism.
+Vertex: |
+  Where the endpoints of two edges meet in a polygon.
+Violin plot: |
+  A plot used to visualize distributions of numerical variables. Because they visualize the density of data across possible values of the variable, they may resemble violins. Useful for comparing the variable across different biological groups.
+Visium: |
+  A popular sequencing-based technology for generating spatially-resolved expression data.
+Volcano plot: |
+  A scatter plot that plots data points according to the observed magnitude of change on the x-axis and the statistical significance on the y-axis. Typically one point represents one gene, and the values are found by comparing the expression of that gene across different experimental conditions or clinical cases. Points are often colored differently based on whether the gene is upregulated (over-expressed) or downregulated (under-expressed) in a specific case relative to a conrol and whether the observed change reached pre-defined thresholds for statistical significance.
+Xenium: |
+  A popular image-based technology for geenrating spatially-resolved expression data.

@@ -6,16 +6,32 @@
 Common Next Steps
 ::::
 ::::{.inner_block}
-Discuss common next steps for this type of an analysis in this box. Is there a specific number of steps that you need to do before a specific step? Is a "next step" more of an alternate step?
+
+Several functions provided by `spatialGE` can be used for downstream 
+
+* **STgradient** 
+
+[`STgradient()` documentation](https://fridleylab.github.io/spatialGE/reference/STgradient.html)
+
+* **STenrich**
+
+[`STenrich()` documentation](https://fridleylab.github.io/spatialGE/reference/STenrich.html)
+
+* **STdiff**
+
+[`STdiff()` documentation](https://fridleylab.github.io/spatialGE/reference/STdiff.html)
+
+* **SThet**
+
+[`SThet()` documentation](https://fridleylab.github.io/spatialGE/reference/SThet.html)
+
 ::::
 :::
 
+Having them compare which cells were filtered out between our process and the process of the authors.
 
-<!--
-## Reinforcement Exercises
-
-Uncomment this section if you're suggesting an exercise that reiterates a large portion of the case study so learners can practice a hard skill again, reinforcing topics from the case study
--->
+* First use the list of IDs to compare with the list of IDs the authors report
+* Second recreate the quilt plot supplemental figure
 
 ## Advancement Exercises
 
@@ -45,8 +61,11 @@ pseudobulk_dim_plot(scz_spatial, plot_meta = "Sex")
 
 ### Intermediate
 
+Bringing over the spatial domains from Visium data following a similar technique the authors did and re-looking at the quilt plots with that annotation rather than the cell type.
+
 ### Advanced
 
+Trying to run a spatialGE function for looking at spatial gene expression.
 
 
 ***

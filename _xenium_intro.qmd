@@ -6,14 +6,48 @@ Before we start to work with the Spatial Transcriptomics data from this study, w
 
 ## Data generation
 
-Xenium is an image-based spatial transcriptomics platform. 
+***
 
-Cell segmentation for v1 utilizes DAPI for nucleus and an isotropic nuclear expansion algorithm to approximate the cell boundaries. An alternative approach (not used in the process of this paper) 
+Xenium is an image-based spatial transcriptomics platform. Tissue samples are either fresh frozen (FF) or formalin-fixed paraffin-embedded (FFPE). Each of these options has its own specific protocols necessary for further sample preparation. 
 
+### Sample preparation
 
+{{< video https://www.youtube.com/watch?v=EhTgNYs9Vuw&list=PLfaSRwcfHcq3BngbACXhBci870L8iSCoj&index=1 >}}
+
+### Sectioning and complementary methods
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Diagram showing the sample prep, specifically sectioning the tissue block and how each of the neighboring sections can be used for complementary experiments."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_35#slide=id.h7553ddbe789f499c_0_35")
+```
+
+Mention that domains from one sample section don't directly align with another section and there are algorithms to liftover.
+
+### Xenium Analyzer steps
+
+Cell segmentation for v1 utilizes DAPI for nucleus and an isotropic nuclear expansion algorithm to approximate the cell boundaries. An alternative approach (not used for this study) utilizes multiple stains and for cell boundaries and segments using those stains rather than expanding the nucleus. 
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Diagram showing some selected steps from what the Xenium Analyzer's onboard software does with samples. Steps include fluorescent imaging of the samples, decoding of those signals to identify RNA molecules and their locations, segmentation of nuclei and cells, and finally assignment of RNA molecules to cells and the quantification of how much RNA is observed."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h282ea7cdd6efe4e2_4_0#slide=id.h282ea7cdd6efe4e2_4_0")
+```
+
+### Quality control
+
+Describe quality control that Xenium does
 
 ## Data products
 
+***
+
+https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/analysis/xoa-output-at-a-glance#output-bundle-files
+
 ## Summary
 
-In Summary, Xenium data utilizes a gene panel of probes to assay the spatially-resolved expression of specific genes at a cellular or subcellular resolution within tissue samples. Samples used to generate Xenium data are either fresh frozen (FF) or formalin-fixed paraffin-embedded (FFPE) tissue samples. After sample preparation, imaging cycles are performed using a Xenium Analyzer. Cellular segmentation is performed to approximate boundaries between cells.
+***
+
+:::{.emphasis_block}
+
+In summary, Xenium technology utilizes a panel of gene-specific probes to assay the spatially-resolved expression for a targeted set of genes at a single-cell or sub-cellular resolution within tissue samples. Samples for Xenium analysis are prepared from either fresh frozen (FF) or formalin-fixed paraffin-embedded (FFPE) tissue blocks. While preparation protocols differ by sample type (e.g, FF or FFPE), generally tissue sections are taken from the tissue block, mounted on specialized slides, and undergo chemical treatments for fixation, permeabilization, probe hybridization, and staining. Following sample preparation, imaging cycles are performed using a Xenium Analyzer. The Xenium Analyzer's onboard software performs nuclear and cellular segmentation to approximate boundaries between cells and assign observed transcripts to individual cells. Xenium platforms use automated real-time quality control to remove noise and lower quality data. Researchers receive a variety of data including data that reports on the localization of cells, nuclei, and transcripts, observed counts for the transcripts, and morphology images for the tissue sample sections.
+
+:::
+
+***
