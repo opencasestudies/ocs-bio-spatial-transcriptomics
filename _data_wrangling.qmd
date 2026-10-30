@@ -226,16 +226,35 @@ visualize_lib_size <- function(mat, title_name){
         as.data.frame() %>%
         ggplot(aes(x=`.`)) + geom_histogram(bins = 500) + theme_bw() + ggtitle(title_name)
 }
-
-patchwork::wrap_plots(purrr::map2(scz_spatial@counts, names(scz_spatial@counts), visualize_lib_size), nrow = 2) + patchwork::plot_annotation(title = "Raw counts")
-
-wrap_plots(purrr::map2(scz_spatial@tr_counts, names(scz_spatial@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "Log transformed counts")
-
-wrap_plots(map2(scz_spatial_sct@tr_counts, names(scz_spatial_sct@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "SCTransform")
-
-wrap_plots(map2(scz_spatial_tr@tr_counts, names(scz_spatial_tr@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "Cell area normalization")
-
 ```
+
+:::{.panel-tabset}
+
+#### Raw counts
+
+```{r}
+patchwork::wrap_plots(purrr::map2(scz_spatial@counts, names(scz_spatial@counts), visualize_lib_size), nrow = 2) + patchwork::plot_annotation(title = "Raw counts")
+```
+
+#### Log transformation
+
+```{r}
+wrap_plots(map2(scz_spatial@tr_counts, names(scz_spatial@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "Log transformed counts")
+```
+
+#### SCTransform
+
+```{r}
+wrap_plots(map2(scz_spatial_sct@tr_counts, names(scz_spatial_sct@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "SCTransform")
+```
+
+#### Cell area normalization
+
+```{r}
+wrap_plots(map2(scz_spatial_tr@tr_counts, names(scz_spatial_tr@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "Cell area normalization")
+```
+
+:::
 
 We can visualize the distribution of expression of a few genes (before and after the normalization) using the `distribution_plots()` function.
 
@@ -251,6 +270,17 @@ transformed_tr_plots <- distribution_plots(scz_spatial_tr, genes = c("CX3CR1", "
 
 :::{.panel-tabset}
 
+#### MBP
+
+```{r}
+raw_plots$MBP + ggtitle("Raw data") + 
+    transformed_log_plots$MBP + ggtitle("Log-transformed data") +
+    transformed_sct_plots$MBP + ggtitle("SCTransform") +
+    transformed_tr_plots$MBP + ggtitle("Cell area normalization") +
+    plot_annotation(title = "MBP") +
+    plot_layout(guides = "collect", nrow=2, heights = c(8,8)) & theme(legend.position = "none")
+```
+
 #### CX3CR1
 
 ```{r}
@@ -259,7 +289,7 @@ raw_plots$CX3CR1 + ggtitle("Raw data") +
     transformed_sct_plots$CX3CR1 + ggtitle("SCTransform") +
     transformed_tr_plots$CX3CR1 + ggtitle("Cell area normalization") +
     patchwork::plot_annotation(title = "CX3CR1") +
-    patchwork::plot_layout(guides = "collect", nrow=2, heights = c(5,5)) & theme(legend.position = "none")
+    patchwork::plot_layout(guides = "collect", nrow=2, heights = c(8,8)) & theme(legend.position = "none")
 ```
 
 #### FKBP5
@@ -270,7 +300,7 @@ raw_plots$FKBP5 + ggtitle("Raw data") +
     transformed_sct_plots$FKBP5 + ggtitle("SCTransform") +
     transformed_tr_plots$FKBP5 + ggtitle("Cell area normalization") +
     plot_annotation(title = "FKBP5") +
-    plot_layout(guides = "collect", nrow=2, heights = c(5,5)) & theme(legend.position = "none")
+    plot_layout(guides = "collect", nrow=2, heights = c(8,8)) & theme(legend.position = "none")
 ```
 
 #### PVALB
@@ -281,18 +311,7 @@ raw_plots$PVALB + ggtitle("Raw data") +
     transformed_sct_plots$PVALB + ggtitle("SCTransform") +
     transformed_tr_plots$PVALB + ggtitle("Cell area normalization") +
     plot_annotation(title = "PVALB") +
-    plot_layout(guides = "collect", nrow=2, heights = c(5,5)) & theme(legend.position = "none")
-```
-
-#### MBP
-
-```{r}
-raw_plots$MBP + ggtitle("Raw data") + 
-    transformed_log_plots$MBP + ggtitle("Log-transformed data") +
-    transformed_sct_plots$MBP + ggtitle("SCTransform") +
-    transformed_tr_plots$MBP + ggtitle("Cell area normalization") +
-    plot_annotation(title = "MBP") +
-    plot_layout(guides = "collect", nrow=2, heights = c(5,5)) & theme(legend.position = "none")
+    plot_layout(guides = "collect", nrow=2, heights = c(8,8)) & theme(legend.position = "none")
 ```
 
 :::
