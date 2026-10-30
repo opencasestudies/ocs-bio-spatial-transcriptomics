@@ -306,7 +306,7 @@ decompress_read_parquet <- function(samples_metadata, sample){
   
   #Select columns of interest
   centroids <- df %>%
-    dplyr::select(cell_id, x_centroid, y_centroid)
+    dplyr::select(cell_id, x_centroid, y_centroid, cell_area)
 
   #reclaim some R resources
   rm(df, gz_file, decompressed_file)
@@ -330,10 +330,11 @@ names(spatial_coords) <- samples_metadata$DxID
 1. We decompress the file, storing it in our file system
 1. We read in the data with the `arrow` package and its `read_parquet()` function.
 1. We remove the decompressed file from our file system because we no longer need it.
-1. We select only the columns that `spatialGE` needs, reporting the centroid coordiantes for each cell:
+1. We select only the columns that `spatialGE` needs, reporting the centroid coordiantes for each cell and a column we can use for normalization later:
   * `cell_id`
   * `x_centroid`
   * `y_centroid`
+  * `cell_area` (for later normalization)
 1. We remove some variables that are no longer needed to reclaim some R resources.
 1. We return a data frame with only those 3 columns.
 

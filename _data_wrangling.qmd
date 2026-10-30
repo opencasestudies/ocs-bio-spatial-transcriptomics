@@ -25,6 +25,19 @@ scz_spatial@sample_meta <- scz_spatial@sample_meta %>%
     dplyr::left_join(samples_metadata, by = c("sample_name" = "DxID"))
 ```
 
+## Adding back a `spatial_meta` column name
+
+***
+
+We will pipe the `spatial_meta` data frame for each sample to an inline function (because of the curly braces) that finds the names of data frame (`names(.)`), evaluates which name(s) are equal to `NA` (`is.na()`) and uses the TRUEs and FALSEs that this returns to specify which name needs to be renamed with the specified name (`<- "cell_area"`). Finally the semicolon followed by a period (`; .`) is used to tag on another command, in this case to return the data frame after the name has been changed.
+
+```{r}
+for (sample_name in names(scz_spatial@spatial_meta)){
+    scz_spatial@spatial_meta[[sample_name]] <- scz_spatial@spatial_meta[[sample_name]] %>%
+        { names(.)[is.na(names(.))] <- "cell_area"; . }
+}
+```
+
 ## Filtering
 
 ***
@@ -176,12 +189,24 @@ Explain log transformation.
 scz_spatial <- spatialGE::transform_data(scz_spatial, method='log', cores=2)
 ```
 
-### SCTransform
+### Area Normalization
 
-Explain SCTransform method.
+Explain area normalization
 
 ```{r}
-scz_spatial_tr <- transform_data(scz_spatial_tr, method = 'sct', cores = 2)
+
+run_area_transformation <- function(stlist_obj, sample){
+    median_area <- median(stlist_obj@spatial_meta[[sample]]$cell_area)
+    size_factors <- stlist_obj@spatial_meta[[sample]]$cell_area / median_area
+    norm <- t(t(stlist_obj@counts[[sample]])/size_factors)
+    # add a pseudocount of one and use a logarithm base of 2 
+    return(log1p(norm) / log(2))
+}
+
+for (sample_name in names(scz_spatial_tr@counts)){
+    scz_spatial_tr@tr_counts[[sample_name]] <- run_area_transformation(scz_spatial_tr, sample_name)
+}
+
 ```
 
 ### Visualize
@@ -199,7 +224,7 @@ patchwork::wrap_plots(purrr::map2(scz_spatial@counts, names(scz_spatial@counts),
 
 wrap_plots(purrr::map2(scz_spatial@tr_counts, names(scz_spatial@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "Log transformed counts")
 
-wrap_plots(map2(scz_spatial_tr@tr_counts, names(scz_spatial_tr@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "SCTransform counts")
+wrap_plots(map2(scz_spatial_tr@tr_counts, names(scz_spatial_tr@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "Cell area transformation")
 
 ```
 
@@ -218,25 +243,41 @@ transformed_sct_plots <- distribution_plots(scz_spatial_tr, genes = c("CX3CR1", 
 #### CX3CR1
 
 ```{r}
-raw_plots$CX3CR1 + transformed_log_plots$CX3CR1 + transformed_sct_plots$CX3CR1 + patchwork::plot_layout(guides = "collect", nrow=3)
+raw_plots$CX3CR1 + ggtitle("Raw data") + 
+    transformed_log_plots$CX3CR1 + ggtitle("Log-transformed data") +
+    transformed_sct_plots$CX3CR1 + ggtitle("Cell area normalization") +
+    patchwork::plot_annotation(title = "CX3CR1") +
+    patchwork::plot_layout(guides = "collect", nrow=3)
 ```
 
 #### FKBP5
 
 ```{r}
-raw_plots$FKBP5 + transformed_log_plots$FKBP5 + transformed_sct_plots$FKBP5 + patchwork::plot_layout(guides = "collect", nrow=3)
+raw_plots$FKBP5 + ggtitle("Raw data") + 
+    transformed_log_plots$FKBP5 + ggtitle("Log-transformed data") +
+    transformed_sct_plots$FKBP5 + ggtitle("Cell area normalization") +
+    plot_annotation(title = "FKBP5") +
+    plot_layout(guides = "collect", nrow=3)
 ```
 
 #### PVALB
 
 ```{r}
-raw_plots$PVALB + transformed_log_plots$PVALB + transformed_sct_plots$PVALB + patchwork::plot_layout(guides = "collect", nrow=3)
+raw_plots$PVALB + ggtitle("Raw data") +
+    transformed_log_plots$PVALB + ggtitle("Log-transformed data") +
+    transformed_sct_plots$PVALB + ggtitle("Cell area normalization") +
+    plot_annotation(title = "PVALB") +
+    plot_layout(guides = "collect", nrow=3)
 ```
 
 #### MBP
 
 ```{r}
-raw_plots$MBP + transformed_log_plots$MBP + transformed_sct_plots$MBP + patchwork::plot_layout(guides = "collect", nrow=3)
+raw_plots$MBP + ggtitle("Raw data") + 
+    transformed_log_plots$MBP + ggtitle("Log-transformed data") +
+    transformed_sct_plots$MBP + ggtitle("Cell area normalization") +
+    plot_annotation(title = "MBP") +
+    plot_layout(guides = "collect", nrow=3)
 ```
 
 :::
