@@ -14,6 +14,14 @@ Xenium is an image-based spatial transcriptomics platform. Tissue samples are ei
 
 {{< video https://www.youtube.com/watch?v=EhTgNYs9Vuw&list=PLfaSRwcfHcq3BngbACXhBci870L8iSCoj&index=1 >}}
 
+### Sectioning and complementary methods
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Diagram showing the sample prep, specifically sectioning the tissue block and how each of the neighboring sections can be used for complementary experiments."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_35#slide=id.h7553ddbe789f499c_0_35")
+```
+
+Mention that domains from one sample section don't directly align with another section and there are algorithms to liftover.
+
 ### Xenium Analyzer steps
 
 Cell segmentation for v1 utilizes DAPI for nucleus and an isotropic nuclear expansion algorithm to approximate the cell boundaries. An alternative approach (not used for this study) utilizes multiple stains and for cell boundaries and segments using those stains rather than expanding the nucleus. 
@@ -23,6 +31,8 @@ ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAO
 ```
 
 ### Quality control
+
+Describe quality control that Xenium does
 
 ## Data products
 

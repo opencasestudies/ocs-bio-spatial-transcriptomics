@@ -1,9 +1,12 @@
 # **Summary**
-***
-## **Synopsis**
+
 ***
 
-```{r echo = FALSE, warning = FALSE, out.width = "100%", fig.align = 'center', fig.alt = "Diagram showing the process of working with Xenium data and the decision points along the way. The process begins by preparing samples for the Xenium Analyzer. Will tissues be fresh frozen (FF) or forma, "}
+## **Synopsis**
+
+***
+
+```{r echo = FALSE, warning = FALSE, out.width = "100%", fig.align = 'center', fig.alt = "Diagram showing the process of working with Xenium data and the decision points along the way. The process begins by preparing samples for the Xenium Analyzer. Will tissues be fresh frozen (FF) or formalin fixed and paraffin embedded. What is tissue quality like? After processed with the Xenium analyzer, which data files do you need to work with and what do the files contain? The case study starts here where you receive the data. You also will need to consider which tool or tools to use and possibly wrangle the data in order to import it. Researchers then explore the data and perform quality control. During that exploration process, researchers must decide on appropriate filter thresholds for library size and number of features in cells. Researchers may need to remove irrelevant genes. Following quality control, researchers transform their data, performing normalization to account for technical artifacts. Multiple normalization methods are available and researchers need to choose the one most appropriate for their data and downstream application. After this researchers visualize spatial patterns. It's best for them to confirm that these patterns are observed across multiple sets of samples rather than an artifact of sample preparation. Researchers then choose downstream analyses to further look at global and statistical summaries of their data."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/19UCuIN3SfWj_gwQ9B9-OpJTin2dc9TriHRyDP8_SkEw/edit?slide=id.h4573fa7d1816554a_1_32#slide=id.h4573fa7d1816554a_1_32")
 ```
 
@@ -13,7 +16,7 @@ ottrpal::include_slide("https://docs.google.com/presentation/d/19UCuIN3SfWj_gwQ9
 ***
 
 ```{r echo = FALSE, warning = FALSE, out.width=800, fig.alt = "Gene expression may differ in three main contexts. One the overall abundance in a sample. Two which cell types and how much within a cell type. Three the spatial location of expression within a tissue. Typically these may be visualized using the example plots shown such as a violin plot and quilt plot. Spatial Transcriptomics enables researchers to study the differences in gene expression for each of these contexts which is important when comparing control and disease cases. The Xenium platform is particularly useful for its high cellular resolution providing single cell or subcellular data. However it has lower molecular resolution and can only be used for a limited set of genes at a time specified in a panel."}
-ottrpal::include_slide("https://docs.google.com/presentation/d/1eZ19Zyo6U5AwmXdcJtu9_p0Yj-9hDm9MtMOf9ontIbU/edit?slide=id.h44e67ee3028985f7_0_29#slide=id.h44e67ee3028985f7_0_29")
+ottrpal::include_slide("https://docs.google.com/presentation/d/1eZ19Zyo6U5AwmXdcJtu9_p0Yj-9hDm9MtMOf9ontIbU/edit?slide=id.h76af21c41ef14d87_0_31#slide=id.h76af21c41ef14d87_0_31")
 ```
 
 ***

@@ -1,7 +1,7 @@
 :::{.outline }
 
 ```{r echo = FALSE, warning = FALSE, out.width=800, fig.alt = "Gene expression may differ in three main contexts. One the overall abundance in a sample. Two which cell types and how much within a cell type. Three the spatial location of expression within a tissue. Typically these may be visualized using the example plots shown such as a violin plot and quilt plot. Spatial Transcriptomics enables researchers to study the differences in gene expression for each of these contexts which is important when comparing control and disease cases. The Xenium platform is particularly useful for its high cellular resolution providing single cell or subcellular data. However it has lower molecular resolution and can only be used for a limited set of genes at a time specified in a panel."}
-ottrpal::include_slide("https://docs.google.com/presentation/d/1eZ19Zyo6U5AwmXdcJtu9_p0Yj-9hDm9MtMOf9ontIbU/edit?slide=id.h44e67ee3028985f7_0_29#slide=id.h44e67ee3028985f7_0_29")
+ottrpal::include_slide("https://docs.google.com/presentation/d/1eZ19Zyo6U5AwmXdcJtu9_p0Yj-9hDm9MtMOf9ontIbU/edit?slide=id.h76af21c41ef14d87_0_31#slide=id.h76af21c41ef14d87_0_31")
 ```
 
 :::

@@ -264,7 +264,7 @@ We can visualize these summaries a few ways:
 
 :::{.panel-tabset}
 
-### Bar Graph for cell count
+### Bar Graph: cell count
 
 ```{r}
 neg_control_probe_summary %>% 
@@ -274,7 +274,7 @@ neg_control_probe_summary %>%
   ylab("Number of cells")
 ```
 
-### Bar Graph for cell proportion
+### Bar Graph: cell proportion
 
 ```{r}
 neg_control_probe_summary %>%
@@ -284,7 +284,7 @@ neg_control_probe_summary %>%
   ylab("Proportion of cells")
 ```
 
-### Bar Graph for cumulative proportion
+### Bar Graph: cumulative proportion
 
 ```{r}
 neg_control_probe_summary %>%

@@ -55,7 +55,7 @@ Image-based technologies: |
 Index: |
   To use a location/coordinate, name, or combination of coordinates or names to extract a specific value from a vector, matrix, or data frame.
 laminar domains: |
-  Filler.
+  Functional and structural anatomical subdivisions or layers which are distinct, spanning the brain tissue.
 lapply: |
   A function from base R that allows the user to loop through an input, performing a specified function on each input, returning the results in a list.
 libname: |
@@ -118,7 +118,7 @@ Schizophrenia: |
   Chronic neuropsychiatric disorder characterized by a spectrum of symptoms impacting a person's thoughts, emotions, and behavior. Symptoms are generally classified as positive, negative, or cognitive.
 Segmentation: |
   Process of inferring individual cell boundaries from tissue images, nuclear or other cell surface and interior marker staining, and transcript coordinates. Some algorithms if only provided nuclear staining first segment nuclear boundaries and expand them to approximate the cell boundaries. Others use the combination of stains to first find cell boundaries. After inferring cell boundaries, observed transcripts can be assigned to cells.
-Sequence-based technologies: |
+Sequencing-based technologies: |
   Methods that utilize microscopic regions or spots on specialized slides to sequence intact tissues, retaining the original physical location of observed RNA molecules within a tissue sample. These methods have high molecular resolution but low cellular resolution because they sequence the whole transcriptome rather than targeting a limited set of genes. However, the spots are not necessarily single-cells and data must be deconvoluted.
 Sequencing: |
   A laboratory technique that extracts and analyzes the genetic material from a sample.  
@@ -128,7 +128,7 @@ Sparse: |
   Term used to describe the results from a single-cell or spatial transcriptomics experiment. Typically means that an experiment is low coverage, possibly because a given cell has a limited number of molecules that are being expressed at any given time. Within a data matrix, this looks like a lot of zeros. A sparse-matrix representation, on the other hand, omits these zeros, storing only the location of and values of non-zero data (though displays of this data may include periods instead of zeros if inspected). This sparse representation is used to reduce the overall storage size needed for the data.
 Spatial Transcriptomics: |
   Spatial Transcriptomics refers to molecular methods used to measure gene expression at or near single-cell resolution, reporting where observed transcripts are physically located within the source tissue, preserving spatial context.
-Secialized cell: |
+Specialized cell: |
   A highly differentiated cell that serves a specific purpose within a tissue. It may have a unique structure (physical shape or size) compared to other cells. It will express specific genes that other cells may not.
 Spot: |
   Refers to the regions across a tissue section that sequencing-based methods use to capture spatially-resolved data. Spots often represent 10s to 100s of cells (e.g., multicellular) rather than single-cells. Each spot has a defined set of x- and y- coordinates on the slide used to capture data, relating captured data to physical locations within the tissue.

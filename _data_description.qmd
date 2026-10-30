@@ -136,7 +136,7 @@ The demographic information is useful for data exploration. We will primarily be
  
 ### Spatial coordinates
 
-Classically, `-cells.parquet` files are used to store the spatial coordinates of the cells, specifically the {{ < glossary Centroid display=centroid > }} locations (or centers of the cells).
+Classically, `-cells.parquet` files are used to store the spatial coordinates of the cells, specifically the {{< glossary Centroid display=centroid >}} locations (or centers of the cells).
 
 The `.parquet` file type is a departure from the normal way we would expect data to be stored. Often our file types (e.g., `.csv`) store data row by row with each row containing a complete record or set of related information about a specific sample, timepoint, etc. Instead, `.parquet` files store data column-by-column. This leads to more efficient storage and querying of large data files.
 
