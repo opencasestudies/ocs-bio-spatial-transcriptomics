@@ -13,22 +13,9 @@ Add instructions for loading the data...
 </details>
 ***
 
-<!--
-:::{.think_question}
-::::{.think_question_header}
-Question opportunity
-::::
-::::{.inner_block}
-Pose a question about the data analysis.
-<details><summary>Answer</summary>
-You can use a collapsible details section to provide an answer
-</details>
-::::
-:::
-
--->
-
 ## Clustering
+
+***
 
 <!--
 
@@ -62,7 +49,7 @@ new_cluster_assignments <- data.table::rbindlist(
 
 cluster_assignments <- read.csv(here("data/wrangled/cluster_assignments_withlibname.csv")) %>%
                           rename(annot = Cluster) %>%
-                          fill(annot) %>%
+                          tidyr::fill(annot) %>%
                           mutate(annot=case_when(
                                  annot %in% c(6, 8, 1) ~ "Oligo",
                                  annot == 10 ~ "Ambig/Oligo",

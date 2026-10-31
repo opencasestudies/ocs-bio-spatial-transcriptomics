@@ -28,10 +28,17 @@ Several functions provided by `spatialGE` can be used for downstream
 ::::
 :::
 
-Having them compare which cells were filtered out between our process and the process of the authors.
+## Reinforcement Exercises
 
-* First use the list of IDs to compare with the list of IDs the authors report
-* Second recreate the quilt plot supplemental figure
+Create or use your previously created list of filtered out cells to compare the overlap between the filtering process in this case study and that of @Kwon_etal_2026.
+
+@Kwon_etal_2026 didn't just report a list of what they filtered out, they also created a visualization of which cells were filtered out (Figure S25) -- a quilt plot. Create a similar quilt plot reporting on which cells were filtered out for each sample from this case study's process.
+
+* Create a new `STlist` that contains all cell IDs (those that were filtered out and those that weren't). 
+    * You'll also want to create a column in the `spatial_meta` slot data frames that reports whether cell IDs were "Kept" or "Discarded". 
+    * You'll need to follow the typical process for creating the `STlist` though you can subset the gene expression information (not including all of the genes) since that's not necessary for this visualization.
+
+* Use the `STlist` and `STplot` function to create a quilt plot which is colored according to whether cells were "Kept" or "Discarded".
 
 ## Advancement Exercises
 
@@ -65,7 +72,7 @@ Bringing over the spatial domains from Visium data following a similar technique
 
 ### Advanced
 
-Trying to run a spatialGE function for looking at spatial gene expression.
+Run one of the `spatialGE` functions that is mentioned in the "Common Next Steps" box above.
 
 
 ***

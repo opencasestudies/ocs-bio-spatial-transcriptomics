@@ -28,6 +28,8 @@ For spatial coordinates, each data frame should have:
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h51840eb841718f1d_0_4#slide=id.h51840eb841718f1d_0_4")
 ```
 
+We will include a column for the area of each cell for later use in the normalization process, but this is not an expected part of the input by `spatialGE`.
+
 ### mRNA counts
 
 For the mRNA counts, each data frame should have:
@@ -447,7 +449,7 @@ read_rna <- function(samples_metadata, sample){
       as.data.frame() %>%
       `rownames<-`(rna_h5data$features$name) %>%
       `colnames<-`(rna_h5data$barcodes) %>%
-      rownames_to_column("genes")
+      tibble::rownames_to_column("genes")
 
   rm(rna_h5data, h5file)
   gc()
