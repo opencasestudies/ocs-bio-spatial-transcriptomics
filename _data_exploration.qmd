@@ -86,6 +86,12 @@ The named list stores tibbles (a type of data frame) of metadata for cells in ea
 head(scz_spatial@spatial_meta$Br1139SCZ)
 ```
 
+There's also a column in the middle of those that doesn't have a name. That's the `cell_area` column that we kept when we imported the data so that we could use it for normalization later. `spatialGE` brought the column along, but didn't keep its name. It would be best practices if we give this column a name instead of just trying to remember what it is. We'll do this in the [Data Wrangling]() section of the case study later. We'll want to utilize that the name of the column right now is `NA` because that is more robust than using a hardcoded location index.
+
+```{r}
+colnames(scz_spatial@spatial_meta$Br1139SCZ)
+```
+
 The number of rows of these dataframes corresponds to the number cells in each sample. We can look at the number of rows using the function `nrow()`. Notice we're using the `lapply` function like we did previously to do this task for every sample in the named list.
 
 ```{r}
@@ -374,10 +380,11 @@ Yes, all remaining genes from the Xenium panel are informative, showing counts g
 Given our data exploration, what steps do we want to do in the Data Wrangling section, with this data, prior to visualization and analysis?
 
 1. We want to add more sample metadata.
-2. Use the negative control probes, negative control keywords, and unassigned keywords to **filter out cells** that have counts >99th percentile as described by the authors using our `negcontrol_probe_cutoff`, `negcontrol_cdwd_cutoff`, and `unassigned_cdwd_cutoff` variables.
-3. Remove the control codeword and probe "genes" from the dataset.
-4. Use spatialGE's `filter_data()` function to **filter cells** based on library size and features detected.
-5. Use spatialGE's `tranform_data()` function to transform the raw counts.
+1. Add back the `cell_area` column name for the spatial metadata for each cell.
+1. Use the negative control probes, negative control keywords, and unassigned keywords to **filter out cells** that have counts >99th percentile as described by the authors using our `negcontrol_probe_cutoff`, `negcontrol_cdwd_cutoff`, and `unassigned_cdwd_cutoff` variables.
+1. Remove the control codeword and probe "genes" from the dataset.
+1. Use spatialGE's `filter_data()` function to **filter cells** based on library size and features detected.
+1. Use spatialGE's `tranform_data()` function to transform the raw counts.
 
 :::
 

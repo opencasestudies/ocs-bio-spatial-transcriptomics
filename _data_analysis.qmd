@@ -13,22 +13,9 @@ Add instructions for loading the data...
 </details>
 ***
 
-<!--
-:::{.think_question}
-::::{.think_question_header}
-Question opportunity
-::::
-::::{.inner_block}
-Pose a question about the data analysis.
-<details><summary>Answer</summary>
-You can use a collapsible details section to provide an answer
-</details>
-::::
-:::
-
--->
-
 ## Clustering
+
+***
 
 <!--
 
@@ -62,7 +49,7 @@ new_cluster_assignments <- data.table::rbindlist(
 
 cluster_assignments <- read.csv(here("data/wrangled/cluster_assignments_withlibname.csv")) %>%
                           rename(annot = Cluster) %>%
-                          fill(annot) %>%
+                          tidyr::fill(annot) %>%
                           mutate(annot=case_when(
                                  annot %in% c(6, 8, 1) ~ "Oligo",
                                  annot == 10 ~ "Ambig/Oligo",
@@ -81,6 +68,12 @@ cluster_assignments <- read.csv(here("data/wrangled/cluster_assignments_withlibn
 for (sample_name in names(scz_spatial_tr@spatial_meta)){
 
   scz_spatial@spatial_meta[[sample_name]] <- left_join(scz_spatial@spatial_meta[[sample_name]], 
+                                                cluster_assignments %>% 
+                                                  filter(SampleName == sample_name) %>% 
+                                                  select(libname, annot)
+                                                )
+
+  scz_spatial_sct@spatial_meta[[sample_name]] <- left_join(scz_spatial_sct@spatial_meta[[sample_name]], 
                                                 cluster_assignments %>% 
                                                   filter(SampleName == sample_name) %>% 
                                                   select(libname, annot)
@@ -194,7 +187,7 @@ use_combined_data(scz_spatial, use = "violin", gene_name = "MBP")
 ```
 
 ```{r}
-use_combined_data(scz_spatial, use = "summary", gene_name = "PVALB")
+use_combined_data(scz_spatial, use = "summary", gene_name = "MBP")
 ```
 
 ##### PVALB
@@ -216,6 +209,38 @@ use_combined_data(scz_spatial, use = "summary", gene_name = "PVALB")
 :::
 
 #### SCTransform
+
+:::{.panel-tabset}
+
+##### MBP
+
+```{r}
+use_combined_data(scz_spatial_sct, use = "violin", gene_name = "MBP")
+```
+
+```{r}
+use_combined_data(scz_spatial_sct, use = "summary", gene_name = "MBP")
+```
+
+##### PVALB
+
+Violin plots of normalized expression by cell type and sample.
+
+```{r}
+
+use_combined_data(scz_spatial_sct, use = "violin", gene_name = "PVALB")
+
+```
+
+Summary tables of normalized expression by cell type and sample.
+
+```{r}
+use_combined_data(scz_spatial_sct, use = "summary", gene_name = "PVALB")
+```
+
+:::
+
+#### Cell area normalization
 
 :::{.panel-tabset}
 

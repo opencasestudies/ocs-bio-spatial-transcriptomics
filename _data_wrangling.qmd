@@ -25,6 +25,19 @@ scz_spatial@sample_meta <- scz_spatial@sample_meta %>%
     dplyr::left_join(samples_metadata, by = c("sample_name" = "DxID"))
 ```
 
+## Adding back a `spatial_meta` column name
+
+***
+
+We will pipe the `spatial_meta` data frame for each sample to an inline function (because of the curly braces) that finds the names of data frame (`names(.)`), evaluates which name(s) are equal to `NA` (`is.na()`) and uses the TRUEs and FALSEs that this returns to specify which name needs to be renamed with the specified name (`<- "cell_area"`). Finally the semicolon followed by a period (`; .`) is used to tag on another command, in this case to return the data frame after the name has been changed.
+
+```{r}
+for (sample_name in names(scz_spatial@spatial_meta)){
+    scz_spatial@spatial_meta[[sample_name]] <- scz_spatial@spatial_meta[[sample_name]] %>%
+        { names(.)[is.na(names(.))] <- "cell_area"; . }
+}
+```
+
 ## Filtering
 
 ***
@@ -143,29 +156,20 @@ distribution_plots(scz_spatial, plot_type='violin', plot_meta='total_genes')
 :::{.emphasis_block}
 <details><summary>How do you report which cell barcodes were filtered?</summary>
 
-We may need to report what cell IDs are filtered out. We can create a list of cell IDs by comparing the cell IDs that are still in our `spatialGE` object's `spatial_meta` slot with those that were originally in pre-filtered object's `spatial_meta` slot. We specifically, would want the cell IDs that were in the original but aren't in there anymore. The `set_diff()` function is useful for this task.
-
-@Kwon_etal_2026 didn't just report a list of what they filtered out, they also created a visualization of which cells were filtered out (Figure S25). We'll discuss this and how to create this in the [Data Visualizaiton]() section of the case study.
+We may need to report what cell IDs are filtered out. We can create a list of cell IDs by comparing the cell IDs that are still in our `spatialGE` object's `spatial_meta` slot with those that were originally in pre-filtered object's `spatial_meta` slot. We specifically, would want the cell IDs that were in the original but aren't in there anymore. The `set_diff()` function is useful for this task. Consider using it to create a list of cell IDs that were filtered out for each sample.
 
 </details>
 :::
 
 ## Normalizing
 
-Transforming the raw mRNA counts is again necessary because of technical biases. Typically if working with single cell RNAseq data or data from sequencing based spatial transcriptomics assays (e.g., Visium), normalization methods try to correct for different sequencing depths in different cells. 
+Transforming the raw mRNA counts is again necessary because of technical biases. Typically if working with single cell RNAseq data or data from sequencing based spatial transcriptomics assays (e.g., Visium), normalization methods try to correct for different sequencing depths in different cells. Typical methods used include log-transformation or the `SCTransform` method. The `spatialGE` package allows users to implement either of these with their spatially-resolved gene expression data. However, both of these methods are best suited to working with sequencing-based data rather than image-based data. @Atta_Clifton_Anant_Aihara_Fan_2024 and @Bhuva_etal_2024 discuss how these traditional methods may not be appropriate for spatial transcriptomics data, especialy data from image-based technologies. @Atta_Clifton_Anant_Aihara_Fan_2024 recommends using cell volume or cell area when available to normalize image-based data. @Bhuva_etal_2024 introduces a method `SpaNorm` which models library size effects while taking into account the spatial information inherent in the data. The `SpaNorm` method can't directly work with an `STlist` object from `spatialGE` without first converting it to a `SpatialExperiment` or `Seurat` object. Therefore, we won't perform normalization with `SpaNorm` within this case study. We will perform normalization with the typical methods and a cell area normalization.
 
-Transformation with `spatialGE` can be performed with either the log-transformation or the `SCTransform` method. Both of these methods are best suited to working with 
-
-https://bioconductor.org/books/release/OSTA/pages/ind-normalization.html
-
-:::{.colum-margin}
-In the future, would like to use an alternative normalization method like using cell area or SpaNorm and adding result to the `tr_counts` slot instead of using SCTransform since this data is imaging based instead of sequencing based. We can get cell area from the parquet files. We would have to join that information with the `@spatial_meta` slot.
-:::
-
-We can only perform one transformation of the data since the transformed counts will be stored in the `tr_counts` slot and we can't create another one. If we wanted to run both and compare them, we would need two different `spatialGE` `STlist` objects.
+Transformed counts are stored in the `tr_counts` slot and we can't store more than one set of transformed counts due to the "slot" nature of the data. Since we want to run more than one method and compare them, we will need multiple different `spatialGE` `STlist` objects. We'll duplicate two here, one that we can use with `SCTransform` and one we can use with a cell area normalization.
 
 ```{r}
 scz_spatial_tr <- rlang::duplicate(scz_spatial)
+scz_spatial_sct <- rlang::duplicate(scz_spatial)
 ```
 
 ### Log Transformation
@@ -176,12 +180,73 @@ Explain log transformation.
 scz_spatial <- spatialGE::transform_data(scz_spatial, method='log', cores=2)
 ```
 
-### SCTransform
-
-Explain SCTransform method.
+When `spatialGE` performs normalization, besides adding data to the `tr_counts` slot for the transformed data, it [also does a couple of other tasks](https://github.com/FridleyLab/spatialGE/blob/849c174f2c1537dc871987dfefb68da91beb96e3/R/transform_data.R#L64-L113). First, it fills in the `gene_meta` slot. Previously this had been an empty list. Now it stores a data frame for each sample with the average and standard deviation expression for each gene. 
 
 ```{r}
-scz_spatial_tr <- transform_data(scz_spatial_tr, method = 'sct', cores = 2)
+names(scz_spatial@gene_meta)
+head(scz_spatial@gene_meta[[1]])
+```
+
+Additionally, it stores information in the `misc` slot about the transformation approach that was used.
+
+```{r}
+scz_spatial@misc
+```
+
+### SCTransform
+
+Explain SCTransform
+
+```{r}
+scz_spatial_sct <- transform_data(scz_spatial_sct, method = 'sct', cores = 2)
+```
+
+### Cell Area Normalization
+
+@Atta_Clifton_Anant_Aihara_Fan_2024 recommends using cell volumes to normalize image-based data when it is available, but that cell area can be used instead. We do not have cell volumes, but we do have cell areas.
+
+>We recommend, as first choice, cell volume normalization to account for such partial cell capture within imaged regions. Cell area may serve as a proxy where volume estimates are not available.
+
+The `spatialGE` package does not currently support any additional normalization methods besides log-transformation and `SCTransform`. However, we can perform an alternate normalization method and store its results in our `STlist` object (`scz_spatial`), using data already present in `scz_spatial` because we brought over the `cell_area` column for each cell earlier in the [Data Import]() section of the case study. 
+
+The cell area normalization procedure requires that:
+
+* We find the median cell area for each sample
+* Then find cell specific size factors by dividing each cell's area by the median. 
+* We then scale the counts by these size factors.
+* Finally, similarly to the log transformation method, we add a pseudocount of one so that there are no zeros before we use a logarithm to bring the values closer together.
+
+This approach is used in the [OSTA book chapter for Xenium workflows](https://lmweber.org/OSTA/pages/img-workflow-xenium.html#processing) and adapts code from the [`scrapper` package](https://github.com/libscran/scrapper). 
+
+Beyond performing and storing our cell area normalization, we'll also want to add the same further modifications to the `STlist` that `spatialGE` typically does. You might wonder -- if` those steps are not necessary for the normalization process, why are we doing them? We're going to do them because other functions from `spatialGE` may expect that information to be there. A strength of the `spatialGE` package and its web application is that later functions expect quality control and normalization steps were performed. So something that the transformation function does, we'll want to do so that later steps aren't expecting it and can't find it.
+
+```{r}
+
+run_area_transformation <- function(stlist_obj, sample){
+    
+    # find median cell area
+    median_area <- median(stlist_obj@spatial_meta[[sample]]$cell_area)
+    # calculate cell specific size factors based on cell area
+    size_factors <- stlist_obj@spatial_meta[[sample]]$cell_area / median_area
+    # transform the counts using these size factors
+    norm <- t(t(stlist_obj@counts[[sample]])/size_factors)
+    # add a pseudocount of one to the transformed values so there are not zeroes and use a logarithm base of 2 
+    stlist_obj@tr_counts[[sample]] <- log1p(norm) / log(2)
+
+    # find gene avgs and stdevs and store
+    stlist_obj@gene_meta[[sample]] <- tibble::tibble(gene_mean=as.vector(Matrix::rowMeans(stlist_obj@tr_counts[[sample]]))) %>%
+      tibble::add_column(gene_stdevs=as.vector(apply(stlist_obj@tr_counts[[sample]], 1, sd))) %>%
+      add_column(gene=rownames(stlist_obj@tr_counts[[sample]]), .before=1)
+
+    return(stlist_obj)
+}
+
+for (sample_name in names(scz_spatial_tr@counts)){
+    scz_spatial_tr <- run_area_transformation(scz_spatial_tr, sample_name)
+}
+
+scz_spatial_tr@misc[["transform"]] <- "cell_area"
+
 ```
 
 ### Visualize
@@ -194,49 +259,96 @@ visualize_lib_size <- function(mat, title_name){
         as.data.frame() %>%
         ggplot(aes(x=`.`)) + geom_histogram(bins = 500) + theme_bw() + ggtitle(title_name)
 }
-
-patchwork::wrap_plots(purrr::map2(scz_spatial@counts, names(scz_spatial@counts), visualize_lib_size), nrow = 2) + patchwork::plot_annotation(title = "Raw counts")
-
-wrap_plots(purrr::map2(scz_spatial@tr_counts, names(scz_spatial@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "Log transformed counts")
-
-wrap_plots(map2(scz_spatial_tr@tr_counts, names(scz_spatial_tr@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "SCTransform counts")
-
 ```
 
-We can visualize the distribution of expression of a few genes (before and after the normalization) using the `distribution_plots()` function.
+This code creates a function that will accept a matrix and compute the sum down each column. The column sums are stored as a data frame and then visualized as a histogram.
+
+We will call this function with `purrr::map2()` because this function allows us to loop through two inputs (`scz_spatial@counts` -- count matrices for each sample and `names(scz_spatial@counts)` -- a vector of sample names), returning 6 plots that we can combine using `patchwork::wrap_plots()` and add a title with `patchwork::plot_annotation()`.
+
+:::{.panel-tabset}
+
+#### Raw counts
+
+```{r}
+patchwork::wrap_plots(purrr::map2(scz_spatial@counts, names(scz_spatial@counts), visualize_lib_size), nrow = 2) + patchwork::plot_annotation(title = "Raw counts")
+```
+
+#### Log transformation
+
+```{r}
+wrap_plots(map2(scz_spatial@tr_counts, names(scz_spatial@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "Log transformed counts")
+```
+
+#### SCTransform
+
+```{r}
+wrap_plots(map2(scz_spatial_sct@tr_counts, names(scz_spatial_sct@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "SCTransform")
+```
+
+#### Cell area normalization
+
+```{r}
+wrap_plots(map2(scz_spatial_tr@tr_counts, names(scz_spatial_tr@tr_counts), visualize_lib_size), nrow = 2) + plot_annotation(title = "Cell area normalization")
+```
+
+:::
+
+We can visualize the distribution of expression of a few genes (before and after the normalization) using the `distribution_plots()` function from `spatialGE`. If plotting multiple genes, this function returns a named list of the plots. We'll combine them using the `+` functionality from patchwork and using various patchwork functions to control the layout and annotation of the plots.
 
 ```{r}
 raw_plots <- distribution_plots(scz_spatial, genes = c("CX3CR1", "FKBP5", "PVALB", "MBP"), data_type = "raw")
 
 transformed_log_plots <- distribution_plots(scz_spatial, genes = c("CX3CR1", "FKBP5", "PVALB", "MBP"), data_type = "tr")
 
-transformed_sct_plots <- distribution_plots(scz_spatial_tr, genes = c("CX3CR1", "FKBP5", "PVALB", "MBP"), data_type = "tr")
+transformed_sct_plots <- distribution_plots(scz_spatial_sct, genes = c("CX3CR1", "FKBP5", "PVALB", "MBP"), data_type = "tr")
+
+transformed_tr_plots <- distribution_plots(scz_spatial_tr, genes = c("CX3CR1", "FKBP5", "PVALB", "MBP"), data_type = "tr")
 ```
 
 :::{.panel-tabset}
 
+#### MBP
+
+```{r}
+raw_plots$MBP + ggtitle("Raw data") + 
+    transformed_log_plots$MBP + ggtitle("Log-transformed data") +
+    transformed_sct_plots$MBP + ggtitle("SCTransform") +
+    transformed_tr_plots$MBP + ggtitle("Cell area normalization") +
+    plot_annotation(title = "MBP") +
+    patchwork::plot_layout(guides = "collect", nrow=2, heights = c(12,12)) & theme(legend.position = "none")
+```
+
 #### CX3CR1
 
 ```{r}
-raw_plots$CX3CR1 + transformed_log_plots$CX3CR1 + transformed_sct_plots$CX3CR1 + patchwork::plot_layout(guides = "collect", nrow=3)
+raw_plots$CX3CR1 + ggtitle("Raw data") + 
+    transformed_log_plots$CX3CR1 + ggtitle("Log-transformed data") +
+    transformed_sct_plots$CX3CR1 + ggtitle("SCTransform") +
+    transformed_tr_plots$CX3CR1 + ggtitle("Cell area normalization") +
+    patchwork::plot_annotation(title = "CX3CR1") +
+    patchwork::plot_layout(guides = "collect", nrow=2, heights = c(12,12)) & theme(legend.position = "none")
 ```
 
 #### FKBP5
 
 ```{r}
-raw_plots$FKBP5 + transformed_log_plots$FKBP5 + transformed_sct_plots$FKBP5 + patchwork::plot_layout(guides = "collect", nrow=3)
+raw_plots$FKBP5 + ggtitle("Raw data") + 
+    transformed_log_plots$FKBP5 + ggtitle("Log-transformed data") +
+    transformed_sct_plots$FKBP5 + ggtitle("SCTransform") +
+    transformed_tr_plots$FKBP5 + ggtitle("Cell area normalization") +
+    plot_annotation(title = "FKBP5") +
+    plot_layout(guides = "collect", nrow=2, heights = c(12,12)) & theme(legend.position = "none")
 ```
 
 #### PVALB
 
 ```{r}
-raw_plots$PVALB + transformed_log_plots$PVALB + transformed_sct_plots$PVALB + patchwork::plot_layout(guides = "collect", nrow=3)
-```
-
-#### MBP
-
-```{r}
-raw_plots$MBP + transformed_log_plots$MBP + transformed_sct_plots$MBP + patchwork::plot_layout(guides = "collect", nrow=3)
+raw_plots$PVALB + ggtitle("Raw data") +
+    transformed_log_plots$PVALB + ggtitle("Log-transformed data") +
+    transformed_sct_plots$PVALB + ggtitle("SCTransform") +
+    transformed_tr_plots$PVALB + ggtitle("Cell area normalization") +
+    plot_annotation(title = "PVALB") +
+    plot_layout(guides = "collect", nrow=2, heights = c(12,12)) & theme(legend.position = "none")
 ```
 
 :::
@@ -244,7 +356,7 @@ raw_plots$MBP + transformed_log_plots$MBP + transformed_sct_plots$MBP + patchwor
 Now we want to clear up some R memory
 
 ```{r}
-rm(raw_plots, transformed_log_plots, transformed_sct_plots)
+rm(raw_plots, transformed_log_plots, transformed_sct_plots, transformed_tr_plots)
 gc()
 ```
 
