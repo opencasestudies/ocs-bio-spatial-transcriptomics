@@ -67,9 +67,22 @@ We can preview the data files that are available from Xenium for this project us
 
 ```{r, warning = FALSE, message = FALSE}
 library(GEOquery)
+```
 
 ```{r}
-gse <- GEOquery::getGEO("GSE307404", GSEMatrix = TRUE)
+gse <- tryCatch(
+  {
+  geo_gse <- GEOquery::getGEO("GSE307404", GSEMatrix = TRUE)
+  return(geo_gse)
+  },
+  error = function(e) {
+    err_msg <- conditionMessage(e)
+    
+    if (grepl("404|Not Found|HTTP error", err_msg, ignore.case = TRUE))
+    local_data <- readRDS(here("data/raw/geo_gseMatrix.rds"))
+      return(local_data)
+  }
+) 
 gse
 ```
 
@@ -86,7 +99,20 @@ pData(gse[[1]])$geo_accession[1]
 Then we use that together with the `getGEOSuppFiles()` function to list the filenames (`$fname`) deposited for that sample:
 
 ```{r}
-GEOquery::getGEOSuppFiles(pData(gse[[1]])$geo_accession[1], fetch_files = FALSE)$fname
+fnames <- tryCatch(
+  {
+  geo_fnames <- GEOquery::getGEOSuppFiles(pData(gse[[1]])$geo_accession[1], fetch_files = FALSE)$fname
+  return(geo_fnames)
+  },
+  error = function(e) {
+    err_msg <- conditionMessage(e)
+
+    if (grepl("character(0)", err_msg, ignore.case = TRUE))
+    local_data <- readRDS(here("data/raw/geo_fname.rds"))
+  }
+)
+fnames
+
 ```
 
 The `-cells.parquet` and `-cell_feature_matrix.h5` files are the important files going forward.
