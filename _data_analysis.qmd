@@ -138,7 +138,7 @@ use_combined_data <- function(mat, gene_name, use = "violin", samples = c("Br113
                       pivot_longer(starts_with("Br"),
                                    values_to = "tr_counts",
                                    names_to = "sample") %>%
-                      drop_na()
+                      tidyr::drop_na()
 
   if (use == "violin"){
     return(
