@@ -74,7 +74,7 @@ library(here)
 gse <- GEOquery::getGEO("GSE307404", GSEMatrix = TRUE)
 ```
 
-```{r echo = FALSE, message = FALSE}
+```{r echo = FALSE, message = FALSE, eval = FALSE}
 gse <- tryCatch(
   {
   geo_gse <- GEOquery::getGEO("GSE307404", GSEMatrix = TRUE)
@@ -93,6 +93,10 @@ gse <- tryCatch(
   }
 ) 
 gse
+```
+
+```{r, echo = FALSE}
+readRDS(here("data/raw/geo_gseMatrix.rds"))
 ```
 
 From this, we see that there are 24 samples total as part of this project.
@@ -116,7 +120,7 @@ Then we use that together with the `getGEOSuppFiles()` function to list the file
 GEOquery::getGEOSuppFiles(pData(gse[[1]])$geo_accession[1], fetch_files = FALSE)$fname
 ```
 
-```{r, echo = FALSE, message = FALSE}
+```{r, echo = FALSE, message = FALSE, eval = FALSE}
 fnames <- tryCatch(
   {
   geo_fnames <- GEOquery::getGEOSuppFiles(pData(gse[[1]])$geo_accession[1], fetch_files = FALSE)$fname
@@ -136,6 +140,10 @@ fnames <- tryCatch(
 )
 fnames
 
+```
+
+```{r, echo = FALSE}
+readRDS(here("data/raw/geo_fname.rds"))
 ```
 
 <details><summary>What if mine returns `character(0)`?</summary>
