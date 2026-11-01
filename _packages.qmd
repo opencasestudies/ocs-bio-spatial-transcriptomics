@@ -22,9 +22,12 @@ library(R.utils)
 library(rhdf5)
 library(Matrix)
 library(spatialGE)
+library(ggplot2)
+library(purrr)
 library(ggpubr)
 library(patchwork)
 library(colorblindr)
+
 ```
 
 Package        | Use

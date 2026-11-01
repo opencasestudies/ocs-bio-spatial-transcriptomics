@@ -74,27 +74,6 @@ library(here)
 gse <- GEOquery::getGEO("GSE307404", GSEMatrix = TRUE)
 ```
 
-```{r echo = FALSE, message = FALSE, eval = FALSE}
-gse <- tryCatch(
-  {
-  geo_gse <- GEOquery::getGEO("GSE307404", GSEMatrix = TRUE)
-  return(geo_gse)
-  },
-  error = function(e) {
-    err_msg <- conditionMessage(e)
-    
-    if (grepl("404|Not Found|HTTP error", err_msg, ignore.case = TRUE)){
-      local_data <- readRDS(here("data/raw/geo_gseMatrix.rds"))
-      return(local_data)
-    } else{
-      local_data <- readRDS(here("data/raw/geo_gseMatrix.rds"))
-      return(local_data)
-    }
-  }
-) 
-gse
-```
-
 ```{r, echo = FALSE}
 gse <- readRDS(here("data/raw/geo_gseMatrix.rds"))
 gse
@@ -119,28 +98,6 @@ Then we use that together with the `getGEOSuppFiles()` function to list the file
 
 ```{r, eval = FALSE}
 GEOquery::getGEOSuppFiles(pData(gse[[1]])$geo_accession[1], fetch_files = FALSE)$fname
-```
-
-```{r, echo = FALSE, message = FALSE, eval = FALSE}
-fnames <- tryCatch(
-  {
-  geo_fnames <- GEOquery::getGEOSuppFiles(pData(gse[[1]])$geo_accession[1], fetch_files = FALSE)$fname
-  return(geo_fnames)
-  },
-  error = function(e) {
-    err_msg <- conditionMessage(e)
-
-    if (grepl("character\\(0\\)", err_msg, ignore.case = TRUE)){
-      local_data <- readRDS(here("data/raw/geo_fname.rds"))
-      return(local_data)
-    } else {
-      local_data <- readRDS(here("data/raw/geo_fname.rds"))
-      return(local_data)
-    }
-  }
-)
-fnames
-
 ```
 
 ```{r, echo = FALSE}
