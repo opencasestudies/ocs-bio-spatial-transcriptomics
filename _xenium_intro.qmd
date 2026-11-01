@@ -10,6 +10,8 @@ Before we start to work with the Spatial Transcriptomics data from this study, w
 
 Xenium is an image-based spatial transcriptomics platform. Tissue samples are either fresh frozen (FF) or formalin-fixed paraffin-embedded (FFPE). Each of these options has its own specific protocols necessary for further sample preparation. 
 
+Note about gene panel and customization.
+
 ### Sample preparation
 
 {{< video https://www.youtube.com/watch?v=EhTgNYs9Vuw&list=PLfaSRwcfHcq3BngbACXhBci870L8iSCoj&index=1 >}}
@@ -40,6 +42,20 @@ Describe quality control that Xenium does
 
 https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/analysis/xoa-output-at-a-glance#output-bundle-files
 
+### Where to find data
+
+Mention power analysis needs for sparse data like this?
+
+Mention musuem of spatial transcriptomics, etc.
+
+Mention scDesign3 for *in silico* generation of data
+
+## Tools for working with data
+
+***
+
+### Why spatialGE?
+
 ## Summary
 
 ***
@@ -47,6 +63,8 @@ https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/anal
 :::{.emphasis_block}
 
 In summary, Xenium technology utilizes a panel of gene-specific probes to assay the spatially-resolved expression for a targeted set of genes at a single-cell or sub-cellular resolution within tissue samples. Samples for Xenium analysis are prepared from either fresh frozen (FF) or formalin-fixed paraffin-embedded (FFPE) tissue blocks. While preparation protocols differ by sample type (e.g, FF or FFPE), generally tissue sections are taken from the tissue block, mounted on specialized slides, and undergo chemical treatments for fixation, permeabilization, probe hybridization, and staining. Following sample preparation, imaging cycles are performed using a Xenium Analyzer. The Xenium Analyzer's onboard software performs nuclear and cellular segmentation to approximate boundaries between cells and assign observed transcripts to individual cells. Xenium platforms use automated real-time quality control to remove noise and lower quality data. Researchers receive a variety of data including data that reports on the localization of cells, nuclei, and transcripts, observed counts for the transcripts, and morphology images for the tissue sample sections.
+
+In this case study, we will use the tool `spatialGE` to work with Xenium data from @Kwon_etal_2026. Though @Kwon_etal_2026 first collected Visium data (that ultimately informed the design of the gene panel), we will only be considering the Xenium data in this case study, especially focusing on the early steps of data processing such as data import, quality control, and normalization as well as the visualization of spatial patterns with Quilt plots.
 
 :::
 

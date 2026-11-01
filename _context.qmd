@@ -1,8 +1,3 @@
-<!--
-More details on the background on the case study topic as well its relation to biomedical science.
-Videos or images may be helpful so this includes an example of embedding a video.
--->
-
 # **Context**
 
 ***
@@ -37,20 +32,35 @@ ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAO
 
 ***
 
-
+Note positive, negative, and cognitive symptoms here.
 
 
 ## Why collect samples from the dlPFC?
 
 ***
 
-Given that the dlPFC has been implicated in cases of schizophrenia, specifically cognitive symtpoms, researchers commonly study this area of the brain for schizophrenia research. Brain imaging studies (e.g., with __) do not need to collect samples because such imaging can be done with research participants. To study the biochemistry of this brain region, however, postmortem samples need to be collected.
+Given that the dlPFC has been implicated in cases of schizophrenia, specifically cognitive symtpoms, researchers commonly study this area of the brain for schizophrenia research. Brain imaging studies *in vivo* (MRI, PET, etc.) do not need to collect samples because such imaging can be done with research participants [@Keshavan_etal_2020]. To study the molecular biochemistry and omics of this brain region on a larger scale than is possible with live imaging, however, postmortem samples need to be collected.
 
-## Why is spatially-resolved gene expression data necessary?
+## Why is spatially-informed gene expression data necessary?
 
 ***
 
-The dlPFC has several laminar domains or layers, each of which seems to have a unique role in cognitive function. Given this, spatially-resolved gene expression data is beneficial not just for studying how gene expression may differ in abundance between neurotypical cases and cases with diagnosed schizophrenia, and not just for querying if cell types show differences in expression or __ between cases, but also to query if there might be differenes among these layers. In this way, spatial transcriptomics acts as a hypothesis generation tool to find candidate patterns that can be assayed further.
+The dlPFC has several laminar domains or layers, each of which seems to have a unique role in cognitive function. Originally introduced in the early 1900s [@], these layers have been confirmed throughout the years with recent single cell and spatial transcriptomics studies using a data-driven approach in describing them rather than manually annotating them [@Maynard_etal_2021; @Huuki-Myers_etal_2024].
+
+
+<detail><summary>Laminar domains in the dlPFC </summary>
+
+* L1
+* L2
+* L3
+* L4
+* L5
+* L6
+* WM -- White matter
+
+</details>
+
+Given this, spatially-informed gene expression data is beneficial not just for studying how gene expression may differ in abundance between neurotypical cases and cases with diagnosed schizophrenia, and not just for querying if cell types show differences in expression or composition between cases, but also to query if there might be differenes among these layers. In this way, spatial transcriptomics acts as a hypothesis generation tool to find candidate patterns that can be assayed further.
 
 ### Differential expression: abundance
 
@@ -75,7 +85,5 @@ ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAO
 ```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Example quilt plot showing expression"}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_26#slide=id.h7553ddbe789f499c_0_26")
 ```
-
-## What analysis steps need to happen after data collection?
 
 ***

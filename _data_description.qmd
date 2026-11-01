@@ -69,7 +69,11 @@ We can preview the data files that are available from Xenium for this project us
 library(GEOquery)
 ```
 
-```{r}
+```{r, eval = FALSE}
+gse <- GEOquery::getGEO("GSE307404", GSEMatrix = TRUE)
+```
+
+```{r echo = FALSE, message = FALSE}
 gse <- tryCatch(
   {
   geo_gse <- GEOquery::getGEO("GSE307404", GSEMatrix = TRUE)
@@ -78,15 +82,24 @@ gse <- tryCatch(
   error = function(e) {
     err_msg <- conditionMessage(e)
     
-    if (grepl("404|Not Found|HTTP error", err_msg, ignore.case = TRUE))
-    local_data <- readRDS(here("data/raw/geo_gseMatrix.rds"))
+    if (grepl("404|Not Found|HTTP error", err_msg, ignore.case = TRUE)){
+      local_data <- readRDS(here("data/raw/geo_gseMatrix.rds"))
       return(local_data)
+    } else{
+      local_data <- readRDS(here("data/raw/geo_gseMatrix.rds"))
+      return(local_data)
+    }
   }
 ) 
 gse
 ```
 
 From this, we see that there are 24 samples total as part of this project.
+
+<details><summary>What if mine returned a 404 error?</summary>
+GEOquery may have trouble connecting because too much traffic is hitting GEO's servers. If so, GEO returns a 404 error, not because the record doesn't exist, just because [GEOquery can't connect to GEO](https://github.com/seandavi/GEOquery/issues/38) and therefore can't return information about the record when you make the request. Try the request again.
+</details>
+
 
 Using one sample name from that output, we can what files each sample has.
 
@@ -99,6 +112,10 @@ pData(gse[[1]])$geo_accession[1]
 Then we use that together with the `getGEOSuppFiles()` function to list the filenames (`$fname`) deposited for that sample:
 
 ```{r}
+GEOquery::getGEOSuppFiles(pData(gse[[1]])$geo_accession[1], fetch_files = FALSE)$fname
+```
+
+```{r, echo = FALSE, message = FALSE}
 fnames <- tryCatch(
   {
   geo_fnames <- GEOquery::getGEOSuppFiles(pData(gse[[1]])$geo_accession[1], fetch_files = FALSE)$fname
@@ -107,13 +124,22 @@ fnames <- tryCatch(
   error = function(e) {
     err_msg <- conditionMessage(e)
 
-    if (grepl("character(0)", err_msg, ignore.case = TRUE))
-    local_data <- readRDS(here("data/raw/geo_fname.rds"))
+    if (grepl("character(0)", err_msg, ignore.case = TRUE)){
+      local_data <- readRDS(here("data/raw/geo_fname.rds"))
+      return(local_data)
+    } else {
+      local_data <- readRDS(here("data/raw/geo_fname.rds"))
+      return(local_data)
+    }
   }
 )
 fnames
 
 ```
+
+<details><summary>What if mine returns `character(0)`?</summary>
+GEOquery may have trouble connecting because too much traffic is hitting GEO's servers. If so, GEO returns a 404 error, not because the record doesn't exist, just because [GEOquery can't connect to GEO](https://github.com/seandavi/GEOquery/issues/38) and therefore can't return information about the record when you make the request. Instead of seeing a 404 error, you'll see `character(0)` because we're trying to extract specific information (`$fname`) that doesn't exist. Try the request again.
+</details>
 
 The `-cells.parquet` and `-cell_feature_matrix.h5` files are the important files going forward.
 
