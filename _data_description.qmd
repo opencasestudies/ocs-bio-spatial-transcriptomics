@@ -112,7 +112,7 @@ pData(gse[[1]])$geo_accession[1]
 
 Then we use that together with the `getGEOSuppFiles()` function to list the filenames (`$fname`) deposited for that sample:
 
-```{r}
+```{r, eval = FALSE}
 GEOquery::getGEOSuppFiles(pData(gse[[1]])$geo_accession[1], fetch_files = FALSE)$fname
 ```
 
@@ -125,7 +125,7 @@ fnames <- tryCatch(
   error = function(e) {
     err_msg <- conditionMessage(e)
 
-    if (grepl("character(0)", err_msg, ignore.case = TRUE)){
+    if (grepl("character\\(0\\)", err_msg, ignore.case = TRUE)){
       local_data <- readRDS(here("data/raw/geo_fname.rds"))
       return(local_data)
     } else {
