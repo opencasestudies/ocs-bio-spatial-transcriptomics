@@ -7,17 +7,37 @@ Videos or images may be helpful so this includes an example of embedding a video
 
 ***
 
-## What is schizophrenia?
+## The human nervous system
+
+The human nervous system allows humans to receive, process, and communicate signals based on input from their surroundings. The nervous system is made up of the central nervous system (CNS) and the peripheral nervous system (PNS). The CNS consists of the brain and spinal cord which direct the understanding and communication of received signals to the rest of the nervous system.
+
+Neurons are a specialized cell type necessary for the communication of these signals within the nervous system and they are cells with an abnormal shape. The body of the cell has the nucleus with branch-like extensions called dendrites which receive signals. Each neuron also has slender projection off of the body of cell called an axon which transmits signals to other cells. The axon has a insulating layer called a myelin sheath to help with signal transduction. Nerves within the nervous system are made up of bundles of axons from multiple neurons. 
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Diagram from NIH Bio Art showing a neuron specifically highlighting its cell body with the nucleus, the dendrites branching off of the cell body and the myelin sheath covered axon slender offshoot."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h51840eb841718f1d_6_2#slide=id.h51840eb841718f1d_6_2")
+```
+
+The brain has several other specialized cells such as astrocytes and oligodendrocytes. Oligodendrocytes provide the myelin sheath insulation around the axons of neurons. 
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "The brain has other specialized cells such as astrocytes and oligodendrocytes."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h46301d28624b2de3_0_11#slide=id.h46301d28624b2de3_0_11")
+```
+
+## What is the dorsolateral prefrontal cortex?
 
 ***
 
-## What is the dorsolateral prefrontal cortex?
+The dorsolateral prefrontal cortex (dlPFC) is a specific part of the frontal lobe of the cerebral cortex of the brain. The cerebral cortex is the outer layer in the upper part of the brain where cognition is localized. It's a twisted and folded structure made up of gray matter (spongy tissue made up mostly of the neuronal cell bodies) which sits atop white matter (made up of the neuronal axons and oligodendrocytes). The prefrontal cortex is also known as the "prefrontal area" and is found in the front and top of the frontal lobe. The dorsolateral portion of the prefrontal cortex is towards the top and side of the prefrontal cortex. The dlPFC is invovled in exectuve functioning and cognitive control, contributing to working memory and emotional regulation.
 
 ```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Diagram showing location of the dorsolateral prefrontal cortex, how 2D samples relate to the 3D location, and its laminar domains."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h3bff079e06902c2a_2_0#slide=id.h3bff079e06902c2a_2_0")
 ```
 
+## What is schizophrenia?
+
 ***
+
+
 
 ## Why collect samples from the dlPFC?
 
