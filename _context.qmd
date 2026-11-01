@@ -45,7 +45,7 @@ Given that the dlPFC has been implicated in cases of schizophrenia, specifically
 
 ***
 
-The dlPFC has several laminar domains or layers, each of which seems to have a unique role in cognitive function. Originally introduced in the early 1900s [@], these layers have been confirmed throughout the years with recent single cell and spatial transcriptomics studies using a data-driven approach in describing them rather than manually annotating them [@Maynard_etal_2021; @Huuki-Myers_etal_2024].
+The dlPFC has several laminar domains or layers, each of which seems to have its own structure and molecular signature (e.g., cell composition, gene expression patterns, morphology, connectivity, etc.), and therefore, likely, a unique role in cognitive function. Originally introduced in the early 1900s [@Zilles_2018], these layers have been confirmed throughout the years with recent single cell and spatial transcriptomics studies using a data-driven approach in describing them rather than manually annotating them [@Maynard_etal_2021; @Huuki-Myers_etal_2024].
 
 
 <detail><summary>Laminar domains in the dlPFC </summary>
@@ -60,7 +60,7 @@ The dlPFC has several laminar domains or layers, each of which seems to have a u
 
 </details>
 
-Given this, spatially-informed gene expression data is beneficial not just for studying how gene expression may differ in abundance between neurotypical cases and cases with diagnosed schizophrenia, and not just for querying if cell types show differences in expression or composition between cases, but also to query if there might be differenes among these layers. In this way, spatial transcriptomics acts as a hypothesis generation tool to find candidate patterns that can be assayed further.
+Given this, spatially-informed gene expression data is beneficial not just for studying how gene expression may differ in abundance between neurotypical cases and cases with diagnosed schizophrenia, and not just for querying if cell types show differences in expression or composition between cases, but also to query if there might be differences among these layers, a point discussed by @Maynard_etal_2021. In this way, spatial transcriptomics acts as a hypothesis generation tool either to find candidate patterns that can be assayed further or for initial investigation into mechanisms to interpret previously identified risk genes.
 
 ### Differential expression: abundance
 

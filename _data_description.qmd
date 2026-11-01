@@ -67,6 +67,7 @@ We can preview the data files that are available from Xenium for this project us
 
 ```{r, warning = FALSE, message = FALSE}
 library(GEOquery)
+library(here)
 ```
 
 ```{r, eval = FALSE}
