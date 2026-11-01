@@ -96,7 +96,8 @@ gse
 ```
 
 ```{r, echo = FALSE}
-readRDS(here("data/raw/geo_gseMatrix.rds"))
+gse <- readRDS(here("data/raw/geo_gseMatrix.rds"))
+gse
 ```
 
 From this, we see that there are 24 samples total as part of this project.
