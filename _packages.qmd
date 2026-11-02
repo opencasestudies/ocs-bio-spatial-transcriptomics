@@ -26,8 +26,8 @@ library(colorblindr)
 
 ```
 
-Package               | Source | Use
---------------------- | ---------| -------------------------------
+Package | Source | Use
+---- | -- | ------
 [here](https://cran.r-project.org/web/packages/here/refman/here.html){target="_blank"} | CRAN | For constructing paths within a project
 [GEOquery](https://bioconductor.org/packages/release/bioc/html/GEOquery.html){target="_blank"} | Bioconductor | For interacting with GEO to fetch files
 [magrittr](https://magrittr.tidyverse.org/){target="_blank"} | CRAN<br>(part of tidyverse) | Provides the pipe (`%>%`)
@@ -48,6 +48,7 @@ Package               | Source | Use
 [patchwork](https://cran.r-project.org/web/packages/patchwork/refman/patchwork.html){target="_blank"} | CRAN | For combining multiple plots
 [colorblindr](https://github.com/clauswilke/colorblindr){target="_blank"} | GitHub | For simulating color vision deficiency with real plots to evaluate if color palettes are distinguishable
 
+: {tbl-colwidths="[45,15,40]"}
 
 The first time we use a function, we will use the `::` to indicate which package we are using. Unless we have overlapping function names, this is not necessary, but we will include it here to be informative about where the functions we will use come from.
 
