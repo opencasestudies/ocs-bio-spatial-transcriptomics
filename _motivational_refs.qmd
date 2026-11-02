@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Inject specific notes using the corresponding citation keys by calling the function defined above
-  addNoteBefore('Atta_Clifton_Anant_Aihara_Fan_2024', 'Appropriate normalization methods');
+  addNoteBefore('Atta_Clifton_Anant_Aihara_Fan_2024', 'Appropriate normalization methods:');
   addNoteBefore('Kwon_etal_2026', 'Xenium data studying SCZ in the dlPFC:');
   addNoteBefore('Lim_Wang_Buzdin_Li_2025', 'Spatial Transcriptomics Technologies:');
   addNoteBefore('Ospina_Wilson_Soupir_Berglund_Smalley_Tsai_Fridley_2022', 'spatialGE package:');

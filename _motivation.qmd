@@ -57,7 +57,7 @@ In this case study, we will use `spatialGE` to work with Xenium data from SCZ an
 * How to import the data 
 * How to inspect and work with a `spatialGE` object that stores the data
 * How to perform quality control and filter out low quality or irrelevant data
-* How to transform or normalize the data to account for technical artifacts
+* How to transform or normalize the image-based data to account for technical artifacts [@Atta_Clifton_Anant_Aihara_Fan_2024]
 * How to create {{< glossary "Quilt plot" display="Quilt plots" >}} to visualize spatial patterns of gene expression
 * How to annotate cells within the dataset, exploring cell type specific spatial patterns of gene expression
 
