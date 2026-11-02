@@ -518,7 +518,7 @@ One downside of this approach is that it's using the GEO accession numbers as th
 </details>
 :::
 
-We will explore this object (what it contains, how to access it, etc.) in the [Data Exploration](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/) section of the case study.
+We will explore this object (what it contains, how to access it, etc.) in the [Data Exploration](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#data-exploration) section of the case study.
 
 First, let's release some memory for variables we don't need anymore.
 
