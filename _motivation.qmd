@@ -45,7 +45,7 @@ In this case study, we will use `spatialGE` to work with image-based spatial tra
 * Importing the data .
 * Inspecting and working with a `spatialGE` object that stores the data.
 * Performing quality control and filtering out low quality or irrelevant data.
-* Transforming or normalizing the image-based data to account for technical artifacts. [@Atta_Clifton_Anant_Aihara_Fan_2024]
+* Transforming or normalizing the image-based data to account for technical artifacts [@Atta_Clifton_Anant_Aihara_Fan_2024].
 * Creating data visualizations known as {{< glossary "Quilt plot" display="Quilt plots" >}} to visualize spatial patterns of gene expression.
 * Annotating cells within the dataset, exploring cell type specific spatial patterns of gene expression.
 

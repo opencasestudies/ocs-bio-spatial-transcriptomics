@@ -332,7 +332,7 @@ names(spatial_coords) <- samples_metadata$DxID
 1. We decompress the file, storing it in our file system
 1. We read in the data with the `arrow` package and its `read_parquet()` function.
 1. We remove the decompressed file from our file system because we no longer need it.
-1. We select only the columns that `spatialGE` needs, reporting the centroid coordiantes for each cell and a column we can use for normalization later:
+1. We select only the columns that `spatialGE` needs, reporting the centroid coordinates for each cell and a column we can use for normalization later:
   * `cell_id`
   * `x_centroid`
   * `y_centroid`

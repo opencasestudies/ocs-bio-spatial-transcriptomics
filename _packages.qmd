@@ -37,7 +37,7 @@ Package        | CRAN, Bioconductor, or GitHub | Use
 [dplyr](https://cran.r-project.org/web/packages/dplyr/refman/dplyr.html){target="_blank"} | CRAN (part of tidyverse) | Data wrangling
 [tidyr](https://tidyr.tidyverse.org/){target="_blank"} | CRAN (part of tidyverse) | for wrangling data to get it to a "tidy" format
 [sf](https://cran.r-project.org/web/packages/sf/refman/sf.html){target="_blank"} | CRAN | Enables storing and working with spatial data like polygon coordinates
-[arrow](https://cran.r-project.org/web/packages/arrow/index.html){target="_blank"}) | CRAN | For working with parquet files
+[arrow](https://cran.r-project.org/web/packages/arrow/index.html){target="_blank"} | CRAN | For working with parquet files
 [R.utils](https://cran.r-project.org/web/packages/R.utils/index.html){target="_blank"} | CRAN | R utilities like duplicating variables
 [rhdf5](https://www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.html){target="_blank"} | Bioconductor | Reading and working with H5 files
 [Matrix](https://cran.r-project.org/web/packages/Matrix/refman/Matrix.html){target="_blank"} | CRAN | Working with sparse and dense matrices
