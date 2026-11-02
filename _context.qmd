@@ -34,13 +34,21 @@ ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAO
 
 #### How image-based is generated
 
-### Where to find data
+### Where to find ST data
 
 Mention power analysis needs for sparse data like this?
 
 Mention museum of spatial transcriptomics, etc.
 
 Mention scDesign3 for *in silico* generation of data
+
+### How to work with ST data
+
+There are a variety of tools available to analyze spatial transcriptomics data. Some are command line tools or packages you can load while working with Python or R. Others are more user-friendly tools which point and click interfaces or GUIs. Some of these point and click tools require a license to use while others are free to use. Some of the command line tools / packages are analysis suites while others perform specific tasks such as normalization or downstream analyses. [The ITN course "Choosing Genomics Tools"](https://hutchdatascience.org/Choosing_Genomics_Tools/spatial-transcriptomics-1.html) provides a thorough discussion of the available tools. One tool, `spatialGE` can be used as either an R package (providing functions for a full range of tasks) [@Ospina_Wilson_Soupir_Berglund_Smalley_Tsai_Fridley_2022] or as a point and click interface that is free to use [@Ospina_etal_2025]. In this way, `spatialGE` is flexible, meeting users where they are at, whether they are comfortable programming or not. Though this case study will focus on working with image-based data for data import, quality control, normalization, and visualization tasks, `spatialGE` can be used to work with ST data from a variety of technologies and for downstream applications. 
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Diagram showing that tools to work with spatial transcriptomics data are either command line tools and software packages or user friendly point and click tools. Software packages may provide full analysis suites or just task specific functions. They may work with R or Python. The user friendly point and click tools are either licensed requiring users to pay to use them or free to use. spatial GE is both an R package and a free to use point and click tool providing users with an analysis suite of functions and meeting users where they are whether they are comfortable programming or not."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h5d1240d022ec01ab_0_104#slide=id.h5d1240d022ec01ab_0_104")
+```
 
 
 ### Uses of ST data

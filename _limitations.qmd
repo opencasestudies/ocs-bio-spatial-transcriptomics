@@ -9,6 +9,15 @@ See the following example from a previous case study: https://www.opencasestudie
 
 There are some important considerations regarding this data analysis to keep in mind:
 
+**Limitations regarding the scope of this case study:**
+
+1. {FILL IN}
+1. {FILL IN}
+
+**Limitations regarding the data analysis and using postmortem samples:**
+
+The Xenium algorithm used for cell segmentation for this data, prior to the researcher receiving it, employs a nuclear expansion following DAPI staining. Given that these samples are from brain tissue and the brain has specialized cells with abnormal structure (e.g., neurons with long axon offshoots), the cell segmentation results may not truly reflect cell boundaries in the sample. At the least, this approach is unlikely to be as accurate as the approach that uses cell boundary markers in addition to DAPI staining to segment cell boundaries.
+
 1. {FILL IN}
 1. {FILL IN}
 
