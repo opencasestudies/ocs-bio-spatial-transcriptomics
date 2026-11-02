@@ -8,7 +8,7 @@ Our main question(s)
 ::::{.inner_block}
 1. How does the choice of technology/platform for generating spatially-informed gene expression data impact the data that I will have to work with?
 1. What about my data should I consider during quality control in order to set filtering criteria?
-1. How will my choice of normalization methods impact my results?
+1. Which normalization method is right for my data?
 1. How do gene expression patterns compare for specific genes in dorsal prefrontal cortex tissue samples from cases with diagnosed schizophrenia to those from neurotypical cases?
 ::::
 :::
