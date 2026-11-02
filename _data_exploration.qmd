@@ -248,7 +248,7 @@ rownames(scz_spatial@counts$Br1139SCZ) %>%
   table()
 ```
 
-We appear to have negative control codewords, negative control probes, and unassigned codewords. We can use the negative control probes to make sure that we are only keeping cells with very little expression of these probes. How much expressiion of these probes is typically happening in the sample right now?
+We appear to have negative control codewords, negative control probes, and unassigned codewords. We can use the negative control probes to make sure that we are only keeping cells with very little expression of these probes. How much expression of these probes is typically happening in the sample right now?
 
 ```{r}
 neg_control_probes_only <- scz_spatial@counts$Br1139SCZ[startsWith(rownames(scz_spatial@counts$Br1139SCZ), 

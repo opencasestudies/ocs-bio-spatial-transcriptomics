@@ -42,14 +42,6 @@ Describe quality control that Xenium does
 
 https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/analysis/xoa-output-at-a-glance#output-bundle-files
 
-### Where to find data
-
-Mention power analysis needs for sparse data like this?
-
-Mention musuem of spatial transcriptomics, etc.
-
-Mention scDesign3 for *in silico* generation of data
-
 ## Tools for working with data
 
 ***

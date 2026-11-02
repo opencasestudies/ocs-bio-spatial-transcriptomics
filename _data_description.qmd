@@ -39,7 +39,7 @@ The panel targets 300 genes using probes designed specifically to target transcr
 | Categories of gene used for the panel | Source                | Number of genes |
 | :------------------------------------ | :-------------------: | :-------------: |
 | Differentially expressed genes        | Visium data analysis in @Kwon_etal_2026 | 168 |
-| dPFC Layer marker genes               | @Huuki-Myers_etal_2024 | 85 |
+| dlPFC Layer marker genes               | @Huuki-Myers_etal_2024 | 85 |
 | Schizophrenia associated genes        | Various literature/GWAS studies (see [Supplementary Table 8](https://www.biorxiv.org/content/biorxiv/early/2026/05/23/2026.02.16.706214/DC9/embed/media-9.xlsx?download=true)) | 18 |
 | Cell type marker genes                | @Huuki-Myers_etal_2024 | 35 |
 
@@ -118,7 +118,7 @@ The sample metadata file that we will be working with combines the metadata from
 
 <details><summary> Expansion of metadata from Supplementary Table 1</summary>
 
-We previously created a file for the Xenium samples which maps each sample's GEO Accession Number to the Brain Number ID (`geo_to_spatial_samples.csv`) and united this with the data from Supplementary Table 1 because we will need the GEO accession number in order to fetch the spatial coordaintes and mRNA counts for each sample. However, the sample metadata file provided in the supplementary table only includes the Brain Number ID (`Br####`). 
+We previously created a file for the Xenium samples which maps each sample's GEO Accession Number to the Brain Number ID (`geo_to_spatial_samples.csv`) and united this with the data from Supplementary Table 1 because we will need the GEO accession number in order to fetch the spatial coordinates and mRNA counts for each sample. However, the sample metadata file provided in the supplementary table only includes the Brain Number ID (`Br####`). 
 
 The files for this project follow the naming pattern of `{sample specific GEO accession number}_{sample Brain Number ID}-{file type specific pattern}`,                       
 
@@ -138,11 +138,11 @@ The combined data from Supplementary Table 1 and the GEO to Brain Number ID map 
 | Variable | Details |
 |:-----------:|:-----------:|
 | `BrainNumberID` | An identifier representing which donor brain the sample originates from. Follows the pattern "Br####" |
-| `Race`          | Demographic information about donors. All samples are "CAUC" for caucasian. |
+| `Race`          | Demographic information about donors. All samples are "CAUC" for Caucasian. |
 | `Sex`           | Demographic information about donors. "M" for male or "F" for female. |
 | `Age`           | Demographic information about donors. Number / decimal representing age of donor in years. |
 | `RIN`           | RNA Integrity Number. Number / decimal representing the quality of the fresh frozen block tissue samples. Generally, [Visium](https://cdn.10xgenomics.com/image/upload/v1726523282/support-documents/CG000763_VisiumHDFFTissuePrepHandbook_RevA_1.pdf) and [Xenium recommend](https://kb.10xgenomics.com/s/article/34005267962125-What-should-I-consider-when-processing-Human-Brain-on-Xenium) brain tissues have an observed RIN of 4+ (though older resources may recommend 7+) (@Grases_Porta-Pardo_2026). Lower RINs may lead to reduced sensitivity. |
-| `PMI`           | Postemortem Interval. Number / decimal representing the time interval between the donor's death and the sample extraction and freezing from that donor. Typically reported in hours, but could be reported in days or another measurement of time. To promote greater fresh frozen block tissue quality, generally it is recommended to [minimize the post mortem interval](https://cdn.10xgenomics.com/image/upload/v1726523282/support-documents/CG000763_VisiumHDFFTissuePrepHandbook_RevA_1.pdf) |
+| `PMI`           | Postmortem Interval. Number / decimal representing the time interval between the donor's death and the sample extraction and freezing from that donor. Typically reported in hours, but could be reported in days or another measurement of time. To promote greater fresh frozen block tissue quality, generally it is recommended to [minimize the postmortem interval](https://cdn.10xgenomics.com/image/upload/v1726523282/support-documents/CG000763_VisiumHDFFTissuePrepHandbook_RevA_1.pdf) |
 | `PrimaryDx`     | Demographic information about donors representing the primary diagnosis. "Control" for neurotypical donors and "Schizophrenia" for donors diagnosed with schizophrenia. | 
 | `Visium`        | "YES" or "NO" for whether Visium data was generated for this sample. All samples are "YES". |
 | `Xenium`        | "YES" or "NO" for whether Xenium data was generated for this sample. |
@@ -248,7 +248,7 @@ This case study will use the `rhdf5` and `Matrix` packages to work with `cell_fe
 
 Xenium produces a [variety of output files](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/analysis/xoa-output-at-a-glance). Not all of these will be shared / deposited into an archive. While some file types may be more usual or preferred by some in the field (e.g., because it's more efficient to store or it's a file type they are more comfortable with), there doesn't appear to be a specific industry standard or accepted practice on files to always use. For example, morphology images (likely stained with DAPI to mark nuclei) are often output but are not always shared. An output may be shared as a `.csv` file instead of a `.parquet` file or as a `Zarr` file instead of an `.h5` file. It may seem like you can't proceed if you don't see the file types you expect, but it's not necessarily a lost cause. Make sure that you understand:
 
-1. What files are available and what they represent about the data. You may be able to use an alternate file type for a specific aspect of the data (e.g., spatial coordiantes).
+1. What files are available and what they represent about the data. You may be able to use an alternate file type for a specific aspect of the data (e.g., spatial coordinates).
 1. What file types your downstream tools expect or can work with. 
 1. If you can use a file type that you have in place of a file type that you or a downstream tool usually expects, or at least wrangle it to meet your needs.
 1. What (if any) specialized packages are necessary to read in and work with certain file types.

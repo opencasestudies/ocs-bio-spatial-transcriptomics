@@ -24,7 +24,7 @@ Spatial Transcriptomics (ST) refers to molecular methods used to measure gene ex
 ::::
 :::
 
-In this way, researchers can explore where a gene is expressed within a tissue and how that may change over time, based on experimental conditions, or for different clincal contexts. Spatial transcriptomics is a rapidly-evolving area of development that can be used for {{< glossary "Hypothesis generation" display = "hypothesis generation" >}} for a variety of biological questions such as describing cell neighborhoods, cell-cell interactions, and discovering biomarkers or drug targets. 
+In this way, researchers can explore where a gene is expressed within a tissue and how that may change over time, based on experimental conditions, or for different clinical contexts. Spatial transcriptomics is a rapidly-evolving area of development that can be used for {{< glossary "Hypothesis generation" display = "hypothesis generation" >}} for a variety of biological questions such as describing cell neighborhoods, cell-cell interactions, and discovering biomarkers or drug targets. 
 
 
 ```{r, echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Illustration showing the uses of spatial transcriptomics, underlining that it is largely used to generate hypotheses, desciribing cell neighborhoods and cell interactions as well as discovering biomarkers or niche interface processes. It can complement results from single cell RNA seq and be integrated with images for deeper understanding."}

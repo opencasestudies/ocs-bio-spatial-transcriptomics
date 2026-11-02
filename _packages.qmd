@@ -26,7 +26,7 @@ library(colorblindr)
 
 ```
 
-Package        | Cran, Bioconductor, or GitHub | Use
+Package        | CRAN, Bioconductor, or GitHub | Use
 -------------- |------------- | --------------------------------------
 [here](https://cran.r-project.org/web/packages/here/refman/here.html){target="_blank"} | CRAN | Constructs paths within a project
 [GEOquery](https://bioconductor.org/packages/release/bioc/html/GEOquery.html){target="_blank"} | Bioconductor | Interact with GEO to fetch files
@@ -37,11 +37,11 @@ Package        | Cran, Bioconductor, or GitHub | Use
 [dplyr](https://cran.r-project.org/web/packages/dplyr/refman/dplyr.html){target="_blank"} | CRAN (part of tidyverse) | Data wrangling
 [tidyr](https://tidyr.tidyverse.org/){target="_blank"} | CRAN (part of tidyverse) | for wrangling data to get it to a "tidy" format
 [sf](https://cran.r-project.org/web/packages/sf/refman/sf.html){target="_blank"} | CRAN | Enables storing and working with spatial data like polygon coordinates
-[arrow](https://cran.r-project.org/web/packages/arrow/index.html{target="_blank"}) | CRAN | For working with parquet files
+[arrow](https://cran.r-project.org/web/packages/arrow/index.html){target="_blank"}) | CRAN | For working with parquet files
 [R.utils](https://cran.r-project.org/web/packages/R.utils/index.html){target="_blank"} | CRAN | R utilities like duplicating variables
 [rhdf5](https://www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.html){target="_blank"} | Bioconductor | Reading and working with H5 files
 [Matrix](https://cran.r-project.org/web/packages/Matrix/refman/Matrix.html){target="_blank"} | CRAN | Working with sparse and dense matrices
-[spatialGE](https://cran.r-project.org/web/packages/spatialGE/refman/spatialGE.html){target="_blank"} | Cran or [GitHub](https://github.com/FridleyLab/spatialGE/tree/main) | Package for QC, normalization, filtering, visualization, and analysis of spatially-informed gene expression data
+[spatialGE](https://cran.r-project.org/web/packages/spatialGE/refman/spatialGE.html){target="_blank"} | CRAN or [GitHub](https://github.com/FridleyLab/spatialGE/tree/main) | Package for QC, normalization, filtering, visualization, and analysis of spatially-informed gene expression data
 [ggplot2](https://ggplot2.tidyverse.org/){target="_blank"} | CRAN (part of tidyverse) | For visualizing data
 [purrr](https://purrr.tidyverse.org/){target="_blank"} | CRAN (part of tidyverse) | Methods for iterating on R objects
 [ggpubr](https://cran.r-project.org/web/packages/ggpubr/refman/ggpubr.html){target="_blank"} | CRAN | Further functions to customize and prepare ggplot2 plots for publication
