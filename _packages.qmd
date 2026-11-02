@@ -48,7 +48,7 @@ Package | Source | Use
 [patchwork](https://cran.r-project.org/web/packages/patchwork/refman/patchwork.html){target="_blank"} | CRAN | For combining multiple plots
 [colorblindr](https://github.com/clauswilke/colorblindr){target="_blank"} | GitHub | For simulating color vision deficiency with real plots to evaluate if color palettes are distinguishable
 
-: {tbl-colwidths="[25,20,55]"}
+: {tbl-colwidths="[20,25,55]"}
 
 The first time we use a function, we will use the `::` to indicate which package we are using. Unless we have overlapping function names, this is not necessary, but we will include it here to be informative about where the functions we will use come from.
 
