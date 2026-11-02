@@ -1,16 +1,11 @@
 # **Packages and Setup**
 ***
 
-<!--
-load all the packages used in the case study analysis in the code chunk below
-(try to use tidyverse over base R).
-Fill out the table and add rows as necessary providing a link to the source and briefly explaining its use for each package
--->
-
-We will begin by loading the packages that we will need:
+We will begin by loading the packages that we will need. Several of these packages are available from CRAN (and packaged together as a part of the [tidyverse](https://tidyverse.org/packages/)) while others are available from Bioconductor, and one is best installed from GitHub.
 
 ```{r warning = FALSE, message = FALSE}
 library(here)
+library(GEOquery)
 library(magrittr)
 library(tibble)
 library(stringr)
@@ -31,17 +26,40 @@ library(colorblindr)
 
 ```
 
-Package        | Use
--------------- |-------------
-[here](https://cran.r-project.org/web/packages/here/refman/here.html){target="_blank"}      | Constructs paths within project
-[magrittr] | For the pipe
-[readr](https://cran.r-project.org/web/packages/readr/refman/readr.html){target="_blank"} | Reading in data
-[dplyr](https://cran.r-project.org/web/packages/dplyr/refman/dplyr.html){target="_blank"} | Data wrangling
-[sf](https://cran.r-project.org/web/packages/sf/refman/sf.html){target="_blank"} | Enables storing and working with spatial data
-[rhdf5](https://www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.html){target="_blank"} | Reading and working with H5 files
-[Matrix](https://cran.r-project.org/web/packages/Matrix/refman/Matrix.html){target="_blank"} | Working with sparse and dense matrices
-[spatialGE](https://cran.r-project.org/web/packages/spatialGE/refman/spatialGE.html){target="_blank"} | Package for QC, normalization, filtering, visualization, and analysis of spatially-informed gene expression data
-[ggpubr](https://cran.r-project.org/web/packages/ggpubr/refman/ggpubr.html){target="_blank"} | Further functions to customize and prepare ggplot2 plots for publication
+Package        | Cran, Bioconductor, or GitHub | Use
+-------------- |------------- | --------------------------------------
+[here](https://cran.r-project.org/web/packages/here/refman/here.html){target="_blank"} | CRAN | Constructs paths within a project
+[GEOquery](https://bioconductor.org/packages/release/bioc/html/GEOquery.html){target="_blank"} | Bioconductor | Interact with GEO to fetch files
+[magrittr](https://magrittr.tidyverse.org/){target="_blank"} | CRAN  (part of tidyverse) | Provides the pipe (`%>%`)
+[tibble](https://tibble.tidyverse.org/){target="_blank"}  | CRAN  (part of tidyverse) | For special tables or data frames
+[stringr](https://stringr.tidyverse.org/){target="_blank"} | CRAN (part of tidyverse) | For special string manipulation 
+[readr](https://cran.r-project.org/web/packages/readr/refman/readr.html){target="_blank"} | CRAN (part of tidyverse) | Read and write rectangular data (like `.csv`, `.tsv`, etc.)
+[dplyr](https://cran.r-project.org/web/packages/dplyr/refman/dplyr.html){target="_blank"} | CRAN (part of tidyverse) | Data wrangling
+[tidyr](https://tidyr.tidyverse.org/){target="_blank"} | CRAN (part of tidyverse) | for wrangling data to get it to a "tidy" format
+[sf](https://cran.r-project.org/web/packages/sf/refman/sf.html){target="_blank"} | CRAN | Enables storing and working with spatial data like polygon coordinates
+[arrow](https://cran.r-project.org/web/packages/arrow/index.html{target="_blank"}) | CRAN | For working with parquet files
+[R.utils](https://cran.r-project.org/web/packages/R.utils/index.html){target="_blank"} | CRAN | R utilities like duplicating variables
+[rhdf5](https://www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.html){target="_blank"} | Bioconductor | Reading and working with H5 files
+[Matrix](https://cran.r-project.org/web/packages/Matrix/refman/Matrix.html){target="_blank"} | CRAN | Working with sparse and dense matrices
+[spatialGE](https://cran.r-project.org/web/packages/spatialGE/refman/spatialGE.html){target="_blank"} | Cran or [GitHub](https://github.com/FridleyLab/spatialGE/tree/main) | Package for QC, normalization, filtering, visualization, and analysis of spatially-informed gene expression data
+[ggplot2](https://ggplot2.tidyverse.org/){target="_blank"} | CRAN (part of tidyverse) | For visualizing data
+[purrr](https://purrr.tidyverse.org/){target="_blank"} | CRAN (part of tidyverse) | Methods for iterating on R objects
+[ggpubr](https://cran.r-project.org/web/packages/ggpubr/refman/ggpubr.html){target="_blank"} | CRAN | Further functions to customize and prepare ggplot2 plots for publication
+[patchwork](https://cran.r-project.org/web/packages/patchwork/refman/patchwork.html){target="_blank"} | CRAN | For combining multiple plots
+[colorblindr](https://github.com/clauswilke/colorblindr){target="_blank"} | GitHub | for simulating color vision deficiency with real plots to evaluate if color palettes are distinguishable
 
 
 The first time we use a function, we will use the `::` to indicate which package we are using. Unless we have overlapping function names, this is not necessary, but we will include it here to be informative about where the functions we will use come from.
+
+:::{.column-margin}
+Fill in info for container.
+:::
+
+:::{.emphasis_block}
+
+Installing all of these packages in a way that they work together correctly may be difficult because of dependencies and version needs. Therefore, we have provided a container that has all of the necessary software to work through this case study.
+
+* Use Docker to pull the container image: Add instructions here
+* Use Docker to run the container, creating an interactive RStudio environment with all of the software: Add instructions here
+
+:::
