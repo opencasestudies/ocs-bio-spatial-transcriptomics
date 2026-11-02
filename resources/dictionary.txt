@@ -39,6 +39,7 @@ Dorsolateral
 downregulated
 dplyr
 Dx
+ethicist
 FALSEs
 favicon
 FFPE
