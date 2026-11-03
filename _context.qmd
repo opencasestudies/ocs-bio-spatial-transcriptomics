@@ -71,7 +71,7 @@ ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAO
 Commercial solutions are likely more user-friendly, but may require licenses, and are often specific to ST data from a single technology. Some will be included with purchase of the corresponding analyzer/instrument.
 
 * 10X Genomics's Xenium Explorer
-* 10X Genomic's Loupe Browser (Visium)
+* 10X Genomics's Loupe Browser (Visium)
 * AtoMx (CosMx)
 * GeoMx Analysis Suite
 * Merscope Visualizer (MERFISH)
