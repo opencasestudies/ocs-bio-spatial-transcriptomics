@@ -21,12 +21,14 @@ For spatial coordinates, each data frame should have:
 * 3 columns
   * Cell IDs
   * X coordinate for the center of the cell
-  * Y coordiante for the center of the cell
+  * Y coordinate for the center of the cell
 * One row per each unique cell ID; let's say we have `m` cells
 
-```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.alt = "Illustration showing a typical data frame for the spatial coordinates input that spatialGE expects where the center of each cell is passed as x and y coordiantes."}
+```{r echo = FALSE, out.width = "100%", fig.align = "center", fig.alt = "Illustration showing a typical data frame for the spatial coordinates input that spatialGE expects where the center of each cell is passed as x and y coordinates."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h51840eb841718f1d_0_4#slide=id.h51840eb841718f1d_0_4")
 ```
+
+We will include a column for the area of each cell for later use in the normalization process, but this is not an expected part of the input by `spatialGE`.
 
 ### mRNA counts
 
@@ -306,7 +308,7 @@ decompress_read_parquet <- function(samples_metadata, sample){
   
   #Select columns of interest
   centroids <- df %>%
-    dplyr::select(cell_id, x_centroid, y_centroid)
+    dplyr::select(cell_id, x_centroid, y_centroid, cell_area)
 
   #reclaim some R resources
   rm(df, gz_file, decompressed_file)
@@ -330,10 +332,11 @@ names(spatial_coords) <- samples_metadata$DxID
 1. We decompress the file, storing it in our file system
 1. We read in the data with the `arrow` package and its `read_parquet()` function.
 1. We remove the decompressed file from our file system because we no longer need it.
-1. We select only the columns that `spatialGE` needs, reporting the centroid coordiantes for each cell:
+1. We select only the columns that `spatialGE` needs, reporting the centroid coordinates for each cell and a column we can use for normalization later:
   * `cell_id`
   * `x_centroid`
   * `y_centroid`
+  * `cell_area` (for later normalization)
 1. We remove some variables that are no longer needed to reclaim some R resources.
 1. We return a data frame with only those 3 columns.
 
@@ -446,7 +449,7 @@ read_rna <- function(samples_metadata, sample){
       as.data.frame() %>%
       `rownames<-`(rna_h5data$features$name) %>%
       `colnames<-`(rna_h5data$barcodes) %>%
-      rownames_to_column("genes")
+      tibble::rownames_to_column("genes")
 
   rm(rna_h5data, h5file)
   gc()
@@ -470,7 +473,7 @@ names(rnacounts_input) <- samples_metadata$DxID
 1. We build a sparse matrix, using the elements of the `.h5` file that correspond to each argument
   * i: specifies the positions or indices of the rows with non-zero values in the matrix -- `indices` from the `.h5` file.
   * p: specifies the first column with a non-zero value for each row -- `indptr` from the `.h5` file.
-  * x: non-zero values for the matrix entires -- `data` from the `.h5` file.
+  * x: non-zero values for the matrix entries -- `data` from the `.h5` file.
   * dims: matrix dimensions -- `shape` from the `.h5` file.
   * index1 we set to FALSE because our values are 0-based indices meaning that we start counting indices from 0 instead of 1.
 1. We expand the sparse matrix to be a dense matrix that can then be turned into a data frame.
@@ -500,7 +503,7 @@ scz_spatial <- spatialGE::STlist(rnacounts = rnacounts_input,
 
 If we tried to read in the data directly following fetching it from GEO, we would get a warning message about not being able to find the coordinates for each sample.
 
-So first, we would have to decompress the `cells.parquet.gz` files for each sample. Once we've done that, we would be able to use the following code to read in the data with `spatialGE` doing all of the work to extract the data from the Xenium outputs. This code lists the directories where the files are located so that `spatialGE` can look in those directories for the files it expects. You only have to provide these file paths to the `rnacounts` paramter. You also have to provide it with the samples it should be looking for. These are the names of the directories.
+So first, we would have to decompress the `cells.parquet.gz` files for each sample. Once we've done that, we would be able to use the following code to read in the data with `spatialGE` doing all of the work to extract the data from the Xenium outputs. This code lists the directories where the files are located so that `spatialGE` can look in those directories for the files it expects. You only have to provide these file paths to the `rnacounts` parameter. You also have to provide it with the samples it should be looking for. These are the names of the directories.
 
 ```{r, eval = FALSE}
 rnacounts <- paste0(here("data/raw/"), list.files(here("data/raw/"), pattern = "GSM"))
@@ -515,7 +518,7 @@ One downside of this approach is that it's using the GEO accession numbers as th
 </details>
 :::
 
-We will explore this object (what it contains, how to access it, etc.) in the [Data Exploration](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/) section of the case study.
+We will explore this object (what it contains, how to access it, etc.) in the [Data Exploration](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#data-exploration) section of the case study.
 
 First, let's release some memory for variables we don't need anymore.
 

@@ -14,7 +14,7 @@ Add instructions for loading the data...
 </details>
 ***
 
-We are going to look at the expression of the genes FKBP5, CX3CR1, NTRK2 (thought question?), MBP, PVALB, and BDNF (thought question?). For each gene we are going to consider both the amount of its expression as well as where it is expressed (spatially) in the tissue samples. For each gene, we can visually compare its spatial expression in a sample from a neurotypical participant to a sample from a participant with Schizophrenia.
+We are going to look at the expression of the genes FKBP5, CX3CR1, MBP,  and PVALB. For each gene we are going to consider both the amount of its expression as well as where it is expressed (spatially) in the tissue samples. For each gene, we can visually compare its spatial expression in a sample from a neurotypical participant to a sample from a participant with Schizophrenia.
 
 To visually explore the spatial distribution of expression of these genes, we are going to plot Quilt plots.
 
@@ -24,13 +24,13 @@ Note that quilt plots don't require histology image (image of the tissue), becau
 
 Also note that this is Xenium data which means there are a lot of cells! So we're going to use the `ptsize` argument to set the point size of the spots or cells to be really small. If we make it too large, it's dense/cramped/hard to view the quilt plot
 
-I tested several color palettes and settled on `PuBuGn`.... more explanation below.
-
 We have `ggpubr` combine the common legends and display them on the bottom. It also is plotting the quilt plots in a 2 X 2 grid
 
 ## Differential Expression of Diffusely Distributed Genes
 
 ### CX3CR1
+
+I went to [Supplementary Table 4 from the paper](https://www.biorxiv.org/content/biorxiv/early/2026/02/17/2026.02.16.706214/DC5/embed/media-5.xlsx?download=true) and found the gene with the lowest / most negative log fold change: CX3CR1
 
 ::: {.panel-tabset}
 
@@ -89,6 +89,8 @@ quiltCX3CR1_sampleset2$arranged
 :::
 
 ### FKBP5
+
+FKBP5 is annotated in the Figure 2a Volcano Plot as a DEG.
 
 ::: {.panel-tabset}
 
@@ -179,9 +181,6 @@ quiltPVALB_sampleset2$arranged
 
 
 
-
-FKBP5 is annotated in the Figure 2a Volcano Plot as DEGs. I went to [Supplementary Table 4 from the paper](https://www.biorxiv.org/content/biorxiv/early/2026/02/17/2026.02.16.706214/DC5/embed/media-5.xlsx?download=true) and found the gene with the lowest / most negative log fold change: CX3CR1
-
 **Color Palettes**
 
 I tested several color palettes and settled on `PuBuGn` for several reasons. (Note: this could be a cool side quest to include in the case study)
@@ -194,8 +193,20 @@ I tested several color palettes and settled on `PuBuGn` for several reasons. (No
 colorblindr::cvd_grid(plot = quiltArrangeCX3CR1)
 ```
 
+:::{.think_question}
+::::{.think_question_header}
+How would you describe the expression patterns and spatial distribution of the following genes?
+
+* GFAP
+* NTRK2
+* MT1E
+* BDNF
+::::
+::::{.inner_block}
+::::
+:::
 <!--
-Look at these genes to try to see differences in spatial distribution not just up/down: MBP, GFAP, NTRK2, MT1E, PVALB, BDNF
+Look at these genes to try to see differences in spatial distribution not just up/down: 
 -->
 
 ***

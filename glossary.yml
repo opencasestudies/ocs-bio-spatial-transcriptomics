@@ -25,7 +25,7 @@ Directories: |
 Distribution: |
   A mathematical description of the possible values of a random variable and how often each occurs.
 Dorsolateral prefrontal cortex: |
-  dlPFC. An area of the prefrontal cortex in the frontal lobe of the brain. Situated towards the top and side of the prefrontal cortex. Involved in executive functioning and cognitive control, contributing to working memory, divergent thinking, executive attention, and decision making. Found to be central to cognitive dysfunction in schizophrenia. 
+  dlPFC. An area of the prefrontal cortex in the frontal lobe of the brain. Situated towards the top and side of the prefrontal cortex. Involved in executive functioning and cognitive control, contributing to working memory and emotional regulation. Found to be central to cognitive dysfunction in schizophrenia. 
 Doublet: |
   A cell segmentation boundary that contains signals or mRNA counts from two or more distinct cells rather than just one cell -- the result of an error in the image segmentation process.
 Droplet: |
@@ -131,9 +131,9 @@ Spatial Transcriptomics: |
 Specialized cell: |
   A highly differentiated cell that serves a specific purpose within a tissue. It may have a unique structure (physical shape or size) compared to other cells. It will express specific genes that other cells may not.
 Spot: |
-  Refers to the regions across a tissue section that sequencing-based methods use to capture spatially-resolved data. Spots often represent 10s to 100s of cells (e.g., multicellular) rather than single-cells. Each spot has a defined set of x- and y- coordinates on the slide used to capture data, relating captured data to physical locations within the tissue.
+  Refers to the regions across a tissue section that sequencing-based methods use to capture spatially-informed data. Spots often represent 10s to 100s of cells (e.g., multicellular) rather than single-cells. Each spot has a defined set of x- and y- coordinates on the slide used to capture data, relating captured data to physical locations within the tissue.
 STlist: |
-  An S4 object that the spatialGE program uses to store spatially-resolved expression data for one or multiple samples. Utilizes slots for various aspects of the data and named lists within each slot to store data specific to each sample.
+  An S4 object that the spatialGE program uses to store spatially-informed expression data for one or multiple samples. Utilizes slots for various aspects of the data and named lists within each slot to store data specific to each sample.
 Subcellular: |
   Represents part of a cell rather than a whole, single cell.
 Transcriptome: |
@@ -143,8 +143,8 @@ Vertex: |
 Violin plot: |
   A plot used to visualize distributions of numerical variables. Because they visualize the density of data across possible values of the variable, they may resemble violins. Useful for comparing the variable across different biological groups.
 Visium: |
-  A popular sequencing-based technology for generating spatially-resolved expression data.
+  A popular sequencing-based technology for generating spatially-informed expression data.
 Volcano plot: |
   A scatter plot that plots data points according to the observed magnitude of change on the x-axis and the statistical significance on the y-axis. Typically one point represents one gene, and the values are found by comparing the expression of that gene across different experimental conditions or clinical cases. Points are often colored differently based on whether the gene is upregulated (over-expressed) or downregulated (under-expressed) in a specific case relative to a conrol and whether the observed change reached pre-defined thresholds for statistical significance.
 Xenium: |
-  A popular image-based technology for geenrating spatially-resolved expression data.
+  A popular image-based technology for geenrating spatially-informed expression data.

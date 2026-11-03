@@ -1,33 +1,122 @@
-<!--
-More details on the background on the case study topic as well its relation to biomedical science.
-Videos or images may be helpful so this includes an example of embedding a video.
--->
-
 # **Context**
 
 ***
 
-## What is schizophrenia?
+## What is spatially-informed gene expression data?
 
-***
+### ST data compared to bulk and single cell
 
-## What is the dorsolateral prefrontal cortex?
+Provide greater detail than the motivation section here, perhaps moving info from motivation section to make it more concise.
 
-```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Diagram showing location of the dorsolateral prefrontal cortex, how 2D samples relate to the 3D location, and its laminar domains."}
-ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h3bff079e06902c2a_2_0#slide=id.h3bff079e06902c2a_2_0")
+Compare and contrast to bulk RNA-seq data.
+
+Compare and contrast to single-cell RNA-seq data.
+
+Add a table for those comparisons.
+
+### ST technologies
+
+The types of technology used to generate spatial transcriptomics data are generally categorized as {{< glossary "Sequence-based technologies" display = "sequencing-based" >}} or {{< glossary "Image-based technologies" display = "image-based" >}} and lie across two inverse spectra: Molecular {{< glossary Resolution >}} and Cellular Resolution. Sequencing-based technologies typically provide a whole {{< glossary Transcriptome display = "transcriptome" >}} view (broad molecular resolution), but not at a single-cell or sub-cellular resolution -- instead at a Region of Interest (ROI) or {{< glossary Spot display = '"spot"' >}} resolution (where a "spot" is made up of tens to hundreds of cells.) In other words, sequencing-based technologies provide low precision / cellular resolution. In contrast, image-based technologies typically provide data for a panel-based subset or a limited selection of the transcriptome (in other words, narrow molecular resolution). However, image-based technologies provide data at a single-cell or even sub-cellular resolution (high precision cellular resolution). Due to this, researchers may first collect spatially-informed gene expression data with a sequencing-based technology for initial hypothesis generation to identify a specific region of interest in a tissue or specific genes to probe where greater cellular resolution would be beneficial, and then follow-up with generating a higher cellular resolution spatially-informed dataset using an image-based technology. @Kwon_etal_2026 is a study posted to bioRxiv recently where the researchers did just this: first using a sequencing-based technology followed by an image-based technology as complementary spatial transcriptomic approaches to study the impacts of {{< glossary Schizophrenia display = "schizophrenia (SCZ)" >}} within the {{< glossary "laminar domains" >}}, microenvironments, and cell types of {{< glossary "Postmortem samples" display = "postmortem samples" >}} from the human {{< glossary "Dorsolateral prefrontal cortex" display="dorsolateral prefrontal cortex (dlPFC)" >}}. 
+
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Visium and Xenium provide spatially informed mRNA expression at different molecular and cellular scales. The molecular resolution of Visium, a sequencing-based technology is high because it gives a view of the whole transcriptome. The Molecular resolution of Xenium, an image-based technology, is low because it gives a view of a only a limited number of genes from a specified panel. On the other hand, the cellular resolution of Visium is lower than that of Xenium. Visium does not provide a single-cell resolution. Rather its spot-level resolution can have multiple cells represented. Xenium provides single-cell or even sub-cellular resolution."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_65#slide=id.h7553ddbe789f499c_0_65")
 ```
 
-***
+| Technology category | Example        | Molecular Resolution | Cellular resolution  |
+|:--------------------|:--------------:|:--------------------:|:--------------------:|
+|Sequencing-based     | {{< glossary Visium >}}, GeoMx, Slide-seq | Broad; whole transcriptome | Low; Near single-cell but typically spots with tens to hundreds of cells represented |
+|Image-based          | {{< glossary "Xenium" >}}, CosMx, MERFISH | Limited; panel of specific genes | High; single- or sub-cellular resolution |
 
-## Why collect samples from the dlPFC?
+@Lim_Wang_Buzdin_Li_2025 provides a deeper discussion comparing the various technologies available to generate Spatial Transcriptomics datasets.
 
-***
+#### How sequencing-based is generated
 
-## Why is spatially-resolved gene expression data necessary?
+#### How image-based is generated
 
-***
+### Where to find ST data
 
-### Differential expression: abundance
+Mention power analysis needs for sparse data like this?
+
+Mention museum of spatial transcriptomics, etc.
+
+Mention scDesign3 for *in silico* generation of data
+
+### How to work with ST data
+
+There are a variety of tools available to analyze spatial transcriptomics data. Some are command line tools or packages you can load while working with Python or R. Others are more user-friendly tools which point and click interfaces or GUIs. Some of these point and click tools require a license to use while others are free to use. Some of the command line tools / packages are analysis suites while others perform specific tasks such as normalization or downstream analyses. [The ITN course "Choosing Genomics Tools"](https://hutchdatascience.org/Choosing_Genomics_Tools/spatial-transcriptomics-1.html) provides a thorough discussion of the available tools. One tool, `spatialGE` can be used as either an R package (providing functions for a full range of tasks) [@Ospina_Wilson_Soupir_Berglund_Smalley_Tsai_Fridley_2022] or as a point and click interface that is free to use [@Ospina_etal_2025]. In this way, `spatialGE` is flexible, meeting users where they are at, whether they are comfortable programming or not. Though this case study will focus on working with image-based data for data import, quality control, normalization, and visualization tasks, `spatialGE` can be used to work with ST data from a variety of technologies and for downstream applications. 
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Diagram showing that tools to work with spatial transcriptomics data are either command line tools and software packages or user friendly point and click tools. Software packages may provide full analysis suites or just task specific functions. They may work with R or Python. The user friendly point and click tools are either licensed requiring users to pay to use them or free to use. spatial GE is both an R package and a free to use point and click tool providing users with an analysis suite of functions and meeting users where they are whether they are comfortable programming or not."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h5d1240d022ec01ab_0_104#slide=id.h5d1240d022ec01ab_0_104")
+```
+
+:::{.emphasis_block}
+
+<details><summary>Full service tools list</summary>
+
+**R packages/command line tools -- Analysis Suites**:
+
+* [Seurat](https://satijalab.org/seurat/articles/spatial_vignette)
+* [Giotto](https://giottosuite.com/)
+* [spatialGE](https://fridleylab.github.io/spatialGE/), also available as a [web app](https://spatialge.moffitt.org/).
+* [spatialLIBD](https://bioconductor.org/packages/3.23/data/experiment/vignettes/spatialLIBD/inst/doc/spatialLIBD.html)
+
+**Python packages/command line tools -- Analysis Suites**:
+
+* [Squidpy](https://squidpy.readthedocs.io/en/stable/) [@Palla_etal_2022]
+* [SpatialData](https://spatialdata.scverse.org/en/stable/)
+
+**Commercial Solutions**:
+
+Commercial solutions are likely more user-friendly, but may require licenses, and are often specific to ST data from a single technology. Some will be included with purchase of the corresponding analyzer/instrument.
+
+* 10X Genomics's Xenium Explorer
+* 10X Genomics's Loupe Browser (Visium)
+* AtoMx (CosMx)
+* GeoMx Analysis Suite
+* Merscope Visualizer (MERFISH)
+
+**Other**:
+
+* [SRT-Server](https://spatialtranscriptomicsanalysis.com/) [@Yang_Zhou_2024]
+* ezSinglecell [@Sethi_2024]
+* [Galaxy](https://galaxyproject.org/bare/eu/usegalaxy/spatialomics/): a variety of tools available on Galaxy for researchers to interact with using reproducible workflows, defined using a point-and-click interface [@GalaxyCommunity_2026].
+
+
+For a more comprehensive list, consider the [OSTA Infrastructure chapter.](https://bioconductor.org/books/release/OSTA/pages/bkg-infrastructure.html)
+
+There are many more tools that perform specific tasks for ST data analysis. 
+
+</details>
+
+:::
+
+:::{.ai_box}
+::::{.ai_box_header}
+AI use considerations
+::::
+::::{.inner_block}
+
+Some AI tools have been developed to help researchers plan and execute their spatial transcriptomic analyses:
+
+Researchers at the University of Pittsburgh have designed **spatiAlytica**, a chatbot that generates and executes code to analyze data based on user queries [@Das_etal_2026]. 
+
+The company Genentech in collaboration with researchers at Stanford University designed **SpatialAgent** [@Wang_etal_2026] which can be used in an interactive, collaborative "co-pilot" mode where users work interactively with the AI agent, or in an "autonomous mode" where the AI agent executes tasks "end-to-end." **SpatialAgent** can be used to to help guide experimental design prior to data generation, not just to analyze ST data.
+
+Note that both of these tools have been introduced as preprints on bioRxiv but have not yet been peer-reviewed by the scientific community, and as with any AI tool, users should be aware that they can make mistakes. Users should be especially careful in how sensitive data is shared with AI tools, consulting with their IT departments, institutional policies, local review boards, and/or the tool developers to make sure that the privacy and security of any PHI/PII is maintained and any required regulations are met..
+
+**Oscar: any others I should mention here?** (avocado remove later)
+
+::::
+:::
+
+For complex data like spatial transcriptomics data, it is very useful to work with a tool that can be used as a full analysis suite. These tools help to organize the data in a logical and named way, making it easier to interact with the data throughout the process. Using an analysis suite doesn't have to lock you into using only functions from that tool. However, given that different tools will use different classes or infrastructure to store the data, if you want to use an additional tool for a step in the process, you may have to convert data (e.g., converting between spatialGE's STlist or Bioconductor's SpatialExperiment objects).
+
+### Uses of ST data
+
+Spatially-informed gene expression data is useful for investigating differential expression in multiple contexts: overall transcript abundance, cell-type specific expression, and spatial distribution of expression.
+
+#### Differential expression: abundance
 
 Explain Volcano plots
 
@@ -35,22 +124,99 @@ Explain Volcano plots
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h5d1240d022ec01ab_0_14#slide=id.h5d1240d022ec01ab_0_14")
 ```
 
-### Differential expression: cell type
+#### Differential expression: cell type
 
 Explain Violin plots
 
-### Differential expression: spatial distribution
+Beyond cell-type specific expression, certain biological contexts may also notice a difference in the cell type composition of a tissue.
 
-Explain Quilt plots
+#### Differential expression: spatial distribution
 
-```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Example showing cell type with a quilt plot"}
-ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_43#slide=id.h7553ddbe789f499c_0_43")
-```
+Quilt plots are the face of spatial transcriptomics. Quilt plots are a version of [a heatmap](https://hutchdatascience.org/DataViz_Considerations/04_graph_info.html#heatmaps), displaying data using color. In addition to using color as a primary means to display data, heatmaps generally are two-dimensional. More specifically heatmaps use a grid or matrix with rows and columns, though they are sometimes used to display data with non-grids that are still two-dimensional like [maps](https://www.data-to-viz.com/graph/choropleth.html). However, these are more commonly called [choropleths](https://www.standardco.de/notes/heatmaps-vs-choropleths). Plotting the gene expression using color, mapping it to a physical, coordinate-based space shares the same intent as a choropleth.
+
+Quilt plots are primarily used to visualize the expression of a specific gene showing how much it is expressed and where it is expressed. In this case (visualizing continuous numerical data), the legend will be a color gradient bar or color ramp. 
 
 ```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Example quilt plot showing expression"}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_26#slide=id.h7553ddbe789f499c_0_26")
 ```
 
-## What analysis steps need to happen after data collection?
+However, quilt plots can also be used to plot more discrete data like cell annotations: spatial domain, cell type, number of expressed genes, discarded vs. kept following quality control.
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Example showing cell type with a quilt plot"}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_43#slide=id.h7553ddbe789f499c_0_43")
+```
+
+Describe a few of the stat's like ideas that `spatialGE` lets you like at like autocorrelation, etc.
+
+## The human nervous system
+
+The human nervous system allows humans to receive, process, and communicate signals based on input from their surroundings. The nervous system is made up of the central nervous system (CNS) and the peripheral nervous system (PNS). The CNS consists of the brain and spinal cord which direct the understanding and communication of received signals to the rest of the nervous system[@Coon_Mitterer_2015].
+
+Neurons are a specialized cell type necessary for the communication of these signals within the nervous system and they are cells with an abnormal shape. The body of the cell has the nucleus with branch-like extensions called dendrites which receive signals. Each neuron also has slender projection off of the body of cell called an axon which transmits signals to other cells. The axon has a insulating layer called a myelin sheath to help with signal transduction. Nerves within the nervous system are made up of bundles of axons from multiple neurons[@Coon_Mitterer_2015]. 
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Diagram from NIH Bio Art showing a neuron specifically highlighting its cell body with the nucleus, the dendrites branching off of the cell body and the myelin sheath covered axon slender offshoot."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h51840eb841718f1d_6_2#slide=id.h51840eb841718f1d_6_2")
+```
+
+The brain has several other specialized cells such as astrocytes and oligodendrocytes. Oligodendrocytes provide the myelin sheath insulation around the axons of neurons. 
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "The brain has other specialized cells such as astrocytes and oligodendrocytes."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h46301d28624b2de3_0_11#slide=id.h46301d28624b2de3_0_11")
+```
+
+## What is the dorsolateral prefrontal cortex?
+
+***
+
+The dorsolateral prefrontal cortex (dlPFC) is a specific part of the frontal lobe of the cerebral cortex of the brain. The cerebral cortex is the outer layer in the upper part of the brain where cognition is localized. It's a twisted and folded structure made up of gray matter (spongy tissue made up mostly of the neuronal cell bodies) which sits atop white matter (made up of the neuronal axons and oligodendrocytes). The prefrontal cortex is also known as the "prefrontal area" and is found in the front and top of the frontal lobe. The dorsolateral portion of the prefrontal cortex is towards the top and side of the prefrontal cortex. The dlPFC roughly corresponds with Brodmann area 46 (BA46) and is involved in executive functioning and cognitive control, contributing to working memory and emotional regulation [@Kirby_etal_2024].
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Diagram showing location of the dorsolateral prefrontal cortex, how 2D samples relate to the 3D location."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h46301d28624b2de3_0_41#slide=id.h46301d28624b2de3_0_41")
+```
+
+## What is schizophrenia?
+
+***
+
+Note positive, negative, and cognitive symptoms here.
+
+
+## Why collect samples from the dlPFC?
+
+***
+
+Given that the dlPFC has been implicated in cases of schizophrenia, specifically cognitive symptoms, researchers commonly study this area of the brain for schizophrenia research. Brain imaging studies *in vivo* (MRI, PET, etc.) do not need to collect samples because such imaging can be done with research participants [@Keshavan_etal_2020]. To study the molecular biochemistry and omics of this brain region on a larger scale than is possible with live imaging, however, postmortem samples need to be collected.
+
+
+## Why is spatially-informed gene expression data necessary?
+
+***
+
+The dlPFC has several laminar domains or layers, each of which seems to have its own structure and molecular signature (e.g., cell composition, gene expression patterns, morphology, connectivity, etc.), and therefore, likely, a unique role in cognitive function. Originally introduced in the early 1900s [@Zilles_2018], these layers have been confirmed throughout the years with recent single cell and spatial transcriptomics studies using a data-driven approach in describing them rather than manually annotating them [@Maynard_etal_2021; @Huuki-Myers_etal_2024].
+
+```{r echo = FALSE, fig.align = 'center', fig.alt = 'Diagram showing the laminar domains within a slice of the dorsolateral prefrontal cortex.'}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h46301d28624b2de3_0_49#slide=id.h46301d28624b2de3_0_49")
+```
+
+<detail><summary>Laminar domains in the dlPFC </summary>
+
+* L1:
+* L2:
+* L3:
+* L4:
+* L5:
+* L6:
+* WM: White matter
+
+</details>
+
+Given this, spatially-informed gene expression data is beneficial not just for studying how gene expression may differ in abundance between neurotypical cases and cases with diagnosed schizophrenia, and not just for querying if cell types show differences in expression or composition between cases, but also to query if there might be differences among these layers, a point discussed by @Maynard_etal_2021. In this way, spatial transcriptomics acts as a hypothesis generation tool either to find candidate patterns that can be assayed further or for initial investigation into mechanisms to interpret previously identified risk genes.
+
+
+## Previous work
+
+*** 
+
+What has previous work found when studying the dlPFC and SCZ?
 
 ***
