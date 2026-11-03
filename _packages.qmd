@@ -53,14 +53,14 @@ Package | Source | Use
 The first time we use a function, we will use the `::` to indicate which package we are using. Unless we have overlapping function names, this is not necessary, but we will include it here to be informative about where the functions we will use come from.
 
 :::{.column-margin}
-Fill in info for container.
+avocado Fill in info for container.
 :::
 
 :::{.emphasis_block}
 
 Installing all of these packages in a way that they work together correctly may be difficult because of dependencies and version needs. Therefore, we have provided a container that has all of the necessary software to work through this case study.
 
-* Use Docker to pull the container image: Add instructions here
-* Use Docker to run the container, creating an interactive RStudio environment with all of the software: Add instructions here
+* Use Docker to pull the container image: avocado Add instructions here
+* Use Docker to run the container, creating an interactive RStudio environment with all of the software: avocado Add instructions here
 
 :::

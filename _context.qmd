@@ -50,6 +50,67 @@ There are a variety of tools available to analyze spatial transcriptomics data. 
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h5d1240d022ec01ab_0_104#slide=id.h5d1240d022ec01ab_0_104")
 ```
 
+:::{.emphasis_block}
+
+<details><summary>Full service tools list</summary>
+
+**R packages/command line tools -- Analysis Suites**:
+
+* [Seurat](https://satijalab.org/seurat/articles/spatial_vignette)
+* [Giotto](https://giottosuite.com/)
+* [spatialGE](https://fridleylab.github.io/spatialGE/), also available as a [web app](https://spatialge.moffitt.org/).
+* [spatialLIBD](https://bioconductor.org/packages/3.23/data/experiment/vignettes/spatialLIBD/inst/doc/spatialLIBD.html)
+
+**Python packages/command line tools -- Analysis Suites**:
+
+* [Squidpy](https://squidpy.readthedocs.io/en/stable/) [@Palla_etal_2022]
+* [SpatialData](https://spatialdata.scverse.org/en/stable/)
+
+**Commercial Solutions**:
+
+Commericial solutions are likely more user-friendly, but may require licenses, and are often specific to ST data from a single technology. Some will be included with purchase of the corresponding analyzer/instrument.
+
+* 10X Genomics's Xenium Explorer
+* 10X Genomic's Loupe Browser (Visium)
+* AtoMx (CosMx)
+* GeoMx Analysis Suite
+* Merscope Visualizer (MERFISH)
+
+**Other**:
+
+* [SRT-Server](https://spatialtranscriptomicsanalysis.com/) [@Yang_Zhou_2024]
+* ezSinglecell [@Sethi_2024]
+* [Galaxy](https://galaxyproject.org/bare/eu/usegalaxy/spatialomics/): a variety of tools available on Galaxy for researchers to interact with using reproducible workflows, defined using a point-and-click interface [@GalaxyCommunity_2026].
+
+
+For a more comprehensive list, consider the [OSTA Infrastructure chapter.](https://bioconductor.org/books/release/OSTA/pages/bkg-infrastructure.html)
+
+There are many more tools that perform specific tasks for ST data analysis. 
+
+</details>
+
+:::
+
+:::{.ai_box}
+::::{.ai_box_header}
+AI use considerations
+::::
+::::{.inner_block}
+
+Some AI tools have been developed to help researchers plan and execute their spatial transcriptomic analyses:
+
+Researchers at the University of Pittsburgh have designed **spatiAlytica**, a chatbot that generates and executes code to analyze data based on user queries [@Das_etal_2026]. 
+
+The company Genentech in collaboration with researchers at Standford University designed **SpatialAgent** [@Wang_etal_2026] which can be used in an interactive, collaborative "co-pilot" mode where users work interactively with the AI agent, or in an "autonomous mode" where the AI agent executes tasks "end-to-end." **SpatialAgent** can be used to to help guide experimental design prior to data generation, not just to analyze ST data.
+
+Note that both of these tools have been introduced as preprints on bioRxiv but have not yet been peer-reviewed by the scientific community, and as with any AI tool, users should be aware that they can make mistakes. Users should be especially careful in how sensitive data is shared with AI tool, consulting with their IT departments, institutional AI policies, IRB requirements, or the tool developers to make sure that the privacy and security of any PHI/PII is maintained.
+
+**Oscar: any others I should mention here?** (avocado remove later)
+
+::::
+:::
+
+For complex data like spatial transcriptomics data, it is very useful to work with a tool that can be used as a full analysis suite. These tools help to organize the data in a logical and named way, making it easier to interact with the data throughout the process. Using an analysis suite doesn't have to lock you into using only functions from that tool. However, given that different tools will use different classes or infrastructure to store the data, if you want to use an additional tool for a step in the process, you may have to convert data (e.g., converting between spatialGE's STlist or Bioconductor's SpatialExperiment objects).
 
 ### Uses of ST data
 
@@ -71,14 +132,18 @@ Beyond cell-type specific expression, certain biological contexts may also notic
 
 #### Differential expression: spatial distribution
 
-Explain Quilt plots
+Quilt plots are the face of spatial transcriptomics. Quilt plots are a version of [a heatmap](https://hutchdatascience.org/DataViz_Considerations/04_graph_info.html#heatmaps), displaying data using color. In addition to using color as a primary means to display data, heatmaps generally are two-dimensional. More specifically heatmaps use a grid or matrix with rows and columns, though they are sometimes used to display data with non-grids that are still two-dimensional like [maps](https://www.data-to-viz.com/graph/choropleth.html). However, these are more commonly called [choropleths](https://www.standardco.de/notes/heatmaps-vs-choropleths). Plotting the gene expression using color, mapping it to a physical, coordinate-based space shares the same intent as a choropleth.
 
-```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Example showing cell type with a quilt plot"}
-ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_43#slide=id.h7553ddbe789f499c_0_43")
-```
+Quilt plots are primarily used to visualize the expression of a specific gene showing how much it is expressed and where it is expressed. In this case (visualizing continuous numerical data), the legend will be a color gradient bar or color ramp. 
 
 ```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Example quilt plot showing expression"}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_26#slide=id.h7553ddbe789f499c_0_26")
+```
+
+However, quilt plots can also be used to plot more discrete data like cell annotations: spatial domain, cell type, number of expressed genes, discarded vs. kept following quality control.
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Example showing cell type with a quilt plot"}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_43#slide=id.h7553ddbe789f499c_0_43")
 ```
 
 Describe a few of the stat's like ideas that `spatialGE` lets you like at like autocorrelation, etc.

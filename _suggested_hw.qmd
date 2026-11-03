@@ -68,11 +68,15 @@ pseudobulk_dim_plot(scz_spatial, plot_meta = "Sex")
 
 ### Intermediate
 
-Bringing over the spatial domains from Visium data following a similar technique the authors did and re-looking at the quilt plots with that annotation rather than the cell type.
+Convert your `STlist` data into a `SpatialExperiment` object and run `SpaNorm` to normalize the data.
+
+What (if any differences) do you see comparing the normalized data from `SpaNorm` with the normalized data from methods within this case study?
 
 ### Advanced
 
 Run one of the `spatialGE` functions that is mentioned in the "Common Next Steps" box above.
+
+How would you interpret the results?
 
 
 ***
