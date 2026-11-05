@@ -7,23 +7,15 @@ Common Next Steps
 ::::
 ::::{.inner_block}
 
-Several functions provided by `spatialGE` can be used for downstream 
+Several functions provided by `spatialGE` can be used for downstream analyses. These functions are discussed in the [Context]() section of the case study. Note that many of them require computational resources beyond a personal computer/laptop and are best run with an institutional HPC. 
 
-* **STgradient** 
+* **STgradient** to explore spatial gradients. [documentation](https://fridleylab.github.io/spatialGE/reference/STgradient.html)
 
-[`STgradient()` documentation](https://fridleylab.github.io/spatialGE/reference/STgradient.html)
+* **STenrich** to explore spatial enrichmnet. [documentation](https://fridleylab.github.io/spatialGE/reference/STenrich.html)
 
-* **STenrich**
+* **STdiff** to explore differential spatial expression. [documentation](https://fridleylab.github.io/spatialGE/reference/STdiff.html)
 
-[`STenrich()` documentation](https://fridleylab.github.io/spatialGE/reference/STenrich.html)
-
-* **STdiff**
-
-[`STdiff()` documentation](https://fridleylab.github.io/spatialGE/reference/STdiff.html)
-
-* **SThet**
-
-[`SThet()` documentation](https://fridleylab.github.io/spatialGE/reference/SThet.html)
+* **SThet** to explore spatial autocorrelation. [documentation](https://fridleylab.github.io/spatialGE/reference/SThet.html)
 
 ::::
 :::

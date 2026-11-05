@@ -160,7 +160,8 @@ If working within a large team, on multiple platforms (e.g., local machine and t
 
 ### Uses of ST data
 
-Spatially-informed gene expression data is useful for investigating differential expression in multiple contexts: overall transcript abundance, cell-type specific expression, and spatial distribution of expression.
+Spatially-informed gene expression data is useful for investigating **differential expression** in multiple contexts: overall transcript abundance, cell-type specific expression, and spatial distribution of expression. The spatial distribution of expression can be visually inspected using quilt plots and more thoroughly investigated using statistical concepets and models. 
+
 
 #### Differential expression: abundance
 
@@ -201,7 +202,55 @@ However, quilt plots can also be used to plot more discrete data like cell annot
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_43#slide=id.h7553ddbe789f499c_0_43")
 ```
 
-Describe a few of the stat's like ideas that `spatialGE` lets you like at like autocorrelation, etc.
+Beyond the visual inspection of the spatial distribution of a gene, statistical concepts and models support deeper investigation into the spatial distribution of the expression of genes.
+
+The [`STdiff` function from `spatialGE`](https://fridleylab.github.io/spatialGE/reference/STdiff.html) further supports the goal of identifying differential expression within the context of spatial distribution.
+
+<details><summary>Description of function from `spatialGE` documentation</summary>
+
+> The method tests for differentially expressed genes between groups of spots/cells (e.g., clusters) in a spatial transcriptomics sample. Specifically, the function tests for genes with significantly higher or lower gene expression in one group of spots/cells with respect to the rest of spots/cells in the sample. The method first runs non-spatial linear models on the genes to detect differentially expressed genes. Then spatial linear models with exponential covariance structure are fit on a subset of genes detected as differentially expressed by the non-linear models (`sp_topgenes`). If running on clusters detected via `STclust`, the user can specify the assignments using the same parameters (`w`, `k`, `deepSplit`). Otherwise, the assignments are specified by indicating one of the column names in `x@spatial_meta`. The function uses `spaMM::fitme` and is computationally expensive even on HPC environments. To run the `STdiff` using the non-spatial approach (faster), set `sp_topgenes=0`.
+
+</details>
+
+In addition, `spatialGE` provides functions to investigate spatial enrichment, spatial gradients, and spatial autocorrelation with statistical concepts and models.
+
+#### Spatial enrichment of gene sets
+
+Gene sets are a predefined collection or group of genes that have been grouped together in a set because they share some characteristic such as regulatory mechanisms, functions, or involvement in a pathway. Functions like [`STEnrich` from `spatialGE`](https://fridleylab.github.io/spatialGE/reference/STenrich.html) allow users to test whether a given gene set exhibits high expression within a localized area of the tissue. 
+
+<details><summary>Description of function from `spatialGE` documentation</summary>
+
+> The function performs a randomization test to assess if the sum of distances between cells/spots with high expression of a gene set is lower than the sum of distances among randomly selected cells/spots. The cells/spots are considered as having high gene set expression if the average expression of genes in a set is higher than the average expression plus `num_sds` times the standard deviation. Control over the size of regions with high expression is provided by setting the minimum number of cells/spots (`min_units`). This method is a modification of the method devised by Hunter et al. 2021 (zebrafish melanoma study).
+
+</details>
+
+:::{.column-margin}
+avocado: add a figure for this idea
+:::
+
+#### Spatial gradients
+
+Tissue samples can be clustered in order to annotate cell types or domains. Functions like `STgradient` from `spatialGE` use linear models and Spearman correlation coefficients to investigate if a gene is expressed more highly in cells closer to a specific reference tissue domain than cells farther away from the reference domain. 
+
+<details><summary>Description of function from `spatialGE` documentation</summary>
+
+> The STgradient function fits linear models and calculates Spearman coefficients between the expression of a gene and the minimum or average distance of spots or cells to a reference tissue domain. In other words, the STgradient function can be used to investigate if a gene is expressed higher in spots/cells closer to a specific reference tissue domain, compared to spots/cells farther from the reference domain (or viceversa as indicated by the Spearman's cofficient).
+
+</details>
+
+:::{.column-margin}
+avocado: add a figure for this idea
+:::
+
+#### Spatial autocorrelation
+
+Moran's I and Geary's C are global spatial autocorrelation statistics that report how a gene's expression is correlated with itself spatially. Are areas of high expression located near each other forming clusters or are they dispersed throughout the sample? Rather is there no clear pattern? Cases of positive spatial correlation have a Moran's I near 1, and, spatially, similar levels of expression are clustered together. Cases of negative spatial correlation have a statistic near -1, and spatially, dissimilar levels of expression are near each other, appearing as if levels of similar expression are dispersed throughout the sample. Cases of spatial randomness do not display dispersion, instead, there's no clear pattern. Moran's I for spatial randomness are near 0. @Ospina_Wilson_Soupir_Berglund_Smalley_Tsai_Fridley_2022 notes that negative spatial autocorrelation can also be thought of as uniform expression throughout a tissue sample. Geary's C follows a similar logic but uses a different numerical scale.  
+
+```{r echo = FALSE, out.width = "100%", fig.align = 'center', fig.alt = ""}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h6ef487c1d4de554_0_19#slide=id.h6ef487c1d4de554_0_19")
+```
+
+The goal of these statistics is to evaluate if the expression of a gene exhibit spatial autocorrelation, in other words, if the expression isn't spatially random. Therefore, with the use of these statistics comes the question whether the resulting statistic is statistically significantly far from 0. For more information regarding the use of statistical tests and simulations to assess this question, consider [this resource on Spatial Autocorrelation](https://www.paulamoraga.com/book-spatial/spatial-autocorrelation.html).
 
 ## The human nervous system
 
@@ -256,13 +305,5 @@ ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAO
 ```
 
 Given this, spatially-informed gene expression data is beneficial not just for studying how gene expression may differ in abundance between neurotypical cases and cases with diagnosed schizophrenia, and not just for querying if cell types show differences in expression or composition between cases, but also to query if there might be differences among these layers, a point discussed by @Maynard_etal_2021. In this way, spatial transcriptomics acts as a hypothesis generation tool either to find candidate patterns that can be assayed further or for initial investigation into mechanisms to interpret previously identified risk genes.
-
-<!--
-## Previous work
-
-*** 
-
-What has previous work found when studying the dlPFC and SCZ?
--->
 
 ***
