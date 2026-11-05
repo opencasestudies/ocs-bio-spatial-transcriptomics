@@ -160,7 +160,7 @@ If working within a large team, on multiple platforms (e.g., local machine and t
 
 ### Uses of ST data
 
-Spatially-informed gene expression data is useful for investigating **differential expression** in multiple contexts: overall transcript abundance, cell-type specific expression, and spatial distribution of expression. The spatial distribution of expression can be visually inspected using quilt plots and more thoroughly investigated using statistical concepets and models. 
+Spatially-informed gene expression data is useful for investigating **differential expression** in multiple contexts: overall transcript abundance, cell-type specific expression, and spatial distribution of expression. The spatial distribution of expression can be visually inspected using quilt plots and more thoroughly investigated using statistical concepets and models. We will discuss some of these downstream uses for exploring spatial patterns of expression.
 
 
 #### Differential expression: abundance
