@@ -10,13 +10,13 @@ This section will cover context related to spatially-informed gene expression da
 
 Spatially-informed gene expression data goes beyond just gene expression and reporting how much a gene is expressed in a sample or a cell. In addition to that, spatially-informed gene expression data anchors those "counts" to a physical location in the sample such that the location of cells is preserved and the contextual environment or neighborhood can also be considered. 
 
-Spatailly-informed gene expression data is also known as spatial transcriptomics or ST data. It may also be called spatially-resolved transcriptomics or SRT data by others. It is **complex**, **sparse**, and can be **noisy** (e.g., due to technical artifacts assocaited with image-based data). 
+Spatially-informed gene expression data is also known as spatial transcriptomics or ST data. It may also be called spatially-resolved transcriptomics or SRT data by others. It is **complex**, **sparse**, and can be **noisy** (e.g., due to technical artifacts associated with image-based data). 
 
 ### ST data vs bulk and single-cell data
 
-Bulk RNA-seq data has very few similarites to ST data. They both provide researchers with gene expression counts. Depending on the method used for sample preparation, they both may be targeting polyadenylated tails, however for Bulk RNA-seq this would be occuring during sample preparation, while for sequencing-based ST methods, this would be occuring post sample preparation. Some ST methods don't provide high cellular resolution and may be  producing data for multicellular spots that contain 10s to 100s of cells. These methods must deconvolve the signal to separate out cells from each other; however, bulk RNA-seq is producing data for many more cells at a given time. Coverage is much higher for bulk RNA-seq than spatial transcriptomics which returns sparse, low-coverage data. 
+Bulk RNA-seq data has very few similarities to ST data. They both provide researchers with gene expression counts. Depending on the method used for sample preparation, they both may be targeting polyadenylated tails, however for Bulk RNA-seq this would be occurring during sample preparation, while for sequencing-based ST methods, this would be occurring post sample preparation. Some ST methods don't provide high cellular resolution and may be  producing data for multicellular spots that contain 10s to 100s of cells. These methods must deconvolve the signal to separate out cells from each other; however, bulk RNA-seq is producing data for many more cells at a given time. Coverage is much higher for bulk RNA-seq than spatial transcriptomics which returns sparse, low-coverage data. 
 
-Single-cell RNA-seq data shares some more similarites with ST data, but is still quite different since Single-cell RNA-seq data cannot preserve the spatial context. ST data can be single-cellular, but it may also be sub-cellular or multicellular depending on the technology used. But the final data product will use segmentation or deconvolution to provide single-cell like data. Both are rather sparse with low coverage. 
+Single-cell RNA-seq data shares some more similarites with ST data, but is still quite different since Single-cell RNA-seq data cannot preserve the spatial context. ST data can be single-cellular, but it may also be sub-cellular or multicellular depending on the technology used. But the final data product will use segmentation or deconvolution to provide single-cell like data. Both utilize (single-cell) or may utilize (ST) unique moleculear identifiers (UMIs) to identify unique source molecules, and produce data that are sparse with low coverage. 
 
 |                         | Bulk RNA-seq    | Single-Cell RNA-seq | Spatial Transcriptomics |
 |:------------------------|:---------------:|:-------------------:|:-----------------------:|
@@ -43,6 +43,8 @@ ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAO
 
 @Lim_Wang_Buzdin_Li_2025 provides a deeper discussion comparing the various technologies available to generate Spatial Transcriptomics datasets in detail [in Table 1](https://link.springer.com/article/10.1186/s12864-025-11235-3/tables/1).
 
+<details><summary>Broadly, how is the data generated?</summary>
+
 #### How sequencing-based data is generated
 
 Generally, sequencing-based methods use special slides that have spatially-barcoded RNA-binding probes attached to spots, with each spot having a unique spatial barcode. The probes also have a random molecular tag (UMI), and a polyT sequence to bind polyA tails of mRNA. Tissue is permeabilized after being placed on the slides such that mRNA molecules will diffuse through the tissue to the probes on the slide. The bound RNA is converted into cDNA with second strand synthesis on the slide, which is then extracted, library prepped, and sequenced off slide. Due to the spatial barcode, its original spatial location is preserved. Since this approach utilizes spots on a slide, these spots may align with multiple cells at a time rather than corresponding to a single cell. Different sized slide spots will have different cellular resolution. By utilizing 2 micron adjoining spots instead of 55 micron separated spots, Visium HD has finer cellular resolution and provides closer to single-cell results, however fewer UMIs and genes will be observed due to capture efficiency limitations and the smaller spot area.
@@ -57,13 +59,15 @@ ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAO
 
 #### How image-based is generated
 
-Generally, image-based methods also use special slides, however they do not have spots or reagents attached to the slide. Instead, the slides are optimized for tissue adherence and imaging protocols. Samples are mounted to the slides and any necessary reagents for *in situ* synthesis and hybridization are applied to the entire sample section through fluidic wash channels. Probes which are specific to certain mRNA molecules are applied to the sample and hybridize to the mRNA molecules. Secondary probes with fluorophores are then applied to the sample and imaging occurs and fluorophores are cleaved or exstinguished/photobleached before the cycle repeats. Rather than one fluorophore being used to represent one gene, combinations of fluorophores across imaging rounds, (an "optical barcode") represent a given gene. Therefore, gene-specific fluorescent signals are used to ascertain what genes are expressed, noting their spatial location within the sample.
+Generally, image-based methods also use special slides, however they do not have spots or reagents attached to the slide. Instead, the slides are optimized for tissue adherence and imaging protocols. Samples are mounted to the slides and any necessary reagents for *in situ* synthesis and hybridization are applied to the entire sample section through fluidic wash channels. Probes which are specific to certain mRNA molecules are applied to the sample and hybridize to the mRNA molecules. Secondary probes with fluorophores are then applied to the sample and imaging occurs and fluorophores are cleaved or extinguished/photobleached before the cycle repeats. Rather than one fluorophore being used to represent one gene, combinations of fluorophores across imaging rounds, (an "optical barcode") represent a given gene. Therefore, gene-specific fluorescent signals are used to ascertain what genes are expressed, noting their spatial location within the sample.
 
 ```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = ""}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h6ef487c1d4de554_0_7#slide=id.h6ef487c1d4de554_0_7")
 ```
 
 While image-based methods achieve single- or even sub-cellular resolution, they are assays targeting a specific, predefined gene panel, limited in the number of unique genes that can be visualized. 
+
+</details>
 
 ### Where to find ST data
 
@@ -88,7 +92,7 @@ Rather than, or in addition to, generating ST data, you may be interested in fin
 
 GEO curators can package these records into ["DataSets"](https://www-ncbi-nlm-nih-gov.fhcrc.idm.oclc.org/geo/info/overview.html) which "represent a curated collection of biologically and statistically comparable GEO Samples". [Researchers can construct queries](https://www-ncbi-nlm-nih-gov.fhcrc.idm.oclc.org/geo/info/qqtutorial.html) to search GEO Records and DataSets to find relevant data. The [advanced search](https://www.ncbi.nlm.nih.gov./gds/advanced) is especially helpful for this.
 
-Data from GEO can be retrieved using the Bioconductor package `GEOquery` which is what we will use within the [Data Import] section of the case study.
+Data from GEO can be retrieved using the Bioconductor package `GEOquery` which is what we will use within the [Data Import](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#data-import) section of the case study.
 
 <details><summary>Examples of this organization with samples from @Kwon_etal_2026</summary>
 
@@ -106,7 +110,7 @@ Visit the linked records to view how they are related for this study.
 
 >Repository of spatial transcriptomics. CROST encompasses high-quality samples and houses 182 spatial transcriptomic datasets from diverse species, organs, and diseases, comprising 1033 sub-datasets and 48 043 tumor-related spatially variable genes (SVGs). Additionally, it encompasses a standardized spatial transcriptome data processing pipeline, integrates single-cell RNA sequencing deconvolution spatial transcriptomics data, and evaluates correlation, colocalization, intercellular communication, and biological function annotation analyses.
 
-In their paper, the authors say that they developed CROST to faciliate easy access to data, visualizations, and personalized analyses rather than just providing data without the capacity for user-friendly integrated spatial analysis [@Wang_etal_2024]. In this way, CROST doesn't just offer users access to spatial transcriptomics datasets, it also offers users the ability to explore and better understand those datasets. @Wang_etal_2024 does mention additional databases where spatial transcriptomics datasets have been collected but notes that these strictly provide data or very limited interactive visualization/analysis in addition to the data.
+In their paper, the authors say that they developed CROST to facilitate easy access to data, visualizations, and personalized analyses rather than just providing data without the capacity for user-friendly integrated spatial analysis [@Wang_etal_2024]. In this way, CROST doesn't just offer users access to spatial transcriptomics datasets, it also offers users the ability to explore and better understand those datasets. @Wang_etal_2024 does mention additional databases where spatial transcriptomics datasets have been collected but notes that these strictly provide data or very limited interactive visualization/analysis in addition to the data.
 
 #### Company Specific Repositories
 
@@ -116,7 +120,7 @@ In their paper, the authors say that they developed CROST to faciliate easy acce
 
 Using secondary data does require researchers to understand how the data was originally generated and processed to make sure you that they are performing necessary steps and making reasonable comparisons. Combining datasets that have been produced by different groups using different methods could be a challenge and is discussed in @Guo_Ling_Kwon_Panwar_Ghazanfar_Martinowich_Hicks_2025. Researchers should also verify that samples can be re-used and were not from donors who only consented to their use within the original study. 
 
-An alternative to using secondary data that others have previously generated is to simulate data using tools like `scDesign3` [@Song_Wang_Yan_Liu_Sun_Li_2024]. This *in silioc* generation of data can be helpful for testing a workflow or simulating a dataset for some statistical hypothesis testing or other interpretations of real data.
+An alternative to using secondary data that others have previously generated is to simulate data using tools like `scDesign3` [@Song_Wang_Yan_Liu_Sun_Li_2024]. This *in silico* generation of data can be helpful for testing a workflow or simulating a dataset for some statistical hypothesis testing or other interpretations of real data.
 
 
 ### How to work with ST data
@@ -206,14 +210,14 @@ If working within a large team, on multiple platforms (e.g., local machine and t
 
 ### Spatial patterns of expression
 
-Spatially-informed gene expression data is useful for investigating **differential expression** in multiple contexts: overall transcript abundance, cell-type specific expression, and spatial distribution of expression. The spatial distribution of expression can be visually inspected using quilt plots and more thoroughly investigated using statistical concepets and models. We will discuss some of these downstream uses for exploring spatial patterns of expression.
+Spatially-informed gene expression data is useful for investigating **differential expression** in multiple contexts: overall transcript abundance, cell-type specific expression, and spatial distribution of expression. The spatial distribution of expression can be visually inspected using quilt plots and more thoroughly investigated using statistical concepts and models. We will discuss some of these downstream uses for exploring spatial patterns of expression.
 
 
 #### Differential expression: abundance
 
 When looking at changes in abundance, researchers are comparing gene expression between different time points, different cell types, different cases/conditions (e.g., case and control), etc., specifically looking to see if a gene is upregulated (expressed more) or downregulated (expressed less) in one compared to the other. Statistical models, such as linear or negative binomial, support this type of an analysis when it's done globally for a whole transcriptome, and the results are visualized using {{< glossary "Volcano plot" display="Volcano plots" >}}.
 
-Typically Volcano plots are used to display the results of differential gene expression analyses for bulk and single-cell RNAseq. They may also be used for spatial transcriptomics, but are more likely to be used with sequencing-based data than image-based data since image-based methods investigate fewer genes and those genes may have been identified as potentially interesting through previuos analyses. For image-based data, other methods will likely be used to show differences in abundance.
+Typically Volcano plots are used to display the results of differential gene expression analyses for bulk and single-cell RNAseq. They may also be used for spatial transcriptomics, but are more likely to be used with sequencing-based data than image-based data since image-based methods investigate fewer genes and those genes may have been identified as potentially interesting through previous analyses. For image-based data, other methods will likely be used to show differences in abundance.
 
 
 The volcano plot is a scatter plot, representing numerical data on both the x- and y-axes. The x-axis of a volcano plot is used to represent the magnitude or amount of change in the expression of a gene. The y-axis is used to represent the statistical significance associated with that change. Because so many genes are being tested, a multiple-hypothesis testing correction should be utilized (e.g., False Discovery Rate or FDR). If a gene shows a magnitude of change greater than a specified cutoff and statistical significance, the points are colored to reflect that they are differentially expressed.
@@ -248,55 +252,7 @@ However, quilt plots can also be used to plot more discrete data like cell annot
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_43#slide=id.h7553ddbe789f499c_0_43")
 ```
 
-Beyond the visual inspection of the spatial distribution of a gene, statistical concepts and models support deeper investigation into the spatial distribution of the expression of genes.
-
-The [`STdiff` function from `spatialGE`](https://fridleylab.github.io/spatialGE/reference/STdiff.html) further supports the goal of identifying differential expression within the context of spatial distribution.
-
-<details><summary>Description of function from `spatialGE` documentation</summary>
-
-> The method tests for differentially expressed genes between groups of spots/cells (e.g., clusters) in a spatial transcriptomics sample. Specifically, the function tests for genes with significantly higher or lower gene expression in one group of spots/cells with respect to the rest of spots/cells in the sample. The method first runs non-spatial linear models on the genes to detect differentially expressed genes. Then spatial linear models with exponential covariance structure are fit on a subset of genes detected as differentially expressed by the non-linear models (`sp_topgenes`). If running on clusters detected via `STclust`, the user can specify the assignments using the same parameters (`w`, `k`, `deepSplit`). Otherwise, the assignments are specified by indicating one of the column names in `x@spatial_meta`. The function uses `spaMM::fitme` and is computationally expensive even on HPC environments. To run the `STdiff` using the non-spatial approach (faster), set `sp_topgenes=0`.
-
-</details>
-
-In addition, `spatialGE` provides functions to investigate spatial enrichment, spatial gradients, and spatial autocorrelation with statistical concepts and models.
-
-#### Spatial enrichment of gene sets
-
-Gene sets are a predefined collection or group of genes that have been grouped together in a set because they share some characteristic such as regulatory mechanisms, functions, or involvement in a pathway. Functions like [`STEnrich` from `spatialGE`](https://fridleylab.github.io/spatialGE/reference/STenrich.html) allow users to test whether a given gene set exhibits high expression within a localized area of the tissue. 
-
-<details><summary>Description of function from `spatialGE` documentation</summary>
-
-> The function performs a randomization test to assess if the sum of distances between cells/spots with high expression of a gene set is lower than the sum of distances among randomly selected cells/spots. The cells/spots are considered as having high gene set expression if the average expression of genes in a set is higher than the average expression plus `num_sds` times the standard deviation. Control over the size of regions with high expression is provided by setting the minimum number of cells/spots (`min_units`). This method is a modification of the method devised by Hunter et al. 2021 (zebrafish melanoma study).
-
-</details>
-
-:::{.column-margin}
-avocado: add a figure for this idea
-:::
-
-#### Spatial gradients
-
-Tissue samples can be clustered in order to annotate cell types or domains. Functions like `STgradient` from `spatialGE` use linear models and Spearman correlation coefficients to investigate if a gene is expressed more highly in cells closer to a specific reference tissue domain than cells farther away from the reference domain. 
-
-<details><summary>Description of function from `spatialGE` documentation</summary>
-
-> The STgradient function fits linear models and calculates Spearman coefficients between the expression of a gene and the minimum or average distance of spots or cells to a reference tissue domain. In other words, the STgradient function can be used to investigate if a gene is expressed higher in spots/cells closer to a specific reference tissue domain, compared to spots/cells farther from the reference domain (or viceversa as indicated by the Spearman's cofficient).
-
-</details>
-
-:::{.column-margin}
-avocado: add a figure for this idea
-:::
-
-#### Spatial autocorrelation
-
-Moran's I and Geary's C are global spatial autocorrelation statistics that report how a gene's expression is correlated with itself spatially. Are areas of high expression located near each other forming clusters or are they dispersed throughout the sample? Rather is there no clear pattern? Cases of positive spatial correlation have a Moran's I near 1, and, spatially, similar levels of expression are clustered together. Cases of negative spatial correlation have a statistic near -1, and spatially, dissimilar levels of expression are near each other, appearing as if levels of similar expression are dispersed throughout the sample. Cases of spatial randomness do not display dispersion, instead, there's no clear pattern. Moran's I for spatial randomness are near 0. @Ospina_Wilson_Soupir_Berglund_Smalley_Tsai_Fridley_2022 notes that negative spatial autocorrelation can also be thought of as uniform expression throughout a tissue sample. Geary's C follows a similar logic but uses a different numerical scale.  
-
-```{r echo = FALSE, out.width = "100%", fig.align = 'center', fig.alt = "Illustration showing how the Moran's I statistic can be interpreted with negative spatial autocorrelation resembling a chess board with dispersion or areas of dissimilar expression levels being near each other. Positive spatial autocorrelation instead has clusters with areas of similar expression appearing together. Spatial randomness has has no clear pattern."}
-ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h6ef487c1d4de554_0_19#slide=id.h6ef487c1d4de554_0_19")
-```
-
-The goal of these statistics is to evaluate if the expression of a gene exhibit spatial autocorrelation, in other words, if the expression isn't spatially random. Therefore, with the use of these statistics comes the question whether the resulting statistic is statistically significantly far from 0. For more information regarding the use of statistical tests and simulations to assess this question, consider [this resource on Spatial Autocorrelation](https://www.paulamoraga.com/book-spatial/spatial-autocorrelation.html).
+Beyond the visual inspection of the spatial distribution of a gene, statistical concepts and models support deeper investigation into the spatial distribution of the expression of genes. These are discussed within the [Common Next Steps box within the Continued Learning](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#continued-learning) section of the case study.
 
 ## The human nervous system
 
@@ -316,7 +272,7 @@ The brain has several other specialized cells such as astrocytes and oligodendro
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h46301d28624b2de3_0_11#slide=id.h46301d28624b2de3_0_11")
 ```
 
-## What is the dorsolateral prefrontal cortex?
+### What is the dorsolateral prefrontal cortex?
 
 ***
 
@@ -330,19 +286,19 @@ ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAO
 
 ***
 
-Shizophrenia is a chronic neuropsychiatric disorder characterized by a spectrum of symptoms impacting a person's thoughts, emotions, and behavior [@NIMH_schizophrenia, @Coon_Mitterer_2015]. Schizophrenia symptoms are typically first observed in late adolescence [@Leucht_etal_2025]. Symptoms are generally classified as positive, negative, or cognitive [@Noble_2026; @Leucht_etal_2025]. Positive symptoms refer to mental phenomena that are added experiences beyond a usual experience such as hearing voices or experiencing hallucinations. In contrast, negative symptoms refer to behaviors or emotions that are not present in people with schizophrenia such as withdrawal / social isolation. Cognitive symptoms include attention issues, working and/or verbal memory problems, misunderstandings of social situations, and trouble with critical thinking, adaptation, planning, or problem solving. Cognitive symptoms are related to executive functioning. 
+Schizophrenia is a chronic neuropsychiatric disorder characterized by a spectrum of symptoms impacting a person's thoughts, emotions, and behavior [@NIMH_schizophrenia, @Coon_Mitterer_2015]. Schizophrenia symptoms are typically first observed in late adolescence [@Leucht_etal_2025]. Symptoms are generally classified as positive, negative, or cognitive [@Noble_2026; @Leucht_etal_2025]. Positive symptoms refer to mental phenomena that are added experiences beyond a usual experience such as hearing voices or experiencing hallucinations. In contrast, negative symptoms refer to behaviors or emotions that are not present in people with schizophrenia such as withdrawal / social isolation. Cognitive symptoms include attention issues, working and/or verbal memory problems, misunderstandings of social situations, and trouble with critical thinking, adaptation, planning, or problem solving. Cognitive symptoms are related to executive functioning. 
 
-The dlFPC has been implicated as an area of interest in schizophrenia research, in part due to the overlap in behaviors associated with that region and with cognitive symptoms, but also due to research. Experimental therpaies targeting the dlPFC have been found to improve executive function and working memory [@Leucht_etal_2025].
+The dlPFC has been implicated as an area of interest in schizophrenia research, in part due to the overlap in behaviors associated with that region and with cognitive symptoms, but also due to research. Experimental therapies targeting the dlPFC have been found to improve executive function and working memory [@Leucht_etal_2025].
 
 
-## Why collect samples from the dlPFC?
+### Why collect samples from the dlPFC?
 
 ***
 
 Given that the dlPFC has been implicated in cases of schizophrenia, specifically cognitive symptoms, researchers commonly study this area of the brain for schizophrenia research. Brain imaging studies *in vivo* (MRI, PET, etc.) do not need to collect samples because such imaging can be done with research participants [@Keshavan_etal_2020]. To study the molecular biochemistry and omics of this brain region on a larger scale than is possible with live imaging, however, postmortem samples need to be collected.
 
 
-## Why is spatially-informed gene expression data necessary?
+## Why is spatially-informed gene expression data used?
 
 ***
 
