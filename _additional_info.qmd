@@ -6,8 +6,13 @@
 
 ***
 
+* [spatialGE Documentation](https://fridleylab.github.io/spatialGE/)
+    * [Vignette with `SThet`](https://fridleylab.github.io/spatialGE/articles/basic_functions_vignette.html)
+    * [Vignette with `STdiff`](https://fridleylab.github.io/spatialGE/articles/spatial_differential_expression.html)
+    * [Vignette with `STgradient` and `STenrich`](https://fridleylab.github.io/spatialGE/articles/spatial_enrichment_gradients_smi.html)
+    * [Troubleshooting tips](https://fridleylab.github.io/spatialGE/articles/troubleshooting.html)
 * [Orchestrating Spatial Transcriptomics Analysis with Bioconductor](https://bioconductor.org/books/release/OSTA/)
 * [Spatial Transcriptomics discussion from the ITN course "Choosing Genomics Tools"](https://hutchdatascience.org/Choosing_Genomics_Tools/spatial-transcriptomics-1.html)
 * [Museum of Spatial Transcriptomics](https://pachterlab.github.io/LP_2021/intro.html)
 * [Github Repo for Xenium data analysis from original study (@Kwon_etal_2026)](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/tree/devel)
-* 
+* [Visium Data Workshop](https://hutchdatascience.org/UMich_ITN_Workshop/st_tools_activity.html)
