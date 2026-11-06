@@ -79,6 +79,7 @@ Github
 github
 GLP
 glyphicons
+Gongwer
 GPT
 GSE
 GSM
@@ -86,6 +87,7 @@ Guo
 GWAS
 hardcoded
 HD
+Hoffman
 HPC
 HTTPS
 hw
@@ -192,6 +194,7 @@ subregion
 subselect
 tabset
 tbl
+Teichman
 test’
 th
 tibble
