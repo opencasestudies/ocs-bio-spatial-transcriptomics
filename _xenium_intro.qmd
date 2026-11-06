@@ -27,7 +27,7 @@ In the design process, each gene in the panel has a codeword or optical barcode 
 Codeword
 ::::
 ::::{.inner_block}
-A distinct sequence or pattern of fluoroscent signals, observed across multiple imaging cycles and wavelength channels, that represent a specific target gene. Also known as an "optical barcode".
+A distinct sequence or pattern of fluorescent signals, observed across multiple imaging cycles and wavelength channels, that represent a specific target gene. Also known as an "optical barcode".
 ::::
 :::
 
@@ -78,7 +78,7 @@ Cell segmentation for v1 utilizes DAPI to stain for cell nuclei. After acquiring
 
 #### Assignment and quantification
 
-After Signal Decoding and Nuclear and Cell Segmentation have occured, transcripts can be assigned to cells, Xenium's quality control can be run, and output files can be generated.
+After Signal Decoding and Nuclear and Cell Segmentation have occurred, transcripts can be assigned to cells, Xenium's quality control can be run, and output files can be generated.
 
 #### Xenium quality control
 
@@ -109,7 +109,7 @@ This means that a negative control probe is a probe that isn't expected to hybri
 
 > unused codewords. There is no probe in a particular gene panel that will generate the codeword.
 
-This explanation may seem like it overlaps with the "negative control codeword" definition above, and it does seem to in a way. However, this means that an unassigned codeword is an optical signature that wouldn't be expected to be observed in the data, not by purposeful design (like is the case with negative control codewords) but instead as a byproduct. There are a set number of imaging cycles, a set number of imaging wavelength channels, and a set number of fluorophores. A limited set of permutations of these signals (optical barcodes) are theoretically possible. However, not all of them are assigned to genes in the panel. Some are assigned to negative control codewords, but all of the rest are unassigned codeowords.
+This explanation may seem like it overlaps with the "negative control codeword" definition above, and it does seem to in a way. However, this means that an unassigned codeword is an optical signature that wouldn't be expected to be observed in the data, not by purposeful design (like is the case with negative control codewords) but instead as a byproduct. There are a set number of imaging cycles, a set number of imaging wavelength channels, and a set number of fluorophores. A limited set of permutations of these signals (optical barcodes) are theoretically possible. However, not all of them are assigned to genes in the panel. Some are assigned to negative control codewords, but all of the rest are unassigned codewords.
 
 Xenium's process for assessing the [quality of decoding is explained in this documentation](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/1.9/algorithms-overview/xoa-algorithms#qvs), but highlights are included here:
 

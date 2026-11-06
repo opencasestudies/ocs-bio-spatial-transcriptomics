@@ -27,6 +27,7 @@ Chatbots
 cheatsheet
 choropleth
 choropleths
+codebook
 codeword
 colocalization
 colorblindr
@@ -121,6 +122,7 @@ ocs
 Oligodendrocytes
 oligodendrocytes
 omics
+OnBoard
 Ospina
 OSTA
 OTTR
@@ -129,6 +131,7 @@ permeabilization
 permeabilized
 PII
 photobleached
+Phred
 Platt
 PLP
 PNS
@@ -172,6 +175,7 @@ spatialGE
 spatialGE's
 spatialLIBD
 spatiAlytica
+SpD
 spotscells
 Squidpy
 SRT
@@ -202,6 +206,7 @@ Transcriptomic
 transcriptomics
 Transcriptomics
 TRUEs
+UMAP
 UMI
 UMIs
 unescaped
@@ -212,6 +217,7 @@ Visium
 vivo
 www
 Xenium
+Xenium's
 xenium
 Zarr
 zebrafish
