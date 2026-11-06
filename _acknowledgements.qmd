@@ -2,7 +2,7 @@
 
 ***
 
-We would like to acknowledge [Oscar Ospina], [Brooke Fridley], [Boyi Guo], and ethicist [Jodyn Platt] for their expert review of this case study.
+We would like to acknowledge [Oscar Ospina], [Brooke Fridley], [Boyi Guo], and ethicist [Jodyn Platt] for their expert review of this case study, and [Michael Gongwer] for his helpful discussion on neuroscience topics.
 
 We would also like to acknowledge the National Institute of General Medical Sciences for funding this work (1R25GM160622).
 
@@ -29,3 +29,4 @@ More information about this AI attribution can be found [here](https://aiattribu
 [Brooke Fridley]: https://www.childrensmercy.org/childrens-mercy-research-institute/research-areas/labs-and-research-teams/fridley-lab/
 [Boyi Guo]: https://boyi-guo.com/
 [Jodyn Platt]: https://sph.umich.edu/faculty-profiles/platt-jodyn.html
+[Michael Gongwer]: https://www.linkedin.com/in/michael-gongwer/

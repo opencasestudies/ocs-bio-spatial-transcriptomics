@@ -159,6 +159,14 @@ Classically, `-cells.parquet` files are used to store the spatial coordinates of
 
 The `.parquet` file type is a departure from the normal way we would expect data to be stored. Often our file types (e.g., `.csv`) store data row by row with each row containing a complete record or set of related information about a specific sample, timepoint, etc. Instead, `.parquet` files store data column-by-column. This leads to more efficient storage and querying of large data files.
 
+<details><summary>More information on the `.parquet` file type</summary>
+
+This is a somewhat long but helpful video explaining the `.parquet` file type.
+
+{{< video https://www.youtube.com/watch?v=2mQ4kc9J9uQ >}}
+
+</details>
+
 Additional information provided in this file is [described by 10X genomics](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/analysis/xoa-output-understanding-outputs#cell-summary).
 
 <details><summary>If `-cells.parquet` files are not available</summary>
@@ -258,7 +266,7 @@ Xenium produces a [variety of output files](https://www.10xgenomics.com/support/
 Reproducibility Considerations
 ::::
 ::::{.inner_block}
-If you need a specific file but don't see it in an archive, contact the study personnel and ask if that file can be added. Data reuse benefits the scientific community and promotes reproducible, robust, and generalizable scientific discovery.
+In general, if you need a specific file but don't see it included in an existing archive, contact the study personnel associated with the record and ask if that file can be added. Data reuse benefits the scientific community and promotes reproducible, robust, and generalizable scientific discovery.
 ::::
 :::
 

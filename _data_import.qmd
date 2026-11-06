@@ -274,7 +274,7 @@ Using consistent file naming schemes within a project is an important reproducib
 ::::
 :::
 
-We will utilize the consistent naming conventions as we construct file paths in order to read in the files to work with them, specifically iterating over the samples to construct the file paths.
+Our work here benefits from the consistent naming conventions that @Kwon_etal_2026 used. The consistent naming structure will be especially helpful as we construct file paths (in order to read in the files to work with them), specifically iterating over the samples to construct the file paths.
 
 :::
 
