@@ -12,7 +12,7 @@ Spatially-informed gene expression data goes beyond just gene expression and rep
 
 Spatially-informed gene expression data is also known as spatial transcriptomics or ST data. It may also be called spatially-resolved transcriptomics or SRT data by others. It is **complex**, **sparse**, and can be **noisy** (e.g., due to technical artifacts associated with image-based data). 
 
-### ST data vs bulk and single-cell data
+<details><summary> ST data vs bulk and single-cell data </summary>
 
 Bulk RNA-seq data has very few similarities to ST data. They both provide researchers with gene expression counts. Depending on the method used for sample preparation, they both may be targeting polyadenylated tails, however for Bulk RNA-seq this would be occurring during sample preparation, while for sequencing-based ST methods, this would be occurring post sample preparation. Some ST methods don't provide high cellular resolution and may be  producing data for multicellular spots that contain 10s to 100s of cells. These methods must deconvolve the signal to separate out cells from each other; however, bulk RNA-seq is producing data for many more cells at a given time. Coverage is much higher for bulk RNA-seq than spatial transcriptomics which returns sparse, low-coverage data. 
 
@@ -25,7 +25,9 @@ Single-cell RNA-seq data shares some more similarites with ST data, but is still
 | Cellular Resolution | None, signal is averaged | High | Variable, but high for image-based |
 | Coverage | High | Lower than bulk | Low |
  
- Spatial data is the most complex of the three because it's not just reporting gene counts, but also reporting where expression of those genes were observed in relation to other genes and other areas where that gene was expressed.
+**Spatial data is the most complex of the three because it's not just reporting gene counts, but also reporting where expression of those genes were observed in relation to other genes and other areas where that gene was expressed.**
+
+</details>
 
 ### ST technologies
 
@@ -246,10 +248,10 @@ Quilt plots are primarily used to visualize the expression of a specific gene sh
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_26#slide=id.h7553ddbe789f499c_0_26")
 ```
 
-However, quilt plots can also be used to plot more discrete data like cell annotations: spatial domain, cell type, number of expressed genes, discarded vs. kept following quality control.
+However, quilt plots can also be used to plot more discrete or categorical data like cell annotations: spatial domain, cell type, number of expressed genes, discarded vs. kept following quality control.
 
 ```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Example showing cell type with a quilt plot"}
-ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_43#slide=id.h7553ddbe789f499c_0_43")
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7351b989150c1327_35_20#slide=id.h7351b989150c1327_35_20")
 ```
 
 Beyond the visual inspection of the spatial distribution of a gene, statistical concepts and models support deeper investigation into the spatial distribution of the expression of genes. These are discussed within the [Common Next Steps box within the Continued Learning](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#continued-learning) section of the case study.

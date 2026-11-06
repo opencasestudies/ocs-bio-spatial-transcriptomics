@@ -2,51 +2,171 @@
 
 ***
 
-Before we start to work with the Spatial Transcriptomics data from this study, we will provide an introduction previewing some of the specifics of Xenium data: how it's generated, what is produced or generally what you can expect working with it, and any special considerations to keep in mind when working with Xenium data. Some of these topics will be discussed in more detail throughout the case study.
+Before we start to work with the Spatial Transcriptomics data from @Kwon_etal_2026, we will provide an introduction previewing some of the specifics of Xenium data: how it's generated, what is produced or generally what you can expect working with it, and any special considerations to keep in mind when working with Xenium data. Some of these topics will be discussed in more detail throughout the case study.
+
+This video introduces what Xenium is and its strengths, focusing on how gene expression is visualized.
+
+{{< video https://www.youtube.com/watch?v=8YF2ZMaV4V0 >}}
+
+:::{.panel-tabset}
 
 ## Data generation
 
 ***
 
-Xenium is an image-based spatial transcriptomics platform. Tissue samples are either fresh frozen (FF) or formalin-fixed paraffin-embedded (FFPE). Each of these options has its own specific protocols necessary for further sample preparation. 
+Xenium is an image-based spatial transcriptomics platform. Tissue samples are either fresh frozen (FF) or formalin-fixed paraffin-embedded (FFPE). Each of these options has its own specific protocols necessary for further sample preparation. The machine that is used to generate data is called the "Xenium Onboard Analyzer".
 
-Note about gene panel and customization.
+### Gene panel
+
+[Gene panels](https://www.10xgenomics.com/platforms/xenium/panels) may be read-to-use, pre-designed panels, or (usually for more cost) custom RNA panels that focus on a researcher's specific genes and species of interest.
+
+In the design process, each gene in the panel has a codeword or optical barcode assigned to it that will be the result of probe hybridization and necessary for the eventual decoding of the observed optical signature of what is hybridizing to a transcript into the assignment of gene identity.
+
+:::{.definition_box}
+::::{.definition_box_header}
+Codeword
+::::
+::::{.inner_block}
+A distinct sequence or pattern of fluoroscent signals, observed across multiple imaging cycles and wavelength channels, that represent a specific target gene. Also known as an "optical barcode".
+::::
+:::
+
+The collection of unique / possible codewords for a given gene panel is called the codebook. In the codebook, the optical signatures and the gene they represent are recorded. 
+
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Illustration showing codewords and codebooks and how different channels and different imaging cyles combine to form distinct fluorescent signals that define specific genes in the panel."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h6ef487c1d4de554_0_84#slide=id.h6ef487c1d4de554_0_84")
+```
 
 ### Sample preparation
 
+This video previews steps necessary for sample preparation prior to analysis with the Xenium Analyzer.
+
 {{< video https://www.youtube.com/watch?v=EhTgNYs9Vuw&list=PLfaSRwcfHcq3BngbACXhBci870L8iSCoj&index=1 >}}
+
 
 ### Sectioning and complementary methods
 
+When working with spatial transcriptomics, as previously mentioned, it is common to use complementary spatial transcriptomics methods to explore samples from the same source tissue in order to get a greater depth of information. In these cases, the same sample section cannot be used to generate data from both technologies. Instead, neighboring sections are taken from the tissue block and one section is used with one method while the other section is used with the other method.
+
 ```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Diagram showing the sample prep, specifically sectioning the tissue block and how each of the neighboring sections can be used for complementary experiments."}
-ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7553ddbe789f499c_0_35#slide=id.h7553ddbe789f499c_0_35")
+ottrpal::include_slide("http://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h7351b989150c1327_35_0#slide=id.h7351b989150c1327_35_0")
 ```
 
-Mention that domains from one sample section don't directly align with another section and there are algorithms to liftover.
+Any domain or cell type analysis that is performed on results from one tissue section won't directly align with directly align with the neighboring tissue section. However, there are algorithms to align coordinates. @Kwon_etal_2026 used one of these (`spaTransfer`) described in the "SpD clustering and annotation" section of the Xenium methods description [@Fang_etal_2026].
 
 ### Xenium Analyzer steps
 
-Cell segmentation for v1 utilizes DAPI for nucleus and an isotropic nuclear expansion algorithm to approximate the cell boundaries. An alternative approach (not used for this study) utilizes multiple stains and for cell boundaries and segments using those stains rather than expanding the nucleus. 
+For a thorough discussion of the Xenium process, consider @Lim_Wang_Buzdin_Li_2025 or [10X Genomics overview of the Xenium algorithms used by the Xenium Onboard Analyzer](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/algorithms-overview/xoa-algorithms).
+
 
 ```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Diagram showing some selected steps from what the Xenium Analyzer's onboard software does with samples. Steps include fluorescent imaging of the samples, decoding of those signals to identify RNA molecules and their locations, segmentation of nuclei and cells, and finally assignment of RNA molecules to cells and the quantification of how much RNA is observed."}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h282ea7cdd6efe4e2_4_0#slide=id.h282ea7cdd6efe4e2_4_0")
 ```
 
-### Quality control
+#### RNA imaging
 
-Describe quality control that Xenium does
+Imaging is performed in cycles: Probes which are specific to certain mRNA molecules are applied to the sample and hybridize to the mRNA molecules. Secondary probes with fluorophores are then applied to the sample and imaging occurs and fluorophores are cleaved or extinguished/photobleached before the cycle repeats. Rather than one fluorophore being used to represent one gene, permutations of fluorophores across imaging rounds, (an "optical barcode" or "codeword") represent a given gene. Therefore, gene-specific fluorescent signals are used to ascertain what genes are expressed, noting their spatial location within the sample. Images are also captured to visualize where DAPI (a proxy for cell nuclei) or cell boundary marker stains are within the sample.
 
-## Data products
+
+#### Signal decoding
+
+Following image procurement, RNA molecule signals are identified and filtered to remove background or low quality signal [as described by 10X Genomics](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/algorithms-overview/image-processing). The codebook is used to map the observed optical barcode from probes hybridizing to the RNA molecules to the gene it represents.
+
+#### Nuclear and cell segmentation
+
+Cell segmentation for v1 utilizes DAPI to stain for cell nuclei. After acquiring a DAPI image of the sample, nuclei are segmented to approximate nuclei boundaries. Then an isotropic nuclear expansion algorithm is used to approximate the cell boundaries. An alternative approach (not used for @Kwon_etal_2026) utilizes multiple stains for cell boundaries and segments using those stains rather than expanding the nucleus. 
+
+#### Assignment and quantification
+
+After Signal Decoding and Nuclear and Cell Segmentation have occured, transcripts can be assigned to cells, Xenium's quality control can be run, and output files can be generated.
+
+#### Xenium quality control
+
+Xenium assigns each decoded transcript a Phred-style quality score, signifying a confidence level in that transcript's identity. [Control probes and codewords](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/1.9/algorithms-overview/xoa-algorithms#qvs) are necessary for computing these quality scores.
+
+* **Negative control codewords**
+
+> codewords in the codebook that do not have any probes matching that code. They are chosen to meet the same requirements as regular codewords and can be used to assess the specificity of the decoding algorithm.
+
+This means that a negative control codeword is an optical signature that wouldn't be expected to be observed in the data because the underlying probes necessary for seeing this specific signal don't match the probes that were used for any genes. If a negative control codeword is observed, it would be a false positive.
+
+:::{.definition_box}
+::::{.definition_box_header}
+Specificity
+::::
+::::{.inner_block}
+Measures a model or process's ability to correctly identify true negative cases, avoiding false positives. Also known as the True Negative Rate. Specificity or sensitivity (true positive rate) can be prioritized; specificity should be prioritized if false positives are important to avoid.
+::::
+:::
+
+* **Negative control probes** 
+
+> probes that exist in the panels but target non-biological sequences. They can be used to assess the specificity of the assay.
+
+This means that a negative control probe is a probe that isn't expected to hybridize to transcripts within the sample. If they hybridize and are visualized, the specificity of the assay is low because.
+
+* **Unassigned codewords** 
+
+> unused codewords. There is no probe in a particular gene panel that will generate the codeword.
+
+This explanation may seem like it overlaps with the "negative control codeword" definition above, and it does seem to in a way. However, this means that an unassigned codeword is an optical signature that wouldn't be expected to be observed in the data, not by purposeful design (like is the case with negative control codewords) but instead as a byproduct. There are a set number of imaging cycles, a set number of imaging wavelength channels, and a set number of fluorophores. A limited set of permutations of these signals (optical barcodes) are theoretically possible. However, not all of them are assigned to genes in the panel. Some are assigned to negative control codewords, but all of the rest are unassigned codeowords.
+
+Xenium's process for assessing the [quality of decoding is explained in this documentation](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/1.9/algorithms-overview/xoa-algorithms#qvs), but highlights are included here:
+
+
+* First to find raw quality scores: which codeword best explains the observed fluorescent signals/data for that transcript? What's the likelihood of observing that codeword compared to others?
+* Bin all raw quality scores and find the proportion of negative control codewords in each bin, using this to calibrate the raw quality scores.
+* Xenium uses the calibrated quality score to filter the cell-feature matrix to include transcripts that only have a quality score above a certain threshold (quality scores greater than or equal to 20). If a transcript is dropped during this process, the count that it would add to the gene isn't added to the final cell feature matrix.
+* These control codewords and probes are still included in the cell feature matrix that is returned to the researcher.
+
+
+:::
+
+#### Secondary analyses (optional)
+
+The Xenium OnBoard Analyzer can be used to perform some secondary or downstream analyses. They are [explained in greater detail by Xenium in this documentation](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/algorithms-overview/gex-secondary-analysis-algorithms). Possibilities include:
+
+* Filtering (removing any cells with fewer than five transcripts). Note that this filtering is applied prior to creating secondary analysis results, but is not applied to the data outputs returned to users (e.g., the cell feature matrix) outside of secondary analysis results.
+* Dimensionality reduction (PCA, UMAP)
+* Clustering (Graph-based or K-means)
+* Differential Gene Expression
+
+## Data outputs
 
 ***
 
-https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/analysis/xoa-output-at-a-glance#output-bundle-files
+Xenium data is complex and a variety of outputs are provided to the researcher. These include data such as 
 
-## Tools for working with data
+* tissue morphology images
+* the center coordinates or localization of cells
+* a cell feature matrix that reports the observed counts for each gene in the panel by cell
+* segmentation results 
+    * coordinates or location of nuclear boundaries
+    * coordinates or location of cell boundaries
+* observed transcript quality and localization
+* auxiliary files from the analyzer process such as
+    * cycle images
+    * background fluorescence subtracted during decoding
+* any secondary analysis results
+* a summary file of the whole process and results
 
-***
+```{r echo = FALSE, fig.align = 'center', out.width = "100%", fig.alt = "Illustration highlighting some of the variety of data outputs that are available from Xenium for researchers. These include tissue morphology images, cell coordinates or locations, cell feature matrices, transcript quality and localization, segmentation results, auxiliary files from the process, a summary file, and files from any secondary analysis that was performed."}
+ottrpal::include_slide("https://docs.google.com/presentation/d/1jRNbuvQSjI4cZKAOStDUFAgAoFFBp8zIICCiG-1RZLk/edit?slide=id.h6ef487c1d4de554_0_38#slide=id.h6ef487c1d4de554_0_38")
+```
 
-### Why spatialGE?
+Not all of these files are likely to be shared or deposited in an archive like GEO. The files may not be available because they were not produced (e.g., some secondary analysis results), or because the authors didn't share them. For example, @Kwon_etal_2026 shares a subset of the list above, but more than enough for others to reuse the data:
+
+* tissue morphology images
+* the center coordinates or localization of cells
+* a cell feature matrix that reports the observed counts for each gene in the panel by cell
+* segmentation results 
+    * coordinates or location of nuclear boundaries
+    * coordinates or location of cell boundaries
+* observed transcript quality and localization
+
+
+
+We will discuss the data outputs that are necessary for investigation with `spatialGE` in greater detail later in the case study, but to preview outputs you can expect from Xenium, [visit this 10X Genomics resource](https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/analysis/xoa-output-at-a-glance#output-bundle-files).
 
 ## Summary
 
@@ -54,7 +174,7 @@ https://www.10xgenomics.com/support/software/xenium-onboard-analysis/latest/anal
 
 :::{.emphasis_block}
 
-In summary, Xenium technology utilizes a panel of gene-specific probes to assay the spatially-resolved expression for a targeted set of genes at a single-cell or sub-cellular resolution within tissue samples. Samples for Xenium analysis are prepared from either fresh frozen (FF) or formalin-fixed paraffin-embedded (FFPE) tissue blocks. While preparation protocols differ by sample type (e.g, FF or FFPE), generally tissue sections are taken from the tissue block, mounted on specialized slides, and undergo chemical treatments for fixation, permeabilization, probe hybridization, and staining. Following sample preparation, imaging cycles are performed using a Xenium Analyzer. The Xenium Analyzer's onboard software performs nuclear and cellular segmentation to approximate boundaries between cells and assign observed transcripts to individual cells. Xenium platforms use automated real-time quality control to remove noise and lower quality data. Researchers receive a variety of data including data that reports on the localization of cells, nuclei, and transcripts, observed counts for the transcripts, and morphology images for the tissue sample sections.
+In summary, Xenium technology utilizes a panel of gene-specific probes to assay the spatially-resolved expression for a targeted set of genes at a single-cell or sub-cellular resolution within tissue samples. Samples for Xenium analysis are prepared from either fresh frozen (FF) or formalin-fixed paraffin-embedded (FFPE) tissue blocks. While preparation protocols differ by sample type (e.g, FF or FFPE), generally tissue sections are taken from the tissue block, mounted on specialized slides, and undergo chemical treatments for fixation, permeabilization, probe hybridization, and staining. Following sample preparation, imaging cycles are performed using a Xenium Analyzer. The Xenium Analyzer's onboard software performs nuclear and cellular segmentation to approximate boundaries between cells and assign observed transcripts to individual cells. Xenium platforms use automated real-time quality control to remove noise and lower quality data. Researchers receive a variety of data including data that reports on the localization of cells, nuclei, and transcripts, observed counts for the genes, and morphology images for the tissue sample sections.
 
 In this case study, we will use the tool `spatialGE` to work with Xenium data from @Kwon_etal_2026. Though @Kwon_etal_2026 first collected Visium data (that ultimately informed the design of the gene panel), we will only be considering the Xenium data in this case study, especially focusing on the early steps of data processing such as data import, quality control, and normalization as well as the visualization of spatial patterns with Quilt plots.
 
