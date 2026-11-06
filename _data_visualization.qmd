@@ -195,18 +195,19 @@ colorblindr::cvd_grid(plot = quiltArrangeCX3CR1)
 
 :::{.think_question}
 ::::{.think_question_header}
+Question opportunity
+::::
+::::{.inner_block}
+
 How would you describe the expression patterns and spatial distribution of the following genes?
 
 * GFAP
 * NTRK2
 * MT1E
 * BDNF
-::::
-::::{.inner_block}
+
 ::::
 :::
-<!--
-Look at these genes to try to see differences in spatial distribution not just up/down: 
--->
+
 
 ***

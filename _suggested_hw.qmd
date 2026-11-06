@@ -31,9 +31,9 @@ Gene sets are a predefined collection or group of genes that have been grouped t
 
 </details>
 
-:::{.column-margin}
+<!--
 avocado: add a figure for this idea
-:::
+-->
 
 ## Spatial gradients
 
@@ -45,9 +45,9 @@ Tissue samples can be clustered in order to annotate cell types or domains. Func
 
 </details>
 
-:::{.column-margin}
+<!--
 avocado: add a figure for this idea
-:::
+-->
 
 ## Spatial autocorrelation
 
@@ -88,8 +88,6 @@ Create or use your previously created list of filtered out cells to compare the 
 
 Use the `pseudobulk_samples()`, `pseudobulk_heatmap()`, and `pseudobulk_dim_plot()` functions to perform a principal component analysis (PCA) and create PCA plot(s) of the samples. What about the samples seems to explain the variance among them?
 
-<details><summary>Code for performing PCA</summary>
-
 <details><summary>Hint</summary>
 
 Consider using:
@@ -99,6 +97,8 @@ Consider using:
 * the `pseudobulk_dim_plot()` function more than once with different `plot_meta` arguments
 
 </details>
+
+<details><summary>Code for performing PCA</summary>
 
 ```{r}
 scz_spatial <- pseudobulk_samples(scz_spatial, max_var_genes = 150) #decreased compared to the default since the Xenium panel is based on a lower number of genes than say Visium data
@@ -110,7 +110,7 @@ pseudobulk_dim_plot(scz_spatial, plot_meta = "Sex")
 
 ### Intermediate
 
-Convert your `STlist` data into a `SpatialExperiment` object and run `SpaNorm` to normalize the data.
+Convert your `STlist` data into a `SpatialExperiment` object and run [`SpaNorm` to normalize the data](https://bhuvalab.github.io/SpaNorm/reference/r/SpaNorm.html).
 
 What (if any differences) do you see comparing the normalized data from `SpaNorm` with the normalized data from methods within this case study?
 

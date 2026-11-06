@@ -8,8 +8,6 @@ This video introduces what Xenium is and its strengths, focusing on how gene exp
 
 {{< video https://www.youtube.com/watch?v=8YF2ZMaV4V0 >}}
 
-:::{.panel-tabset}
-
 ## Data generation
 
 ***
@@ -119,8 +117,6 @@ Xenium's process for assessing the [quality of decoding is explained in this doc
 * Xenium uses the calibrated quality score to filter the cell-feature matrix to include transcripts that only have a quality score above a certain threshold (quality scores greater than or equal to 20). If a transcript is dropped during this process, the count that it would add to the gene isn't added to the final cell feature matrix.
 * These control codewords and probes are still included in the cell feature matrix that is returned to the researcher.
 
-
-:::
 
 #### Secondary analyses (optional)
 

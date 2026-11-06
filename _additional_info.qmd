@@ -9,5 +9,5 @@
 * [Orchestrating Spatial Transcriptomics Analysis with Bioconductor](https://bioconductor.org/books/release/OSTA/)
 * [Spatial Transcriptomics discussion from the ITN course "Choosing Genomics Tools"](https://hutchdatascience.org/Choosing_Genomics_Tools/spatial-transcriptomics-1.html)
 * [Museum of Spatial Transcriptomics](https://pachterlab.github.io/LP_2021/intro.html)
-* [Github Repo for Xenium data analysis from original study (@Kwon_etal_2026)]()
+* [Github Repo for Xenium data analysis from original study (@Kwon_etal_2026)](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/tree/devel)
 * 
