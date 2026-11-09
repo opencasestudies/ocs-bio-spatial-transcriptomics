@@ -17,7 +17,7 @@ This case study focuses on early steps for working with spatially-informed data 
 
 The Xenium algorithm used for cell segmentation for this data, employs a nuclear expansion following DAPI staining. Given that these samples are from brain tissue and the brain has specialized cells with abnormal structure (e.g., neurons with long axon offshoots), the cell segmentation results may not truly reflect cell boundaries in the sample. At the least, this approach is unlikely to be as accurate as the approach that uses cell boundary markers in addition to DAPI staining to segment cell boundaries.
 
-Though care was taken by @Kwon_etal_2026 to match clinical and quality demographics for their case vs control samples, demographic matching was not utilized in randomly subselecting the Xenium samples used within this case study.
+Though care was taken by @Kwon_etal_2026 to match clinical and quality demographics for their case vs control samples ([Supplementary Table 1](https://www.biorxiv.org/content/biorxiv/early/2026/05/23/2026.02.16.706214/DC2/embed/media-2.xlsx?download=true)), demographic matching was not utilized in randomly subselecting the Xenium samples used within this case study.
 
 @Atta_Clifton_Anant_Aihara_Fan_2024 and @Bhuva_etal_2024 argue caution against the usefulness of a few classical transformation methods, especially for image-based spatially-informed gene expression data. However, we do show the use of those methods within this case study, while introducing the cautions and an employing an alternative suggestion from @Atta_Clifton_Anant_Aihara_Fan_2024. Utilizing the tool from @Bhuva_etal_2024 is left as a continued learning exercise.
 
