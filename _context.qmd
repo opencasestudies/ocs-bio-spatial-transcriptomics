@@ -204,7 +204,7 @@ Reproducibility considerations
 ::::{.inner_block}
 Working with open source tools is an important reproducibility consideration for your research. Use of open source tools promotes transparency and accessibility. Other researchers will have more difficulty reproducing your work if they need to access commercial tools (or a specific version of a commercial tool), than they will if you use open source tools.
 
-Open source tools may be updated over time, so it's important to combine using open source tools with thorough documentation explaining versions that were used and why choices were made (e.g., parameter values). 
+Open source tools may be updated over time, so it's important to combine using open source tools with thorough documentation explaining versions that were used and why choices were made (e.g., parameter values). @Kwon_etal_2026 used open source tools (though different from the ones used within this case study) and [shared their version-controlled analysis code](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/tree/devel) (another related step in promoting transparent and reproducible science).
 
 If working within a large team, on multiple platforms (e.g., local machine and the cloud or an institutional HPC), or needing to share your computing environment broadly so it can be used by others or at a later time, it may also be worthwhile to create a container with the specific versions of software packages already installed / available. Consider the ["Using containers for collaborative, reproducible research"](https://www.opencasestudies.org/ocs-bio-containers/) for more details on this.
 ::::

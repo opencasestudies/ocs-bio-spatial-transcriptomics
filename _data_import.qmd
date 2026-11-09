@@ -270,7 +270,7 @@ Files from @Kwon_etal_2026 use the following naming convention:
 Reproducibility considerations
 ::::
 ::::{.inner_block}
-Using consistent file naming schemes within a project is an important reproducibility consideration. One reason is because this practice supports more automated data retrieval and handling, reducing the risk of errors from manual processes. For more, consider the [ITCR's Introduction to Reproducibility in Cancer Informatics course's discussion on the topic](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/organizing-your-project.html#organizational-strategies) or this [File naming and organization guide from UT Dallas](https://data.utdallas.edu/research-project-lifecycle/organize/)
+Using consistent file naming schemes within a project is an important reproducibility consideration. One reason is because this practice supports more automated data retrieval and handling, reducing the risk of errors from manual processes. For more, consider the [ITCR's Introduction to Reproducibility in Cancer Informatics course's discussion on the topic](https://jhudatascience.org/Reproducibility_in_Cancer_Informatics/organizing-your-project.html#organizational-strategies) or this [file naming and organization guide from UT Dallas](https://data.utdallas.edu/research-project-lifecycle/organize/)
 ::::
 :::
 

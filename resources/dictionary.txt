@@ -33,6 +33,7 @@ colocalization
 colorblindr
 colwidths
 CosMx
+CPRRD
 CROST
 css
 CTRL
@@ -110,6 +111,7 @@ MBP
 MERFISH
 Merscope
 microenvironments
+mortem
 mRNA
 mRNA
 multicellular
@@ -144,6 +146,7 @@ pre
 preprints
 prereq
 pseudocount
+psychoeducation
 purrr
 PVALB
 quarto
@@ -154,11 +157,13 @@ readr
 repo
 reproducibility
 Reproducibility
+reproducibly
 rhdf
 RIN
 RIN's
 Rmd
 RNAseq
+roadmap
 ROI
 RStudio
 Sasi
@@ -192,6 +197,7 @@ subdir
 subparts
 subregion
 subselect
+subselecting
 tabset
 tbl
 Teichman

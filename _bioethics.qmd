@@ -1,21 +1,51 @@
-<!--
-List any important bioethics considerations when performing an analysis like this or working with data like this.
-
-See doi: 10.1007/s41649-019-00099-x and https://depts.washington.edu/bhdept/ethics-medicine/bioethics-topics/articles/principles-bioethics for principles and considerations.
-Examples may include: how identifiable (or re-identifiable) is your data? cell lines or consent? specific considerations for a specific population?
--->
-
 
 # **Ethical Considerations**
 ***
 
 There are some important ethical considerations when working with data relating to this case study's main questions.
 
-1. {FILL IN}
-1. {FILL IN}
+**Post-mortem donors:**
+
+Data used within this case study originate from post-mortem human donors. Similar to organ donation, research involving the recently deceased depends upon the generosity or altruism of donors. While not technically human subjects research, there are still several important ethical questions such as those relating to end-of-life decision making and respecting the deceased's legacy. 
+
+As described by @Pentz_etal_2005 the multidisciplinary expert Consensus Panel on Research with the Recently Dead (CPRRD) crafted ethics guidelines for this type of research, falling into the following categories:
+
+* Review and oversight
+* Community involvement
+* Eligibility
+* Research procedures
+* Consent
+* Confidentiality
+* Resource use and cost
+* Conclusion of research (e.g., return of remains to family or disclosure of medically relevant research results)
+
+Even with the CPRRD ethics guidelines, ethical questions persist and @Parent_etal_2024 enumerates these questions in the following way:
+
+* Common language to describe this research
+* Oversight of proposed research
+* The role of clinical staff
+* Duration of research
+* Infection prevention and control
+* Sources and timing of authorization
+* Necessary disclosure during authorization
+
+
+**Schizophrenia:**
+
+Schizophrenia is a condition that impacts a substantial proportion of the population [@Leucht_etal_2025]. To reduce the morbidity and premature mortality associated with schizophrenia, understanding the basis for the condition and developing treatments and therapies are important avenues of research. In particular, there is a genetic component to the development of schizophrenia, and therefore genetic and precision medicine studies are useful [@Leucht_etal_2025; @Daws_2017; @Fusar-Poli_etal_2022]. Societal stigma is associated with the condition [@Dino_etal_2025; @Leucht_etal_2025] and research resources are limited [@Daws_2017], raising ethical questions about how research funds are allocated and used [@Daws_2017], how the condition is treated [@Leucht_etal_2025], how individuals with the condition are discussed [@Dino_etal_2025], and how individuals with extreme expressions of symptoms are sometimes excluded from clinical research or otherwise expected to pause current treatments in order to participate [@Wilson_Stanley_2006]. @Leucht_etal_2025 notes that "family psychoeducation is an easily implemented intervention that has been found to improve outcomes for individuals with schizophrenia and potentially reduce stigmatizing attitudes within the family." @Fusar-Poli_etal_2022 suggests an innovative precision psychiatry roadmap that "links patients, providers, clinical laboratories and researchers through the use of screening, prognostic, diagnostic, and therapeutic clinical prediction models" in order to "account [for] each person's variability in genes, environment, and lifestyle", but notes that it has its own "ethical concerns at the individual, healthcare and whole societal level".
+
+Another important consideration is using respectful language to describe those impacted by the condition. According to the [National Center on Disability and Journalism Language Style Guide](https://cronkite.asu.edu/ncdj/disability-language-style-guide), person-first language (e.g., "a person with schizophrenia" or "a person diagnosed with schizophrenia") is typically preferred over identity-first descriptions. @Dino_etal_2025 found that the scientific community has shown improvement in adopting person-first language when discussing this disorder, but that there remains room for improvement. 
+
+**Data Management:**
+
+Researchers need to carefully study secondary data (data collected originally by others) to ensure that they understand how the data were collected and what the variables represent. Use of secondary data, especially participant-level clinical data (e.g., from patients or research participants) requires consideration about how that data was collected and shared, and the consent of participants (Sterling 2011). 
+
+Personally Identifiable Information (PII) and Protected Health Information (PHI) need to be managed securely to safeguard patient privacy. Samples collected post-mortem do not strictly fall under the PII or PHI categories, however [health information collected before death is still safeguarded](https://hipaapath.org/blog/post-mortem-phi-the-50-year-rule-you-re-probably-violating). The privacy of the donor needs to be considered and donor information should be managed securely, especially for cases where the condition has stigma associated with it (e.g., for donors previously diagnosed with schizophrenia).
+
+Data that are considered PII or PHI includes names, dates of birth, contact information, account or health plan numbers, IP addresses, and medical records. You can read more about PII and PHI and [ethical data handling practices in this course](https://hutchdatascience.org/Ethical_Data_Handling_for_Cancer_Research/data-privacy.html#pii-personal-identifiable-information) with broader information regarding proactive and [ethical data management and sharing can be found in this course](https://hutchdatascience.org/Proactive_Data_Management_and_Sharing/).
+
+**Reproducibility Considerations:**
+
+Research is reproducible when the same methods (code, script, implementation based on description, etc.) can be used on the same data or within the same experimental system by a new researcher to recapitulate the results or findings of the original researcher. Note that just because a research result is reproducible doesn’t mean that it’s correct or valid. Research can be reproducibly wrong. However, reproducibility is always an important step towards useful, valid, and generalizable scientific discovery. However, reproducibility exists on a spectrum, and making a study perfectly reproducible is not an attainable goal. Therefore, taking incremental but tangible steps to make a study more reproducible is important as discussed in [this course](https://hutchdatascience.org/Proactive_Data_Management_and_Sharing/defining-reproducibility.html#reproducibility-exists-on-a-continuum). @Kwon_etal_2026 provide access to non-sensitive data and their version-controlled analysis code -- both important steps in making a study reproducible.
 
 ***
-
-<!--
-Consider incorporating a checklist of statements that learners should answer/discuss for every case study for bioethics principles.
--->
