@@ -15,7 +15,7 @@ This case study focuses on early steps for working with spatially-informed data 
 
 **Limitations regarding the samples and data analysis:**
 
-The Xenium algorithm used for cell segmentation for this data, prior to the researcher receiving it, employs a nuclear expansion following DAPI staining. Given that these samples are from brain tissue and the brain has specialized cells with abnormal structure (e.g., neurons with long axon offshoots), the cell segmentation results may not truly reflect cell boundaries in the sample. At the least, this approach is unlikely to be as accurate as the approach that uses cell boundary markers in addition to DAPI staining to segment cell boundaries.
+The Xenium algorithm used for cell segmentation for this data, employs a nuclear expansion following DAPI staining. Given that these samples are from brain tissue and the brain has specialized cells with abnormal structure (e.g., neurons with long axon offshoots), the cell segmentation results may not truly reflect cell boundaries in the sample. At the least, this approach is unlikely to be as accurate as the approach that uses cell boundary markers in addition to DAPI staining to segment cell boundaries.
 
 Though care was taken by @Kwon_etal_2026 to match clinical and quality demographics for their case vs control samples, demographic matching was not utilized in randomly subselecting the Xenium samples used within this case study.
 
