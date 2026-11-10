@@ -496,7 +496,7 @@ This section may not be needed for all case studies and can be removed if not
 <section id="motivation" class="level1">
 <h1><strong>Motivation</strong></h1>
 <hr>
-<p>This case study explores working with spatially-informed gene expression data, also known as <button class="glossary"><span class="def">Spatial Transcriptomics refers to molecular methods used to measure gene expression at or near single-cell resolution, reporting where observed transcripts are physically located within the source tissue, preserving spatial context.</span>Spatial Transcriptomics (ST)</button>, to explore <button class="glossary"><span class="def">The difference in expression of a gene between samples or cases. Differential expression is typically thought of as a difference in abundance or amount of expression but may also be a difference in what cell types a gene is expressed in or where a gene is expressed spatially within a tissue.</span>differential gene expression</button>.</p>
+<p>This case study explores working with spatially-informed gene expression data, also known as <button class="glossary"><span class="def">Spatial Transcriptomics refers to molecular methods used to measure gene expression at or near single-cell resolution, reporting where observed transcripts are physically located within the source tissue, preserving spatial context.</span>Spatial Transcriptomics (ST)</button>, to explore <button class="glossary"><span class="def"></span>differential gene expression</button>.</p>
 <div class="definition_box">
 <div class="definition_box_header">
 <p>Differential Gene Expression</p>
@@ -524,16 +524,16 @@ This section may not be needed for all case studies and can be removed if not
 </div>
 </div>
 </div>
-<p>Platforms or technologies to generate spatial transcriptomics (ST) data are typically categorized as either <button class="glossary"><span class="def">Methods that utilize microscopic regions or spots on specialized slides to sequence intact tissues, retaining the original physical location of observed RNA molecules within a tissue sample. These methods have high molecular resolution but low cellular resolution because they sequence the whole transcriptome rather than targeting a limited set of genes. However, the spots are not necessarily single-cells and data must be deconvoluted.</span>sequencing-based</button> or <button class="glossary"><span class="def">Methods that are used to directly visualize and map RNA transcripts using labeled fluorescent probes that bind directly to the transcripts within intact tissue sections. Automated cycles of high-resolution microscopy rather than sequencing methods are used to detect the hybridization of probes to the transcripts. These methods typically offer high cellular resolution but low molecular resolution only being able to be utilized for a limited panel of genes for each sample.</span>image-based</button>. Both types will provide researchers with spatially-informed gene expression data, however one type allows researchers to investigate the whole transcriptome while the other is limited to a specified set of genes called a <button class="glossary"><span class="def">A specific, curated set of molecular targets such as genes or transcripts.</span>panel</button>. Inversely, the ones that investigate the whole <button class="glossary"><span class="def"></span>transcriptome</button> typically have to deconvolve <button class="glossary"><span class="def"></span>multicellular</button> <button class="glossary"><span class="def">Refers to the regions across a tissue section that sequencing-based methods use to capture spatially-informed data. Spots often represent 10s to 100s of cells (e.g., multicellular) rather than single-cells. Each spot has a defined set of x- and y- coordinates on the slide used to capture data, relating captured data to physical locations within the tissue.</span>spots</button> to estimate single-cell data while the ones that investigate a limited set of genes have a single-cell or sub-cellular view of expression and instead must segment the data into discrete single cells <span class="citation" data-cites="Lim_Wang_Buzdin_Li_2025">(<a href="#ref-Lim_Wang_Buzdin_Li_2025" role="doc-biblioref">Lim et al. 2025</a>)</span>. Often researchers will use complementary spatial transcriptomic approaches. For example, <span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span>, first used a sequencing-based approach and used the results to design an image-based approach. They then used the results together to study the impact of <button class="glossary"><span class="def"></span>schizophrenia (SCZ)</button> within the <button class="glossary"><span class="def">dlPFC. An area of the prefrontal cortex in the frontal lobe of the brain. Situated towards the top and side of the prefrontal cortex. Involved in executive functioning and cognitive control, contributing to working memory and emotional regulation. Found to be central to cognitive dysfunction in schizophrenia.</span>dorsolateral prefrontal cortex (dlPFC)</button> in <button class="glossary"><span class="def">Samples collected after the death of the donor.</span>postmortem brain samples</button>.</p>
+<p>Platforms or technologies to generate spatial transcriptomics (ST) data are typically categorized as either <button class="glossary"><span class="def">Methods that utilize microscopic regions or spots on specialized slides to sequence intact tissues, retaining the original physical location of observed RNA molecules within a tissue sample. These methods have high molecular resolution but low cellular resolution because they sequence the whole transcriptome rather than targeting a limited set of genes. However, the spots are not necessarily single-cells and data must be deconvoluted.</span>sequencing-based</button> or <button class="glossary"><span class="def">Methods that are used to directly visualize and map RNA transcripts using labeled fluorescent probes that bind directly to the transcripts within intact tissue sections. Automated cycles of high-resolution microscopy rather than sequencing methods are used to detect the hybridization of probes to the transcripts. These methods typically offer high cellular resolution but low molecular resolution only being able to be utilized for a limited panel of genes for each sample.</span>image-based</button>. Both types will provide researchers with spatially-informed gene expression data, however one type allows researchers to investigate the whole transcriptome while the other is limited to a specified set of genes called a <button class="glossary"><span class="def">A specific, curated set of molecular targets such as genes or transcripts.</span>panel</button>. Inversely, the ones that investigate the whole <button class="glossary"><span class="def">Complete collection of transcripts produced by the genome in a specific cell, tissue, or organism.</span>transcriptome</button> typically have to deconvolve <button class="glossary"><span class="def">More than one cell is represented.</span>multicellular</button> <button class="glossary"><span class="def">Refers to the regions across a tissue section that sequencing-based methods use to capture spatially-informed data. Spots often represent 10s to 100s of cells (e.g., multicellular) rather than single-cells. Each spot has a defined set of x- and y- coordinates on the slide used to capture data, relating captured data to physical locations within the tissue.</span>spots</button> to estimate single-cell data while the ones that investigate a limited set of genes have a single-cell or sub-cellular view of expression and instead must segment the data into discrete single cells <span class="citation" data-cites="Lim_Wang_Buzdin_Li_2025">(<a href="#ref-Lim_Wang_Buzdin_Li_2025" role="doc-biblioref">Lim et al. 2025</a>)</span>. Often researchers will use complementary spatial transcriptomic approaches. For example, <span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span>, first used a sequencing-based approach and used the results to design an image-based approach. They then used the results together to study the impact of <button class="glossary"><span class="def">Chronic neuropsychiatric disorder characterized by a spectrum of symptoms impacting a person’s thoughts, emotions, and behavior. Symptoms are generally classified as positive, negative, or cognitive.</span>schizophrenia (SCZ)</button> within the <button class="glossary"><span class="def"></span>dorsolateral prefrontal cortex (dlPFC)</button> in <button class="glossary"><span class="def">Samples collected after the death of the donor.</span>postmortem brain samples</button>.</p>
 <p>The technologies and their trade-offs as well as the biological concepts (e.g., SCZ and dlPFC) will be described in more detail in the <a href="https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#context">Context</a> section of the case study.</p>
 <p>In this case study, we will use <code>spatialGE</code>, an R tool <span class="citation" data-cites="Ospina_Wilson_Soupir_Berglund_Smalley_Tsai_Fridley_2022">(<a href="#ref-Ospina_Wilson_Soupir_Berglund_Smalley_Tsai_Fridley_2022" role="doc-biblioref">Oscar E. Ospina et al. 2022</a>)</span>, to work with image-based spatial transcriptomics data generated by <span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span>, specifically focusing on:</p>
 <ul>
 <li>The data that is produced by the image-based platform.</li>
 <li>Importing the data.</li>
 <li>Inspecting and working with a <code>spatialGE</code> object that stores the data.</li>
-<li>Performing <button class="glossary"><span class="def"></span>quality control</button> and filtering out low quality or irrelevant data.</li>
+<li>Performing <button class="glossary"><span class="def">The process of exploring and evaluating raw biological data to detect technical artifacts, errors, low quality data, biases, etc prior to downstream analysis in order to promote higher confidence results.</span>quality control</button> and filtering out low quality or irrelevant data.</li>
 <li>Transforming or normalizing the image-based data to account for technical artifacts <span class="citation" data-cites="Atta_Clifton_Anant_Aihara_Fan_2024">(<a href="#ref-Atta_Clifton_Anant_Aihara_Fan_2024" role="doc-biblioref">Atta et al. 2024</a>)</span>.</li>
-<li>Creating data visualizations known as <button class="glossary"><span class="def"></span>Quilt plots</button> to visualize spatial patterns of gene expression.</li>
+<li>Creating data visualizations known as <button class="glossary"><span class="def">A type of plot that is used to visualize the two-dimensional spatial distribution of gene expression or cell types/clusters within a sample, mirroring the physical architecture of the tissue sample. Colors are used to represent the expression values or cell type/domain classes. Can be thought of as a type of heatmap without any clustering.</span>Quilt plots</button> to visualize spatial patterns of gene expression.</li>
 <li>Annotating cells within the dataset, exploring cell type specific spatial patterns of gene expression.</li>
 </ul>
 <p>Downstream analyses for more global and statistical summaries of spatial patterns will be introduced but not shown in-depth within this case study.</p>
@@ -731,7 +731,7 @@ ST data vs bulk and single-cell data
 </details>
 <section id="st-technologies" class="level3">
 <h3 class="anchored" data-anchor-id="st-technologies">ST technologies</h3>
-<p>The types of technology used to generate spatial transcriptomics data are generally categorized as <button class="glossary"><span class="def"></span>sequencing-based</button> or <button class="glossary"><span class="def">Methods that are used to directly visualize and map RNA transcripts using labeled fluorescent probes that bind directly to the transcripts within intact tissue sections. Automated cycles of high-resolution microscopy rather than sequencing methods are used to detect the hybridization of probes to the transcripts. These methods typically offer high cellular resolution but low molecular resolution only being able to be utilized for a limited panel of genes for each sample.</span>image-based</button> and lie across two inverse spectra: Molecular <button class="glossary"><span class="def">Refers to the smallest unit of change or observation scale that can reliably be detected or measured. High resolution means that a scale has fine intervals and small differences can be observed. Low resolution means that a scale has broader intervals and small variations may be missed (e.g., harder to differentiate between individual cells or measure all molecules).</span>Resolution</button> and Cellular Resolution. Sequencing-based technologies typically provide a whole <button class="glossary"><span class="def"></span>transcriptome</button> view (broad molecular resolution), but not at a single-cell or sub-cellular resolution – instead at a Region of Interest (ROI) or <button class="glossary"><span class="def">Refers to the regions across a tissue section that sequencing-based methods use to capture spatially-informed data. Spots often represent 10s to 100s of cells (e.g., multicellular) rather than single-cells. Each spot has a defined set of x- and y- coordinates on the slide used to capture data, relating captured data to physical locations within the tissue.</span>"spot"</button> resolution (where a “spot” is made up of tens to hundreds of cells.) In other words, sequencing-based technologies provide low precision / cellular resolution. In contrast, image-based technologies typically provide data for a panel-based subset or a limited selection of the transcriptome (in other words, narrow molecular resolution). However, image-based technologies provide data at a single-cell or even sub-cellular resolution (high precision cellular resolution). Due to this, researchers may first collect spatially-informed gene expression data with a sequencing-based technology for initial hypothesis generation to identify a specific region of interest in a tissue or specific genes to probe where greater cellular resolution would be beneficial, and then follow-up with generating a higher cellular resolution spatially-informed dataset using an image-based technology. <span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span> is a study posted to bioRxiv recently where the researchers did just this: first using a sequencing-based technology followed by an image-based technology as complementary spatial transcriptomic approaches to study the impacts of <button class="glossary"><span class="def"></span>schizophrenia (SCZ)</button> within the <button class="glossary"><span class="def">Functional and structural anatomical subdivisions or layers which are distinct, spanning the brain tissue.</span>laminar domains</button>, microenvironments, and cell types of <button class="glossary"><span class="def">Samples collected after the death of the donor.</span>postmortem samples</button> from the human <button class="glossary"><span class="def">dlPFC. An area of the prefrontal cortex in the frontal lobe of the brain. Situated towards the top and side of the prefrontal cortex. Involved in executive functioning and cognitive control, contributing to working memory and emotional regulation. Found to be central to cognitive dysfunction in schizophrenia.</span>dorsolateral prefrontal cortex (dlPFC)</button>.</p>
+<p>The types of technology used to generate spatial transcriptomics data are generally categorized as <button class="glossary"><span class="def"></span>sequencing-based</button> or <button class="glossary"><span class="def">Methods that are used to directly visualize and map RNA transcripts using labeled fluorescent probes that bind directly to the transcripts within intact tissue sections. Automated cycles of high-resolution microscopy rather than sequencing methods are used to detect the hybridization of probes to the transcripts. These methods typically offer high cellular resolution but low molecular resolution only being able to be utilized for a limited panel of genes for each sample.</span>image-based</button> and lie across two inverse spectra: Molecular <button class="glossary"><span class="def">Refers to the smallest unit of change or observation scale that can reliably be detected or measured. High resolution means that a scale has fine intervals and small differences can be observed. Low resolution means that a scale has broader intervals and small variations may be missed (e.g., harder to differentiate between individual cells or measure all molecules).</span>Resolution</button> and Cellular Resolution. Sequencing-based technologies typically provide a whole <button class="glossary"><span class="def">Complete collection of transcripts produced by the genome in a specific cell, tissue, or organism.</span>transcriptome</button> view (broad molecular resolution), but not at a single-cell or sub-cellular resolution – instead at a Region of Interest (ROI) or <button class="glossary"><span class="def">Refers to the regions across a tissue section that sequencing-based methods use to capture spatially-informed data. Spots often represent 10s to 100s of cells (e.g., multicellular) rather than single-cells. Each spot has a defined set of x- and y- coordinates on the slide used to capture data, relating captured data to physical locations within the tissue.</span>"spot"</button> resolution (where a “spot” is made up of tens to hundreds of cells.) In other words, sequencing-based technologies provide low precision / cellular resolution. In contrast, image-based technologies typically provide data for a panel-based subset or a limited selection of the transcriptome (in other words, narrow molecular resolution). However, image-based technologies provide data at a single-cell or even sub-cellular resolution (high precision cellular resolution). Due to this, researchers may first collect spatially-informed gene expression data with a sequencing-based technology for initial hypothesis generation to identify a specific region of interest in a tissue or specific genes to probe where greater cellular resolution would be beneficial, and then follow-up with generating a higher cellular resolution spatially-informed dataset using an image-based technology. <span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span> is a study posted to bioRxiv recently where the researchers did just this: first using a sequencing-based technology followed by an image-based technology as complementary spatial transcriptomic approaches to study the impacts of <button class="glossary"><span class="def">Chronic neuropsychiatric disorder characterized by a spectrum of symptoms impacting a person’s thoughts, emotions, and behavior. Symptoms are generally classified as positive, negative, or cognitive.</span>schizophrenia (SCZ)</button> within the <button class="glossary"><span class="def">Functional and structural anatomical subdivisions or layers which are distinct, spanning the brain tissue.</span>laminar domains</button>, microenvironments, and cell types of <button class="glossary"><span class="def">Samples collected after the death of the donor.</span>postmortem samples</button> from the human <button class="glossary"><span class="def"></span>dorsolateral prefrontal cortex (dlPFC)</button>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -2530,8 +2530,8 @@ Alternative way to import the data using only file paths
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()                               </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           used  (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells  4051221 216.4    6663031  355.9   6663031  355.9
-Vcells 59853425 456.7  303685548 2317.0 379314605 2894.0</code></pre>
+Ncells  4051221 216.4    6661962  355.8   6661962  355.8
+Vcells 59861321 456.8  303701275 2317.1 376669108 2873.8</code></pre>
 </div>
 </div>
 <p>Because we have had to do some work in order to import the data, we will save the <code>spatialGE</code> object to an <code>.rds</code> file that can be used later without needing to repeat these steps.</p>
@@ -3298,13 +3298,32 @@ How do you report which cell barcodes were filtered?
 <h2 class="anchored" data-anchor-id="normalizing">Normalizing</h2>
 <p>Transforming the raw mRNA counts is again necessary because of technical biases. Typically if working with single cell RNAseq data or data from sequencing based spatial transcriptomics assays (e.g., Visium), normalization methods try to correct for different sequencing depths in different cells. Typical methods used include log-transformation or the <code>SCTransform</code> method. The <code>spatialGE</code> package allows users to implement either of these with their spatially-resolved gene expression data. However, both of these methods are best suited to working with sequencing-based data rather than image-based data. <span class="citation" data-cites="Atta_Clifton_Anant_Aihara_Fan_2024">Atta et al. (<a href="#ref-Atta_Clifton_Anant_Aihara_Fan_2024" role="doc-biblioref">2024</a>)</span> and <span class="citation" data-cites="Bhuva_etal_2024">Bhuva et al. (<a href="#ref-Bhuva_etal_2024" role="doc-biblioref">2024</a>)</span> discuss how these traditional methods may not be appropriate for spatial transcriptomics data, especially data from image-based technologies. <span class="citation" data-cites="Atta_Clifton_Anant_Aihara_Fan_2024">Atta et al. (<a href="#ref-Atta_Clifton_Anant_Aihara_Fan_2024" role="doc-biblioref">2024</a>)</span> recommends using cell volume or cell area when available to normalize image-based data. <span class="citation" data-cites="Bhuva_etal_2024">Bhuva et al. (<a href="#ref-Bhuva_etal_2024" role="doc-biblioref">2024</a>)</span> introduces a method <code>SpaNorm</code> which models library size effects while taking into account the spatial information inherent in the data. The <code>SpaNorm</code> method can’t directly work with an <code>STlist</code> object from <code>spatialGE</code> without first converting it to a <code>SpatialExperiment</code> or <code>Seurat</code> object. Therefore, we won’t perform normalization with <code>SpaNorm</code> within this case study. We will perform normalization with the typical methods and a cell area normalization.</p>
 <p>Transformed counts are stored in the <code>tr_counts</code> slot and we can’t store more than one set of transformed counts due to the “slot” nature of the data. Since we want to run more than one method and compare them, we will need multiple different <code>spatialGE</code> <code>STlist</code> objects. We’ll duplicate two here, one that we can use with <code>SCTransform</code> and one we can use with a cell area normalization.</p>
+<details>
+<summary>
+Resources explaining these traditional normalization methods
+</summary>
+<p>The more traditional normalization methods that are directly supported by <code>spatialGE</code> are explained in detail in the following resources:</p>
+<ul>
+<li><a href="https://bioconductor.org/books/3.14/OSCA.basic/normalization.html">Orchestrating Single-Cell Analysis (OSCA)</a></li>
+<li><a href="https://bioconductor.org/books/release/OSTA/pages/ind-normalization.html">Orchestrating Spatial Transcriptomics Analysis (OSTA)</a></li>
+<li><a href="https://www.10xgenomics.com/analysis-guides/single-cell-rna-seq-data-normalization">10X Genomics documentation</a></li>
+<li><a href="https://satijalab.org/seurat/articles/sctransform_vignette">SCTransform vignette</a></li>
+</ul>
+</details>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>scz_spatial_tr <span class="ot">&lt;-</span> rlang<span class="sc">::</span><span class="fu">duplicate</span>(scz_spatial)</span>
 <span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>scz_spatial_sct <span class="ot">&lt;-</span> rlang<span class="sc">::</span><span class="fu">duplicate</span>(scz_spatial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="log-transformation" class="level3">
 <h3 class="anchored" data-anchor-id="log-transformation">Log Transformation</h3>
-<p>Explain log transformation.</p>
+<p>Log transformation utilizes the overall library size of each cell as a size factor, dividing each gene’s count in the cell by that size factor. Then a constant scale factor is used to multiply the quotient, and a pseudocount of 1 is added in case the original gene’s count was 0. Finally, a log transformation is used for the scaled counts (this is why a pseudocount of 1 is added so that you’re not taking a log of 0).</p>
+<p>According to the <a href="https://bioconductor.org/books/3.12/OSCA/normalization.html#applying-the-size-factors">OSCA book</a>,</p>
+<blockquote class="blockquote">
+<p>The log-transformation is useful as differences in the log-values represent log-fold changes in expression. This is important in downstream procedures based on Euclidean distances, which includes many forms of clustering and dimensionality reduction. By operating on log-transformed data, we ensure that these procedures are measuring distances between cells based on log-fold changes in expression.</p>
+</blockquote>
+<p>In other words, with this transformation, relative magnitudes of changes in gene expression are equalized, whether the relative change is from more highly expressed or lowly expressed genes.</p>
+<p><a href="https://www.10xgenomics.com/analysis-guides/single-cell-rna-seq-data-normalization">10X Genomics documentation</a> notes that this normalization method has been found to separate common cell types well in clustering, but struggles to separate rarer cell sub-types.</p>
+<p>Log normalization is the method that <span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span> used in their study.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> spatialGE<span class="sc">::</span><span class="fu">transform_data</span>(scz_spatial, <span class="at">method=</span><span class="st">'log'</span>, <span class="at">cores=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -3351,7 +3370,12 @@ $transform
 </section>
 <section id="sctransform" class="level3">
 <h3 class="anchored" data-anchor-id="sctransform">SCTransform</h3>
-<p>Explain SCTransform</p>
+<p>SCTransform is a method that was developed with two goals in mind for a normalization workflow as enumerated in the <span class="citation" data-cites="Hafemeister_Satija_2019">Hafemeister and Satija (<a href="#ref-Hafemeister_Satija_2019" role="doc-biblioref">2019</a>)</span> paper introducing it:</p>
+<ol type="1">
+<li><p>The normalized expression level of a gene should not be correlated with the total sequencing depth of a cell.</p></li>
+<li><p>The variance of a normalized gene (across cells) should primarily reflect biological heterogeneity, independent of gene abundance or sequencing depth. For example, genes with high variance after normalization should be differentially expressed across cell types.</p></li>
+</ol>
+<p>The method utilizes a negative binomial generalized linear model with regularization to minimize overfitting. The final normalized values represent the difference between the observed and the expected expression of a gene and are independent of sequencing depth of a cell.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>scz_spatial_sct <span class="ot">&lt;-</span> <span class="fu">transform_data</span>(scz_spatial_sct, <span class="at">method =</span> <span class="st">'sct'</span>, <span class="at">cores =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -3362,7 +3386,7 @@ $transform
 <blockquote class="blockquote">
 <p>We recommend, as first choice, cell volume normalization to account for such partial cell capture within imaged regions. Cell area may serve as a proxy where volume estimates are not available.</p>
 </blockquote>
-<p>The <code>spatialGE</code> package does not currently support any additional normalization methods besides log-transformation and <code>SCTransform</code>. However, we can perform an alternate normalization method and store its results in our <code>STlist</code> object (<code>scz_spatial</code>), using data already present in <code>scz_spatial</code> because we brought over the <code>cell_area</code> column for each cell earlier in the <a href="">Data Import</a> section of the case study.</p>
+<p>The <code>spatialGE</code> package does not currently support any additional normalization methods besides log-transformation and <code>SCTransform</code>. However, we can perform an alternate normalization method and store its results in our <code>STlist</code> object (<code>scz_spatial</code>), using data already present in <code>scz_spatial</code> because we brought over the <code>cell_area</code> column for each cell earlier in the <a href="https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#data-import">Data Import</a> section of the case study.</p>
 <p>The cell area normalization procedure requires that:</p>
 <ul>
 <li>We find the median cell area for each sample</li>
@@ -3553,8 +3577,8 @@ $transform
 <span id="cb131-2"><a href="#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            used   (Mb) gc trigger   (Mb)  max used   (Mb)
-Ncells   4238139  226.4    6663031  355.9   6663031  355.9
-Vcells 300613060 2293.5  524962505 4005.2 524962505 4005.2</code></pre>
+Ncells   4238134  226.4    6661962  355.8   6661962  355.8
+Vcells 300620956 2293.6  461883395 3523.9 461883395 3523.9</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -3577,17 +3601,16 @@ If you skipped the data import section click here.
 <p>Add instructions for loading the data…</p>
 </details>
 <hr>
-<p>We are going to look at the expression of the genes FKBP5, CX3CR1, MBP, and PVALB. For each gene we are going to consider both the amount of its expression as well as where it is expressed (spatially) in the tissue samples. For each gene, we can visually compare its spatial expression in a sample from a neurotypical participant to a sample from a participant with Schizophrenia.</p>
-<p>To visually explore the spatial distribution of expression of these genes, we are going to plot Quilt plots.</p>
-<p>We’re going to make quilt plots showing the expression of these genes for each spot/cell in two samples (one NTC and one SCZ).</p>
-<p>Note that quilt plots don’t require histology image (image of the tissue), because the spatial coordinates data that we input provides x and y coordinates for the center of each cell/spot. Therefore, we can place the location of these cells without a tissue image.</p>
-<p>Also note that this is Xenium data which means there are a lot of cells! So we’re going to use the <code>ptsize</code> argument to set the point size of the spots or cells to be really small. If we make it too large, it’s dense/cramped/hard to view the quilt plot</p>
-<p>We have <code>ggpubr</code> combine the common legends and display them on the bottom. It also is plotting the quilt plots in a 2 X 2 grid</p>
+<p>We are going to look at the expression of 4 specific genes throughout sets of tissue samples. For each gene we are going to consider both the amount of its expression as well as where it is expressed (spatially) in the tissue samples. For each gene, we can visually compare its spatial expression in a sample from a neurotypical donor to a sample from a donor previously diagnosed with schizophrenia.</p>
+<p>To visually explore the spatial distribution of expression of these genes, we are going to plot quilt plots (described earlier within the <a href="https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#context">Context</a> section of the case study).</p>
+<p>We didn’t provide <code>spatialGE</code> with morphology images when we input the data, so how are we going to visualize the tissue sample? Quilt plots don’t require histology or morphology images, because the spatial coordinates data that we did provide to <code>spatialGE</code> provides x and y coordinates for the center of each cell. Therefore, we can localize these cells without a tissue image.</p>
+<p>When visualizing patterns in tissue sections produced by cryosectioning, it is important to visualize the patterns in multiple sets of tissue samples to support that any observed patterns are not the result of technical issues, but rather the result of true biology. Therefore, for every gene we’re visualizing, we’ll produce quilt plots for two different sets of samples (CTRL vs SCZ).</p>
 <section id="differential-expression-of-diffusely-distributed-genes" class="level2">
 <h2 class="anchored" data-anchor-id="differential-expression-of-diffusely-distributed-genes">Differential Expression of Diffusely Distributed Genes</h2>
+<p>Genes visualized within this section exhibit expression diffusely distributed throughout the tissue sample, with differential expression between cases (e.g., SCZ vs CTRL).</p>
 <section id="cx3cr1-1" class="level3">
 <h3 class="anchored" data-anchor-id="cx3cr1-1">CX3CR1</h3>
-<p>I went to <a href="https://www.biorxiv.org/content/biorxiv/early/2026/02/17/2026.02.16.706214/DC5/embed/media-5.xlsx?download=true">Supplementary Table 4 from the paper</a> and found the gene with the lowest / most negative log fold change: CX3CR1</p>
+<p><a href="https://www.biorxiv.org/content/biorxiv/early/2026/02/17/2026.02.16.706214/DC5/embed/media-5.xlsx?download=true">Supplementary Table 4 from <span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<span>2026</span>)</span></a> list differentially expressed genes. The gene with the most negative log fold change in that table is CX3CR1. Specifically, we expect to observe that the gene is down-regulated in cases of SCZ compared to CTRL.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">Set of samples 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Set of samples 2</a></li></ul>
 <div class="tab-content">
@@ -3614,6 +3637,7 @@ If you skipped the data import section click here.
 </div>
 </div>
 </div>
+<p>This is plotting Xenium data which means there are a lot of cells! So we’ve used the <code>ptsize</code> argument to set the point size of the cells to be really small. If we make it too large, it becomes difficult to view the quilt plot because its too dense and cramped.</p>
 </div>
 <div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
 <div class="cell">
@@ -3626,7 +3650,7 @@ If you skipped the data import section click here.
 <span id="cb135-7"><a href="#cb135-7" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">ptsize=</span><span class="fl">0.05</span></span>
 <span id="cb135-8"><a href="#cb135-8" aria-hidden="true" tabindex="-1"></a>                                   )</span>
 <span id="cb135-9"><a href="#cb135-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb135-10"><a href="#cb135-10" aria-hidden="true" tabindex="-1"></a>    quiltArrange <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist=</span>quiltPlots,</span>
+<span id="cb135-10"><a href="#cb135-10" aria-hidden="true" tabindex="-1"></a>    quiltArrange <span class="ot">&lt;-</span> <span class="fu">ggarrange</span>(<span class="at">plotlist=</span>quiltPlots,</span>
 <span id="cb135-11"><a href="#cb135-11" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">nrow =</span> <span class="dv">1</span>,</span>
 <span id="cb135-12"><a href="#cb135-12" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">ncol =</span> <span class="dv">2</span>,</span>
 <span id="cb135-13"><a href="#cb135-13" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">legend =</span> <span class="st">'bottom'</span>,</span>
@@ -3636,6 +3660,12 @@ If you skipped the data import section click here.
 <span id="cb135-17"><a href="#cb135-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb135-18"><a href="#cb135-18" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<details>
+<summary>
+What is this code doing?
+</summary>
+<p>This function’s input parameters are an <code>STlist</code> object, the sample names for the samples we want to visualize, and the gene name for the gene we want to visualize. These inputs are provided to the <code>STplot</code> function which outputs our plots. We then use <code>ggpubr::ggarrange</code> to put them side-by-side in a row. We return the arranged plots and the plots themselves in a named list. This just generalizes the process that was used for the first set of samples.</p>
+</details>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>sampleset2 <span class="ot">&lt;-</span> samples_metadata<span class="sc">$</span>DxID[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)]</span>
 <span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>quiltCX3CR1_sampleset2 <span class="ot">&lt;-</span> <span class="fu">displayQuilt</span>(scz_spatial_tr, </span>
@@ -3654,10 +3684,22 @@ If you skipped the data import section click here.
 </div>
 </div>
 </div>
+<details>
+<summary>
+Resources on CX3CR1
+</summary>
+<p>CX3C chemokine receptor 1</p>
+<ul>
+<li><a href="https://www.proteinatlas.org/ENSG00000006210-CX3CL1">Protein Atlas</a></li>
+<li><a href="https://www.uniprot.org/uniprotkb/P49238/entry">UniProt</a></li>
+<li><a href="https://www.ncbi.nlm.nih.gov/gene/6376">NIH</a></li>
+<li><a href="https://www.ensembl.org/feature-explorer/59871324-7803-4234-856e-2a2bd96d7b3c/gene:ENSG00000006210?view=transcripts">Ensembl</a></li>
+</ul>
+</details>
 </section>
 <section id="fkbp5-1" class="level3">
 <h3 class="anchored" data-anchor-id="fkbp5-1">FKBP5</h3>
-<p>FKBP5 is annotated in the Figure 2a Volcano Plot as a DEG.</p>
+<p>FKBP5 is annotated in Figure 2a (a Volcano Plot) of <span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span> as a differentially expressed gene. Specifically, we expect to observe that the gene is up-regulated in cases of SCZ compared to CTRL.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">Set of samples 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Set of samples 2</a></li></ul>
 <div class="tab-content">
@@ -3696,12 +3738,35 @@ If you skipped the data import section click here.
 </div>
 </div>
 </div>
+<details>
+<summary>
+Resources on FKBP5
+</summary>
+<p>FKBP prolyl isomerase 5</p>
+<ul>
+<li><a href="https://www.proteinatlas.org/ENSG00000096060-FKBP5">Protein Atlas</a></li>
+<li><a href="https://www.uniprot.org/uniprotkb/Q2TA84/entry">UniProt</a></li>
+<li><a href="https://www.ncbi.nlm.nih.gov/gene/2289">NIH</a></li>
+<li><a href="https://www.ensembl.org/feature-explorer/59871324-7803-4234-856e-2a2bd96d7b3c/gene:ENSG00000096060?view=transcripts">Ensembl</a></li>
+</ul>
+</details>
 </section>
 </section>
 <section id="differential-expression-of-spatially-distributed-genes" class="level2">
 <h2 class="anchored" data-anchor-id="differential-expression-of-spatially-distributed-genes">Differential Expression of Spatially Distributed Genes</h2>
+<p>Genes visualized within this section exhibit expression localized to specific domains within the tissue sample, with differential expression between cases (e.g., SCZ vs CTRL).</p>
 <section id="mbp-1" class="level3">
 <h3 class="anchored" data-anchor-id="mbp-1">MBP</h3>
+<p><span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span> notes:</p>
+<blockquote class="blockquote">
+<p>Differential expression (DE) analysis between SpD01-WM and SpD04-WM revealed that SpD01-WM had higher expression of neuronal marker genes, including SNAP25 and SLC17A7, and lower expression of oligodendrocyte genes, including PLP1, MBP, and MOBP</p>
+</blockquote>
+<p>Figure S8 from <span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span> uses violin plots to plot pseudobulked expression data for these genes. Specifically, the expression for all cells within an annotated spatial domain for each donor are bulked together and then the expression for that donor is plotted. We can’t recreate this plot at this point in the case study because we don’t have annotated spatial domains for each cell in the spatially-informed gene expression dataset; we also aren’t using the same number of donors as the original study and don’t have enough to visualize a distribution. Therefore, we use quilt plots to visualize the expression of <strong>MBP</strong>, one plot using data from a neurotypical donor and another plot using data from a donor previously diagnosed with schizophrenia.</p>
+<p><span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span> also notes:</p>
+<blockquote class="blockquote">
+<p>Up-regulation of the myelin-related genes MBP and BCAS1 were also observed in SCZ in the cell-type-adjusted analysis (Figure 5G), supporting previous findings of myelin dysfunction.</p>
+</blockquote>
+<p>Given these notes, we would expect to observe expression that is localized to specific regions in the tissue (rather than being expressed diffusely throughout the tissue), and observe higher expression in the SCZ sample than in the CTRL sample. The domains noted in <span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span> are both white matter domains (denoted by the WM in the domain names). Therefore, we should focus our observations near the innermost oval of the tissue sample.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">Set of samples 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Set of samples 2</a></li></ul>
 <div class="tab-content">
@@ -3739,9 +3804,32 @@ If you skipped the data import section click here.
 </div>
 </div>
 </div>
+<details>
+<summary>
+Resources on MBP
+</summary>
+<p>myelin basic protein</p>
+<ul>
+<li><a href="https://www.proteinatlas.org/ENSG00000197971-MBP/tissue">Protein Atlas</a></li>
+<li><a href="https://www.uniprot.org/uniprotkb/P02686/entry">UniProt</a></li>
+<li><a href="https://www.ncbi.nlm.nih.gov/gene/4155">NIH</a></li>
+<li><a href="https://www.ensembl.org/feature-explorer/59871324-7803-4234-856e-2a2bd96d7b3c/gene:ENSG00000197971?view=transcripts">Ensembl</a></li>
+</ul>
+</details>
 </section>
 <section id="pvalb-1" class="level3">
 <h3 class="anchored" data-anchor-id="pvalb-1">PVALB</h3>
+<p><span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span> makes the following observations about PVALB</p>
+<blockquote class="blockquote">
+<p>PNN spots were enriched in SpD02-L3/4. Since PNNs preferentially surround PVALB inhibitory neurons, this data is consistent with enrichment of PVALB neurons in L4.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Microglia-associated genes (AIF1, TREM2, C3), GABA neuron signaling genes (GAD1, SST, CORT, CRH, PVALB), and genes associated with neuroplasticity (BDNF, VGF, PTN, NLGN3, EPHB1) were down-regulated in SpD07-L1/M, for example.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Down-regulation of activity-dependent synaptic genes (BDNF, VGF, NPTX2) and inhibitory neuron markers (SST, CORT, PVALB) is consistent with disruption of trophic and inhibitory signaling in SCZ.</p>
+</blockquote>
+<p>From these notes, we would expect to observe expression that is localized to specific regions in the tissue (rather than being expressed diffusely throughout the tissue), and observe lower expression in the SCZ sample than in the CTRL sample. The domain noted in <span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span> is associated with the L4 laminar domain. Therefore, we should focus our observations near a middle oval of the tissue sample.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-12-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-1" role="tab" aria-controls="tabset-12-1" aria-selected="true">Set of samples 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-12-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-12-2" role="tab" aria-controls="tabset-12-2" aria-selected="false">Set of samples 2</a></li></ul>
 <div class="tab-content">
@@ -3779,13 +3867,26 @@ If you skipped the data import section click here.
 </div>
 </div>
 </div>
-<p><strong>Color Palettes</strong></p>
-<p>I tested several color palettes and settled on <code>PuBuGn</code> for several reasons. (Note: this could be a cool side quest to include in the case study)</p>
-<ol type="1">
-<li>Easier to distinguish changes in expression (e.g., up vs down regulated). <code>BuRd</code> and <code>Spectral</code> were best for this otherwise.</li>
-<li>The lighter color was no longer in the center (as if the log expression values were “centered”) and instead is on the lower level of the spectrum. <code>Spectral</code> was the only other one not centered on white, but it was still centered on a lighter color.</li>
-<li>Looking at the result with a color vision deficiency simulator (<code>cvg_grid()</code> from <code>colorblindr</code>) the general conclusions are still possible in my opinion. This wasn’t the case with <code>PrGn</code>, <code>BuRd</code>, or <code>Spectral</code> when I tested them.</li>
-</ol>
+<details>
+<summary>
+Resources on PVALB
+</summary>
+<p>parvalbumin</p>
+<ul>
+<li><a href="https://www.proteinatlas.org/ENSG00000100362-PVALB/tissue">Protein Atlas</a></li>
+<li><a href="https://www.uniprot.org/uniprotkb/P20472/entry">UniProt</a></li>
+<li><a href="https://www.ncbi.nlm.nih.gov/gene/5816">NIH</a></li>
+<li><a href="https://www.ensembl.org/feature-explorer/59871324-7803-4234-856e-2a2bd96d7b3c/gene:ENSG00000100362?view=transcripts">Ensembl</a></li>
+</ul>
+</details>
+<div class="emphasis_block">
+<details>
+<summary>
+Why use the <code>PuBuGn</code> color palette?
+</summary>
+<p>The <code>PuBuGn</code> color palette is an accessible color palette with colors that can be distinguished by those with color vision deficiency. For more information on this topic, consult the <a href="https://hutchdatascience.org/DataViz_Considerations/05_how_to_improve_viz.html#rule-1-using-accessible-color-palettes">ITN Considerations for Data Visualization course</a>.</p>
+<p>Other color palettes are also color vision deficiency friendly, but specifically, we use <code>PuBuGn</code> here because it isn’t a <a href="https://towardsdatascience.com/use-color-meaningfully-choose-the-proper-pallet-2cfbb71a30f4/">diverging color palette</a>. The palette is not “centered” on white or some other color that would make us think it was representing symmetrical data.</p>
+<p>We can confirm that this color palette is a color vision deficiency friendly palette using a color vision deficiency simulator (specifically the <a href="https://github.com/clauswilke/colorblindr"><code>cvg_grid()</code> function from the <code>colorblindr</code> package</a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>colorblindr<span class="sc">::</span><span class="fu">cvd_grid</span>(<span class="at">plot =</span> quiltArrangeCX3CR1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -3795,6 +3896,9 @@ If you skipped the data import section click here.
 </figure>
 </div>
 </div>
+</div>
+<p>This package returns our plot showing how it would appear to those with various color vision deficiencies, and we can confirm that in each case the different shades are differentiable.</p>
+</details>
 </div>
 <div class="think_question">
 <div class="think_question_header">
@@ -3810,6 +3914,7 @@ If you skipped the data import section click here.
 </ul>
 </div>
 </div>
+<p>Earlier we discussed that quilt plots can be used to visualize categorical data such as spatial domains or cell types and we saw that the researchers for <span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span> used spatial domains to get a more global view of gene expression patterns. Therefore, it would make sense to cluster the cells in this dataset and add an annotation for cell type or spatial domain.</p>
 <hr>
 </section>
 </section>
@@ -3830,78 +3935,71 @@ If you skipped the data import section click here.
 <section id="clustering" class="level2">
 <h2 class="anchored" data-anchor-id="clustering">Clustering</h2>
 <hr>
-<!--
-
-Should be able to use `STclust`, but I'm struggling with that. So I grabbed the [cluster assignments from the study](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/blob/devel/processed-data/06_cell_type_clustering/banksy_clustering_lambda0.1_res0.7.csv). The [cluster annotations are here in their code](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/blob/2c0ec1319137fa1c108ec6ea0c6935b32ad50e1b/code/analysis/06_cell_type_clustering/06_plot_clusters_on_tissue.R#L41-L52).
-
-```{.default}
-awk -F, -v OFS=',' 'NR==1 {print "","Cluster","Sample","CoordIndex"} $3 ~ /(Br1139|Br5314|Br5746|Br5973|Br8433|Br8667)/ { gsub(/"/, "", $3); split($3, arr, "_"); print $1, $2, "\""arr[1] "\"", "\""arr[2] "\"" }' data/raw/banksy_clustering_lambda0.1_res0.7.csv > data/wrangled/cluster_assignments.csv
-```
-
-Need to take the output of this and join it to the original spatial coordinates. I think that the fourth column is the row number and I need the libname from the original file to join the coordinates to the spatial_meta STlist object
-
-
-::: {.cell}
-
-```{.r .cell-code}
-cluster_assignments <- read.csv(here("data/wrangled/cluster_assignments.csv"))
-
-new_cluster_assignments <- data.table::rbindlist(
-  lapply(1:length(spatial_coords), function(x) spatial_coords[[names(spatial_coords)[x]]] %>%
-        mutate(CoordIndex = row_number()) %>%
-        select(CoordIndex, cell_id) %>%
-        right_join(cluster_assignments %>% filter(Sample == substring(names(spatial_coords)[x], 1, 6))) %>%
-        rename(libname = cell_id)
-)) %>%
-  mutate(SampleSuffix = case_when(Sample %in% c("Br8667", "Br5314", "Br8433") ~ "CTRL", 
-                                  Sample %in% c("Br5973", "Br1139", "Br5746") ~ "SCZ", 
-                                  .default= NA_character_)) %>% 
-  unite("SampleName", c(Sample, SampleSuffix), sep = "")
-```
-:::
-
-
--->
+<p>Typically, here we would use the <a href="https://fridleylab.github.io/spatialGE/reference/STclust.html"><code>STclust</code> function from <code>spatialGE</code></a> to cluster the cells. Then we could look at which genes are expressed in which clusters to annotate the specific cell type that we think is represented by that cluster. However, in part simplify the content in this case study, and because of package versioning issue, we instead are going to bring in the cell type annotations from <span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span>.</p>
+<details>
+<summary>
+How we got this <code>cluster_assignments_withlibname.csv</code> file
+</summary>
+<p>Used the <a href="https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/blob/devel/processed-data/06_cell_type_clustering/banksy_clustering_lambda0.1_res0.7.csv">cluster assignments from the study</a>.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>awk -F, -v OFS=',' 'NR==1 {print "","Cluster","Sample","CoordIndex"} $3 ~ /(Br1139|Br5314|Br5746|Br5973|Br8433|Br8667)/ { gsub(/"/, "", $3); split($3, arr, "_"); print $1, $2, "\""arr[1] "\"", "\""arr[2] "\"" }' data/raw/banksy_clustering_lambda0.1_res0.7.csv &gt; data/wrangled/cluster_assignments.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Used the above code to grab the assignments specific to our samples. Needed to take the output of this and join it to the original spatial coordinates. The fourth column is the row number, and I need the libname from the original file to join the coordinates to the <code>spatial_meta</code> slot of the <code>STlist</code> object.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>cluster_assignments <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">here</span>(<span class="st">"data/wrangled/cluster_assignments_withlibname.csv"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb144-2"><a href="#cb144-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">rename</span>(<span class="at">annot =</span> Cluster) <span class="sc">%&gt;%</span></span>
-<span id="cb144-3"><a href="#cb144-3" aria-hidden="true" tabindex="-1"></a>                          tidyr<span class="sc">::</span><span class="fu">fill</span>(annot) <span class="sc">%&gt;%</span></span>
-<span id="cb144-4"><a href="#cb144-4" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">mutate</span>(<span class="at">annot=</span><span class="fu">case_when</span>(</span>
-<span id="cb144-5"><a href="#cb144-5" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">1</span>) <span class="sc">~</span> <span class="st">"Oligo"</span>,</span>
-<span id="cb144-6"><a href="#cb144-6" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">"Ambig/Oligo"</span>,</span>
-<span id="cb144-7"><a href="#cb144-7" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">7</span> <span class="sc">~</span> <span class="st">"Mic"</span>,</span>
-<span id="cb144-8"><a href="#cb144-8" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">"Ambig/In/Endo"</span>,</span>
-<span id="cb144-9"><a href="#cb144-9" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">18</span> <span class="sc">~</span> <span class="st">"L5 Ex"</span>,</span>
-<span id="cb144-10"><a href="#cb144-10" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">14</span> <span class="sc">~</span> <span class="st">"L6 Ex"</span>,</span>
-<span id="cb144-11"><a href="#cb144-11" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">11</span> <span class="sc">~</span> <span class="st">"L4/5 Ex"</span>,</span>
-<span id="cb144-12"><a href="#cb144-12" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"L2/3 Ex"</span>,</span>
-<span id="cb144-13"><a href="#cb144-13" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">16</span>, <span class="dv">4</span>) <span class="sc">~</span> <span class="st">"Ast"</span>,</span>
-<span id="cb144-14"><a href="#cb144-14" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">13</span>, <span class="dv">3</span>) <span class="sc">~</span> <span class="st">"Endo"</span>,</span>
-<span id="cb144-15"><a href="#cb144-15" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">12</span> <span class="sc">~</span> <span class="st">"CGE"</span>,</span>
-<span id="cb144-16"><a href="#cb144-16" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">9</span> <span class="sc">~</span> <span class="st">"MGE"</span>,</span>
-<span id="cb144-17"><a href="#cb144-17" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">.default =</span> <span class="cn">NA_character_</span>))</span>
-<span id="cb144-18"><a href="#cb144-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb144-19"><a href="#cb144-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (sample_name <span class="cf">in</span> <span class="fu">names</span>(scz_spatial_tr<span class="sc">@</span>spatial_meta)){</span>
-<span id="cb144-20"><a href="#cb144-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb144-21"><a href="#cb144-21" aria-hidden="true" tabindex="-1"></a>  scz_spatial<span class="sc">@</span>spatial_meta[[sample_name]] <span class="ot">&lt;-</span> <span class="fu">left_join</span>(scz_spatial<span class="sc">@</span>spatial_meta[[sample_name]], </span>
-<span id="cb144-22"><a href="#cb144-22" aria-hidden="true" tabindex="-1"></a>                                                cluster_assignments <span class="sc">%&gt;%</span> </span>
-<span id="cb144-23"><a href="#cb144-23" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">filter</span>(SampleName <span class="sc">==</span> sample_name) <span class="sc">%&gt;%</span> </span>
-<span id="cb144-24"><a href="#cb144-24" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">select</span>(libname, annot)</span>
-<span id="cb144-25"><a href="#cb144-25" aria-hidden="true" tabindex="-1"></a>                                                )</span>
-<span id="cb144-26"><a href="#cb144-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb144-27"><a href="#cb144-27" aria-hidden="true" tabindex="-1"></a>  scz_spatial_sct<span class="sc">@</span>spatial_meta[[sample_name]] <span class="ot">&lt;-</span> <span class="fu">left_join</span>(scz_spatial_sct<span class="sc">@</span>spatial_meta[[sample_name]], </span>
-<span id="cb144-28"><a href="#cb144-28" aria-hidden="true" tabindex="-1"></a>                                                cluster_assignments <span class="sc">%&gt;%</span> </span>
-<span id="cb144-29"><a href="#cb144-29" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">filter</span>(SampleName <span class="sc">==</span> sample_name) <span class="sc">%&gt;%</span> </span>
-<span id="cb144-30"><a href="#cb144-30" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">select</span>(libname, annot)</span>
-<span id="cb144-31"><a href="#cb144-31" aria-hidden="true" tabindex="-1"></a>                                                )</span>
-<span id="cb144-32"><a href="#cb144-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb144-33"><a href="#cb144-33" aria-hidden="true" tabindex="-1"></a>  scz_spatial_tr<span class="sc">@</span>spatial_meta[[sample_name]] <span class="ot">&lt;-</span> <span class="fu">left_join</span>(scz_spatial_tr<span class="sc">@</span>spatial_meta[[sample_name]], </span>
-<span id="cb144-34"><a href="#cb144-34" aria-hidden="true" tabindex="-1"></a>                                                cluster_assignments <span class="sc">%&gt;%</span> </span>
-<span id="cb144-35"><a href="#cb144-35" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">filter</span>(SampleName <span class="sc">==</span> sample_name) <span class="sc">%&gt;%</span> </span>
-<span id="cb144-36"><a href="#cb144-36" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">select</span>(libname, annot)</span>
-<span id="cb144-37"><a href="#cb144-37" aria-hidden="true" tabindex="-1"></a>                                                )</span>
-<span id="cb144-38"><a href="#cb144-38" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb144-39"><a href="#cb144-39" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a>cluster_assignments <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">here</span>(<span class="st">"data/wrangled/cluster_assignments.csv"</span>))</span>
+<span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-3"><a href="#cb145-3" aria-hidden="true" tabindex="-1"></a>new_cluster_assignments <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">rbindlist</span>(</span>
+<span id="cb145-4"><a href="#cb145-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(spatial_coords), <span class="cf">function</span>(x) spatial_coords[[<span class="fu">names</span>(spatial_coords)[x]]] <span class="sc">%&gt;%</span></span>
+<span id="cb145-5"><a href="#cb145-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">CoordIndex =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb145-6"><a href="#cb145-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">select</span>(CoordIndex, cell_id) <span class="sc">%&gt;%</span></span>
+<span id="cb145-7"><a href="#cb145-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">right_join</span>(cluster_assignments <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Sample <span class="sc">==</span> <span class="fu">substring</span>(<span class="fu">names</span>(spatial_coords)[x], <span class="dv">1</span>, <span class="dv">6</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb145-8"><a href="#cb145-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rename</span>(<span class="at">libname =</span> cell_id)</span>
+<span id="cb145-9"><a href="#cb145-9" aria-hidden="true" tabindex="-1"></a>)) <span class="sc">%&gt;%</span></span>
+<span id="cb145-10"><a href="#cb145-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SampleSuffix =</span> <span class="fu">case_when</span>(Sample <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Br8667"</span>, <span class="st">"Br5314"</span>, <span class="st">"Br8433"</span>) <span class="sc">~</span> <span class="st">"CTRL"</span>, </span>
+<span id="cb145-11"><a href="#cb145-11" aria-hidden="true" tabindex="-1"></a>                                  Sample <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Br5973"</span>, <span class="st">"Br1139"</span>, <span class="st">"Br5746"</span>) <span class="sc">~</span> <span class="st">"SCZ"</span>, </span>
+<span id="cb145-12"><a href="#cb145-12" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">.default=</span> <span class="cn">NA_character_</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb145-13"><a href="#cb145-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"SampleName"</span>, <span class="fu">c</span>(Sample, SampleSuffix), <span class="at">sep =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Saved this file to use.</p>
+</details>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>cluster_assignments <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">here</span>(<span class="st">"data/wrangled/cluster_assignments_withlibname.csv"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb146-2"><a href="#cb146-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">rename</span>(<span class="at">annot =</span> Cluster) <span class="sc">%&gt;%</span></span>
+<span id="cb146-3"><a href="#cb146-3" aria-hidden="true" tabindex="-1"></a>                          tidyr<span class="sc">::</span><span class="fu">fill</span>(annot) <span class="sc">%&gt;%</span></span>
+<span id="cb146-4"><a href="#cb146-4" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">mutate</span>(<span class="at">annot=</span><span class="fu">case_when</span>(</span>
+<span id="cb146-5"><a href="#cb146-5" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">1</span>) <span class="sc">~</span> <span class="st">"Oligo"</span>,</span>
+<span id="cb146-6"><a href="#cb146-6" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">10</span> <span class="sc">~</span> <span class="st">"Ambig/Oligo"</span>,</span>
+<span id="cb146-7"><a href="#cb146-7" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">7</span> <span class="sc">~</span> <span class="st">"Mic"</span>,</span>
+<span id="cb146-8"><a href="#cb146-8" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">"Ambig/In/Endo"</span>,</span>
+<span id="cb146-9"><a href="#cb146-9" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">18</span> <span class="sc">~</span> <span class="st">"L5 Ex"</span>,</span>
+<span id="cb146-10"><a href="#cb146-10" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">14</span> <span class="sc">~</span> <span class="st">"L6 Ex"</span>,</span>
+<span id="cb146-11"><a href="#cb146-11" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">11</span> <span class="sc">~</span> <span class="st">"L4/5 Ex"</span>,</span>
+<span id="cb146-12"><a href="#cb146-12" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"L2/3 Ex"</span>,</span>
+<span id="cb146-13"><a href="#cb146-13" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">16</span>, <span class="dv">4</span>) <span class="sc">~</span> <span class="st">"Ast"</span>,</span>
+<span id="cb146-14"><a href="#cb146-14" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">13</span>, <span class="dv">3</span>) <span class="sc">~</span> <span class="st">"Endo"</span>,</span>
+<span id="cb146-15"><a href="#cb146-15" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">12</span> <span class="sc">~</span> <span class="st">"CGE"</span>,</span>
+<span id="cb146-16"><a href="#cb146-16" aria-hidden="true" tabindex="-1"></a>                                 annot <span class="sc">==</span> <span class="dv">9</span> <span class="sc">~</span> <span class="st">"MGE"</span>,</span>
+<span id="cb146-17"><a href="#cb146-17" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">.default =</span> <span class="cn">NA_character_</span>))</span>
+<span id="cb146-18"><a href="#cb146-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-19"><a href="#cb146-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (sample_name <span class="cf">in</span> <span class="fu">names</span>(scz_spatial_tr<span class="sc">@</span>spatial_meta)){</span>
+<span id="cb146-20"><a href="#cb146-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-21"><a href="#cb146-21" aria-hidden="true" tabindex="-1"></a>  scz_spatial<span class="sc">@</span>spatial_meta[[sample_name]] <span class="ot">&lt;-</span> <span class="fu">left_join</span>(scz_spatial<span class="sc">@</span>spatial_meta[[sample_name]], </span>
+<span id="cb146-22"><a href="#cb146-22" aria-hidden="true" tabindex="-1"></a>                                                cluster_assignments <span class="sc">%&gt;%</span> </span>
+<span id="cb146-23"><a href="#cb146-23" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">filter</span>(SampleName <span class="sc">==</span> sample_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb146-24"><a href="#cb146-24" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">select</span>(libname, annot)</span>
+<span id="cb146-25"><a href="#cb146-25" aria-hidden="true" tabindex="-1"></a>                                                )</span>
+<span id="cb146-26"><a href="#cb146-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-27"><a href="#cb146-27" aria-hidden="true" tabindex="-1"></a>  scz_spatial_sct<span class="sc">@</span>spatial_meta[[sample_name]] <span class="ot">&lt;-</span> <span class="fu">left_join</span>(scz_spatial_sct<span class="sc">@</span>spatial_meta[[sample_name]], </span>
+<span id="cb146-28"><a href="#cb146-28" aria-hidden="true" tabindex="-1"></a>                                                cluster_assignments <span class="sc">%&gt;%</span> </span>
+<span id="cb146-29"><a href="#cb146-29" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">filter</span>(SampleName <span class="sc">==</span> sample_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb146-30"><a href="#cb146-30" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">select</span>(libname, annot)</span>
+<span id="cb146-31"><a href="#cb146-31" aria-hidden="true" tabindex="-1"></a>                                                )</span>
+<span id="cb146-32"><a href="#cb146-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-33"><a href="#cb146-33" aria-hidden="true" tabindex="-1"></a>  scz_spatial_tr<span class="sc">@</span>spatial_meta[[sample_name]] <span class="ot">&lt;-</span> <span class="fu">left_join</span>(scz_spatial_tr<span class="sc">@</span>spatial_meta[[sample_name]], </span>
+<span id="cb146-34"><a href="#cb146-34" aria-hidden="true" tabindex="-1"></a>                                                cluster_assignments <span class="sc">%&gt;%</span> </span>
+<span id="cb146-35"><a href="#cb146-35" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">filter</span>(SampleName <span class="sc">==</span> sample_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb146-36"><a href="#cb146-36" aria-hidden="true" tabindex="-1"></a>                                                  <span class="fu">select</span>(libname, annot)</span>
+<span id="cb146-37"><a href="#cb146-37" aria-hidden="true" tabindex="-1"></a>                                                )</span>
+<span id="cb146-38"><a href="#cb146-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb146-39"><a href="#cb146-39" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(libname)`
 Joining with `by = join_by(libname)`
@@ -3923,18 +4021,22 @@ Joining with `by = join_by(libname)`
 Joining with `by = join_by(libname)`</code></pre>
 </div>
 </div>
+<p>Here we use the <a href="https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/blob/2c0ec1319137fa1c108ec6ea0c6935b32ad50e1b/code/analysis/06_cell_type_clustering/06_plot_clusters_on_tissue.R#L41-L52">cluster cell type annotations which are specified here in the analysis code</a> from <span class="citation" data-cites="Kwon_etal_2026">Kwon et al. (<a href="#ref-Kwon_etal_2026" role="doc-biblioref">2026</a>)</span>, together with a <code>case_when</code> to translate the clusters into a cell type. Prior to that, because our filtering approach doesn’t completely match the approach from the study, we retained some cells that the original study filtered. Therefore, we make an assumption that nearby cells have the same type and use the <a href="https://tidyr.tidyverse.org/reference/fill.html"><code>tidyr</code> package’s <code>fill()</code> function</a> to fill in those nearby cell types.</p>
+<p>Finally, we join this cell type annotation for each cell to the <code>spatial_meta</code> slot for each sample using a <code>left_join</code> and joining on the <code>libname</code> which represents the cell ID.</p>
+<p>Using this approach, you can add an outside annotation to your <code>STlist</code> objects for your work.</p>
 <section id="spatial-distribution-of-expression" class="level3">
 <h3 class="anchored" data-anchor-id="spatial-distribution-of-expression">Spatial distribution of expression</h3>
+<p>Now that we’ve added an annotation for our cells, we can create quilt plots that use this categorical annotation. We can combine these plots with our original quilt plots showing gene expression to see how a gene’s expression is distributed throughout the sample, and how it might line up with certain cell types.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">MBP</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false">PVALB</a></li></ul>
 <div class="tab-content">
 <div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>cellType <span class="ot">&lt;-</span> <span class="fu">STplot</span>(scz_spatial_tr, <span class="at">plot_meta =</span> <span class="st">"annot"</span>, <span class="at">samples =</span> sampleset1)</span>
-<span id="cb146-2"><a href="#cb146-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb146-3"><a href="#cb146-3" aria-hidden="true" tabindex="-1"></a>combined_list <span class="ot">&lt;-</span> <span class="fu">c</span>(cellType, quiltMBP_sampleset1<span class="sc">$</span>plots)</span>
-<span id="cb146-4"><a href="#cb146-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb146-5"><a href="#cb146-5" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> combined_list, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">labels =</span> <span class="st">"AUTO"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>cellType <span class="ot">&lt;-</span> <span class="fu">STplot</span>(scz_spatial_tr, <span class="at">plot_meta =</span> <span class="st">"annot"</span>, <span class="at">samples =</span> sampleset1)</span>
+<span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-3"><a href="#cb148-3" aria-hidden="true" tabindex="-1"></a>combined_list <span class="ot">&lt;-</span> <span class="fu">c</span>(cellType, quiltMBP_sampleset1<span class="sc">$</span>plots)</span>
+<span id="cb148-4"><a href="#cb148-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-5"><a href="#cb148-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> combined_list, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">labels =</span> <span class="st">"AUTO"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -3943,12 +4045,13 @@ Joining with `by = join_by(libname)`</code></pre>
 </div>
 </div>
 </div>
+<p>We would expect MBP to be expressed in Oligodendrocytes which are represented by the green “Olig” cluster and the pale purple “Ambig/Oligo” (“Ambig” = ambiguous) cluster. Both of these appear to line up with where MBP is expressed in the tissue. (Though this is less so for the green cluster in the CTRL sample.)</p>
 </div>
 <div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a>combined_list2 <span class="ot">&lt;-</span> <span class="fu">c</span>(cellType, quiltPVALB_sampleset1<span class="sc">$</span>plots)</span>
-<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb147-3"><a href="#cb147-3" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> combined_list2, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">labels =</span> <span class="st">"AUTO"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>combined_list2 <span class="ot">&lt;-</span> <span class="fu">c</span>(cellType, quiltPVALB_sampleset1<span class="sc">$</span>plots)</span>
+<span id="cb149-2"><a href="#cb149-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-3"><a href="#cb149-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(<span class="at">plotlist =</span> combined_list2, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">labels =</span> <span class="st">"AUTO"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -3957,62 +4060,65 @@ Joining with `by = join_by(libname)`</code></pre>
 </div>
 </div>
 </div>
+<p>We would expect PVALB to be expressed in cells corresponding to the yellow “MGE” cluster because MGE cell types are progenitors of the inhibitory GABAergic interneurons where PVALB is typically localized. We see overlap between this cluster and cells where PVALB is expressed.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="gene-specific-summaries-of-expression" class="level3">
 <h3 class="anchored" data-anchor-id="gene-specific-summaries-of-expression">Gene specific summaries of expression</h3>
-<p>We can also look at summaries of the expression of a few of these genes in these cell types.</p>
+<p>We can also look at summaries of the expression of a few of these genes in these cell types and conditions (e.g., CTRL vs SCZ). We will look at violin plots for cell-type specific expression of the genes that we previously visualized with quilt plots. We do not pseudobulk the data, but instead include each individual cell for a given gene within the violin plot.</p>
+<p>We will also compute the minimum, maximum, average, median, and variance in expression for each gene in that cell type and condition and output these values in a table.</p>
+<p>We do this for each of the transformation methods that we used in the <a href="https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#data-wrangling">Data Wrangling</a> section of the case study.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>combine_counts_annot <span class="ot">&lt;-</span> <span class="cf">function</span>(matannot, matcount, sample_name, gene_name){</span>
-<span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">full_join</span>(</span>
-<span id="cb148-3"><a href="#cb148-3" aria-hidden="true" tabindex="-1"></a>        matannot[[sample_name]][,<span class="fu">c</span>(<span class="st">"libname"</span>, <span class="st">"annot"</span>)],</span>
-<span id="cb148-4"><a href="#cb148-4" aria-hidden="true" tabindex="-1"></a>        matcount[[sample_name]][gene_name, ] <span class="sc">%&gt;%</span> </span>
-<span id="cb148-5"><a href="#cb148-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb148-6"><a href="#cb148-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">rownames_to_column</span>(<span class="st">"libname"</span>)</span>
-<span id="cb148-7"><a href="#cb148-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> <span class="st">`</span><span class="at">colnames&lt;-</span><span class="st">`</span>(<span class="fu">c</span>(<span class="st">"libname"</span>, <span class="st">"annot"</span>, sample_name))</span>
-<span id="cb148-8"><a href="#cb148-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb148-9"><a href="#cb148-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-10"><a href="#cb148-10" aria-hidden="true" tabindex="-1"></a>use_combined_data <span class="ot">&lt;-</span> <span class="cf">function</span>(mat, gene_name, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">samples =</span> <span class="fu">c</span>(<span class="st">"Br1139SCZ"</span>, <span class="st">"Br5314CTRL"</span>)){</span>
-<span id="cb148-11"><a href="#cb148-11" aria-hidden="true" tabindex="-1"></a>  combined_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">combine_counts_annot</span>(mat<span class="sc">@</span>spatial_meta, mat<span class="sc">@</span>tr_counts, samples[<span class="dv">1</span>], gene_name),</span>
-<span id="cb148-12"><a href="#cb148-12" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">combine_counts_annot</span>(mat<span class="sc">@</span>spatial_meta, mat<span class="sc">@</span>tr_counts, samples[<span class="dv">2</span>], gene_name)) <span class="sc">%&gt;%</span></span>
-<span id="cb148-13"><a href="#cb148-13" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">"Br"</span>),</span>
-<span id="cb148-14"><a href="#cb148-14" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">values_to =</span> <span class="st">"tr_counts"</span>,</span>
-<span id="cb148-15"><a href="#cb148-15" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">names_to =</span> <span class="st">"sample"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb148-16"><a href="#cb148-16" aria-hidden="true" tabindex="-1"></a>                      tidyr<span class="sc">::</span><span class="fu">drop_na</span>()</span>
-<span id="cb148-17"><a href="#cb148-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-18"><a href="#cb148-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (use <span class="sc">==</span> <span class="st">"violin"</span>){</span>
-<span id="cb148-19"><a href="#cb148-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(</span>
-<span id="cb148-20"><a href="#cb148-20" aria-hidden="true" tabindex="-1"></a>      combined_data <span class="sc">%&gt;%</span></span>
-<span id="cb148-21"><a href="#cb148-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sample, </span>
-<span id="cb148-22"><a href="#cb148-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> tr_counts, </span>
-<span id="cb148-23"><a href="#cb148-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill =</span> sample)) <span class="sc">+</span> </span>
-<span id="cb148-24"><a href="#cb148-24" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_violin</span>() <span class="sc">+</span> </span>
-<span id="cb148-25"><a href="#cb148-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">facet_wrap</span>(<span class="sc">~</span>annot, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> </span>
-<span id="cb148-26"><a href="#cb148-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
-<span id="cb148-27"><a href="#cb148-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_fill_viridis_d</span>(<span class="at">end =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
-<span id="cb148-28"><a href="#cb148-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggtitle</span>(gene_name) <span class="sc">+</span></span>
-<span id="cb148-29"><a href="#cb148-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
-<span id="cb148-30"><a href="#cb148-30" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb148-31"><a href="#cb148-31" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (use <span class="sc">==</span> <span class="st">"summary"</span>){</span>
-<span id="cb148-32"><a href="#cb148-32" aria-hidden="true" tabindex="-1"></a>    table_length <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(combined_data<span class="sc">$</span>annot)) <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb148-33"><a href="#cb148-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(</span>
-<span id="cb148-34"><a href="#cb148-34" aria-hidden="true" tabindex="-1"></a>      combined_data <span class="sc">%&gt;%</span></span>
-<span id="cb148-35"><a href="#cb148-35" aria-hidden="true" tabindex="-1"></a>        <span class="fu">group_by</span>(annot, sample) <span class="sc">%&gt;%</span> </span>
-<span id="cb148-36"><a href="#cb148-36" aria-hidden="true" tabindex="-1"></a>        <span class="fu">summarize</span>(</span>
-<span id="cb148-37"><a href="#cb148-37" aria-hidden="true" tabindex="-1"></a>              <span class="at">min_exp =</span> <span class="fu">min</span>(tr_counts), </span>
-<span id="cb148-38"><a href="#cb148-38" aria-hidden="true" tabindex="-1"></a>              <span class="at">max_exp =</span> <span class="fu">max</span>(tr_counts), </span>
-<span id="cb148-39"><a href="#cb148-39" aria-hidden="true" tabindex="-1"></a>              <span class="at">avg_exp =</span> <span class="fu">mean</span>(tr_counts),</span>
-<span id="cb148-40"><a href="#cb148-40" aria-hidden="true" tabindex="-1"></a>              <span class="at">median_exp =</span> <span class="fu">median</span>(tr_counts),</span>
-<span id="cb148-41"><a href="#cb148-41" aria-hidden="true" tabindex="-1"></a>              <span class="at">var_exp =</span> <span class="fu">var</span>(tr_counts)</span>
-<span id="cb148-42"><a href="#cb148-42" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span> </span>
-<span id="cb148-43"><a href="#cb148-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="at">n=</span>table_length)</span>
-<span id="cb148-44"><a href="#cb148-44" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb148-45"><a href="#cb148-45" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb148-46"><a href="#cb148-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"No other downstream uses supported besides 'violin' and 'summary'"</span>)</span>
-<span id="cb148-47"><a href="#cb148-47" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb148-48"><a href="#cb148-48" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a>combine_counts_annot <span class="ot">&lt;-</span> <span class="cf">function</span>(matannot, matcount, sample_name, gene_name){</span>
+<span id="cb150-2"><a href="#cb150-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">full_join</span>(</span>
+<span id="cb150-3"><a href="#cb150-3" aria-hidden="true" tabindex="-1"></a>        matannot[[sample_name]][,<span class="fu">c</span>(<span class="st">"libname"</span>, <span class="st">"annot"</span>)],</span>
+<span id="cb150-4"><a href="#cb150-4" aria-hidden="true" tabindex="-1"></a>        matcount[[sample_name]][gene_name, ] <span class="sc">%&gt;%</span> </span>
+<span id="cb150-5"><a href="#cb150-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb150-6"><a href="#cb150-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">rownames_to_column</span>(<span class="st">"libname"</span>)</span>
+<span id="cb150-7"><a href="#cb150-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> <span class="st">`</span><span class="at">colnames&lt;-</span><span class="st">`</span>(<span class="fu">c</span>(<span class="st">"libname"</span>, <span class="st">"annot"</span>, sample_name))</span>
+<span id="cb150-8"><a href="#cb150-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb150-9"><a href="#cb150-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-10"><a href="#cb150-10" aria-hidden="true" tabindex="-1"></a>use_combined_data <span class="ot">&lt;-</span> <span class="cf">function</span>(mat, gene_name, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">samples =</span> <span class="fu">c</span>(<span class="st">"Br1139SCZ"</span>, <span class="st">"Br5314CTRL"</span>)){</span>
+<span id="cb150-11"><a href="#cb150-11" aria-hidden="true" tabindex="-1"></a>  combined_data <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="fu">combine_counts_annot</span>(mat<span class="sc">@</span>spatial_meta, mat<span class="sc">@</span>tr_counts, samples[<span class="dv">1</span>], gene_name),</span>
+<span id="cb150-12"><a href="#cb150-12" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">combine_counts_annot</span>(mat<span class="sc">@</span>spatial_meta, mat<span class="sc">@</span>tr_counts, samples[<span class="dv">2</span>], gene_name)) <span class="sc">%&gt;%</span></span>
+<span id="cb150-13"><a href="#cb150-13" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">"Br"</span>),</span>
+<span id="cb150-14"><a href="#cb150-14" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">values_to =</span> <span class="st">"tr_counts"</span>,</span>
+<span id="cb150-15"><a href="#cb150-15" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">names_to =</span> <span class="st">"sample"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb150-16"><a href="#cb150-16" aria-hidden="true" tabindex="-1"></a>                      tidyr<span class="sc">::</span><span class="fu">drop_na</span>()</span>
+<span id="cb150-17"><a href="#cb150-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-18"><a href="#cb150-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (use <span class="sc">==</span> <span class="st">"violin"</span>){</span>
+<span id="cb150-19"><a href="#cb150-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(</span>
+<span id="cb150-20"><a href="#cb150-20" aria-hidden="true" tabindex="-1"></a>      combined_data <span class="sc">%&gt;%</span></span>
+<span id="cb150-21"><a href="#cb150-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sample, </span>
+<span id="cb150-22"><a href="#cb150-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> tr_counts, </span>
+<span id="cb150-23"><a href="#cb150-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill =</span> sample)) <span class="sc">+</span> </span>
+<span id="cb150-24"><a href="#cb150-24" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_violin</span>() <span class="sc">+</span> </span>
+<span id="cb150-25"><a href="#cb150-25" aria-hidden="true" tabindex="-1"></a>        <span class="fu">facet_wrap</span>(<span class="sc">~</span>annot, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> </span>
+<span id="cb150-26"><a href="#cb150-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb150-27"><a href="#cb150-27" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_fill_viridis_d</span>(<span class="at">end =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
+<span id="cb150-28"><a href="#cb150-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggtitle</span>(gene_name) <span class="sc">+</span></span>
+<span id="cb150-29"><a href="#cb150-29" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
+<span id="cb150-30"><a href="#cb150-30" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb150-31"><a href="#cb150-31" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (use <span class="sc">==</span> <span class="st">"summary"</span>){</span>
+<span id="cb150-32"><a href="#cb150-32" aria-hidden="true" tabindex="-1"></a>    table_length <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(combined_data<span class="sc">$</span>annot)) <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb150-33"><a href="#cb150-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(</span>
+<span id="cb150-34"><a href="#cb150-34" aria-hidden="true" tabindex="-1"></a>      combined_data <span class="sc">%&gt;%</span></span>
+<span id="cb150-35"><a href="#cb150-35" aria-hidden="true" tabindex="-1"></a>        <span class="fu">group_by</span>(annot, sample) <span class="sc">%&gt;%</span> </span>
+<span id="cb150-36"><a href="#cb150-36" aria-hidden="true" tabindex="-1"></a>        <span class="fu">summarize</span>(</span>
+<span id="cb150-37"><a href="#cb150-37" aria-hidden="true" tabindex="-1"></a>              <span class="at">min_exp =</span> <span class="fu">min</span>(tr_counts), </span>
+<span id="cb150-38"><a href="#cb150-38" aria-hidden="true" tabindex="-1"></a>              <span class="at">max_exp =</span> <span class="fu">max</span>(tr_counts), </span>
+<span id="cb150-39"><a href="#cb150-39" aria-hidden="true" tabindex="-1"></a>              <span class="at">avg_exp =</span> <span class="fu">mean</span>(tr_counts),</span>
+<span id="cb150-40"><a href="#cb150-40" aria-hidden="true" tabindex="-1"></a>              <span class="at">median_exp =</span> <span class="fu">median</span>(tr_counts),</span>
+<span id="cb150-41"><a href="#cb150-41" aria-hidden="true" tabindex="-1"></a>              <span class="at">var_exp =</span> <span class="fu">var</span>(tr_counts)</span>
+<span id="cb150-42"><a href="#cb150-42" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span> </span>
+<span id="cb150-43"><a href="#cb150-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="at">n=</span>table_length)</span>
+<span id="cb150-44"><a href="#cb150-44" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb150-45"><a href="#cb150-45" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb150-46"><a href="#cb150-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"No other downstream uses supported besides 'violin' and 'summary'"</span>)</span>
+<span id="cb150-47"><a href="#cb150-47" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb150-48"><a href="#cb150-48" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true">Log transformation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false">SCTransform</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-3" role="tab" aria-controls="tabset-17-3" aria-selected="false">Cell area normalization</a></li></ul>
@@ -4023,7 +4129,7 @@ Joining with `by = join_by(libname)`</code></pre>
 <div class="tab-content">
 <div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(libname)`
 Joining with `by = join_by(libname)`</code></pre>
@@ -4037,7 +4143,7 @@ Joining with `by = join_by(libname)`</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(libname)`
 Joining with `by = join_by(libname)`
@@ -4079,7 +4185,7 @@ Joining with `by = join_by(libname)`
 <div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
 <p>Violin plots of normalized expression by cell type and sample.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb154"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb156"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(libname)`
 Joining with `by = join_by(libname)`</code></pre>
@@ -4094,7 +4200,7 @@ Joining with `by = join_by(libname)`</code></pre>
 </div>
 <p>Summary tables of normalized expression by cell type and sample.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb156"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb158"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(libname)`
 Joining with `by = join_by(libname)`
@@ -4142,7 +4248,7 @@ Joining with `by = join_by(libname)`
 <div class="tab-content">
 <div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_sct, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_sct, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(libname)`
 Joining with `by = join_by(libname)`</code></pre>
@@ -4156,7 +4262,7 @@ Joining with `by = join_by(libname)`</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_sct, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_sct, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(libname)`
 Joining with `by = join_by(libname)`
@@ -4198,7 +4304,7 @@ Joining with `by = join_by(libname)`
 <div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
 <p>Violin plots of normalized expression by cell type and sample.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb164"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_sct, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb166"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_sct, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(libname)`
 Joining with `by = join_by(libname)`</code></pre>
@@ -4213,7 +4319,7 @@ Joining with `by = join_by(libname)`</code></pre>
 </div>
 <p>Summary tables of normalized expression by cell type and sample.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb166"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_sct, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb168"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_sct, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(libname)`
 Joining with `by = join_by(libname)`
@@ -4261,7 +4367,7 @@ Joining with `by = join_by(libname)`
 <div class="tab-content">
 <div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb169"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_tr, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb171"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_tr, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(libname)`
 Joining with `by = join_by(libname)`</code></pre>
@@ -4275,7 +4381,7 @@ Joining with `by = join_by(libname)`</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb171"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_tr, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb173"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_tr, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"MBP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(libname)`
 Joining with `by = join_by(libname)`
@@ -4316,7 +4422,7 @@ Joining with `by = join_by(libname)`
 </div>
 <div id="tabset-16-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb174"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_tr, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_tr, <span class="at">use =</span> <span class="st">"violin"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(libname)`
 Joining with `by = join_by(libname)`</code></pre>
@@ -4330,7 +4436,7 @@ Joining with `by = join_by(libname)`</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb176"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_tr, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_combined_data</span>(scz_spatial_tr, <span class="at">use =</span> <span class="st">"summary"</span>, <span class="at">gene_name =</span> <span class="st">"PVALB"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(libname)`
 Joining with `by = join_by(libname)`
@@ -4374,6 +4480,12 @@ Joining with `by = join_by(libname)`
 </div>
 </div>
 </div>
+<p>A few observations:</p>
+<ol type="1">
+<li>Median expression for genes with skewed distributions (e.g., MBP in Endo cell type or PVALB in CGE or L2/3 Ex) are lower than the average expression. This is likely because the median is less sensitive to outliers (or the extreme values in the skewed distribution) than the average is.</li>
+<li>MBP cell type specific distributions from the SCTransform normalization method appear quite different from the other two methods. It would be curious to see how using this transformation may impact a clustering approach. Would it find more cell types than using log transformed data?</li>
+<li>The similarity in distributions between the log normalization and cell area normalization gene specific distributions could be due to how the cell boundaries were found by the Xenium Onboard Analyzer, which as discussed in the <a href="https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#limitations">Limitations</a> section of the case study, may not be the most appropriate method for this biological sample.</li>
+</ol>
 <hr>
 </section>
 </section>
@@ -4384,6 +4496,8 @@ Joining with `by = join_by(libname)`
 <section id="synopsis" class="level2">
 <h2 class="anchored" data-anchor-id="synopsis"><strong>Synopsis</strong></h2>
 <hr>
+<p>In this case study, you’ve learned about why spatially-informed gene expression data may be collected is a scientific study. You’ve been introduced to spatial transcriptomics, and learned procedures for working with image-based data. You’ve performed quality control steps, explored data normalization methods, and produced data visualizations, primarily quilt plots to explore the spatial distribution of gene expression throughout tissue samples. For your analysis, you brought in a cell type annotation and created more in depth quilt plots showing gene expression next to the cell type annotation. Finally, you explored some statistics about gene expression, comparing across the different normalization methods..</p>
+<p>Along the way, you’ve also learned about the advantages and challenges of spatially-informed data. You’ve learned that spatial transcriptomics data aren’t always necessary for a scientific study. We’ve seen that complementary spatial transcriptomics methods may be used within the same study and spatial transcriptomics is a fantastic tool for hypothesis generation, especially in tissue samples with spatial domains or layouts such as in the brain. Your needs may go beyond what’s covered in this resource which focused on working with only image-based data for early steps in the work. You’ve also learned that, in general, medians are less sensitive to outliers than averages are.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -4520,8 +4634,8 @@ Hint
 Code for performing PCA
 </summary>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb179"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb179-1"><a href="#cb179-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">pseudobulk_samples</span>(scz_spatial, <span class="at">max_var_genes =</span> <span class="dv">150</span>) <span class="co">#decreased compared to the default since the Xenium panel is based on a lower number of genes than say Visium data</span></span>
-<span id="cb179-2"><a href="#cb179-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudobulk_heatmap</span>(scz_spatial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb181"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb181-1"><a href="#cb181-1" aria-hidden="true" tabindex="-1"></a>scz_spatial <span class="ot">&lt;-</span> <span class="fu">pseudobulk_samples</span>(scz_spatial, <span class="at">max_var_genes =</span> <span class="dv">150</span>) <span class="co">#decreased compared to the default since the Xenium panel is based on a lower number of genes than say Visium data</span></span>
+<span id="cb181-2"><a href="#cb181-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudobulk_heatmap</span>(scz_spatial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4536,7 +4650,7 @@ Code for performing PCA
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb180"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb180-1"><a href="#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudobulk_dim_plot</span>(scz_spatial, <span class="at">plot_meta =</span> <span class="st">"Sex"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb182"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb182-1"><a href="#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pseudobulk_dim_plot</span>(scz_spatial, <span class="at">plot_meta =</span> <span class="st">"Sex"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4933,6 +5047,9 @@ Grases, Daniela, and Eduard Porta-Pardo. 2026. <span>“A Practical Guide to Spa
 <div id="ref-Guo_Ling_Kwon_Panwar_Ghazanfar_Martinowich_Hicks_2025" class="csl-entry" role="listitem">
 Guo, Boyi, Wodan Ling, Sang Ho Kwon, Pratibha Panwar, Shila Ghazanfar, Keri Martinowich, and Stephanie C. Hicks. 2025. <span>“Integrating Spatially-Resolved Transcriptomics Data Across Tissues and Individuals: Challenges and Opportunities.”</span> <em>Small Methods</em> 9 (5): e2401194. <a href="https://doi.org/10.1002/smtd.202401194">https://doi.org/10.1002/smtd.202401194</a>.
 </div>
+<div id="ref-Hafemeister_Satija_2019" class="csl-entry" role="listitem">
+Hafemeister, Christoph, and Rahul Satija. 2019. <span>“Normalization and Variance Stabilization of Single-Cell RNA-Seq Data Using Regularized Negative Binomial Regression.”</span> <em>Genome Biology</em> 20 (1): 296. <a href="https://doi.org/10.1186/s13059-019-1874-1">https://doi.org/10.1186/s13059-019-1874-1</a>.
+</div>
 <div id="ref-Huuki-Myers_etal_2024" class="csl-entry" role="listitem">
 Huuki-Myers, Louise A., Abby Spangler, Nicholas J. Eagles, Kelsey D. Montgomery, Sang Ho Kwon, Boyi Guo, Melissa Grant-Peters, et al. 2024. <span>“A Data-Driven Single-Cell and Spatial Transcriptomic Map of the Human Prefrontal Cortex.”</span> <em>Science</em> 384 (6698): eadh1938. <a href="https://doi.org/10.1126/science.adh1938">https://doi.org/10.1126/science.adh1938</a>.
 </div>
@@ -5005,7 +5122,7 @@ Zilles, Karl. 2018. <span>“Brodmann: A Pioneer of Human Brain Mapping—His Im
 <h2 class="anchored" data-anchor-id="session-info"><strong>Session Info</strong></h2>
 <hr>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb181"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb181-1"><a href="#cb181-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb183"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>─ Session info ───────────────────────────────────────────────────────────────
  setting  value
@@ -5017,7 +5134,7 @@ Zilles, Karl. 2018. <span>“Brodmann: A Pioneer of Human Brain Mapping—His Im
  collate  en_US.UTF-8
  ctype    en_US.UTF-8
  tz       Etc/UTC
- date     2026-11-09
+ date     2026-11-10
  pandoc   3.1.1 @ /usr/local/bin/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────
