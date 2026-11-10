@@ -29,6 +29,7 @@ CGE
 chatbot
 Chatbots
 cheatsheet
+chemokine
 choropleth
 choropleths
 codebook
@@ -107,6 +108,7 @@ hw
 iconpacks
 intercellular
 interneurons
+isomerase
 ITCR's
 iterable
 ITN
@@ -156,6 +158,7 @@ Ospina
 OSTA
 OTTR
 ottrproject
+parvalbumin
 permeabilization
 permeabilized
 PII
@@ -172,6 +175,7 @@ polyT
 pre
 preprints
 prereq
+prolyl
 pseudobulk
 pseudobulked
 pseudocount
@@ -252,7 +256,7 @@ UMAP
 UMI
 UMIs
 unescaped
-Uniprot
+UniProt
 upregulated
 valueClass
 VGF
