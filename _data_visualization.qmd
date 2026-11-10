@@ -95,6 +95,17 @@ quiltCX3CR1_sampleset2$arranged
 
 :::
 
+<details><summary>Resources on CX3CR1</summary>
+
+CX3C chemokine receptor 1
+
+* [Protein Atlas](https://www.proteinatlas.org/ENSG00000006210-CX3CL1)
+* [UniProt](https://www.uniprot.org/uniprotkb/P49238/entry)
+* [NIH](https://www.ncbi.nlm.nih.gov/gene/6376)
+* [Ensembl](https://www.ensembl.org/feature-explorer/59871324-7803-4234-856e-2a2bd96d7b3c/gene:ENSG00000006210?view=transcripts)
+
+</details>
+
 ### FKBP5
 
 FKBP5 is annotated in Figure 2a (a Volcano Plot) of @Kwon_etal_2026 as a differentially expressed gene. Specifically, we expect to observe that the gene is up-regulated in cases of SCZ compared to CTRL.
@@ -126,6 +137,17 @@ quiltFKBP5_sampleset2$arranged
 ```
 
 :::
+
+<details><summary>Resources on FKBP5</summary>
+
+FKBP prolyl isomerase 5
+
+* [Protein Atlas](https://www.proteinatlas.org/ENSG00000096060-FKBP5)
+* [UniProt](https://www.uniprot.org/uniprotkb/Q2TA84/entry)
+* [NIH](https://www.ncbi.nlm.nih.gov/gene/2289)
+* [Ensembl](https://www.ensembl.org/feature-explorer/59871324-7803-4234-856e-2a2bd96d7b3c/gene:ENSG00000096060?view=transcripts)
+
+</details>
 
 ## Differential Expression of Spatially Distributed Genes
 
@@ -172,6 +194,17 @@ quiltMBP_sampleset2$arranged
 
 :::
 
+<details><summary>Resources on MBP</summary>
+
+myelin basic protein
+
+* [Protein Atlas](https://www.proteinatlas.org/ENSG00000197971-MBP/tissue)
+* [UniProt](https://www.uniprot.org/uniprotkb/P02686/entry)
+* [NIH](https://www.ncbi.nlm.nih.gov/gene/4155)
+* [Ensembl](https://www.ensembl.org/feature-explorer/59871324-7803-4234-856e-2a2bd96d7b3c/gene:ENSG00000197971?view=transcripts)
+
+</details>
+
 ### PVALB
 
 @Kwon_etal_2026 makes the following observations about PVALB
@@ -209,6 +242,17 @@ quiltPVALB_sampleset2$arranged
 ```
 
 :::
+
+<details><summary>Resources on PVALB</summary>
+
+parvalbumin
+
+* [Protein Atlas](https://www.proteinatlas.org/ENSG00000100362-PVALB/tissue)
+* [UniProt](https://www.uniprot.org/uniprotkb/P20472/entry)
+* [NIH](https://www.ncbi.nlm.nih.gov/gene/5816)
+* [Ensembl](https://www.ensembl.org/feature-explorer/59871324-7803-4234-856e-2a2bd96d7b3c/gene:ENSG00000100362?view=transcripts)
+
+</details>
 
 :::{.emphasis_block}
 
