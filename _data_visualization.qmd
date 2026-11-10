@@ -75,7 +75,7 @@ displayQuilt <- function(stlist, sampleNames, gene){
 }
 ```
 
-<details><summary>What is this code doing?/summary>
+<details><summary>What is this code doing?</summary>
 
 This function's input parameters are an `STlist` object, the sample names for the samples we want to visualize, and the gene name for the gene we want to visualize. These inputs are provided to the `STplot` function which outputs our plots. We then use `ggpubr::ggarrange` to put them side-by-side in a row. We return the arranged plots and the plots themselves in a named list. This just generalizes the process that was used for the first set of samples.
 
