@@ -17,15 +17,17 @@ Add instructions for loading the data...
 
 ***
 
-<!--
+Typically, here we would use the [`STclust` function from `spatialGE`](https://fridleylab.github.io/spatialGE/reference/STclust.html) to cluster the cells. Then we could look at which genes are expressed in which clusters to annotate the specific cell type that we think is represented by that cluster. However, in part simplify the content in this case study, and because of package versioning issue, we instead are going to bring in the cell type annotations from @Kwon_etal_2026.
 
-Should be able to use `STclust`, but I'm struggling with that. So I grabbed the [cluster assignments from the study](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/blob/devel/processed-data/06_cell_type_clustering/banksy_clustering_lambda0.1_res0.7.csv). The [cluster annotations are here in their code](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/blob/2c0ec1319137fa1c108ec6ea0c6935b32ad50e1b/code/analysis/06_cell_type_clustering/06_plot_clusters_on_tissue.R#L41-L52).
+<details><summary>How we got this `cluster_assignments_withlibname.csv` file</summary> 
+
+Used the [cluster assignments from the study](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/blob/devel/processed-data/06_cell_type_clustering/banksy_clustering_lambda0.1_res0.7.csv). 
 
 ```{.default}
 awk -F, -v OFS=',' 'NR==1 {print "","Cluster","Sample","CoordIndex"} $3 ~ /(Br1139|Br5314|Br5746|Br5973|Br8433|Br8667)/ { gsub(/"/, "", $3); split($3, arr, "_"); print $1, $2, "\""arr[1] "\"", "\""arr[2] "\"" }' data/raw/banksy_clustering_lambda0.1_res0.7.csv > data/wrangled/cluster_assignments.csv
 ```
 
-Need to take the output of this and join it to the original spatial coordinates. I think that the fourth column is the row number and I need the libname from the original file to join the coordinates to the spatial_meta STlist object
+Used the above code to grab the assignments specific to our samples. Needed to take the output of this and join it to the original spatial coordinates. The fourth column is the row number, and I need the libname from the original file to join the coordinates to the `spatial_meta` slot of the `STlist` object.
 
 ```{r, eval = FALSE}
 cluster_assignments <- read.csv(here("data/wrangled/cluster_assignments.csv"))
@@ -43,7 +45,9 @@ new_cluster_assignments <- data.table::rbindlist(
   unite("SampleName", c(Sample, SampleSuffix), sep = "")
 ```
 
--->
+Saved this file to use.
+
+</details>
 
 ```{r}
 
@@ -88,7 +92,15 @@ for (sample_name in names(scz_spatial_tr@spatial_meta)){
 }
 ```
 
+Here we use the [cluster cell type annotations which are specified here in the analysis code](https://github.com/LieberInstitute/spatialDLPFC_SCZ_XENIUM/blob/2c0ec1319137fa1c108ec6ea0c6935b32ad50e1b/code/analysis/06_cell_type_clustering/06_plot_clusters_on_tissue.R#L41-L52) from @Kwon_etal_2026, together with a `case_when` to translate the clusters into a cell type. Prior to that, because our filtering approach doesn't completely match the approach from the study, we retained some cells that the original study filtered. Therefore, we make an assumption that nearby cells have the same type and use the [`tidyr` package's `fill()` function](https://tidyr.tidyverse.org/reference/fill.html) to fill in those nearby cell types.
+
+Finally, we join this cell type annotation for each cell to the `spatial_meta` slot for each sample using a `left_join` and joining on the `libname` which represents the cell ID.
+
+Using this approach, you can add an outside annotation to your `STlist` objects for your work.
+
 ### Spatial distribution of expression
+
+Now that we've added an annotation for our cells, we can create quilt plots that use this categorical annotation. We can combine these plots with our original quilt plots showing gene expression to see how a gene's expression is distributed throughout the sample, and how it might line up with certain cell types.
 
 :::{.panel-tabset}
 
@@ -100,26 +112,33 @@ cellType <- STplot(scz_spatial_tr, plot_meta = "annot", samples = sampleset1)
 
 combined_list <- c(cellType, quiltMBP_sampleset1$plots)
 
-ggpubr::ggarrange(plotlist = combined_list, ncol=2, nrow=2, labels = "AUTO")
+ggarrange(plotlist = combined_list, ncol=2, nrow=2, labels = "AUTO")
 
 ```
+
+We would expect MBP to be expressed in Oligodendrocytes which are represented by the green "Olig" cluster and the pale purple "Ambig/Oligo" ("Ambig" = ambiguous) cluster. Both of these appear to line up with where MBP is expressed in the tissue. (Though this is less so for the green cluster in the CTRL sample.)
 
 #### PVALB
 
 ```{r}
 
-
 combined_list2 <- c(cellType, quiltPVALB_sampleset1$plots)
 
-ggpubr::ggarrange(plotlist = combined_list2, ncol=2, nrow=2, labels = "AUTO")
+ggarrange(plotlist = combined_list2, ncol=2, nrow=2, labels = "AUTO")
 
 ```
+
+We would expect PVALB to be expressed in cells corresponding to the yellow "MGE" cluster because MGE cell types are progenitors of the inhibitory GABAergic interneurons where PVALB is typically localized. We see overlap between this cluster and cells where PVALB is expressed.
 
 :::
 
 ### Gene specific summaries of expression
 
-We can also look at summaries of the expression of a few of these genes in these cell types.
+We can also look at summaries of the expression of a few of these genes in these cell types and conditions (e.g., CTRL vs SCZ). We will look at violin plots for cell-type specific expression of the genes that we previously visualized with quilt plots. We do not pseudobulk the data, but instead include each individual cell for a given gene within the violin plot.
+
+We will also compute the minimum, maximum, average, median, and variance in expression for each gene in that cell type and condition and output these values in a table.
+
+We do this for each of the transformation methods that we used in the [Data Wrangling](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#data-wrangling) section of the case study.
 
 ```{r}
 
@@ -268,6 +287,10 @@ use_combined_data(scz_spatial_tr, use = "summary", gene_name = "PVALB")
 
 :::
 
+A few observations:
 
+1. Median expression for genes with skewed distributions (e.g., MBP in Endo cell type or PVALB in CGE or L2/3 Ex) are lower than the average expression. This is likely because the median is less sensitive to outliers (or the extreme values in the skewed distribution) than the average is.
+1. MBP cell type specific distributions from the SCTransform normalization method appear quite different from the other two methods. It would be curious to see how using this transformation may impact a clustering approach. Would it find more cell types than using log transformed data?
+1. The similarity in distributions between the log normalization and cell area normalization gene specific distributions could be due to how the cell boundaries were found by the Xenium Onboard Analyzer, which as discussed in the [Limitations](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#limitations) section of the case study, may not be the most appropriate method for this biological sample.
 
 ***

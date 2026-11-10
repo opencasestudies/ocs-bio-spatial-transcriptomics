@@ -167,6 +167,17 @@ Transforming the raw mRNA counts is again necessary because of technical biases.
 
 Transformed counts are stored in the `tr_counts` slot and we can't store more than one set of transformed counts due to the "slot" nature of the data. Since we want to run more than one method and compare them, we will need multiple different `spatialGE` `STlist` objects. We'll duplicate two here, one that we can use with `SCTransform` and one we can use with a cell area normalization.
 
+<details><summary>Resources explaining these traditional normalization methods</summary>
+
+The more traditional normalization methods that are directly supported by `spatialGE` are explained in detail in the following resources:
+
+* [Orchestrating Single-Cell Analysis (OSCA)](https://bioconductor.org/books/3.14/OSCA.basic/normalization.html)
+* [Orchestrating Spatial Transcriptomics Analysis (OSTA)](https://bioconductor.org/books/release/OSTA/pages/ind-normalization.html)
+* [10X Genomics documentation](https://www.10xgenomics.com/analysis-guides/single-cell-rna-seq-data-normalization)
+* [SCTransform vignette](https://satijalab.org/seurat/articles/sctransform_vignette)
+
+</details>
+
 ```{r}
 scz_spatial_tr <- rlang::duplicate(scz_spatial)
 scz_spatial_sct <- rlang::duplicate(scz_spatial)
@@ -174,7 +185,17 @@ scz_spatial_sct <- rlang::duplicate(scz_spatial)
 
 ### Log Transformation
 
-Explain log transformation.
+Log transformation utilizes the overall library size of each cell as a size factor, dividing each gene's count in the cell by that size factor. Then a constant scale factor is used to multiply the quotient, and a pseudocount of 1 is added in case the original gene's count was 0. Finally, a log transformation is used for the scaled counts (this is why a pseudocount of 1 is added so that you're not taking a log of 0).
+
+According to the [OSCA book](https://bioconductor.org/books/3.12/OSCA/normalization.html#applying-the-size-factors), 
+
+> The log-transformation is useful as differences in the log-values represent log-fold changes in expression. This is important in downstream procedures based on Euclidean distances, which includes many forms of clustering and dimensionality reduction. By operating on log-transformed data, we ensure that these procedures are measuring distances between cells based on log-fold changes in expression.
+
+In other words, with this transformation, relative magnitudes of changes in gene expression are equalized, whether the relative change is from more highly expressed or lowly expressed genes.
+
+[10X Genomics documentation](https://www.10xgenomics.com/analysis-guides/single-cell-rna-seq-data-normalization) notes that this normalization method has been found to separate common cell types well in clustering, but struggles to separate rarer cell sub-types.
+
+Log normalization is the method that @Kwon_etal_2026 used in their study.
 
 ```{r}
 scz_spatial <- spatialGE::transform_data(scz_spatial, method='log', cores=2)
@@ -195,7 +216,13 @@ scz_spatial@misc
 
 ### SCTransform
 
-Explain SCTransform
+SCTransform is a method that was developed with two goals in mind for a normalization workflow as enumerated in the @Hafemeister_Satija_2019 paper introducing it:
+
+1. The normalized expression level of a gene should not be correlated with the total sequencing depth of a cell.
+
+1. The variance of a normalized gene (across cells) should primarily reflect biological heterogeneity, independent of gene abundance or sequencing depth. For example, genes with high variance after normalization should be differentially expressed across cell types.
+
+The method utilizes a negative binomial generalized linear model with regularization to minimize overfitting. The final normalized values represent the difference between the observed and the expected expression of a gene and are independent of sequencing depth of a cell.
 
 ```{r}
 scz_spatial_sct <- transform_data(scz_spatial_sct, method = 'sct', cores = 2)
@@ -207,7 +234,7 @@ scz_spatial_sct <- transform_data(scz_spatial_sct, method = 'sct', cores = 2)
 
 >We recommend, as first choice, cell volume normalization to account for such partial cell capture within imaged regions. Cell area may serve as a proxy where volume estimates are not available.
 
-The `spatialGE` package does not currently support any additional normalization methods besides log-transformation and `SCTransform`. However, we can perform an alternate normalization method and store its results in our `STlist` object (`scz_spatial`), using data already present in `scz_spatial` because we brought over the `cell_area` column for each cell earlier in the [Data Import]() section of the case study. 
+The `spatialGE` package does not currently support any additional normalization methods besides log-transformation and `SCTransform`. However, we can perform an alternate normalization method and store its results in our `STlist` object (`scz_spatial`), using data already present in `scz_spatial` because we brought over the `cell_area` column for each cell earlier in the [Data Import](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#data-import) section of the case study. 
 
 The cell area normalization procedure requires that:
 
