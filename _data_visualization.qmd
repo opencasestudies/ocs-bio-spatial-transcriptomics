@@ -14,23 +14,21 @@ Add instructions for loading the data...
 </details>
 ***
 
-We are going to look at the expression of the genes FKBP5, CX3CR1, MBP,  and PVALB. For each gene we are going to consider both the amount of its expression as well as where it is expressed (spatially) in the tissue samples. For each gene, we can visually compare its spatial expression in a sample from a neurotypical participant to a sample from a participant with Schizophrenia.
+We are going to look at the expression of 4 specific genes throughout sets of tissue samples. For each gene we are going to consider both the amount of its expression as well as where it is expressed (spatially) in the tissue samples. For each gene, we can visually compare its spatial expression in a sample from a neurotypical donor to a sample from a donor previously diagnosed with schizophrenia.
 
-To visually explore the spatial distribution of expression of these genes, we are going to plot Quilt plots.
+To visually explore the spatial distribution of expression of these genes, we are going to plot quilt plots (described earlier within the [Context](https://www.opencasestudies.org/ocs-bio-spatial-transcriptomics/#context) section of the case study).
 
-We're going to make quilt plots showing the expression of these genes for each spot/cell in two samples (one NTC and one SCZ).
+We didn't provide `spatialGE` with morphology images when we input the data, so how are we going to visualize the tissue sample? Quilt plots don't require histology or morphology images, because the spatial coordinates data that we did provide to `spatialGE` provides x and y coordinates for the center of each cell. Therefore, we can localize these cells without a tissue image.
 
-Note that quilt plots don't require histology image (image of the tissue), because the spatial coordinates data that we input provides x and y coordinates for the center of each cell/spot. Therefore, we can place the location of these cells without a tissue image.
-
-Also note that this is Xenium data which means there are a lot of cells! So we're going to use the `ptsize` argument to set the point size of the spots or cells to be really small. If we make it too large, it's dense/cramped/hard to view the quilt plot
-
-We have `ggpubr` combine the common legends and display them on the bottom. It also is plotting the quilt plots in a 2 X 2 grid
+When visualizing patterns in tissue sections produced by cryosectioning, it is important to visualize the patterns in multiple sets of tissue samples to support that any observed patterns are not the result of technical issues, but rather the result of true biology. Therefore, for every gene we're visualizing, we'll produce quilt plots for two different sets of samples (CTRL vs SCZ).
 
 ## Differential Expression of Diffusely Distributed Genes
 
+Genes visualized within this section exhibit expression diffusely distributed throughout the tissue sample, with differential expression between cases (e.g., SCZ vs CTRL).
+
 ### CX3CR1
 
-I went to [Supplementary Table 4 from the paper](https://www.biorxiv.org/content/biorxiv/early/2026/02/17/2026.02.16.706214/DC5/embed/media-5.xlsx?download=true) and found the gene with the lowest / most negative log fold change: CX3CR1
+[Supplementary Table 4 from @Kwon_etal_2026](https://www.biorxiv.org/content/biorxiv/early/2026/02/17/2026.02.16.706214/DC5/embed/media-5.xlsx?download=true) list differentially expressed genes. The gene with the most negative log fold change in that table is CX3CR1. Specifically, we expect to observe that the gene is down-regulated in cases of SCZ compared to CTRL. 
 
 ::: {.panel-tabset}
 
@@ -52,6 +50,8 @@ quiltArrangeCX3CR1 <- ggpubr::ggarrange(plotlist=quilt26CX3CR1,
 quiltArrangeCX3CR1
 ```
 
+This is plotting Xenium data which means there are a lot of cells! So we've used the `ptsize` argument to set the point size of the cells to be really small. If we make it too large, it becomes difficult to view the quilt plot because its too dense and cramped.
+
 #### Set of samples 2
 
 ```{r quilt_fxn}
@@ -64,7 +64,7 @@ displayQuilt <- function(stlist, sampleNames, gene){
                                     ptsize=0.05
                                    )
 
-    quiltArrange <- ggpubr::ggarrange(plotlist=quiltPlots,
+    quiltArrange <- ggarrange(plotlist=quiltPlots,
                                       nrow = 1,
                                       ncol = 2,
                                       legend = 'bottom',
@@ -75,6 +75,13 @@ displayQuilt <- function(stlist, sampleNames, gene){
 }
 ```
 
+:::{.emphasis_block}
+<details><summary>What is this code doing?/summary>
+
+This function's input parameters are an `STlist` object, the sample names for the samples we want to visualize, and the gene name for the gene we want to visualize. These inputs are provided to the `STplot` function which outputs our plots. We then use `ggpubr::ggarrange` to put them side-by-side in a row. We return the arranged plots and the plots themselves in a named list. This just generalizes the process that was used for the first set of samples.
+
+</details>
+:::
 
 ```{r diff_exp1_quilt2}
 sampleset2 <- samples_metadata$DxID[c(1,4)]
@@ -90,7 +97,7 @@ quiltCX3CR1_sampleset2$arranged
 
 ### FKBP5
 
-FKBP5 is annotated in the Figure 2a Volcano Plot as a DEG.
+FKBP5 is annotated in Figure 2a (a Volcano Plot) of @Kwon_etal_2026 as a differentially expressed gene. Specifically, we expect to observe that the gene is up-regulated in cases of SCZ compared to CTRL.
 
 ::: {.panel-tabset}
 
@@ -122,7 +129,21 @@ quiltFKBP5_sampleset2$arranged
 
 ## Differential Expression of Spatially Distributed Genes
 
+Genes visualized within this section exhibit expression localized to specific domains within the tissue sample, with differential expression between cases (e.g., SCZ vs CTRL).
+
 ### MBP
+
+@Kwon_etal_2026 notes:
+
+>Differential expression (DE) analysis between SpD01-WM and SpD04-WM revealed that SpD01-WM had higher expression of neuronal marker genes, including SNAP25 and SLC17A7, and lower expression of oligodendrocyte genes, including PLP1, MBP, and MOBP
+
+Figure S8 from @Kwon_etal_2026 uses violin plots to plot pseudobulked expression data for these genes. Specifically, the expression for all cells within an annotated spatial domain for each donor are bulked together and then the expression for that donor is plotted. We can't recreate this plot at this point in the case study because we don't have annotated spatial domains for each cell in the spatially-informed gene expression dataset; we also aren't using the same number of donors as the original study and don't have enough to visualize a distribution. Therefore, we use quilt plots to visualize the expression of **MBP**, one plot using data from a neurotypical donor and another plot using data from a donor previously diagnosed with schizophrenia.
+
+@Kwon_etal_2026 also notes:
+
+>Up-regulation of the myelin-related genes MBP and BCAS1 were also observed in SCZ in the cell-type-adjusted analysis (Figure 5G), supporting previous findings of myelin dysfunction.
+
+Given these notes, we would expect to observe expression that is localized to specific regions in the tissue (rather than being expressed diffusely throughout the tissue), and observe higher expression in the SCZ sample than in the CTRL sample. The domains noted in @Kwon_etal_2026 are both white matter domains (denoted by the WM in the domain names). Therefore, we should focus our observations near the innermost oval of the tissue sample.
 
 ::: {.panel-tabset}
 
@@ -153,6 +174,16 @@ quiltMBP_sampleset2$arranged
 
 ### PVALB
 
+@Kwon_etal_2026 makes the following observations about PVALB
+
+>PNN spots were enriched in SpD02-L3/4. Since PNNs preferentially surround PVALB inhibitory neurons, this data is consistent with enrichment of PVALB neurons in L4.
+
+> Microglia-associated genes (AIF1, TREM2, C3), GABA neuron signaling genes (GAD1, SST, CORT, CRH, PVALB), and genes associated with neuroplasticity (BDNF, VGF, PTN, NLGN3, EPHB1) were down-regulated in SpD07-L1/M, for example. 
+
+> Down-regulation of activity-dependent synaptic genes (BDNF, VGF, NPTX2) and inhibitory neuron markers (SST, CORT, PVALB) is consistent with disruption of trophic and inhibitory signaling in SCZ.
+
+From these notes, we would expect to observe expression that is localized to specific regions in the tissue (rather than being expressed diffusely throughout the tissue), and observe lower expression in the SCZ sample than in the CTRL sample. The domain noted in @Kwon_etal_2026 is associated with the L4 laminar domain. Therefore, we should focus our observations near a middle oval of the tissue sample.
+
 ::: {.panel-tabset}
 
 #### Set of samples 1
@@ -179,19 +210,25 @@ quiltPVALB_sampleset2$arranged
 
 :::
 
+:::{.emphasis_block}
 
+<details><summary>Why use the `PuBuGn` color palette?</summary>
 
-**Color Palettes**
+The `PuBuGn` color palette is an accessible color palette with colors that can be distinguished by those with color vision deficiency. For more information on this topic, consult the [ITN Considerations for Data Visualization course](https://hutchdatascience.org/DataViz_Considerations/05_how_to_improve_viz.html#rule-1-using-accessible-color-palettes).
 
-I tested several color palettes and settled on `PuBuGn` for several reasons. (Note: this could be a cool side quest to include in the case study)
+Other color palettes are also color vision deficiency friendly, but specifically, we use `PuBuGn` here because it isn't a [diverging color palette](https://towardsdatascience.com/use-color-meaningfully-choose-the-proper-pallet-2cfbb71a30f4/). The palette is not "centered" on white or some other color that would make us think it was representing symmetrical data. 
 
-1. Easier to distinguish changes in expression (e.g., up vs down regulated). `BuRd` and `Spectral` were best for this otherwise.
-2. The lighter color was no longer in the center (as if the log expression values were "centered") and instead is on the lower level of the spectrum. `Spectral` was the only other one not centered on white, but it was still centered on a lighter color.
-3. Looking at the result with a color vision deficiency simulator (`cvg_grid()` from `colorblindr`) the general conclusions are still possible in my opinion. This wasn't the case with `PrGn`, `BuRd`, or `Spectral` when I tested them.
+We can confirm that this color palette is a color vision deficiency friendly palette using a color vision deficiency simulator (specifically the [`cvg_grid()` function from the `colorblindr` package](https://github.com/clauswilke/colorblindr)).
 
 ```{r}
 colorblindr::cvd_grid(plot = quiltArrangeCX3CR1)
 ```
+
+This package returns our plot showing how it would appear to those with various color vision deficiencies, and we can confirm that in each case the different shades are differentiable. 
+
+</details>
+
+:::
 
 :::{.think_question}
 ::::{.think_question_header}
@@ -209,5 +246,7 @@ How would you describe the expression patterns and spatial distribution of the f
 ::::
 :::
 
+
+Earlier we discussed that quilt plots can be used to visualize categorical data such as spatial domains or cell types and we saw that the researchers for @Kwon_etal_2026 used spatial domains to get a more global view of gene expression patterns. Therefore, it would make sense to cluster the cells in this dataset and add an annotation for cell type or spatial domain.
 
 ***

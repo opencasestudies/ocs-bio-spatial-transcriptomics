@@ -195,6 +195,8 @@ In other words, with this transformation, relative magnitudes of changes in gene
 
 [10X Genomics documentation](https://www.10xgenomics.com/analysis-guides/single-cell-rna-seq-data-normalization) notes that this normalization method has been found to separate common cell types well in clustering, but struggles to separate rarer cell sub-types.
 
+Log normalization is the method that @Kwon_etal_2026 used in their study.
+
 ```{r}
 scz_spatial <- spatialGE::transform_data(scz_spatial, method='log', cores=2)
 ```
